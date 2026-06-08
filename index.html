@@ -1,0 +1,2548 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Plataforma para aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina." />
+<meta name="theme-color" content="#0d47a1" />
+<title>ElectroAuto AR — Electricidad y Electrónica Automotriz</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<style>
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#eef2f9; --border:#dce3ef;
+  --text:#15233b; --muted:#5b6b85; --primary:#0d47a1; --primary-2:#1565c0;
+  --accent:#ff6d00; --ok:#2e7d32; --warn:#f9a825; --bad:#c62828;
+  --shadow:0 2px 10px rgba(20,40,80,.08); --radius:14px;
+  --red:#e53935; --black:#222; --maxw:1080px;
+}
+[data-theme="dark"]{
+  --bg:#0e1726; --surface:#16233a; --surface-2:#1d2d49; --border:#2a3c5e;
+  --text:#e7eefb; --muted:#9fb2d0; --primary:#4f8cff; --primary-2:#6ea2ff;
+  --accent:#ff8a3d; --ok:#5dd47e; --warn:#ffcf5c; --bad:#ff6b6b;
+  --shadow:0 2px 14px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--primary-2);text-decoration:none}
+h1,h2,h3,h4{line-height:1.25;margin:.2em 0 .5em}
+h1{font-size:1.7rem} h2{font-size:1.35rem} h3{font-size:1.1rem}
+p{margin:.5em 0}
+code{background:var(--surface-2);padding:.1em .4em;border-radius:6px;font-size:.92em}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:.6rem;
+  padding:.5rem .9rem;background:var(--primary);color:#fff;box-shadow:var(--shadow)}
+.topbar .icon-btn{background:rgba(255,255,255,.15);color:#fff;border:none;font-size:1.15rem;
+  width:38px;height:38px;border-radius:10px;cursor:pointer}
+.topbar .icon-btn:hover{background:rgba(255,255,255,.28)}
+.brand{display:flex;align-items:center;gap:.45rem;color:#fff;font-weight:600;font-size:1.1rem}
+.brand-mark{font-size:1.35rem}
+.brand-text strong{color:#ffd54f}
+.topbar-spacer{flex:1}
+.xp-badge{background:rgba(255,255,255,.16);padding:.3rem .65rem;border-radius:999px;font-weight:600;font-size:.9rem}
+
+/* Layout */
+.layout{display:flex;min-height:calc(100vh - 54px)}
+.sidebar{width:230px;flex:0 0 230px;background:var(--surface);border-right:1px solid var(--border);
+  padding:1rem .7rem;display:flex;flex-direction:column;gap:.25rem;position:sticky;top:54px;
+  height:calc(100vh - 54px);overflow-y:auto}
+.nav-link{display:block;padding:.6rem .8rem;border-radius:10px;color:var(--text);font-weight:500}
+.nav-link:hover{background:var(--surface-2)}
+.nav-link.active{background:var(--primary);color:#fff}
+.sidebar-foot{margin-top:auto;color:var(--muted);padding:.6rem .3rem}
+.backdrop{display:none}
+.content{flex:1;min-width:0;padding:1.4rem;max-width:var(--maxw);margin:0 auto;width:100%;outline:none}
+
+/* Cards / grids */
+.grid{display:grid;gap:1rem}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:1.1rem;box-shadow:var(--shadow)}
+.card.click{cursor:pointer;transition:transform .12s,box-shadow .12s}
+.card.click:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(20,40,80,.14)}
+.card h3{margin-top:0}
+.muted{color:var(--muted)}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.18rem .55rem;border-radius:999px;
+  text-transform:uppercase;letter-spacing:.03em}
+.pill.inicial{background:#e3f2fd;color:#0d47a1}
+.pill.intermedio{background:#e8f5e9;color:#1b5e20}
+.pill.avanzado{background:#fff3e0;color:#e65100}
+.pill.profesional{background:#f3e5f5;color:#6a1b9a}
+[data-theme="dark"] .pill{filter:saturate(1.2) brightness(1.05)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--primary);color:#fff;border:none;
+  padding:.6rem 1rem;border-radius:10px;font-weight:600;cursor:pointer;font-size:.95rem}
+.btn:hover{background:var(--primary-2)}
+.btn.ghost{background:transparent;color:var(--primary-2);border:1px solid var(--border)}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.accent{background:var(--accent)}
+.btn.sm{padding:.35rem .7rem;font-size:.85rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* Breadcrumb / back */
+.crumb{display:flex;gap:.4rem;align-items:center;color:var(--muted);margin-bottom:.6rem;font-size:.9rem}
+.back{cursor:pointer;color:var(--primary-2);font-weight:600}
+
+/* Progress bars */
+.bar{height:9px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+.bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:0}
+
+/* Lesson content */
+.lesson{max-width:760px}
+.lesson h2{margin-top:1.4em}
+.lesson ul,.lesson ol{padding-left:1.3em}
+.lesson li{margin:.3em 0}
+.callout{border-left:4px solid var(--primary);background:var(--surface-2);padding:.8rem 1rem;border-radius:0 10px 10px 0;margin:1rem 0}
+.callout.tip{border-color:var(--ok)}
+.callout.warn{border-color:var(--warn)}
+.callout.dato{border-color:var(--accent)}
+.callout b{display:block;margin-bottom:.2rem}
+table.tbl{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.92rem}
+table.tbl th,table.tbl td{border:1px solid var(--border);padding:.5rem .6rem;text-align:left}
+table.tbl th{background:var(--surface-2)}
+.figure{margin:1.2rem 0;text-align:center}
+.figure svg{max-width:100%;height:auto;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.figure figcaption{color:var(--muted);font-size:.85rem;margin-top:.4rem}
+
+/* Quiz */
+.quiz-opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:.7rem .9rem;margin:.4rem 0;cursor:pointer;color:var(--text);font-size:.95rem}
+.quiz-opt:hover{border-color:var(--primary)}
+.quiz-opt.correct{border-color:var(--ok);background:rgba(46,125,50,.12)}
+.quiz-opt.wrong{border-color:var(--bad);background:rgba(198,40,40,.12)}
+.quiz-opt.disabled{cursor:default;pointer-events:none}
+.explain{margin:.6rem 0 0;padding:.7rem .9rem;border-radius:10px;background:var(--surface-2);font-size:.9rem}
+
+/* Simulator */
+.sim-wrap{display:grid;grid-template-columns:1fr 320px;gap:1rem}
+.sim-board{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;min-height:340px}
+.sim-board svg{width:100%;height:auto}
+.meter{background:#10202e;border:1px solid #0a141d;border-radius:14px;padding:1rem;color:#9fffce;font-family:"Courier New",monospace}
+.meter .screen{background:#04130a;border-radius:8px;padding:.7rem;text-align:right;font-size:1.9rem;
+  letter-spacing:1px;min-height:2.4em;display:flex;flex-direction:column;justify-content:center}
+.meter .screen .unit{font-size:.9rem;color:#5fd99a}
+.mode-row{display:flex;flex-wrap:wrap;gap:.35rem;margin:.6rem 0}
+.mode-row .btn{flex:1 1 auto;background:#1b3142;font-size:.8rem;padding:.45rem}
+.mode-row .btn.on{background:var(--accent);color:#111}
+.probe-info{font-size:.82rem;color:#bcd}
+.node-dot{cursor:pointer}
+.node-dot:hover{stroke:var(--accent);stroke-width:3}
+.node-dot.sel-red{stroke:#e53935;stroke-width:4}
+.node-dot.sel-black{stroke:#111;stroke-width:4}
+[data-theme="dark"] .node-dot.sel-black{stroke:#fff;stroke-width:4}
+
+/* stats */
+.stat{display:flex;flex-direction:column;gap:.1rem}
+.stat .n{font-size:1.8rem;font-weight:800;color:var(--primary-2)}
+.stat .l{color:var(--muted);font-size:.85rem}
+.tag{font-size:.72rem;background:var(--surface-2);padding:.15rem .5rem;border-radius:6px;color:var(--muted)}
+
+.hero{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border-radius:18px;
+  padding:1.8rem;margin-bottom:1.4rem}
+.hero h1{color:#fff;margin-top:0}
+.hero p{opacity:.95;max-width:60ch}
+.hero .btn{background:#fff;color:var(--primary)}
+.hero .btn:hover{background:#ffe9cf}
+
+.list-rows{display:flex;flex-direction:column;gap:.5rem}
+.row-item{display:flex;align-items:center;gap:.7rem;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:.7rem .9rem;cursor:pointer}
+.row-item:hover{border-color:var(--primary)}
+.row-item .ic{font-size:1.3rem}
+.row-item .done{margin-left:auto;color:var(--ok);font-weight:700}
+.chip-row{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0}
+.chip{background:var(--surface-2);border:1px solid var(--border);padding:.35rem .7rem;border-radius:999px;
+  cursor:pointer;font-size:.85rem}
+.chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+.dz{min-height:60px;border:2px dashed var(--border);border-radius:10px;padding:.5rem;display:flex;
+  flex-wrap:wrap;gap:.4rem;align-content:flex-start}
+.dz.over{border-color:var(--accent);background:var(--surface-2)}
+.drag{background:var(--primary);color:#fff;padding:.4rem .7rem;border-radius:8px;cursor:grab;font-size:.88rem}
+.drag.placed{background:var(--ok)}
+
+@media (max-width:860px){
+  .sim-wrap{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:54px;z-index:50;transform:translateX(-100%);transition:transform .22s;box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .backdrop.show{display:block;position:fixed;inset:54px 0 0 0;background:rgba(0,0,0,.4);z-index:45}
+  .content{padding:1rem}
+  h1{font-size:1.4rem}
+}
+@media (min-width:861px){
+  #navToggle{display:none}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+<button id="navToggle" class="icon-btn" aria-label="Abrir menú">☰</button>
+<a href="#/inicio" class="brand"><span class="brand-mark">⚡</span><span class="brand-text">ElectroAuto <strong>AR</strong></span></a>
+<div class="topbar-spacer"></div>
+<div id="xpBadge" class="xp-badge" title="Puntos de experiencia">★ <span id="xpValue">0</span></div>
+<button id="themeToggle" class="icon-btn" aria-label="Cambiar tema">🌙</button>
+</header>
+<div class="layout">
+<nav id="sidebar" class="sidebar">
+<a href="#/inicio" class="nav-link" data-route="inicio">🏠 Inicio</a>
+<a href="#/aprender" class="nav-link" data-route="aprender">📚 Plan de aprendizaje</a>
+<a href="#/simulador" class="nav-link" data-route="simulador">🔧 Simulador de taller</a>
+<a href="#/herramientas" class="nav-link" data-route="herramientas">🛠️ Herramientas</a>
+<a href="#/casos" class="nav-link" data-route="casos">🚗 Casos de falla</a>
+<a href="#/practica" class="nav-link" data-route="practica">🎯 Práctica intensiva</a>
+<a href="#/biblioteca" class="nav-link" data-route="biblioteca">📕 Biblioteca técnica</a>
+<a href="#/progreso" class="nav-link" data-route="progreso">📈 Mi progreso</a>
+<div class="sidebar-foot"><small>Hecho para talleres argentinos 🇦🇷</small></div>
+</nav>
+<div id="backdrop" class="backdrop"></div>
+<main id="app" class="content" tabindex="-1"></main>
+</div>
+<script>
+/* ===========================================================================
+   CURRÍCULO — Electricidad y electrónica automotriz (Argentina)
+   Estructura: niveles -> módulos -> lecciones.
+   El HTML de cada lección admite marcadores de visuales interactivos:
+     <div class="vmount" data-visual="NOMBRE"></div>
+   que se montan desde js/visuals.js.
+   Para agregar contenido nuevo: copiá un objeto lección y sumá su quizId.
+   =========================================================================== */
+window.CURRICULUM = [
+{
+  level: "inicial", levelName: "Nivel Inicial", color: "inicial",
+  intro: "Arrancás de cero. Acá entendés qué es la electricidad, cómo se mide y cómo leer un circuito básico del auto. Sin esto, todo lo demás se hace cuesta arriba.",
+  modules: [
+    {
+      id:"i1", title:"Fundamentos eléctricos", icon:"⚡",
+      lessons:[
+        {
+          id:"i1l1", title:"Corriente, tensión, resistencia y potencia", minutes:12, quizId:"q_i1l1",
+          html:`
+<p>En un auto todo lo eléctrico se explica con cuatro magnitudes. Si las tenés claras, el 80% del diagnóstico ya lo entendés.</p>
+
+<h2>Tensión (Voltaje)</h2>
+<p>Es la <b>presión eléctrica</b>, la diferencia de potencial que empuja a los electrones. Se mide en <b>volts (V)</b>. En el auto la referencia es la batería: nominal <b>12 V</b>, aunque con el motor en marcha y el alternador cargando vas a leer entre <b>13,8 y 14,7 V</b>.</p>
+<div class="callout dato"><b>Analogía del taller</b>La tensión es como la presión del agua en una manguera. Más presión, más fuerza para mover el agua… pero si no abrís la canilla (no hay circuito cerrado) no circula nada.</div>
+
+<h2>Corriente (Amperaje)</h2>
+<p>Es la <b>cantidad de electrones que circulan</b> por segundo. Se mide en <b>amperes (A)</b>. Un burro de arranque puede pedir 150–300 A; una lámpara de posición, menos de 1 A.</p>
+
+<h2>Resistencia</h2>
+<p>Es la <b>oposición al paso de la corriente</b>. Se mide en <b>ohms (Ω)</b>. Todo conductor, conexión, lámpara o bobinado tiene resistencia. Una masa floja o un cable sulfatado <i>aumenta</i> la resistencia donde no debería y ahí aparecen los problemas.</p>
+
+<h2>Potencia</h2>
+<p>Es el <b>trabajo eléctrico por unidad de tiempo</b>, lo que realmente "consume" un componente. Se mide en <b>watts (W)</b>. Una lámpara de luz baja H4 trae normalmente <b>55 W</b>; la luz alta, <b>60 W</b>.</p>
+
+<table class="tbl">
+<tr><th>Magnitud</th><th>Símbolo</th><th>Unidad</th><th>Se mide con</th></tr>
+<tr><td>Tensión</td><td>V</td><td>Volt (V)</td><td>Tester en modo voltímetro (en paralelo)</td></tr>
+<tr><td>Corriente</td><td>I</td><td>Ampere (A)</td><td>Pinza amperométrica o tester en serie</td></tr>
+<tr><td>Resistencia</td><td>R</td><td>Ohm (Ω)</td><td>Tester en modo óhmetro (sin tensión)</td></tr>
+<tr><td>Potencia</td><td>P</td><td>Watt (W)</td><td>Se calcula: P = V × I</td></tr>
+</table>
+
+<div class="callout warn"><b>Ojo con esto</b>La resistencia <u>siempre</u> se mide con el circuito SIN alimentación. Si medís ohms con tensión presente, el dato es inválido y podés dañar el tester.</div>
+`
+        },
+        {
+          id:"i1l2", title:"Ley de Ohm: la fórmula que más vas a usar", minutes:10, quizId:"q_i1l2",
+          html:`
+<p>La Ley de Ohm relaciona las tres magnitudes básicas. La vas a usar todos los días, aunque no te des cuenta.</p>
+<h2>La fórmula</h2>
+<p style="font-size:1.4rem;text-align:center"><b>V = I × R</b></p>
+<p>De ahí salen las otras dos: <code>I = V / R</code> y <code>R = V / I</code>. Usá el triángulo para despejar: tapás lo que buscás y leés la operación.</p>
+<div class="vmount" data-visual="ohmTriangle"></div>
+
+<h2>Calculadora interactiva</h2>
+<p>Movés los valores y ves cómo cambia todo. Probá: si baja la resistencia (un cable en corto), la corriente se dispara.</p>
+<div class="vmount" data-visual="ohmCalc"></div>
+
+<div class="callout tip"><b>Para qué sirve en el taller</b>Sabés que una lámpara de 21 W (stop) a 12 V consume <code>I = P/V = 21/12 ≈ 1,75 A</code>. Si medís mucho más, hay un corto. Si medís 0, está cortada o no le llega masa/positivo.</div>
+
+<h2>Potencia con Ohm</h2>
+<p>Combinando: <code>P = V × I = V²/R = I² × R</code>. Esto explica por qué un cable con alta resistencia (mala conexión) <b>se calienta</b>: disipa potencia en forma de calor (I²×R).</p>
+`
+        },
+        {
+          id:"i1l3", title:"El circuito eléctrico y la masa (chasis)", minutes:11, quizId:"q_i1l3",
+          html:`
+<p>Para que circule corriente necesitás un <b>circuito cerrado</b>: una fuente (batería), un conductor de ida (positivo), una carga (lámpara, motor, etc.) y un retorno. En el auto el retorno casi siempre es la <b>masa</b>: el propio chasis y bloque del motor.</p>
+
+<div class="vmount" data-visual="circuitFlow"></div>
+
+<h2>¿Por qué se usa el chasis como masa?</h2>
+<p>El auto usa <b>masa a chasis</b> para ahorrar cable: en vez de tirar dos cables a cada consumo, el negativo de la batería se conecta a la carrocería y al bloque, y cada componente "descarga" ahí cerca. Por eso la mitad de las fallas eléctricas raras son <b>problemas de masa</b>.</p>
+
+<ul>
+<li><b>Positivo (+):</b> generalmente cables de colores, viene de batería / llave / fusiblera.</li>
+<li><b>Negativo (–) / masa:</b> normalmente cable negro o marrón que va al chasis.</li>
+<li><b>Malla / cinta de masa:</b> la trenza gruesa que une motor con carrocería. Si se corta o sulfata, aparecen fallas fantasma.</li>
+</ul>
+
+<div class="callout warn"><b>Síntoma clásico de mala masa</b>Las luces titilan o se ponen mortecinas cuando prendés otro consumo, o el burro gira lento aunque la batería esté buena. Antes de cambiar nada, revisá y limpiá masas.</div>
+
+<h2>Tres estados de un circuito</h2>
+<table class="tbl">
+<tr><th>Estado</th><th>Qué pasa</th><th>Cómo lo ves con el tester</th></tr>
+<tr><td>Cerrado (OK)</td><td>Circula corriente, la carga funciona</td><td>Continuidad sí; cae la tensión sobre la carga</td></tr>
+<tr><td>Abierto</td><td>Cable cortado o conector flojo, no circula</td><td>Sin continuidad; tensión de un lado, 0 del otro</td></tr>
+<tr><td>Cortocircuito</td><td>El positivo toca masa antes de la carga</td><td>Corriente altísima; vuela el fusible</td></tr>
+</table>
+`
+        }
+      ]
+    },
+    {
+      id:"i2", title:"Componentes básicos del auto", icon:"🔌",
+      lessons:[
+        {
+          id:"i2l1", title:"Fusibles: qué son y para qué sirve cada uno", minutes:13, quizId:"q_i2l1",
+          html:`
+<p>El fusible es el <b>eslabón débil a propósito</b>. Es un elemento que se corta cuando la corriente supera su valor, para proteger el cableado (no al componente). Si un cable hace corto, el fusible vuela <i>antes</i> de que se queme el mazo o se prenda fuego algo.</p>
+
+<div class="vmount" data-visual="fuse"></div>
+
+<h2>Tipos que vas a ver en talleres argentinos</h2>
+<ul>
+<li><b>Fusible de uña (tipo cuchilla / "blade"):</b> el más común. Mini, estándar (ATO) y maxi.</li>
+<li><b>Color = amperaje:</b> es un código estándar muy útil para identificar de un vistazo.</li>
+<li><b>Fusibles MIDI / MEGA / fusible principal:</b> los grandes, cerca de la batería, protegen líneas gruesas (alternador, caja de fusibles general).</li>
+</ul>
+
+<table class="tbl">
+<tr><th>Color</th><th>Amperaje</th><th>Uso típico</th></tr>
+<tr><td>Marrón claro/rosa</td><td>3–4 A</td><td>Memorias, módulos</td></tr>
+<tr><td>Rojo</td><td>10 A</td><td>Posición, tablero, ECU señales</td></tr>
+<tr><td>Azul</td><td>15 A</td><td>Luces bajas, encendido</td></tr>
+<tr><td>Amarillo</td><td>20 A</td><td>Limpiaparabrisas, levantavidrios</td></tr>
+<tr><td>Transparente/blanco</td><td>25 A</td><td>Soplador, bomba de nafta</td></tr>
+<tr><td>Verde</td><td>30 A</td><td>Ventilador electro, ABS</td></tr>
+</table>
+
+<div class="callout dato"><b>¿Para qué sirve cada fusible?</b>Cada auto trae un <b>diagrama de la caja de fusibles</b> (en la tapa de la fusiblera o en el manual). Ahí dice qué protege cada uno: "INY" inyección, "ABS", "VENT" electroventilador, "LUCES", "ENC" encendido, etc. En la sección Biblioteca tenés una guía de las abreviaturas más comunes.</div>
+
+<div class="callout warn"><b>Regla de oro</b>Nunca pongas un fusible de mayor amperaje "para que no salte más". Si salta, hay una falla. Poner uno más grande puede quemar el cableado o causar un incendio.</div>
+
+<h2>Cómo se prueba un fusible</h2>
+<ol>
+<li>A simple vista: muchos tienen el alambre interno visible; si está cortado, listo.</li>
+<li>Con tester en continuidad (fuera del circuito): debe pitar / marcar ~0 Ω.</li>
+<li><b>Mejor método (en el auto, con contacto dado):</b> tester en volts, una punta a masa. Tocá los dos testigos del fusible por arriba. Si hay 12 V de un lado y 0 del otro, está cortado.</li>
+</ol>
+`
+        },
+        {
+          id:"i2l2", title:"Relés (relays): el interruptor que maneja la ECU", minutes:12, quizId:"q_i2l2",
+          html:`
+<p>El relé es un <b>interruptor electromagnético</b>. Permite que una corriente chica (la del comando: llave, ECU, módulo) maneje una corriente grande (la del consumo: faros, bomba, electro). Así protegés los comandos y usás cables finos donde manda y gruesos donde consume.</p>
+
+<div class="vmount" data-visual="relay"></div>
+
+<h2>Los pines (numeración estándar 30/85/86/87)</h2>
+<table class="tbl">
+<tr><th>Pin</th><th>Función</th></tr>
+<tr><td><b>85</b></td><td>Bobina (un extremo)</td></tr>
+<tr><td><b>86</b></td><td>Bobina (otro extremo). Entre 85 y 86 va el comando.</td></tr>
+<tr><td><b>30</b></td><td>Entrada de corriente (común). Suele venir con positivo directo de batería.</td></tr>
+<tr><td><b>87</b></td><td>Salida hacia el consumo (cuando el relé "pega").</td></tr>
+<tr><td><b>87a</b></td><td>Salida en reposo (relé de 5 pines, normalmente cerrado).</td></tr>
+</table>
+
+<h2>Cómo funciona</h2>
+<p>Cuando aplicás tensión a la bobina (85–86), se genera un campo magnético que <b>atrae un contacto</b> y une 30 con 87. Sentís un "clic". Al sacar la alimentación, un resorte lo devuelve a reposo.</p>
+
+<div class="callout tip"><b>Prueba rápida de un relé</b>1) Medí la bobina (85–86) en ohms: debe dar algo así como 60–120 Ω, no abierto ni en corto. 2) Alimentá 85 y 86 con 12 V y masa: tenés que escuchar el clic. 3) Con el clic, debe haber continuidad entre 30 y 87. Otra opción: intercambiarlo por uno gemelo del mismo auto (electro, bocina) para descartar.</div>
+
+<div class="callout warn"><b>Diodo de protección</b>Muchos relés traen un diodo o resistencia en paralelo a la bobina para absorber el pico de tensión al desconectar (autoinducción). Si reemplazás, respetá si tiene diodo, sobre todo si lo maneja una ECU: ese pico puede dañar el transistor de salida del módulo.</div>
+`
+        },
+        {
+          id:"i2l3", title:"La batería: corazón del sistema", minutes:12, quizId:"q_i2l3",
+          html:`
+<p>La batería de arranque es de <b>plomo-ácido</b>. Su trabajo principal es <b>dar el golpe de corriente</b> para el arranque y estabilizar la tensión. Con el motor en marcha, quien alimenta todo es el alternador; la batería pasa a "respaldo".</p>
+
+<h2>Datos que tenés que saber leer</h2>
+<ul>
+<li><b>Tensión nominal:</b> 12 V (6 celdas de ~2,1 V).</li>
+<li><b>Capacidad (Ah):</b> p. ej. 12×65, 12×75. Indica cuánta corriente entrega en el tiempo.</li>
+<li><b>CCA / Arranque en frío (A):</b> qué tan fuerte arranca en frío. Importante en el sur del país.</li>
+</ul>
+
+<table class="tbl">
+<tr><th>Tensión en reposo</th><th>Estado de carga</th></tr>
+<tr><td>12,7 – 12,8 V</td><td>100% cargada</td></tr>
+<tr><td>12,5 V</td><td>~75%</td></tr>
+<tr><td>12,3 V</td><td>~50%</td></tr>
+<tr><td>12,1 V</td><td>~25% (sulfatándose)</td></tr>
+<tr><td>&lt; 12,0 V</td><td>Descargada — recargá y revisá</td></tr>
+</table>
+
+<div class="callout warn"><b>Medición correcta</b>Para medir tensión de reposo, la batería debe estar <b>sin cargar ni descargar</b> idealmente 1–2 horas. Recién apagada o recién cargada el valor es engañoso (tensión de superficie). Prendé un par de segundos las luces altas para sacar la superficie y después medí.</div>
+
+<div class="callout tip"><b>Prueba bajo carga (arranque)</b>Con el tester en la batería, hacé arrancar. La tensión cae mientras gira el burro: si baja de <b>9,6 V</b> en frío, la batería está floja o muy descargada. Si cae a 5–7 V y el burro apenas gira, sospechá batería sulfatada o bornes flojos.</div>
+
+<p>Las fallas más comunes: bornes sulfatados (esa pelusa blanca/verde), nivel bajo de electrolito en las de mantenimiento, y sulfatación de placas por descargas profundas repetidas.</p>
+`
+        }
+      ]
+    }
+  ]
+},
+{
+  level:"intermedio", levelName:"Nivel Intermedio", color:"intermedio",
+  intro:"Ya entendés lo básico. Ahora vas a los circuitos serie/paralelo, el sistema de carga y arranque, y aprendés a leer diagramas eléctricos como los que vienen en los manuales de taller.",
+  modules:[
+    {
+      id:"m1", title:"Circuitos y mediciones", icon:"📐",
+      lessons:[
+        {
+          id:"m1l1", title:"Circuitos en serie y en paralelo", minutes:14, quizId:"q_m1l1",
+          html:`
+<p>Saber distinguir serie de paralelo te cambia el diagnóstico, porque la corriente y la tensión se reparten distinto.</p>
+
+<h2>En serie</h2>
+<p>Los componentes van uno detrás de otro, un solo camino. <b>La misma corriente</b> pasa por todos, y <b>las tensiones se suman</b>.</p>
+<ul><li>R total = R1 + R2 + R3…</li><li>Si se corta uno, se corta todo (como las luces de arbolito viejas).</li></ul>
+<div class="vmount" data-visual="seriesCircuit"></div>
+
+<h2>En paralelo</h2>
+<p>Cada componente tiene su propio camino entre los mismos dos puntos. <b>Todos reciben la misma tensión</b>, y <b>las corrientes se suman</b>.</p>
+<ul><li>1/Rt = 1/R1 + 1/R2…  (la resistencia total baja).</li><li>Si se corta uno, los demás siguen. Así está casi todo el auto: cada consumo en paralelo a 12 V.</li></ul>
+<div class="vmount" data-visual="parallelCircuit"></div>
+
+<div class="callout dato"><b>Por qué importa</b>Las cargas del auto están en paralelo: por eso podés prender las luces sin que se apague la radio. Pero por eso también, cuantos más consumos prendés, más corriente total pedís a la batería/alternador.</div>
+
+<div class="callout tip"><b>Caída de tensión: el truco profesional</b>En un circuito en serie, un mal contacto (resistencia indeseada) "se roba" tensión. Si medís entre los dos lados de una conexión que debería ser perfecta y leés más de <b>0,2–0,5 V</b> con corriente circulando, ahí tenés el problema (borne, masa o conector con resistencia).</div>
+`
+        },
+        {
+          id:"m1l2", title:"Interpretación de diagramas eléctricos", minutes:15, quizId:"q_m1l2",
+          html:`
+<p>El diagrama eléctrico (esquema) es el mapa del sistema. Sin leerlo, diagnosticar electrónica es adivinar. Cada marca y cada manual de taller (Autodata, manuales de fábrica, etc.) usa una simbología parecida.</p>
+
+<div class="vmount" data-visual="symbols"></div>
+
+<h2>Qué información trae</h2>
+<ul>
+<li><b>Símbolos</b> de cada componente (lámpara, relé, motor, fusible, masa, conector).</li>
+<li><b>Colores de cable</b> y a veces su sección (mm²). En muchos esquemas el color va abreviado.</li>
+<li><b>Números de pin</b> de conectores y de la ECU.</li>
+<li><b>Puntos de masa</b> identificados (G101, M1, etc.).</li>
+<li><b>Números de circuito / corriente</b> que te ayudan a seguir el cable entre páginas.</li>
+</ul>
+
+<h2>Cómo leerlo (de arriba a abajo)</h2>
+<p>La convención general: <b>arriba el positivo</b> (batería, fusibles), <b>abajo la masa</b>. La corriente "baja" desde el + atravesando la carga hasta la masa. Seguí siempre ese recorrido: positivo → fusible → comando/relé → carga → masa.</p>
+
+<div class="callout tip"><b>Método para no perderte</b>1) Ubicá el componente que falla. 2) Identificá de dónde saca el positivo y por dónde va la masa. 3) Marcá los puntos donde podés pinchar con el tester. 4) Dividí el circuito al medio y medí: así sabés si el problema está antes o después (búsqueda binaria).</div>
+
+<table class="tbl">
+<tr><th>Abreviatura color (ES)</th><th>Cable</th></tr>
+<tr><td>Ne / N</td><td>Negro (masa)</td></tr>
+<tr><td>R / Ro</td><td>Rojo (positivo directo)</td></tr>
+<tr><td>Az</td><td>Azul</td></tr>
+<tr><td>Ve</td><td>Verde</td></tr>
+<tr><td>Am</td><td>Amarillo</td></tr>
+<tr><td>Bl</td><td>Blanco</td></tr>
+<tr><td>Ma</td><td>Marrón (a veces masa)</td></tr>
+</table>
+<p class="muted">Nota: cada fabricante varía. Siempre confiá en el diagrama del modelo concreto, no en la "costumbre".</p>
+`
+        }
+      ]
+    },
+    {
+      id:"m2", title:"Sistema de carga y arranque", icon:"🔋",
+      lessons:[
+        {
+          id:"m2l1", title:"Alternador y sistema de carga", minutes:14, quizId:"q_m2l1",
+          html:`
+<p>El alternador transforma el movimiento del motor en electricidad. Recarga la batería y alimenta todos los consumos con el auto andando.</p>
+
+<div class="vmount" data-visual="alternator"></div>
+
+<h2>Partes principales</h2>
+<ul>
+<li><b>Rotor (inductor):</b> bobina que crea el campo magnético, recibe corriente por las escobillas y anillos rozantes.</li>
+<li><b>Estator (inducido):</b> tres bobinados donde se genera la corriente alterna trifásica.</li>
+<li><b>Puente rectificador (diodos):</b> convierte la alterna en continua (lo que usa el auto).</li>
+<li><b>Regulador de tensión:</b> mantiene la salida en ~14 V sin importar las vueltas. Hoy muchos son controlados por la ECU (alternador inteligente).</li>
+</ul>
+
+<h2>Valores que tenés que conocer</h2>
+<table class="tbl">
+<tr><th>Medición</th><th>Valor esperado</th></tr>
+<tr><td>Batería en reposo (motor apagado)</td><td>12,5 – 12,7 V</td></tr>
+<tr><td>Motor en marcha, ralentí, sin consumos</td><td>13,8 – 14,7 V</td></tr>
+<tr><td>Con luces + soplador + luneta prendidos</td><td>No debería caer de ~13,2 V</td></tr>
+<tr><td>Rizado de alterna (ripple) en bornes</td><td>&lt; 50 mV CA (más = diodo dañado)</td></tr>
+</table>
+
+<div class="callout warn"><b>Testigo de carga prendido</b>La luz de batería en el tablero se enciende cuando no hay diferencia correcta entre el alternador y la línea de excitación. Puede ser: correa floja/cortada, escobillas gastadas, regulador, diodos, o el cable de excitación (borne D+/L) interrumpido.</div>
+
+<div class="callout tip"><b>Prueba de ripple con tester</b>Poné el tester en <b>VAC (alterna)</b> sobre los bornes con el motor en marcha. Deberías leer milivolts. Si leés 0,5 V o más de alterna, hay <b>diodos del puente rectificador en mal estado</b>: el alternador "ensucia" la línea y puede dar fallas raras de electrónica.</div>
+`
+        },
+        {
+          id:"m2l2", title:"Motor de arranque (burro de arranque)", minutes:12, quizId:"q_m2l2",
+          html:`
+<p>El motor de arranque —en el taller, "el burro"— hace girar el motor de combustión hasta que arranca solo. Pide muchísima corriente (150–300 A), por eso necesita cables gruesos y buenas masas.</p>
+
+<div class="vmount" data-visual="starter"></div>
+
+<h2>Cómo funciona</h2>
+<ol>
+<li>Girás la llave a ARRANQUE (o apretás el botón). Llega un positivo de mando al <b>solenoide (automático/Bendix)</b>.</li>
+<li>El solenoide hace dos cosas: empuja el piñón para engranar con la corona del volante, y cierra un contacto grueso que manda toda la corriente de batería al motor del burro.</li>
+<li>El motor gira, arranca el auto, soltás la llave y el piñón se retrae.</li>
+</ol>
+
+<h2>Diagnóstico típico</h2>
+<table class="tbl">
+<tr><th>Síntoma</th><th>Sospecha principal</th></tr>
+<tr><td>Click seco y no gira</td><td>Solenoide pega pero no hay corriente: batería floja, masa, cables, o carbones del burro gastados</td></tr>
+<tr><td>Gira muy lento</td><td>Batería baja, bornes/masa con resistencia, o burro consumido</td></tr>
+<tr><td>No hace nada (ni click)</td><td>Falta el positivo de mando: llave, fusible, relé de arranque, neutral/embrague (inhibidor)</td></tr>
+<tr><td>Gira pero no engrana (chirría)</td><td>Bendix/piñón o corona dañados</td></tr>
+</table>
+
+<div class="callout tip"><b>Prueba de caída de tensión en el arranque</b>Es la prueba pro. Con el tester en mV: medí entre el borne + de batería y el borne + del burro mientras arranca. Y entre el negativo de batería y el cuerpo del burro (masa). Cada lado no debería caer más de <b>0,3–0,5 V</b>. Si cae mucho, el problema está en los cables/masa, no en el burro.</div>
+`
+        }
+      ]
+    }
+  ]
+},
+{
+  level:"avanzado", levelName:"Nivel Avanzado", color:"avanzado",
+  intro:"Entramos en electrónica: sensores, actuadores, inyección, encendido e iluminación moderna. Acá empezás a pensar como diagnosticador, no solo como cambiador de piezas.",
+  modules:[
+    {
+      id:"a1", title:"Electrónica del motor", icon:"🧠",
+      lessons:[
+        {
+          id:"a1l1", title:"Sensores: los sentidos del motor", minutes:16, quizId:"q_a1l1",
+          html:`
+<p>Los sensores convierten una magnitud física (temperatura, posición, presión, oxígeno) en una <b>señal eléctrica</b> que la ECU entiende. Si un sensor miente, la ECU calcula mal y el motor anda mal.</p>
+
+<h2>Los que más vas a tocar</h2>
+<table class="tbl">
+<tr><th>Sensor</th><th>Qué mide</th><th>Tipo de señal</th></tr>
+<tr><td><b>CKP</b> (cigüeñal)</td><td>Posición/RPM del cigüeñal</td><td>Inductivo (CA) o Hall (onda cuadrada)</td></tr>
+<tr><td><b>CMP</b> (árbol de levas)</td><td>Fase / posición de levas</td><td>Generalmente Hall</td></tr>
+<tr><td><b>MAP</b></td><td>Presión en el múltiple (carga)</td><td>Analógica 0–5 V</td></tr>
+<tr><td><b>MAF</b> (caudalímetro)</td><td>Masa de aire que entra</td><td>Analógica o frecuencia</td></tr>
+<tr><td><b>ECT/IAT</b></td><td>Temp. de motor / de aire</td><td>NTC (resistencia variable)</td></tr>
+<tr><td><b>TPS</b></td><td>Posición de mariposa</td><td>Analógica 0,5–4,5 V</td></tr>
+<tr><td><b>Sonda lambda / O2</b></td><td>Oxígeno en el escape</td><td>0,1–0,9 V (oscilante) o banda ancha</td></tr>
+<tr><td><b>Detonación (knock)</b></td><td>Vibración por picado</td><td>Piezoeléctrico (CA)</td></tr>
+</table>
+
+<h2>Los tres tipos de funcionamiento</h2>
+<ul>
+<li><b>NTC (termistores ECT/IAT):</b> a más temperatura, <b>menos</b> resistencia. Frío ≈ 2–3 kΩ, caliente ≈ 200–300 Ω.</li>
+<li><b>Potenciómetros (TPS):</b> entregan una tensión proporcional a la posición. Debe subir suave, sin saltos.</li>
+<li><b>Generadores de señal (CKP inductivo, knock, lambda):</b> generan su propia tensión.</li>
+</ul>
+
+<div class="callout tip"><b>Cómo se prueba un sensor</b>1) Valor estático con óhmetro (NTC, inductivo). 2) Alimentación: la mayoría de los analógicos reciben <b>5 V de referencia</b> y masa de la ECU; verificá que lleguen. 3) Señal en vivo: con scanner (datos en directo) o con osciloscopio para ver la forma de onda real. La sección Biblioteca trae valores típicos.</div>
+
+<div class="callout warn"><b>No condenes el sensor primero</b>Muchísimas "fallas de sensor" son en realidad de cableado: masa de la ECU, 5 V de referencia perdidos, conector sulfatado o cable cortado. Medí alimentación y señal antes de comprar el repuesto.</div>
+`
+        },
+        {
+          id:"a1l2", title:"Actuadores: inyectores, bobinas y motores paso a paso", minutes:14, quizId:"q_a1l2",
+          html:`
+<p>Si los sensores son los sentidos, los actuadores son los músculos: la ECU les ordena hacer algo. La ECU casi siempre los maneja <b>por masa</b> (les da el positivo permanente y la ECU "abre y cierra" el negativo).</p>
+
+<h2>Inyectores</h2>
+<p>Son electroválvulas. La ECU los alimenta con positivo y los acciona dando masa por pulsos. El tiempo que están abiertos es el <b>ancho de pulso (ms)</b>: más pulso, más nafta.</p>
+<ul><li>Resistencia típica inyector nafta (alta impedancia): <b>12–16 Ω</b>.</li><li>Se controlan: resistencia, alimentación, señal de pulso (osciloscopio/lámpara LED), y prueba de estanqueidad/caudal en banco.</li></ul>
+
+<h2>Bobinas de encendido</h2>
+<p>Elevan los 12 V a miles de volts para la chispa. Pueden ser bobina única con distribuidor (autos viejos), tipo "lápiz"/COP (una por cilindro) o doble chispa (DIS).</p>
+
+<h2>Motor paso a paso / IAC (ralentí)</h2>
+<p>Controla el aire en ralentí (en autos sin mariposa electrónica). La ECU lo mueve en pasos para mantener las RPM. Su suciedad causa ralentí inestable o motor que se apaga al soltar el acelerador.</p>
+
+<div class="callout dato"><b>Control por masa (lado bajo)</b>La mayoría de los actuadores tienen 12 V permanente y la ECU "los prende" poniéndolos a masa. Por eso, si medís el inyector con lámpara de prueba contra positivo, ves los destellos del pulso. Saber esto te ahorra horas: el positivo casi nunca falla, el problema suele estar en la línea de control o en la masa de la ECU.</div>
+`
+        },
+        {
+          id:"a1l3", title:"Sistema de inyección electrónica", minutes:15, quizId:"q_a1l3",
+          html:`
+<p>La inyección electrónica dosifica la nafta exacta para cada condición. La ECU lee los sensores, calcula y comanda inyectores y encendido. El objetivo: la mezcla ideal (~14,7:1 aire/nafta) según la situación.</p>
+
+<div class="vmount" data-visual="injection"></div>
+
+<h2>Lazo abierto vs. lazo cerrado</h2>
+<ul>
+<li><b>Lazo abierto:</b> motor frío o a full carga. La ECU usa mapas predefinidos, ignora la sonda lambda.</li>
+<li><b>Lazo cerrado:</b> motor caliente, marcha normal. La ECU <b>corrige en tiempo real</b> según la sonda lambda para mantener la mezcla ideal. Acá entran los "ajustes de combustible" (fuel trims).</li>
+</ul>
+
+<div class="callout tip"><b>Trims de combustible (clave en diagnóstico)</b>El <b>STFT</b> (corrección a corto plazo) y <b>LTFT</b> (a largo plazo) te dicen cuánto está compensando la ECU. Si están muy positivos (+15% o más), el motor está pidiendo más nafta: probable entrada de aire falso, baja presión de nafta o MAF subestimando. Muy negativos: inyectores goteando, presión alta o MAP/MAF sobreestimando. Esto se lee con scanner.</div>
+
+<h2>Componentes del sistema de combustible</h2>
+<p>Bomba de nafta (en el tanque), filtro, regulador de presión, riel/flauta e inyectores. Presión típica: <b>3,0–3,8 bar</b> según sistema (con o sin retorno). Verificala con manómetro: presión baja = arranque difícil, tirones, falta de potencia.</p>
+`
+        }
+      ]
+    },
+    {
+      id:"a2", title:"Encendido e iluminación", icon:"💡",
+      lessons:[
+        {
+          id:"a2l1", title:"Sistema de encendido", minutes:13, quizId:"q_a2l1",
+          html:`
+<p>El encendido genera la chispa que prende la mezcla en el cilindro, en el momento justo (avance de encendido). En nafta es vital; un encendido flojo da fallos de explosión (misfire), tironeo y mayor consumo.</p>
+
+<h2>Evolución de los sistemas</h2>
+<ul>
+<li><b>Con distribuidor:</b> una bobina y el distribuidor reparte la chispa con cables de bujía. (Autos más viejos.)</li>
+<li><b>DIS (doble chispa):</b> bobinas que disparan dos bujías a la vez (una útil, una en escape).</li>
+<li><b>COP (Coil On Plug):</b> una bobina por bujía, sin cables. Lo más actual.</li>
+</ul>
+
+<h2>La bujía</h2>
+<p>Es donde salta la chispa. Su estado "lee" cómo anda el motor: color habano claro = OK; negra y seca = mezcla rica o encendido flojo; húmeda de nafta = no enciende; aceitosa = entra aceite; blanca/erosionada = recalentada. Respetá el <b>grado térmico y la separación de electrodos</b> que pide el fabricante.</p>
+
+<div class="callout warn"><b>Misfire (fallo de encendido)</b>El scanner lo reporta como P0300 (aleatorio) o P030X (cilindro X). Causas: bujía, bobina, cable, inyector, baja compresión o entrada de aire. Método: intercambiá bobina/bujía de cilindro y mirá si el fallo "se muda". Si se muda, era esa pieza.</div>
+
+<div class="callout tip"><b>Osciloscopio en encendido</b>La forma de onda de encendido (primario y secundario) muestra la línea de chispa: su altura y duración delatan bujías gastadas, mezcla pobre o problemas de bobina. Es de lo más potente que podés hacer con un osciloscopio automotriz.</div>
+`
+        },
+        {
+          id:"a2l2", title:"Sistema de iluminación", minutes:12, quizId:"q_a2l2",
+          html:`
+<p>La iluminación parece simple pero concentra muchísimas fallas de masa y de relés. Conviene dominarla porque es de lo que más entra al taller.</p>
+
+<div class="vmount" data-visual="lighting"></div>
+
+<h2>Circuito típico de faros</h2>
+<p>Positivo de batería → fusible → relé (comandado por la llave de luces) → lámpara → masa. El relé existe para no pasar toda la corriente de los faros por la llave del volante.</p>
+
+<h2>Tecnologías</h2>
+<ul>
+<li><b>Halógenas (H1, H4, H7):</b> las clásicas. Económicas. El H4 combina baja y alta en una lámpara.</li>
+<li><b>Xenón / HID:</b> usan un balasto que genera alta tensión. Cuidado: peligroso, alta tensión.</li>
+<li><b>LED:</b> bajo consumo, pero sensibles a la electrónica; a veces necesitan resistencias o módulos para no dar "lámpara quemada" falso.</li>
+</ul>
+
+<div class="callout tip"><b>Diagnóstico de una luz que no prende</b>1) ¿Una sola o varias? Si es una sola lámpara, casi seguro es la lámpara o su masa. Si son varias del mismo grupo, mirá fusible/relé/comando. 2) Tester en la lámpara: ¿llega positivo? ¿llega masa? Si llegan ambos y no prende, es la lámpara. Si falta uno, seguí ese lado hacia atrás.</div>
+
+<div class="callout warn"><b>Las dos del mismo lado fallan</b>Si se apagan juntas las luces de un lado (posición + giro + stop), sospechá la <b>masa común</b> de ese sector, no las lámparas. Es el error nº1 del principiante: cambiar lámparas cuando el problema es una masa.</div>
+`
+        }
+      ]
+    }
+  ]
+},
+{
+  level:"profesional", levelName:"Nivel Profesional", color:"profesional",
+  intro:"El nivel del diagnosticador. Redes de comunicación, uso de scanner y osciloscopio, estrategia de diagnóstico y resolución de fallas intermitentes y de comunicación.",
+  modules:[
+    {
+      id:"p1", title:"Redes y diagnóstico electrónico", icon:"🛰️",
+      lessons:[
+        {
+          id:"p1l1", title:"ECU: la computadora del auto", minutes:13, quizId:"q_p1l1",
+          html:`
+<p>La ECU (Unidad de Control Electrónico) es la computadora que gobierna el motor (a veces se la llama ECM/UCE). Recibe sensores, procesa con sus mapas y comanda actuadores. El auto moderno tiene <b>varias</b> ECU: motor, ABS, airbag, confort/BCM, tablero, caja automática, etc.</p>
+
+<h2>Qué necesita una ECU para vivir</h2>
+<ul>
+<li><b>Alimentaciones:</b> positivo permanente (memoria), positivo por contacto, y a veces por relé principal.</li>
+<li><b>Masas:</b> varias, y bien firmes. Una masa de ECU floja da fallas erráticas terribles.</li>
+<li><b>Referencia de 5 V</b> que reparte a los sensores.</li>
+<li><b>Líneas de comunicación</b> (CAN, K-line) para hablar con el scanner y otras ECU.</li>
+</ul>
+
+<div class="callout warn"><b>Antes de "es la computadora"</b>La ECU es de lo que MENOS falla. Antes de condenarla, verificá: sus alimentaciones, sus masas, los 5 V de referencia, y descartá cortos en los actuadores que pudieron dañar una salida. Cambiar una ECU sin esto suele terminar en otra ECU quemada.</div>
+
+<div class="callout dato"><b>Códigos de falla (DTC)</b>La ECU guarda códigos cuando algo sale de rango. Formato OBD2: una letra (P powertrain, B carrocería, C chasis, U red) + 4 dígitos. Ej.: <code>P0171</code> mezcla pobre banco 1. Un DTC te orienta, <b>no</b> te dice la pieza a cambiar: indica el circuito o síntoma a investigar.</div>
+`
+        },
+        {
+          id:"p1l2", title:"Redes CAN y comunicación entre módulos", minutes:16, quizId:"q_p1l2",
+          html:`
+<p>Las ECU se hablan entre sí por redes. La más usada es <b>CAN bus</b> (Controller Area Network). En vez de cientos de cables, dos cables transmiten todos los datos compartidos (RPM, velocidad, temperatura, etc.).</p>
+
+<div class="vmount" data-visual="canbus"></div>
+
+<h2>Cómo es CAN</h2>
+<ul>
+<li>Dos cables trenzados: <b>CAN-H</b> y <b>CAN-L</b>. Van trenzados para rechazar interferencias.</li>
+<li>Dos resistencias terminadoras de <b>120 Ω</b> en los extremos. En paralelo, entre CAN-H y CAN-L medís <b>~60 Ω</b> (red sin alimentar).</li>
+<li>En reposo ambos están en ~2,5 V. Al transmitir, CAN-H sube (~3,5 V) y CAN-L baja (~1,5 V): se separan.</li>
+</ul>
+
+<div class="callout tip"><b>Las 3 pruebas de oro de CAN</b>1) <b>Resistencia:</b> contacto cortado, medí entre CAN-H y CAN-L en el conector OBD (pines 6 y 14). Debe dar ~60 Ω. 120 Ω = falta una terminadora o red partida; infinito = red abierta; muy bajo = corto. 2) <b>Tensión:</b> contacto dado, ambos cerca de 2,5 V oscilando. 3) <b>Osciloscopio:</b> las dos ondas espejadas son la prueba definitiva.</div>
+
+<div class="callout warn"><b>Falla de comunicación (códigos U)</b>Códigos U (ej. <code>U0100</code> "pérdida de comunicación con ECM") indican un módulo que no contesta o la red caída. Causas: un módulo que "tira abajo" el bus, cable CAN cortado o en corto, mala alimentación de un módulo, o agua en un conector. Un solo módulo en corto puede dejar mudo a todo el bus.</div>
+
+<p>Otras redes que podés cruzar: <b>LIN</b> (más lenta, un solo cable, para confort), <b>CAN-FD</b> y <b>FlexRay</b> (más rápidas, autos premium).</p>
+`
+        },
+        {
+          id:"p1l3", title:"Diagnóstico electrónico con scanner", minutes:14, quizId:"q_p1l3",
+          html:`
+<p>El scanner es tu ventana a las ECU. Pero es una herramienta de información, no un adivino: te muestra códigos y datos, vos interpretás.</p>
+
+<h2>Funciones que tenés que dominar</h2>
+<ul>
+<li><b>Leer/borrar DTC:</b> en todos los módulos, no solo motor.</li>
+<li><b>Datos en vivo (PIDs):</b> ver sensores en tiempo real. Acá está el 70% del diagnóstico fino.</li>
+<li><b>Congelado (freeze frame):</b> condiciones en el momento de la falla.</li>
+<li><b>Actuaciones / pruebas activas:</b> mandar a accionar un inyector, electro, bomba, para probar.</li>
+<li><b>Adaptaciones / reseteos:</b> mariposa, service, etc.</li>
+</ul>
+
+<div class="callout tip"><b>Método de datos en vivo</b>No mires un dato aislado: comparalo con lo que debería ser y con otros. Ejemplo motor en ralentí caliente: ECT ~85–95°C, RPM ~750–850, MAP ~25–35 kPa, TPS ~0,5 V, STFT/LTFT cerca de 0. Si la ECT marca –40°C, no es que esté frío: el sensor o su cable están cortados (valor de "fuga a frío").</div>
+
+<div class="callout dato"><b>OBD2 y el conector</b>Desde fines de los 90 los autos traen el conector <b>OBD2</b> de 16 pines (DLC), normalmente bajo el volante. Da acceso estandarizado a emisiones. Pin 16 = positivo, 4 y 5 = masas, 6 y 14 = CAN-H/L. Aun así, para todo lo que no sea emisiones suele hacer falta software específico de la marca.</div>
+`
+        }
+      ]
+    },
+    {
+      id:"p2", title:"Osciloscopio y estrategia", icon:"📈",
+      lessons:[
+        {
+          id:"p2l1", title:"Osciloscopio automotriz", minutes:15, quizId:"q_p2l1",
+          html:`
+<p>El osciloscopio muestra cómo cambia una señal <b>en el tiempo</b>. Donde el tester te da un número, el osciloscopio te muestra la "película". Es la única forma de ver fallas rápidas, glitches y formas de onda.</p>
+
+<div class="vmount" data-visual="scope"></div>
+
+<h2>Conceptos base</h2>
+<ul>
+<li><b>Eje vertical:</b> tensión (volts/división).</li>
+<li><b>Eje horizontal:</b> tiempo (ms/división).</li>
+<li><b>Trigger (disparo):</b> estabiliza la imagen / captura el evento.</li>
+</ul>
+
+<h2>Qué señales mirás seguido</h2>
+<table class="tbl">
+<tr><th>Señal</th><th>Qué buscás</th></tr>
+<tr><td>CKP inductivo</td><td>Onda senoidal limpia; un diente faltante marca el PMS. Amplitud cae si el sensor o la rueda fónica fallan.</td></tr>
+<tr><td>CKP/CMP Hall</td><td>Onda cuadrada nítida 0–5 V, sin redondeos ni caídas.</td></tr>
+<tr><td>Inyector</td><td>Pulso con el pico de inducción al cerrar (la "joroba"). Ancho = tiempo de inyección.</td></tr>
+<tr><td>Sonda lambda</td><td>Oscilación 0,1–0,9 V; debe cruzar rápido. Lenta = sonda vaga.</td></tr>
+<tr><td>CAN</td><td>Dos ondas espejadas, niveles correctos, sin ruido.</td></tr>
+</table>
+
+<div class="callout tip"><b>Por qué te saca de apuros</b>Una falla intermitente que el scanner no llega a capturar (porque promedia), el osciloscopio sí la ve: un microcorte en la señal del CKP de 1 ms aparece como un escalón en la pantalla. Para fallas de "se apaga y vuelve", es la mejor herramienta.</div>
+`
+        },
+        {
+          id:"p2l2", title:"Estrategia de diagnóstico profesional", minutes:14, quizId:"q_p2l2",
+          html:`
+<p>La diferencia entre un buen diagnosticador y un cambiapiezas no es el equipo: es el <b>método</b>. Un proceso ordenado te ahorra plata, repuestos y tiempo.</p>
+
+<h2>Los 6 pasos</h2>
+<ol>
+<li><b>Verificá la falla.</b> Reproducila vos mismo. No diagnostiques de oídas.</li>
+<li><b>Recopilá información.</b> Leé TODOS los códigos (todos los módulos), freeze frame, historial, datos en vivo. Preguntá al cliente: ¿cuándo pasa? ¿en frío/caliente? ¿mojado?</li>
+<li><b>Consultá el diagrama y datos técnicos.</b> Cómo es el circuito, qué valores son normales.</li>
+<li><b>Probá lógicamente.</b> Empezá por lo más probable y barato. Usá búsqueda binaria: dividí el circuito y medí al medio.</li>
+<li><b>Repará.</b> Atacá la causa raíz, no el síntoma.</li>
+<li><b>Verificá la reparación.</b> Borrá códigos, probá en las mismas condiciones en que fallaba. Que no vuelva.</li>
+</ol>
+
+<div class="callout warn"><b>Fallas intermitentes</b>Son las más difíciles. Trucos: movés el mazo con el motor andando (wiggle test) buscando que falle; calentás/enfriás con secador o aire comprimido invertido (frío); mojás conectores sospechosos; dejás el scanner grabando o el osciloscopio en modo captura. La mayoría son <b>conexiones</b>: pines flojos, masas, soldaduras frías.</div>
+
+<div class="callout tip"><b>La caída de tensión, siempre</b>El 60% de las fallas eléctricas reales son resistencias indeseadas (mala masa, conector sulfatado, borne flojo). La prueba de caída de tensión con corriente circulando las encuentra todas, y muchas no dan código. Memorizá: medir resistencia no alcanza, hay que medir <b>con carga</b>.</div>
+`
+        }
+      ]
+    }
+  ]
+}
+];
+
+</script>
+<script>
+/* ===========================================================================
+   BANCO DE PREGUNTAS
+   - QUIZZES[quizId] = preguntas del quiz de cada lección
+   - Cada pregunta: {q, opts:[...], correct: índice, explain, topic}
+   - El modo Práctica Intensiva y los exámenes usan todo el banco mezclado.
+   Para sumar preguntas: agregá objetos respetando el formato.
+   =========================================================================== */
+window.QUIZZES = {
+  q_i1l1:[
+    {q:"¿En qué unidad se mide la tensión eléctrica?",opts:["Ampere (A)","Volt (V)","Ohm (Ω)","Watt (W)"],correct:1,explain:"La tensión o voltaje se mide en volts. Es la 'presión' eléctrica.",topic:"básico"},
+    {q:"Con el motor en marcha y el alternador cargando, ¿qué tensión es normal en la batería?",opts:["12,0 V","10,5 V","13,8 a 14,7 V","16 V"],correct:2,explain:"Cargando, el alternador eleva a ~13,8–14,7 V. 12 V es batería en reposo.",topic:"carga"},
+    {q:"La oposición al paso de la corriente se llama:",opts:["Potencia","Resistencia","Corriente","Capacidad"],correct:1,explain:"La resistencia (ohms) se opone al paso de la corriente.",topic:"básico"},
+    {q:"¿Cómo se mide siempre la resistencia de un componente?",opts:["Con el circuito alimentado","Con el circuito SIN alimentación","Con el motor en marcha","Con la pinza amperométrica"],correct:1,explain:"El óhmetro inyecta su propia corriente: medir con tensión presente da datos inválidos y puede dañar el tester.",topic:"medición"}
+  ],
+  q_i1l2:[
+    {q:"¿Cuál es la fórmula de la Ley de Ohm?",opts:["V = I / R","V = I × R","V = R / I","V = I + R"],correct:1,explain:"V = I × R. De ahí I = V/R y R = V/I.",topic:"ohm"},
+    {q:"Una lámpara de stop de 21 W a 12 V consume aproximadamente:",opts:["0,5 A","1,75 A","5 A","21 A"],correct:1,explain:"I = P/V = 21/12 ≈ 1,75 A.",topic:"ohm"},
+    {q:"Si la resistencia de un circuito BAJA mucho (corto), la corriente:",opts:["Baja","No cambia","Sube mucho","Se hace cero"],correct:2,explain:"I = V/R: si R baja, I sube. Por eso un corto dispara la corriente y vuela el fusible.",topic:"ohm"},
+    {q:"¿Por qué se calienta un cable con mala conexión (alta resistencia)?",opts:["Por la humedad","Disipa potencia como calor (I²×R)","Porque baja la tensión","No se calienta"],correct:1,explain:"La potencia disipada P = I²×R se convierte en calor en la resistencia indeseada.",topic:"ohm"}
+  ],
+  q_i1l3:[
+    {q:"En el auto, el retorno de corriente (negativo) generalmente es:",opts:["Un cable rojo grueso","La masa: chasis y bloque del motor","La antena","El tanque de nafta"],correct:1,explain:"Se usa masa a chasis para ahorrar cable. Por eso las malas masas causan muchas fallas.",topic:"masa"},
+    {q:"Las luces se ponen mortecinas al prender otro consumo. ¿Primer sospechoso?",opts:["La radio","Mala masa / conexión con resistencia","El alternador nuevo","El airbag"],correct:1,explain:"Síntoma clásico de masa floja o conexión con resistencia. Revisá y limpiá masas primero.",topic:"masa"},
+    {q:"Un cable cortado provoca un circuito:",opts:["Cerrado","Abierto","En corto","En paralelo"],correct:1,explain:"Sin camino para la corriente = circuito abierto. No hay continuidad.",topic:"básico"}
+  ],
+  q_i2l1:[
+    {q:"¿A qué protege principalmente un fusible?",opts:["Al componente","Al cableado (mazo)","A la batería","Al conductor humano"],correct:1,explain:"El fusible protege el cableado para evitar que se queme o se incendie ante un corto.",topic:"fusible"},
+    {q:"Un fusible de uña ROJO corresponde a:",opts:["5 A","10 A","20 A","30 A"],correct:1,explain:"Código de color estándar: rojo = 10 A.",topic:"fusible"},
+    {q:"Si un fusible salta repetido, lo correcto es:",opts:["Poner uno de más amperaje","Buscar la falla (corto/sobreconsumo)","Puentearlo con alambre","Sacarlo y dejarlo sin fusible"],correct:1,explain:"Si salta, hay falla. Subir amperaje o puentear puede quemar el mazo o causar incendio.",topic:"fusible"}
+  ],
+  q_i2l2:[
+    {q:"¿Para qué sirve un relé?",opts:["Para medir corriente","Para que una corriente chica maneje una grande","Para rectificar alterna","Para guardar memoria"],correct:1,explain:"Es un interruptor electromagnético: el comando chico acciona el consumo grande.",topic:"relé"},
+    {q:"En la numeración estándar, ¿entre qué pines va la bobina del relé?",opts:["30 y 87","85 y 86","30 y 85","87 y 87a"],correct:1,explain:"85 y 86 son la bobina (el comando). 30 es entrada y 87 salida al consumo.",topic:"relé"},
+    {q:"¿Cómo confirmás rápido que un relé común funciona?",opts:["Lo pesás","Lo cambiás por uno gemelo del mismo auto","Lo calentás","Medís la batería"],correct:1,explain:"Intercambiarlo por uno igual (electro, bocina) es la prueba más rápida en el taller.",topic:"relé"}
+  ],
+  q_i2l3:[
+    {q:"Una batería en reposo marca 12,3 V. Está:",opts:["100% cargada","Al ~50%","Sobrecargada","Perfecta"],correct:1,explain:"12,3 V ≈ 50% de carga. 12,7–12,8 V es plena carga.",topic:"batería"},
+    {q:"Durante el arranque en frío, la tensión de batería no debería caer de:",opts:["11 V","9,6 V","6 V","3 V"],correct:1,explain:"Bajo carga de arranque, menos de 9,6 V indica batería floja o muy descargada.",topic:"batería"},
+    {q:"La 'pelusa' blanca/verde en los bornes es:",opts:["Pintura","Sulfatación: aumenta resistencia","Normal, no afecta","Grasa de fábrica"],correct:1,explain:"La sulfatación de bornes agrega resistencia y causa arranque flojo o caídas de tensión.",topic:"batería"}
+  ],
+  q_m1l1:[
+    {q:"En un circuito en SERIE, ¿qué se mantiene igual en todos los componentes?",opts:["La tensión","La corriente","La potencia","La resistencia"],correct:1,explain:"En serie circula la misma corriente por todos; las tensiones se suman.",topic:"circuitos"},
+    {q:"Las cargas del auto (luces, radio) suelen estar conectadas:",opts:["En serie","En paralelo","En estrella","Sin conexión"],correct:1,explain:"En paralelo: cada una recibe 12 V y funciona independiente de las demás.",topic:"circuitos"},
+    {q:"Midiendo entre los dos lados de una conexión con corriente leés 0,8 V. Eso indica:",opts:["Todo perfecto","Una resistencia indeseada (mal contacto)","Que falta tensión de batería","Un fusible nuevo"],correct:1,explain:"Una buena conexión cae casi 0 V. 0,8 V con corriente = mal contacto/resistencia ahí.",topic:"medición"}
+  ],
+  q_m1l2:[
+    {q:"En un esquema eléctrico, por convención general arriba va el ____ y abajo la ____.",opts:["negativo / señal","positivo / masa","masa / positivo","CAN-H / CAN-L"],correct:1,explain:"Convención: positivo arriba, masa abajo. La corriente 'baja' por la carga.",topic:"diagramas"},
+    {q:"¿Qué te indica un punto identificado como G101 o M1 en el diagrama?",opts:["Un fusible","Un punto de masa","La ECU","Un relé"],correct:1,explain:"Son identificadores de puntos de masa, muy útiles para ubicar conexiones a chasis.",topic:"diagramas"},
+    {q:"Para no perderte en un circuito grande conviene:",opts:["Cambiar piezas al azar","Dividir el circuito al medio y medir (búsqueda binaria)","Medir solo la batería","Borrar los códigos"],correct:1,explain:"Dividir y medir al medio te dice si la falla está antes o después: ahorra tiempo.",topic:"método"}
+  ],
+  q_m2l1:[
+    {q:"El puente rectificador del alternador sirve para:",opts:["Subir las RPM","Convertir corriente alterna en continua","Enfriar la batería","Medir la temperatura"],correct:1,explain:"El estator genera alterna trifásica; los diodos la rectifican a continua.",topic:"carga"},
+    {q:"Medís en VAC (alterna) sobre los bornes con el motor andando y leés 0,6 V. Indica:",opts:["Alternador perfecto","Diodos del rectificador en mal estado","Batería nueva","Correa floja"],correct:1,explain:"Demasiado 'ripple' de alterna (>50 mV) delata diodos dañados.",topic:"carga"},
+    {q:"El testigo de batería encendido con el motor en marcha NO suele deberse a:",opts:["Correa cortada/floja","Escobillas gastadas","Cable de excitación cortado","Bujías gastadas"],correct:3,explain:"Las bujías son del encendido, no del sistema de carga.",topic:"carga"}
+  ],
+  q_m2l2:[
+    {q:"Girás la llave y se oye un 'click' pero el burro no gira. Sospecha más probable:",opts:["Tanque vacío","Batería floja/masa/cables o carbones del burro","Bujías","Sonda lambda"],correct:1,explain:"El solenoide pega (click) pero no hay corriente suficiente: batería, masa, cables o burro consumido.",topic:"arranque"},
+    {q:"La prueba de caída de tensión en arranque mide entre:",opts:["Dos puntos que deberían estar al mismo potencial, con corriente","La radio y el tablero","El faro y la batería","La ECU y la masa de señal"],correct:0,explain:"Se mide entre puntos que deberían ser un mismo potencial (cable + de bat. y + del burro) mientras arranca.",topic:"medición"},
+    {q:"El piñón del burro engrana con:",opts:["El cigüeñal directo","La corona del volante motor","El árbol de levas","La bomba de agua"],correct:1,explain:"El Bendix empuja el piñón contra la corona del volante para hacer girar el motor.",topic:"arranque"}
+  ],
+  q_a1l1:[
+    {q:"Un sensor NTC (ECT/IAT), al aumentar la temperatura:",opts:["Aumenta su resistencia","Disminuye su resistencia","Mantiene la resistencia","Genera tensión propia"],correct:1,explain:"NTC = coeficiente negativo: más temperatura, menos resistencia.",topic:"sensores"},
+    {q:"El CKP de tipo inductivo genera una señal:",opts:["De onda cuadrada 0-5 V","Alterna (senoidal) que él mismo produce","Constante de 12 V","De 5 V de referencia"],correct:1,explain:"El inductivo genera su propia tensión alterna al pasar los dientes de la rueda fónica.",topic:"sensores"},
+    {q:"La mayoría de los sensores analógicos reciben de la ECU:",opts:["12 V y nada más","5 V de referencia y masa","220 V","Solo masa"],correct:1,explain:"La ECU reparte 5 V de referencia y masa; el sensor devuelve una señal variable.",topic:"sensores"},
+    {q:"El TPS marca saltos bruscos al abrir la mariposa lentamente. Esto indica:",opts:["Funciona perfecto","Pista del potenciómetro gastada/sucia","Sonda lambda vaga","Batería baja"],correct:1,explain:"La señal del TPS debe subir suave; saltos = pista desgastada.",topic:"sensores"}
+  ],
+  q_a1l2:[
+    {q:"¿Cómo comanda la ECU a la mayoría de los inyectores y actuadores?",opts:["Cortando el positivo","Dando masa (lado bajo) con positivo permanente","Variando los 5 V","Con corriente alterna"],correct:1,explain:"Control por masa: positivo permanente y la ECU abre/cierra el negativo por pulsos.",topic:"actuadores"},
+    {q:"La resistencia típica de un inyector de nafta de alta impedancia es:",opts:["0,5 Ω","12–16 Ω","120 Ω","1 MΩ"],correct:1,explain:"Suelen estar en 12–16 Ω. Muy bajo = en corto; abierto = cortado.",topic:"actuadores"},
+    {q:"El 'ancho de pulso' del inyector (ms) determina:",opts:["El avance de encendido","La cantidad de nafta inyectada","La presión de aceite","La carga de batería"],correct:1,explain:"Más tiempo abierto = más nafta. Es como la ECU dosifica el combustible.",topic:"actuadores"}
+  ],
+  q_a1l3:[
+    {q:"En 'lazo cerrado', la ECU corrige la mezcla usando principalmente:",opts:["El TPS","La sonda lambda (O2)","El sensor de knock","El velocímetro"],correct:1,explain:"En lazo cerrado la sonda lambda informa el oxígeno y la ECU ajusta en tiempo real.",topic:"inyección"},
+    {q:"Un LTFT muy positivo (+18%) sugiere:",opts:["Mezcla muy rica","El motor pide más nafta: aire falso o baja presión de nafta","Inyectores goteando","Todo normal"],correct:1,explain:"Trim positivo alto = la ECU agrega nafta para compensar: entrada de aire, presión baja o MAF subestimando.",topic:"inyección"},
+    {q:"La relación aire/nafta estequiométrica ideal en nafta es aproximadamente:",opts:["1:1","14,7:1","50:1","100:1"],correct:1,explain:"≈14,7 partes de aire por 1 de nafta (relación estequiométrica).",topic:"inyección"}
+  ],
+  q_a2l1:[
+    {q:"En un sistema COP (Coil On Plug) hay:",opts:["Una bobina y distribuidor","Una bobina por bujía, sin cables","Dos bujías por bobina siempre","Ninguna bobina"],correct:1,explain:"COP: una bobina sobre cada bujía, sin cables de alta.",topic:"encendido"},
+    {q:"Un código P0301 indica:",opts:["Mezcla pobre","Fallo de encendido (misfire) en el cilindro 1","Sonda lambda lenta","CAN caído"],correct:1,explain:"P030X = misfire en el cilindro X. P0300 es aleatorio.",topic:"encendido"},
+    {q:"Para confirmar si un misfire es por la bobina, conviene:",opts:["Cambiar la batería","Intercambiar la bobina de cilindro y ver si el fallo 'se muda'","Borrar el código y nada más","Cambiar el filtro de aire"],correct:1,explain:"Si al mover la bobina a otro cilindro el fallo lo sigue, la pieza es la culpable.",topic:"método"}
+  ],
+  q_a2l2:[
+    {q:"Se apagan juntas posición + giro + stop de un solo lado. Primer sospechoso:",opts:["Las tres lámparas a la vez","La masa común de ese sector","La ECU","La batería"],correct:1,explain:"Que fallen varias del mismo lado apunta a la masa común, no a las lámparas.",topic:"iluminación"},
+    {q:"¿Por qué los faros usan relé?",opts:["Para gastar más batería","Para no pasar toda la corriente por la llave del volante","Para hacer ruido","Para subir la tensión"],correct:1,explain:"El relé maneja la corriente alta; la llave solo comanda la bobina (corriente baja).",topic:"iluminación"},
+    {q:"Una sola lámpara no prende, las demás del grupo sí. Más probable:",opts:["Fusible general","La lámpara o su masa","El relé principal","La llave de luces"],correct:1,explain:"Si es una sola, casi siempre es la lámpara o su masa puntual.",topic:"iluminación"}
+  ],
+  q_p1l1:[
+    {q:"Antes de condenar una ECU, SIEMPRE conviene verificar:",opts:["El color del tablero","Alimentaciones, masas y 5 V de referencia","La presión de las cubiertas","El nivel de nafta"],correct:1,explain:"La ECU falla poco. Verificá sus alimentaciones, masas y referencias antes de cambiarla.",topic:"ECU"},
+    {q:"En un DTC tipo P0171, la letra 'P' significa:",opts:["Presión","Powertrain (motor/transmisión)","Parking","Potencia"],correct:1,explain:"P = powertrain. B carrocería, C chasis, U red de comunicación.",topic:"diagnóstico"},
+    {q:"Un código de falla (DTC) te indica:",opts:["Exactamente la pieza a cambiar","El circuito o síntoma a investigar","Que la ECU está rota","Que hay que borrar y listo"],correct:1,explain:"Orienta hacia un circuito o síntoma; el diagnóstico lo hacés vos.",topic:"diagnóstico"}
+  ],
+  q_p1l2:[
+    {q:"Entre CAN-H y CAN-L, con la red sin alimentar, deberías medir:",opts:["120 Ω","60 Ω","0 Ω","Infinito"],correct:1,explain:"Dos terminadoras de 120 Ω en paralelo dan ~60 Ω. Es la prueba rápida de la red.",topic:"CAN"},
+    {q:"Si medís 120 Ω en vez de 60 Ω en el CAN, probablemente:",opts:["Todo perfecto","Falta una resistencia terminadora o la red está partida","Hay un corto","Sobra tensión"],correct:1,explain:"120 Ω indica una sola terminadora activa: falta la otra o el bus está cortado.",topic:"CAN"},
+    {q:"Un código tipo U0100 indica:",opts:["Falla mecánica","Pérdida de comunicación con un módulo (ECM)","Mezcla pobre","Sensor de temperatura"],correct:1,explain:"Los códigos U son de red: pérdida de comunicación entre módulos.",topic:"CAN"},
+    {q:"En reposo, los cables CAN-H y CAN-L están aproximadamente en:",opts:["0 V ambos","2,5 V ambos","12 V ambos","5 V y 0 V"],correct:1,explain:"Ambos descansan cerca de 2,5 V; al transmitir, H sube y L baja.",topic:"CAN"}
+  ],
+  q_p1l3:[
+    {q:"La función 'freeze frame' (congelado) del scanner muestra:",opts:["Una foto del motor","Las condiciones en el momento en que se grabó la falla","El manual del auto","El precio del repuesto"],correct:1,explain:"Guarda RPM, temperatura, carga, etc., del instante de la falla. Muy útil.",topic:"scanner"},
+    {q:"La ECT marca –40°C con el motor caliente. Significa:",opts:["El motor está congelado","Sensor o cable cortado (valor de fuga)","Todo normal","La ECU explotó"],correct:1,explain:"–40°C es el valor 'a circuito abierto' típico: sensor o cable cortado.",topic:"scanner"},
+    {q:"En el conector OBD2, los pines 6 y 14 corresponden a:",opts:["Positivo y masa","CAN-H y CAN-L","K-line y L-line","Dos masas"],correct:1,explain:"Pin 6 = CAN-H, pin 14 = CAN-L. Pin 16 positivo; 4 y 5 masas.",topic:"scanner"}
+  ],
+  q_p2l1:[
+    {q:"En el osciloscopio, el eje horizontal representa:",opts:["La tensión","El tiempo","La corriente","La resistencia"],correct:1,explain:"Vertical = tensión, horizontal = tiempo. Por eso ves la 'forma' de la señal.",topic:"osciloscopio"},
+    {q:"¿Por qué el osciloscopio detecta fallas que el scanner no?",opts:["Porque es más caro","Porque ve eventos rápidos (glitches) que el scanner promedia","Porque borra códigos","Porque mide nafta"],correct:1,explain:"El scanner muestrea lento y promedia; el osciloscopio captura microcortes de ms.",topic:"osciloscopio"},
+    {q:"En la señal de un CKP inductivo, un 'diente faltante' marca:",opts:["Una falla","La referencia de PMS (punto muerto superior)","Un corto","La masa"],correct:1,explain:"La rueda fónica tiene un diente menos como referencia de posición del cigüeñal.",topic:"osciloscopio"}
+  ],
+  q_p2l2:[
+    {q:"El PRIMER paso del método de diagnóstico es:",opts:["Cambiar la pieza más cara","Verificar/reproducir la falla","Borrar los códigos","Llamar al cliente"],correct:1,explain:"Primero confirmás que la falla existe y la reproducís. No diagnostiques de oídas.",topic:"método"},
+    {q:"Para una falla intermitente, una técnica útil es:",opts:["Esperar a que se rompa del todo","Wiggle test: mover el mazo buscando que falle","Cambiar la ECU directamente","Subir el amperaje del fusible"],correct:1,explain:"Mover el cableado, calentar/enfriar o mojar conectores ayuda a provocar la intermitencia.",topic:"método"},
+    {q:"La mayoría de las fallas eléctricas reales son por:",opts:["ECU quemada","Resistencias indeseadas: masas, conectores, bornes","Sensores de fábrica fallados","Software"],correct:1,explain:"Mal contacto/masa es la causa nº1. La prueba de caída de tensión con carga las encuentra.",topic:"método"}
+  ]
+};
+
+</script>
+<script>
+/* ===========================================================================
+   CASOS DE DIAGNÓSTICO DE FALLAS REALES
+   Cada caso: { id, titulo, categoria, dificultad, sintomas[],
+                causas[], procedimiento[], mediciones[ {punto, esperado} ],
+                solucion }
+   Para agregar casos: copiá un objeto y completá los campos.
+   =========================================================================== */
+window.CASES = [
+{
+  id:"c01", titulo:"El auto no arranca: gira el burro pero no prende", categoria:"Arranque", dificultad:"Media",
+  sintomas:["El motor de arranque gira normal","El motor no enciende / no toma","A veces huele a nafta, a veces no"],
+  causas:["Falta de chispa (encendido)","Falta de combustible (bomba, relé, presión)","Sin señal de CKP a la ECU","Inmovilizador que no reconoce la llave","Fusible/relé de inyección o bomba cortado"],
+  procedimiento:[
+    "Definí si falta CHISPA o NAFTA. Es lo primero que separa el problema en dos.",
+    "Chispa: sacá una bujía, conectala a la bobina/cable, apoyala a masa y hacé girar. ¿Salta chispa azul?",
+    "Nafta: al dar contacto, ¿se escucha cebar la bomba 2-3 segundos? Medí presión de riel con manómetro.",
+    "Escaneá: leé códigos y mirá si aparecen RPM en datos en vivo MIENTRAS gira el burro (confirma señal de CKP).",
+    "Verificá testigo de inmovilizador en el tablero (llave con candado parpadeando)."
+  ],
+  mediciones:[
+    {punto:"Presión de riel de nafta", esperado:"3,0–3,8 bar (según sistema). 0 o muy baja = bomba/relé/filtro"},
+    {punto:"RPM en scanner mientras gira el burro", esperado:"Debe mostrar RPM (>200). Si marca 0, falla CKP o su cableado"},
+    {punto:"Chispa en bujía a masa", esperado:"Chispa azul fuerte. Sin chispa = bobina/CKP/alimentación de encendido"},
+    {punto:"Alimentación de bomba (conector)", esperado:"12 V al cebar. Si no llega: relé/fusible/comando ECU"}
+  ],
+  solucion:"En este caso típico, el scanner mostraba 0 RPM al girar el burro: el sensor CKP había perdido señal por un conector flojo/sulfatado. Al limpiar y asegurar el conector del CKP volvió la señal, apareció la chispa y el pulso de inyección, y el auto arrancó. Lección: sin señal de CKP no hay ni chispa ni inyección, porque la ECU no sabe que el motor gira."
+},
+{
+  id:"c02", titulo:"No hace nada al girar la llave (ni click)", categoria:"Arranque", dificultad:"Baja",
+  sintomas:["Giro la llave a arranque y no pasa nada","No se escucha ningún click","El tablero puede prender o no"],
+  causas:["Batería totalmente descargada","Borne flojo/sulfatado","Falta el positivo de mando al burro","Inhibidor de neutral / pedal de embrague","Relé o fusible de arranque","Llave de contacto"],
+  procedimiento:[
+    "Mirá si prende el tablero y las luces. Si nada prende, sospechá batería o bornes.",
+    "Probá las luces altas: si están mortecinas o no prenden, batería/masa.",
+    "Si el tablero prende bien pero no da arranque: falta el positivo de mando al solenoide.",
+    "En automáticos, probá en P y en N. En manuales, pisá a fondo el embrague (muchos tienen inhibidor).",
+    "Buscá y probá el relé de arranque; revisá fusible correspondiente."
+  ],
+  mediciones:[
+    {punto:"Tensión de batería en reposo", esperado:"≥12,4 V. Menos = descargada, recargá y reevaluá"},
+    {punto:"Caída en bornes (mover y medir)", esperado:"Conexión firme, sin sulfato. 0 V de caída entre borne y poste"},
+    {punto:"Positivo de mando en el solenoide al arrancar", esperado:"≈12 V al girar la llave. Si no llega: llave/relé/inhibidor"},
+    {punto:"Continuidad del inhibidor de neutral", esperado:"Cierra en P/N (auto) o embrague pisado (manual)"}
+  ],
+  solucion:"Frecuente: borne negativo sulfatado y flojo. El tablero prendía débil y no daba arranque. Se limpiaron y ajustaron ambos bornes; volvió a arrancar normal. Cuando 'no hace nada', siempre empezá por batería y bornes antes de tocar el burro."
+},
+{
+  id:"c03", titulo:"Batería que se descarga sola (consumo parásito)", categoria:"Consumos", dificultad:"Alta",
+  sintomas:["Después de unos días sin usar el auto, batería agotada","Batería nueva pero se descarga igual","A veces queda algo prendido sin notarse"],
+  causas:["Consumo parásito por un módulo que no se duerme","Luz de baúl/guantera siempre prendida","Equipo de música/alarma mal instalada","Relé pegado","Diodo del alternador en fuga"],
+  procedimiento:[
+    "Cargá bien la batería y confirmá que esté sana (si no, el diagnóstico se contamina).",
+    "Apagá todo, cerrá puertas (engañá los sensores de puerta si hace falta) y esperá a que los módulos se 'duerman' (10–40 min).",
+    "Medí el consumo parásito: pinza amperométrica en el cable de masa, o tester en serie con el negativo (con cuidado de no abrir el circuito y resetear módulos).",
+    "Si el consumo es alto, andá sacando fusibles de a uno mirando cuál hace caer la corriente.",
+    "Identificado el circuito, buscá el componente: módulo, accesorio agregado, luz que no apaga."
+  ],
+  mediciones:[
+    {punto:"Consumo parásito con todo dormido", esperado:"30–50 mA es normal. Más de ~80–100 mA hay que investigar"},
+    {punto:"Corriente al sacar el fusible culpable", esperado:"Cae bruscamente al valor normal: ese circuito es el responsable"},
+    {punto:"Ripple AC del alternador", esperado:"<50 mV. Alto = diodo en fuga descargando la batería"}
+  ],
+  solucion:"Caso común en Argentina con estéreos/alarmas agregadas: un equipo de música quedaba alimentado con positivo permanente y no entraba en reposo, drenando ~300 mA. Se corrigió la instalación (positivo conmutado correcto). Regla: medí siempre con los módulos dormidos, porque recién abierto el auto el consumo es alto y normal."
+},
+{
+  id:"c04", titulo:"Alternador no carga (testigo de batería encendido)", categoria:"Carga", dificultad:"Media",
+  sintomas:["Luz de batería prendida en el tablero","Con el tiempo el auto se va apagando","Tensión de batería baja con motor en marcha"],
+  causas:["Correa floja o cortada","Escobillas (carbones) gastadas","Regulador de tensión fallado","Diodos del puente rectificador","Cable de excitación (D+/L) interrumpido","Fusible del sistema de carga"],
+  procedimiento:[
+    "Con el motor en marcha, medí tensión en bornes de batería.",
+    "Revisá la correa: tensión y estado (vidriada, cuarteada).",
+    "Verificá el cable de excitación/testigo: sin él, muchos alternadores no arrancan a cargar.",
+    "Medí ripple AC para descartar diodos.",
+    "Si carga intermitente o con ruido, sospechá escobillas o regulador."
+  ],
+  mediciones:[
+    {punto:"Tensión en bornes, motor en marcha", esperado:"13,8–14,7 V. Si queda en ~12 V, no carga"},
+    {punto:"Tensión con consumos prendidos", esperado:"No debería caer de ~13,2 V"},
+    {punto:"Ripple AC", esperado:"<50 mV. Alto = diodos dañados"},
+    {punto:"Cable de excitación D+/L con contacto", esperado:"Debe recibir señal/positivo. Cortado = no excita"}
+  ],
+  solucion:"En este caso medía 12,1 V con el motor andando y el testigo encendido: las escobillas estaban en el límite y el regulador no excitaba bien. Se reemplazó el conjunto regulador-escobillas y volvió a 14,3 V. Antes de cambiar el alternador completo, descartá correa y cable de excitación: a veces es solo eso."
+},
+{
+  id:"c05", titulo:"Fusible que se quema repetidamente", categoria:"Cortocircuitos", dificultad:"Alta",
+  sintomas:["Cambio el fusible y vuelve a saltar","A veces salta enseguida, a veces al mover algo","El circuito afectado queda muerto"],
+  causas:["Cortocircuito a masa en el cableado (cable pelado contra chasis)","Componente en corto (motor, lámpara, actuador)","Conector mojado/sulfatado","Cable aplastado en una zona móvil (puertas, baúl)"],
+  procedimiento:[
+    "Identificá QUÉ protege el fusible (diagrama de la fusiblera) para saber qué circuito revisar.",
+    "Desconectá las cargas de ese circuito de a una y probá: si deja de saltar al sacar una, esa es.",
+    "Para hallar el corto en el cable sin quemar fusibles: usá una lámpara de prueba (o un disyuntor) en lugar del fusible. Si hay corto, la lámpara queda encendida.",
+    "Movés el mazo por tramos mirando la lámpara: cuando cambia su brillo, ahí está el roce.",
+    "Inspeccioná zonas móviles (bisagras de puertas, baúl, capot) donde el cable se pela."
+  ],
+  mediciones:[
+    {punto:"Lámpara de prueba en lugar del fusible", esperado:"Apagada = sin corto. Encendida fija = hay corto a masa"},
+    {punto:"Continuidad cable a masa (carga desconectada)", esperado:"Debe ser infinito. Si pita/baja = corto a chasis"},
+    {punto:"Resistencia del componente sospechoso", esperado:"Según el componente; muy baja/0 = en corto"}
+  ],
+  solucion:"Clásico de puerta: el cable del levantavidrios se pelaba en el fuelle de goma entre puerta y columna al abrir/cerrar, tocando masa de forma intermitente. Se reparó y aisló el tramo, y se protegió con corrugado. Truco clave: poné una lámpara en lugar del fusible para no quemar decenas mientras buscás."
+},
+{
+  id:"c06", titulo:"Una luz no funciona / luces que fallan", categoria:"Iluminación", dificultad:"Baja",
+  sintomas:["Un faro o una luz no prende","A veces titila","El testigo de lámpara puede aparecer"],
+  causas:["Lámpara quemada","Mala masa de la lámpara o del sector","Fusible o relé (si fallan varias)","Portalámpara sulfatado","Comando / llave de luces"],
+  procedimiento:[
+    "Definí si es UNA sola o varias. Una sola → lámpara o su masa. Varias del grupo → fusible/relé/comando.",
+    "En el portalámpara, con tester: ¿llega positivo? ¿llega masa?",
+    "Si llegan los dos y no prende, es la lámpara.",
+    "Si falta el positivo, seguí hacia atrás (fusible, relé, comando). Si falta la masa, revisá el punto de masa del sector.",
+    "Revisá el estado del portalámpara (verdín, contactos quemados)."
+  ],
+  mediciones:[
+    {punto:"Positivo en el portalámpara (luz encendida)", esperado:"≈12 V. Si no, problema aguas arriba"},
+    {punto:"Masa en el portalámpara", esperado:"Continuidad a chasis (~0 Ω). Si no, masa abierta"},
+    {punto:"Resistencia del filamento", esperado:"Baja (algunos Ω). Infinito = filamento cortado"}
+  ],
+  solucion:"En el caso, las dos luces traseras de un lado fallaban juntas: era la masa común del conjunto, oxidada en el punto de chasis del baúl. Se limpió y se aseguró la masa, y volvieron todas. No cambies lámparas en serie: si fallan varias juntas, pensá en la masa."
+},
+{
+  id:"c07", titulo:"Sensor de temperatura (ECT) defectuoso", categoria:"Sensores", dificultad:"Media",
+  sintomas:["Arranque difícil en frío o en caliente","Electroventilador que no para o no arranca","Consumo elevado de nafta","Aguja de temperatura loca o testigo encendido"],
+  causas:["Sensor ECT (NTC) fuera de rango","Cable cortado (lee -40°C) o en corto (lee muy caliente)","Conector sulfatado","Masa de señal de la ECU"],
+  procedimiento:[
+    "Con scanner, leé la temperatura en datos en vivo y comparala con la real del motor.",
+    "Valores absurdos (-40°C con motor caliente, o 140°C en frío) delatan circuito abierto o en corto.",
+    "Medí la resistencia del sensor (NTC) en frío y caliente, y comparala con la tabla.",
+    "Verificá la señal/alimentación en el conector del sensor."
+  ],
+  mediciones:[
+    {punto:"Resistencia ECT en frío (~20°C)", esperado:"≈2.000–3.000 Ω (típico NTC)"},
+    {punto:"Resistencia ECT caliente (~90°C)", esperado:"≈200–300 Ω"},
+    {punto:"Lectura en scanner vs. real", esperado:"Deben coincidir. -40°C = cable cortado"}
+  ],
+  solucion:"El scanner marcaba -40°C con el motor caliente: cable de señal cortado en el conector del sensor. La ECU, creyendo el motor helado, enriquecía la mezcla (alto consumo, marcha irregular). Se reparó el cable y el valor volvió a lo normal. Recordá: NTC = más calor, menos ohms."
+},
+{
+  id:"c08", titulo:"Falla de comunicación CAN (no comunica con scanner)", categoria:"Redes", dificultad:"Alta",
+  sintomas:["El scanner no se conecta o ve módulos","Varios testigos encendidos a la vez (ABS, airbag, motor)","Tablero con comportamiento raro","Códigos U (U0100, U0155, etc.)"],
+  causas:["Cable CAN-H o CAN-L cortado o en corto","Un módulo en corto que tira abajo todo el bus","Falta de alimentación/masa de un módulo","Agua en un conector","Resistencia terminadora dañada"],
+  procedimiento:[
+    "Con contacto cortado, medí resistencia entre pines 6 y 14 del conector OBD.",
+    "Si no da ~60 Ω, el bus tiene problema (abierto, corto, o terminadora).",
+    "Con contacto dado, medí tensión de CAN-H y CAN-L respecto a masa.",
+    "Si sospechás un módulo en corto: desconectá módulos de a uno y mirá si la red 'revive'.",
+    "Confirmá con osciloscopio: las dos ondas deben verse espejadas."
+  ],
+  mediciones:[
+    {punto:"Resistencia CAN-H/CAN-L (pines 6-14), contacto OFF", esperado:"~60 Ω. 120 Ω = una terminadora/red partida; ∞ = abierto; <50 = corto"},
+    {punto:"Tensión CAN-H a masa (contacto ON)", esperado:"~2,5 V en reposo, subiendo al transmitir"},
+    {punto:"Tensión CAN-L a masa (contacto ON)", esperado:"~2,5 V en reposo, bajando al transmitir"}
+  ],
+  solucion:"En el caso medía ~120 Ω (en lugar de 60): el bus estaba partido por un conector con agua que cortaba CAN-L. Un módulo quedaba aislado y generaba códigos U en los demás. Se secó y reparó el conector, volvió a 60 Ω y el scanner comunicó con todos. Empezá SIEMPRE por la resistencia de 60 Ω: es rápida y dice muchísimo."
+},
+{
+  id:"c09", titulo:"Problema de masa: fallas eléctricas 'fantasma'", categoria:"Masas", dificultad:"Alta",
+  sintomas:["Al frenar se mueve el cuentavueltas o titilan luces","Síntomas raros que cambian al prender otros consumos","Componentes que funcionan a medias","Corrientes que 'buscan' otro camino"],
+  causas:["Punto de masa principal flojo/oxidado","Cinta/malla de masa motor-carrocería cortada","Masa de un módulo o sensor con resistencia","Corrosión en puntos de chasis"],
+  procedimiento:[
+    "Identificá los síntomas cruzados: cuando un consumo afecta a otro, casi siempre es masa compartida.",
+    "Hacé la prueba de caída de tensión en la masa CON el consumo funcionando.",
+    "Medí entre el negativo de la carga y el negativo de batería: debería ser casi 0 V.",
+    "Revisá visualmente y al tacto los puntos de masa (calor = resistencia).",
+    "Verificá la malla de masa entre motor y carrocería."
+  ],
+  mediciones:[
+    {punto:"Caída de tensión en masa (con carga)", esperado:"<0,2 V. Más = masa con resistencia"},
+    {punto:"Resistencia del punto de masa a batería", esperado:"~0 Ω. Valores altos = mal contacto"},
+    {punto:"Malla de masa motor-carrocería", esperado:"Continuidad firme; sin corrosión"}
+  ],
+  solucion:"Caso típico: la malla de masa del motor estaba sulfatada. La corriente de arranque/consumos buscaba retorno por cables de señal, generando síntomas dispersos (cuentavueltas que saltaba al frenar). Se reemplazó la malla de masa y desaparecieron todas las rarezas. Las mejores 'reparaciones de electrónica' muchas veces son limpiar y asegurar masas."
+},
+{
+  id:"c10", titulo:"Falla intermitente: el auto se apaga y vuelve a arrancar", categoria:"Intermitentes", dificultad:"Alta",
+  sintomas:["El motor se corta de golpe andando y al rato arranca","No siempre deja código","Pasa más con calor, con baches o al doblar"],
+  causas:["CKP que falla por temperatura","Conector/soldadura fría en ECU o relé principal","Masa intermitente","Relé de bomba/encendido","Cableado rozando que corta al moverse"],
+  procedimiento:[
+    "Dejá el scanner grabando datos en vivo (RPM, alimentaciones) para capturar el momento del corte.",
+    "Mejor aún: osciloscopio en la señal del CKP para ver microcortes.",
+    "Wiggle test: con el motor andando, movés mazos y conectores buscando provocar el corte.",
+    "Si pasa con calor, calentá la zona sospechosa (CKP, ECU) con secador y reproducí.",
+    "Revisá relés (golpecito suave andando) y masas."
+  ],
+  mediciones:[
+    {punto:"Señal de CKP en osciloscopio", esperado:"Onda estable. Cortes/caídas = sensor o cableado"},
+    {punto:"Alimentación de ECU al momento del corte", esperado:"Estable. Caídas = relé principal/conector"},
+    {punto:"Caída de masa con vibración (wiggle)", esperado:"Estable. Saltos = masa intermitente"}
+  ],
+  solucion:"En el caso, el corte aparecía con motor caliente: el sensor CKP fallaba por temperatura (dilataba y perdía señal). Con osciloscopio se vio el corte de la onda al calentarlo con secador. Se reemplazó el CKP y no volvió a apagarse. Las intermitentes se ganan con paciencia, grabando datos y provocando la falla."
+},
+{
+  id:"c11", titulo:"Levantavidrios / accesorio que funciona lento o no funciona", categoria:"Consumos", dificultad:"Baja",
+  sintomas:["El vidrio sube muy lento o se traba","El motor del accesorio 'gime' sin moverse","A veces funciona, a veces no"],
+  causas:["Caída de tensión por conector/masa con resistencia","Motor consumido (mucha corriente)","Interruptor desgastado","Guías del vidrio duras (mecánico) que sobrecargan"],
+  procedimiento:[
+    "Confirmá si es eléctrico o mecánico: ¿el motor hace fuerza? ¿está duro el riel?",
+    "Medí tensión en el motor mientras opera: si llega poca, hay caída en el camino.",
+    "Hacé caída de tensión en positivo y en masa del circuito con el motor trabajando.",
+    "Medí el consumo con pinza: un motor consumido pide de más."
+  ],
+  mediciones:[
+    {punto:"Tensión en el motor operando", esperado:"Cercana a la de batería. Mucho menos = caída en cableado/masa"},
+    {punto:"Caída en masa del circuito (con carga)", esperado:"<0,3 V"},
+    {punto:"Consumo del motor (pinza)", esperado:"Dentro de lo normal; muy alto = motor/mecánica dura"}
+  ],
+  solucion:"En el caso el levantavidrios subía lento: el conector de la puerta tenía pines sulfatados que generaban caída de tensión, y al motor le llegaban 9 V en vez de 12. Se limpiaron los pines y volvió a la velocidad normal. Síntoma de 'lento' casi siempre = caída de tensión, no necesariamente el motor."
+},
+{
+  id:"c12", titulo:"Marcha irregular y consumo alto (mezcla pobre/rica)", categoria:"Inyección", dificultad:"Alta",
+  sintomas:["Ralentí inestable, tironeos","Consumo de nafta elevado","Testigo de motor (check) encendido","Códigos P0171 (pobre) o P0172 (rica)"],
+  causas:["Entrada de aire falso (mangueras, juntas)","Presión de nafta baja o alta","MAF/MAP mal calibrado","Inyectores sucios o goteando","Sonda lambda vaga"],
+  procedimiento:[
+    "Leé los trims de combustible (STFT/LTFT) en el scanner.",
+    "Trims muy positivos = pobre (falta nafta o entra aire); muy negativos = rica.",
+    "Si es pobre, buscá entradas de aire falso (spray controlado de limpiador alrededor de juntas: cambian las RPM).",
+    "Medí presión de nafta con manómetro.",
+    "Mirá la sonda lambda en vivo y su velocidad de oscilación."
+  ],
+  mediciones:[
+    {punto:"STFT + LTFT (sumados)", esperado:"Cerca de 0 (±10%). +15% o más = pobre; -15% = rica"},
+    {punto:"Presión de nafta", esperado:"3,0–3,8 bar según sistema"},
+    {punto:"Sonda lambda en vivo", esperado:"Oscila 0,1–0,9 V cruzando rápido"}
+  ],
+  solucion:"En el caso, LTFT estaba en +22% (mezcla pobre): una manguera de vacío cuarteada metía aire falso. Con limpiador se confirmó (subían las RPM al rociar la zona). Se cambió la manguera y los trims volvieron cerca de 0. Los trims son tu mejor amigo para fallas de mezcla."
+}
+];
+
+</script>
+<script>
+/* ===========================================================================
+   BIBLIOTECA TÉCNICA
+   Secciones: herramientas, valores de sensores, fórmulas, fusibles/relés,
+   procedimientos y guías rápidas de taller.
+   Los valores son típicos/orientativos: SIEMPRE confirmá con el dato del
+   fabricante del modelo concreto.
+   =========================================================================== */
+window.LIBRARY = {
+
+  herramientas:[
+    {
+      nombre:"Multímetro / Tester", icon:"🔢",
+      uso:"La herramienta nº1. Mide tensión (V), resistencia (Ω), continuidad y según el modelo corriente, frecuencia y temperatura.",
+      tips:[
+        "Tensión: en PARALELO (puntas sobre el componente, sin cortar nada).",
+        "Resistencia/continuidad: SIEMPRE con el circuito sin alimentación.",
+        "Para diagnóstico fino, usá la función de caída de tensión (mV) con el circuito trabajando.",
+        "Elegí uno con buena impedancia de entrada (10 MΩ) para no cargar señales de la ECU."
+      ]
+    },
+    {
+      nombre:"Pinza amperométrica", icon:"🪝",
+      uso:"Mide corriente SIN cortar el cable (abraza el conductor). Ideal para medir consumos, parásitos y corriente de carga.",
+      tips:[
+        "Para mA (consumos parásitos) necesitás una pinza sensible (corriente continua / DC).",
+        "Abrazá UN solo cable; si tomás ida y vuelta la lectura se cancela.",
+        "Excelente para ver cuánto entrega el alternador o cuánto pide el burro."
+      ]
+    },
+    {
+      nombre:"Lámpara de prueba", icon:"💡",
+      uso:"Simple y poderosa: una lámpara con punta y pinza de cocodrilo. Muestra presencia de tensión o sirve para buscar cortos.",
+      tips:[
+        "Para ver pulsos de inyector usá una de LED (no carga el circuito).",
+        "Puesta en lugar de un fusible, te ayuda a encontrar cortos sin quemar fusibles.",
+        "No abuses de la lámpara incandescente en circuitos de ECU: puede cargar de más la señal."
+      ]
+    },
+    {
+      nombre:"Osciloscopio automotriz", icon:"📈",
+      uso:"Muestra la señal en el tiempo. Imprescindible para CKP/CMP, inyectores, sonda lambda, encendido y CAN.",
+      tips:[
+        "Vertical = tensión, horizontal = tiempo, trigger = disparo para estabilizar.",
+        "Detecta glitches e intermitencias que el scanner no captura.",
+        "Aprendé las formas de onda 'sanas' para reconocer las falladas."
+      ]
+    },
+    {
+      nombre:"Scanner OBD2", icon:"💻",
+      uso:"Lee y borra códigos (DTC), muestra datos en vivo, congelado y permite actuaciones. Ventana hacia las ECU.",
+      tips:[
+        "Conector OBD2 (16 pines) suele estar bajo el volante.",
+        "Leé TODOS los módulos, no solo motor.",
+        "Datos en vivo > códigos: el código orienta, los datos confirman.",
+        "Para funciones de marca a veces necesitás software específico."
+      ]
+    },
+    {
+      nombre:"Fuente de alimentación regulada", icon:"🔋",
+      uso:"Entrega tensión estable y regulable. Útil para probar componentes en banco y mantener la tensión durante programaciones.",
+      tips:[
+        "Para programar módulos conviene una fuente/mantenedor que sostenga ~13,5 V estables.",
+        "Sirve para alimentar bobinas de relés, motores y sensores en banco.",
+        "Cuidá la polaridad y la corriente máxima."
+      ]
+    }
+  ],
+
+  sensores:[
+    {nombre:"ECT (temp. refrigerante) - NTC", frio:"≈2.000–3.000 Ω a 20°C", caliente:"≈200–300 Ω a 90°C", senal:"0,5–4,5 V según temp.", nota:"NTC: más calor, menos ohms. -40°C en scanner = cable cortado."},
+    {nombre:"IAT (temp. de aire) - NTC", frio:"≈2.000–3.000 Ω a 20°C", caliente:"≈300–400 Ω a 70°C", senal:"0,5–4,5 V", nota:"Mismo principio que la ECT."},
+    {nombre:"TPS (posición mariposa)", frio:"—", caliente:"—", senal:"≈0,5 V cerrada → ≈4,5 V abierta", nota:"Debe subir suave, sin saltos."},
+    {nombre:"MAP (presión múltiple)", frio:"—", caliente:"—", senal:"≈1 V en ralentí (alto vacío) → ~4,5 V a plena carga", nota:"Comparar con presión barométrica con contacto y motor parado."},
+    {nombre:"CKP inductivo (cigüeñal)", frio:"≈400–1.000 Ω (bobinado)", caliente:"similar", senal:"CA que crece con RPM (osciloscopio)", nota:"Onda senoidal con diente de referencia."},
+    {nombre:"CKP/CMP Hall", frio:"—", caliente:"—", senal:"Onda cuadrada 0–5 V", nota:"Recibe alimentación; salida digital nítida."},
+    {nombre:"Sonda lambda (banda angosta)", frio:"—", caliente:"—", senal:"0,1–0,9 V oscilando", nota:"Debe cruzar rápido los 0,45 V. Lenta = sonda vaga."},
+    {nombre:"MAF (caudalímetro)", frio:"—", caliente:"—", senal:"≈1 V ralentí → 4–5 V acelerando (o frecuencia)", nota:"Comparar g/s con la cilindrada esperada."},
+    {nombre:"Sensor de knock", frio:"—", caliente:"—", senal:"Pequeña CA al golpear cerca", nota:"Piezoeléctrico; respeta el par de apriete al montar."}
+  ],
+
+  formulas:[
+    {nombre:"Ley de Ohm", f:"V = I × R", desc:"Tensión = corriente × resistencia. Despejes: I = V/R ; R = V/I."},
+    {nombre:"Potencia eléctrica", f:"P = V × I", desc:"También P = V²/R = I²×R. Explica el calentamiento por mala conexión."},
+    {nombre:"Resistencia en serie", f:"Rt = R1 + R2 + R3…", desc:"Misma corriente, tensiones se suman."},
+    {nombre:"Resistencia en paralelo", f:"1/Rt = 1/R1 + 1/R2…", desc:"Misma tensión, corrientes se suman. Rt baja."},
+    {nombre:"Corriente de una carga", f:"I = P / V", desc:"Ej.: lámpara 55 W a 12 V → 4,6 A."},
+    {nombre:"Caída de tensión admisible", f:"ΔV < 0,2–0,5 V", desc:"En conexiones/masas con corriente. Más = mal contacto."},
+    {nombre:"Resistencia red CAN", f:"Rcan ≈ 60 Ω", desc:"Dos terminadoras de 120 Ω en paralelo (red sin alimentar)."}
+  ],
+
+  fusibles:{
+    colores:[
+      {color:"Rosa/marrón", amp:"3–4 A"},
+      {color:"Rojo", amp:"10 A"},
+      {color:"Azul", amp:"15 A"},
+      {color:"Amarillo", amp:"20 A"},
+      {color:"Blanco/transparente", amp:"25 A"},
+      {color:"Verde", amp:"30 A"},
+      {color:"Naranja", amp:"40 A"}
+    ],
+    abreviaturas:[
+      {sigla:"INY / EFI", sig:"Inyección electrónica (ECU, inyectores)"},
+      {sigla:"ENC / IGN", sig:"Encendido"},
+      {sigla:"B.NAFTA / FP", sig:"Bomba de nafta (fuel pump)"},
+      {sigla:"VENT / FAN", sig:"Electroventilador del radiador"},
+      {sigla:"LUC / LIGHT", sig:"Luces (posición, bajas, altas)"},
+      {sigla:"STOP", sig:"Luces de freno"},
+      {sigla:"L.VIDRIOS / P.WIN", sig:"Levantavidrios"},
+      {sigla:"LIMP / WIPER", sig:"Limpiaparabrisas"},
+      {sigla:"ABS", sig:"Sistema antibloqueo de frenos"},
+      {sigla:"A/C / CLIMA", sig:"Aire acondicionado / climatizador"},
+      {sigla:"RADIO / AUDIO", sig:"Estéreo"},
+      {sigla:"ECU/ECM", sig:"Alimentación de la computadora"},
+      {sigla:"AIRBAG / SRS", sig:"Bolsas de aire"}
+    ]
+  },
+
+  procedimientos:[
+    {
+      nombre:"Prueba de caída de tensión (la más importante)", pasos:[
+        "Tester en mV, en modo continua.",
+        "El circuito debe estar TRABAJANDO (con corriente circulando).",
+        "Medí entre los dos extremos de la conexión/cable que querés evaluar.",
+        "Resultado: <0,2 V conexión buena; >0,5 V hay resistencia indeseada ahí."
+      ]
+    },
+    {
+      nombre:"Medir consumo parásito", pasos:[
+        "Cargá bien la batería.",
+        "Cerrá todo y esperá a que los módulos se duerman (10–40 min).",
+        "Pinza DC sensible en el cable de masa (o tester en serie con cuidado).",
+        "Normal: 30–50 mA. Más de ~80 mA, investigá sacando fusibles de a uno."
+      ]
+    },
+    {
+      nombre:"Probar un relé", pasos:[
+        "Medí la bobina (85–86) en ohms: ~60–120 Ω, ni abierto ni en corto.",
+        "Alimentá 85 y 86 con 12 V y masa: debe escucharse el 'clic'.",
+        "Con el clic, debe haber continuidad entre 30 y 87.",
+        "Alternativa rápida: intercambiarlo por uno gemelo del mismo auto."
+      ]
+    },
+    {
+      nombre:"Diagnóstico de red CAN", pasos:[
+        "Contacto OFF: resistencia entre pines 6 y 14 del OBD ≈ 60 Ω.",
+        "120 Ω = falta terminadora/red partida; ∞ = abierto; <50 = corto.",
+        "Contacto ON: CAN-H y CAN-L ≈ 2,5 V en reposo.",
+        "Osciloscopio: dos ondas espejadas = red sana."
+      ]
+    },
+    {
+      nombre:"Buscar un cortocircuito sin quemar fusibles", pasos:[
+        "Poné una lámpara de prueba en lugar del fusible que salta.",
+        "Si hay corto, la lámpara queda encendida fija.",
+        "Movés el mazo por tramos; cuando cambia el brillo, ahí está el roce.",
+        "Inspeccioná zonas móviles (puertas, baúl, capot)."
+      ]
+    }
+  ],
+
+  guias:[
+    {t:"Valores de batería", c:"Reposo: 12,7 V (100%), 12,3 V (50%). Cargando: 13,8–14,7 V. Arranque en frío: no menos de 9,6 V."},
+    {t:"Tensión de sistema sana", c:"Motor en marcha con consumos: no debe caer de ~13,2 V. Ripple AC < 50 mV."},
+    {t:"Presión de nafta", c:"3,0–3,8 bar típicos. Baja = arranque difícil, tirones, falta de potencia."},
+    {t:"Trims de combustible", c:"STFT+LTFT cerca de 0. +15% pobre (aire falso/poca nafta), -15% rica (inyectores/presión)."},
+    {t:"Antes de condenar una ECU", c:"Verificá alimentaciones, masas, 5 V de referencia y descartá cortos en actuadores."},
+    {t:"Regla de oro de masas", c:"Si un consumo afecta a otro, sospechá masa compartida. Medí caída con carga (<0,2 V)."},
+    {t:"Misfire", c:"P0300 aleatorio / P030X cilindro X. Intercambiá bobina/bujía y mirá si el fallo se muda."},
+    {t:"Seguridad", c:"Cuidado con airbag (SRS) y alta tensión de encendido/HID. Desconectá batería para trabajos pesados."}
+  ]
+};
+
+</script>
+<script>
+/* ===========================================================================
+   SIMULADOR DE TALLER — Bancos de prueba
+   Modelo simplificado pero coherente para enseñar a medir:
+   - nodes: puntos donde podés apoyar las puntas del tester (con coords SVG).
+   - bg: dibujo de fondo del banco (SVG).
+   - scenarios: cada falla define:
+       pot   -> potencial (V) de cada nodo respecto a masa, contacto dado.
+       edges -> resistencias entre nodos {a,b,r} para medir ohms/continuidad.
+       current -> corriente de la malla principal (lo que vería una pinza).
+       hint  -> objetivo de la práctica.
+       diag  -> explicación de la falla (se revela al resolver).
+   NOTA didáctica: en la realidad la resistencia se mide SIN tensión.
+   =========================================================================== */
+window.BENCHES = [
+{
+  id:"luces",
+  name:"Circuito de luces (faro con relé)",
+  desc:"Batería → fusible → relé → lámpara → masa. Practicá tensión, continuidad y caída de tensión.",
+  nodes:[
+    {id:"BATP", label:"Batería +", x:70, y:80},
+    {id:"FIN",  label:"Entrada fusible", x:180, y:55},
+    {id:"FOUT", label:"Salida fusible", x:260, y:55},
+    {id:"R30",  label:"Relé 30", x:350, y:55},
+    {id:"R87",  label:"Relé 87", x:430, y:95},
+    {id:"LP",   label:"Lámpara +", x:500, y:150},
+    {id:"LN",   label:"Lámpara − (masa)", x:430, y:230},
+    {id:"GND",  label:"Masa chasis", x:250, y:285},
+    {id:"BATN", label:"Batería −", x:70, y:150}
+  ],
+  bg:`<rect x="40" y="60" width="60" height="110" rx="6" fill="#3a4b66"/>
+      <text x="70" y="120" text-anchor="middle" fill="#fff" font-size="11">BAT 12V</text>
+      <rect x="200" y="35" width="50" height="40" rx="5" fill="#c97a2b"/>
+      <text x="225" y="30" text-anchor="middle" fill="currentColor" font-size="11">Fusible</text>
+      <rect x="330" y="35" width="90" height="70" rx="6" fill="#2b6cc9"/>
+      <text x="375" y="75" text-anchor="middle" fill="#fff" font-size="11">Relé</text>
+      <circle cx="500" cy="150" r="26" fill="#f4c542"/>
+      <text x="500" y="115" text-anchor="middle" fill="currentColor" font-size="11">Lámpara</text>
+      <rect x="120" y="278" width="260" height="10" fill="#555"/>
+      <text x="250" y="312" text-anchor="middle" fill="currentColor" font-size="11">Masa / chasis</text>`,
+  scenarios:[
+    { id:"ok", name:"Funcionando OK", hint:"Recorré el circuito: medí tensión en cada punto. Verás 12 V hasta la lámpara y la caída sobre ella.",
+      current:4.1,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.4,R30:12.4,R87:12.3,LP:12.2,LN:0.1,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","LN",3],["LN","GND",0.02],["GND","BATN",0.01]],
+      diag:"Todo en orden: la lámpara recibe ~12 V y cae sobre ella. La masa cae casi 0 V." },
+    { id:"lamp", name:"La luz no prende (falla oculta)", hint:"Llega tensión a la lámpara pero no enciende. Medí tensión en Lámpara + y resistencia de la lámpara.",
+      current:0,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.5,R30:12.5,R87:12.5,LP:12.5,LN:0,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LN","GND",0.02],["GND","BATN",0.01]],
+      answer:"lamp_open",
+      diag:"FILAMENTO CORTADO. Hay 12,5 V en Lámpara + (no circula corriente, por eso no hay caída), pero la resistencia de la lámpara da OL (infinito): está quemada." },
+    { id:"fuse", name:"La luz no prende (falla oculta)", hint:"Medí tensión antes y después del fusible. ¿Dónde se pierde?",
+      current:0,
+      pot:{BATP:12.5,FIN:12.5,FOUT:0,R30:0,R87:0,LP:0,LN:0,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","LN",3],["LN","GND",0.02],["GND","BATN",0.01]],
+      answer:"fuse_open",
+      diag:"FUSIBLE QUEMADO. Hay 12,5 V en la entrada del fusible y 0 V en la salida: el fusible está abierto (cortado)." },
+    { id:"ground", name:"La luz prende muy débil", hint:"La lámpara alumbra poco. Hacé la prueba de caída de tensión en la masa (Lámpara − a Masa chasis), con la luz encendida.",
+      current:1.8,
+      pot:{BATP:12.5,FIN:12.4,FOUT:12.4,R30:12.4,R87:12.3,LP:12.2,LN:7.1,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","LN",3],["LN","GND",4],["GND","BATN",0.01]],
+      answer:"bad_ground",
+      diag:"MALA MASA. La caída de tensión entre Lámpara − y Masa chasis es enorme (~7 V cuando debería ser <0,2 V). La masa con resistencia se 'roba' tensión y la lámpara queda débil." },
+    { id:"short", name:"El fusible se quema al instante", hint:"Cambiás el fusible y vuela. Con el circuito SIN tensión, medí resistencia entre Lámpara + y Masa chasis.",
+      current:0,
+      pot:{BATP:12.5,FIN:12.5,FOUT:0,R30:0,R87:0,LP:0,LN:0,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","GND",0.2],["LP","LN",3],["LN","GND",0.02],["GND","BATN",0.01]],
+      answer:"short_ground",
+      diag:"CORTOCIRCUITO A MASA. El cable de Lámpara + roza el chasis: midiendo resistencia entre Lámpara + y Masa da casi 0 Ω. Por eso el fusible vuela apenas das contacto." }
+  ]
+},
+{
+  id:"arranque",
+  name:"Circuito de arranque (burro)",
+  desc:"Batería → mando de llave → solenoide → motor de arranque → masa. Practicá caída de tensión en bornes.",
+  nodes:[
+    {id:"BATP", label:"Batería +", x:70, y:80},
+    {id:"CMD",  label:"Positivo de mando (llave)", x:230, y:55},
+    {id:"SOL",  label:"Solenoide", x:340, y:80},
+    {id:"STB",  label:"Borne grueso del burro", x:450, y:120},
+    {id:"SBODY",label:"Cuerpo del burro (masa)", x:430, y:230},
+    {id:"GND",  label:"Masa chasis / motor", x:240, y:285},
+    {id:"BATN", label:"Batería −", x:70, y:150}
+  ],
+  bg:`<rect x="40" y="60" width="60" height="110" rx="6" fill="#3a4b66"/>
+      <text x="70" y="120" text-anchor="middle" fill="#fff" font-size="11">BAT 12V</text>
+      <rect x="300" y="55" width="160" height="60" rx="8" fill="#566"/>
+      <circle cx="430" cy="150" r="30" fill="#7a8aa0"/>
+      <text x="380" y="100" text-anchor="middle" fill="#fff" font-size="11">Burro</text>
+      <rect x="120" y="278" width="260" height="10" fill="#555"/>
+      <text x="240" y="312" text-anchor="middle" fill="currentColor" font-size="11">Masa motor/chasis</text>`,
+  scenarios:[
+    { id:"ok", name:"Arranca normal", hint:"Medí caída de tensión entre Batería + y Borne del burro mientras arranca (debe ser <0,3 V).",
+      current:180,
+      pot:{BATP:12.0,CMD:11.9,SOL:11.8,STB:11.7,SBODY:0.2,GND:0.1,BATN:0},
+      edges:[["BATP","CMD",0.01],["CMD","SOL",0.02],["SOL","STB",0.03],["STB","SBODY",0.06],["SBODY","GND",0.01],["GND","BATN",0.01]],
+      diag:"Sano: la caída en cables y bornes es mínima. El burro recibe casi toda la tensión de batería." },
+    { id:"low", name:"Gira muy lento", hint:"Medí la tensión de batería mientras intentás arrancar.",
+      current:90,
+      pot:{BATP:8.4,CMD:8.3,SOL:8.2,STB:8.1,SBODY:0.3,GND:0.2,BATN:0},
+      edges:[["BATP","CMD",0.01],["CMD","SOL",0.02],["SOL","STB",0.03],["STB","SBODY",0.06],["SBODY","GND",0.01],["GND","BATN",0.01]],
+      answer:"battery_low",
+      diag:"BATERÍA FLOJA/DESCARGADA. Bajo carga de arranque la tensión cae a ~8,4 V (debería mantenerse >9,6 V). Cargá/reemplazá la batería y reevaluá." },
+    { id:"terminal", name:"A veces arranca, a veces no", hint:"La batería está bien pero al borne del burro llega poco. Hacé caída de tensión entre Batería + y Borne del burro.",
+      current:70,
+      pot:{BATP:12.2,CMD:9.5,SOL:9.3,STB:9.1,SBODY:0.2,GND:0.1,BATN:0},
+      edges:[["BATP","CMD",2.5],["CMD","SOL",0.02],["SOL","STB",0.03],["STB","SBODY",0.06],["SBODY","GND",0.01],["GND","BATN",0.01]],
+      answer:"bad_terminal",
+      diag:"BORNE/CABLE CON RESISTENCIA. Hay una caída enorme entre Batería + y el resto (~3 V): borne sulfatado o cable de arranque dañado. La batería está bien, el problema es la conexión." },
+    { id:"command", name:"No hace nada (ni click)", hint:"El tablero prende. Medí si llega el positivo de mando al solenoide al girar la llave.",
+      current:0,
+      pot:{BATP:12.4,CMD:0,SOL:0,STB:12.4,SBODY:0,GND:0,BATN:0},
+      edges:[["BATP","STB",0.03],["STB","SBODY",30],["SBODY","GND",0.01],["GND","BATN",0.01]],
+      answer:"no_command",
+      diag:"FALTA EL POSITIVO DE MANDO. El borne grueso tiene 12 V (positivo permanente) pero el mando de la llave no llega al solenoide (0 V): revisá llave, relé de arranque, fusible o inhibidor de neutral/embrague." }
+  ]
+},
+{
+  id:"carga",
+  name:"Sistema de carga (alternador)",
+  desc:"Alternador → batería → consumos. Practicá medición de tensión de carga y ripple.",
+  nodes:[
+    {id:"ALTB", label:"Salida alternador B+", x:120, y:90},
+    {id:"BATP", label:"Batería +", x:320, y:80},
+    {id:"LOAD", label:"Consumos (luces)", x:480, y:120},
+    {id:"GND",  label:"Masa chasis", x:300, y:280},
+    {id:"BATN", label:"Batería −", x:320, y:160}
+  ],
+  bg:`<circle cx="100" cy="110" r="40" fill="#2b6cc9"/>
+      <text x="100" y="115" text-anchor="middle" fill="#fff" font-size="11">ALT</text>
+      <rect x="290" y="60" width="60" height="110" rx="6" fill="#3a4b66"/>
+      <text x="320" y="120" text-anchor="middle" fill="#fff" font-size="11">BAT</text>
+      <rect x="450" y="95" width="60" height="50" rx="6" fill="#f4c542"/>
+      <rect x="170" y="273" width="260" height="10" fill="#555"/>
+      <text x="300" y="307" text-anchor="middle" fill="currentColor" font-size="11">Masa / chasis</text>`,
+  scenarios:[
+    { id:"ok", name:"Carga correcta (motor en marcha)", hint:"Medí tensión entre Batería + y Batería −. Probá también modo CA (ripple).",
+      current:35, ripple:0.02,
+      pot:{ALTB:14.3,BATP:14.2,LOAD:14.1,GND:0,BATN:0},
+      edges:[["ALTB","BATP",0.02],["BATP","LOAD",0.03],["LOAD","GND",0.4],["GND","BATN",0.01]],
+      diag:"Sistema sano: 14,2 V en bornes y ripple bajo (<50 mV). El alternador carga bien." },
+    { id:"nocharge", name:"Testigo de batería encendido", hint:"Medí tensión en bornes con el motor en marcha. ¿Carga o no?",
+      current:0, ripple:0.03,
+      pot:{ALTB:12.1,BATP:12.1,LOAD:12.0,GND:0,BATN:0},
+      edges:[["ALTB","BATP",0.02],["BATP","LOAD",0.03],["LOAD","GND",0.4],["GND","BATN",0.01]],
+      answer:"no_charge",
+      diag:"NO CARGA. Con el motor andando la tensión es ~12,1 V (igual que batería en reposo). Revisá correa, escobillas, regulador, diodos y cable de excitación." },
+    { id:"diode", name:"Fallas eléctricas raras con motor en marcha", hint:"La tensión parece ok. Cambiá el tester a modo CA (ripple) y medí en los bornes.",
+      current:35, ripple:0.85,
+      pot:{ALTB:13.9,BATP:13.8,LOAD:13.7,GND:0,BATN:0},
+      edges:[["ALTB","BATP",0.02],["BATP","LOAD",0.03],["LOAD","GND",0.4],["GND","BATN",0.01]],
+      answer:"diode",
+      diag:"DIODO DEL RECTIFICADOR DAÑADO. La continua parece normal (13,8 V), pero el ripple de CA es altísimo (0,85 V; debería ser <0,05 V). El alternador 'ensucia' la línea y causa fallas raras de electrónica." }
+  ]
+}
+];
+
+</script>
+<script>
+/* ===========================================================================
+   VISUALES INTERACTIVOS
+   Cada función recibe el contenedor (div.vmount) y dibuja el widget.
+   Se montan automáticamente desde app.js buscando [data-visual].
+   =========================================================================== */
+const VISUALS = {
+
+  /* ---- Triángulo de la Ley de Ohm ---- */
+  ohmTriangle(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 300 220" role="img" aria-label="Triángulo de la ley de Ohm">
+        <polygon points="150,20 30,200 270,200" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="60" y1="120" x2="240" y2="120" stroke="currentColor" stroke-width="3"/>
+        <line x1="150" y1="120" x2="150" y2="200" stroke="currentColor" stroke-width="3"/>
+        <text x="150" y="95" text-anchor="middle" font-size="40" font-weight="bold" fill="var(--primary)">V</text>
+        <text x="100" y="180" text-anchor="middle" font-size="34" font-weight="bold" fill="var(--accent)">I</text>
+        <text x="200" y="180" text-anchor="middle" font-size="34" font-weight="bold" fill="var(--ok)">R</text>
+      </svg>
+      <figcaption>Tapá la magnitud que buscás: V = I×R · I = V/R · R = V/I</figcaption>
+    </figure>`;
+  },
+
+  /* ---- Calculadora interactiva de Ohm ---- */
+  ohmCalc(el){
+    el.innerHTML = `<div class="card">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+        <label style="flex:1;min-width:180px">Tensión (V): <b id="ocV">12</b> V<br>
+          <input id="ocVs" type="range" min="1" max="16" step="0.5" value="12" style="width:100%"></label>
+        <label style="flex:1;min-width:180px">Resistencia (R): <b id="ocR">3</b> Ω<br>
+          <input id="ocRs" type="range" min="0.5" max="50" step="0.5" value="3" style="width:100%"></label>
+      </div>
+      <div class="grid grid-2" style="margin-top:.8rem">
+        <div class="stat"><span class="n" id="ocI">—</span><span class="l">Corriente (I = V/R)</span></div>
+        <div class="stat"><span class="n" id="ocP">—</span><span class="l">Potencia (P = V×I)</span></div>
+      </div>
+      <div class="bar" style="margin-top:.6rem"><span id="ocBar"></span></div>
+      <p class="muted" id="ocNote" style="margin:.5rem 0 0;font-size:.85rem"></p>
+    </div>`;
+    const V=el.querySelector("#ocVs"), R=el.querySelector("#ocRs");
+    function upd(){
+      const v=+V.value, r=+R.value, i=v/r, p=v*i;
+      el.querySelector("#ocV").textContent=v;
+      el.querySelector("#ocR").textContent=r;
+      el.querySelector("#ocI").textContent=i.toFixed(2)+" A";
+      el.querySelector("#ocP").textContent=p.toFixed(1)+" W";
+      el.querySelector("#ocBar").style.width=Math.min(100,i/20*100)+"%";
+      const note = el.querySelector("#ocNote");
+      if(i>15) note.textContent="⚠ Corriente muy alta: así se comporta un cortocircuito. Volaría el fusible.";
+      else if(r>=40) note.textContent="Resistencia alta (poca corriente): así se ve un circuito casi abierto o un consumo chico.";
+      else note.textContent="Bajá la resistencia y mirá cómo se dispara la corriente.";
+    }
+    V.oninput=upd; R.oninput=upd; upd();
+  },
+
+  /* ---- Flujo de corriente animado + interruptor ---- */
+  circuitFlow(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 460 240" id="cfsvg">
+        <path id="cfpath" d="M70,180 L70,80 L200,80 L200,80 M70,80 L200,80 L200,60 M200,80 L390,80 L390,180 L70,180"
+              fill="none" stroke="var(--muted)" stroke-width="6"/>
+        <rect x="40" y="80" width="30" height="100" rx="4" fill="#3a4b66"/>
+        <text x="55" y="135" text-anchor="middle" fill="#fff" font-size="11" transform="rotate(-90 55,135)">BAT</text>
+        <circle cx="390" cy="80" r="22" fill="#666" id="cflamp"/>
+        <text x="390" y="48" text-anchor="middle" fill="currentColor" font-size="11">Lámpara</text>
+        <rect x="180" y="55" width="50" height="14" rx="4" fill="var(--accent)" id="cfsw" style="cursor:pointer"/>
+        <text x="205" y="40" text-anchor="middle" fill="currentColor" font-size="11">Llave</text>
+        <circle r="5" fill="var(--accent)" id="cfdot">
+          <animateMotion id="cfanim" dur="2.5s" repeatCount="indefinite"
+            path="M70,180 L70,80 L200,80 L390,80 L390,180 L70,180"/>
+        </circle>
+      </svg>
+      <figcaption id="cfcap">Circuito CERRADO: la corriente circula y la lámpara prende. Tocá la llave para abrir.</figcaption>
+    </figure>`;
+    let closed=true;
+    const lamp=el.querySelector("#cflamp"), dot=el.querySelector("#cfdot"),
+          cap=el.querySelector("#cfcap"), sw=el.querySelector("#cfsw");
+    function render(){
+      if(closed){ lamp.setAttribute("fill","#f4c542"); dot.style.display=""; sw.setAttribute("y","68");
+        cap.textContent="Circuito CERRADO: la corriente circula y la lámpara prende. Tocá la llave para abrir."; }
+      else { lamp.setAttribute("fill","#666"); dot.style.display="none"; sw.setAttribute("y","48");
+        cap.textContent="Circuito ABIERTO: la llave cortó el camino, no circula corriente, la lámpara está apagada."; }
+    }
+    sw.onclick=()=>{ closed=!closed; render(); };
+    el.querySelector("#cfsvg").onclick=(e)=>{ if(e.target.id==="cfsvg"){} };
+    render();
+  },
+
+  /* ---- Fusible ---- */
+  fuse(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 300 160">
+        <rect x="80" y="40" width="140" height="80" rx="10" fill="rgba(229,57,53,.25)" stroke="var(--bad)" stroke-width="2"/>
+        <rect x="95" y="120" width="14" height="30" fill="#9aa"/>
+        <rect x="191" y="120" width="14" height="30" fill="#9aa"/>
+        <path id="fwire" d="M102,80 Q150,55 198,80" fill="none" stroke="var(--accent)" stroke-width="4"/>
+        <text x="150" y="30" text-anchor="middle" fill="currentColor" font-size="12">Fusible de uña</text>
+      </svg>
+      <figcaption id="fcap">El alambre interno conduce la corriente. Probá una sobrecarga.</figcaption>
+    </figure>
+    <div style="text-align:center"><button class="btn sm accent" id="fbtn">⚡ Simular sobrecarga / corto</button>
+    <button class="btn sm ghost" id="frep">Reemplazar</button></div>`;
+    const w=el.querySelector("#fwire"), cap=el.querySelector("#fcap");
+    el.querySelector("#fbtn").onclick=()=>{ w.setAttribute("d","M102,80 Q140,60 145,80 M155,80 Q160,60 198,80");
+      w.setAttribute("stroke","var(--bad)"); cap.textContent="¡Voló! La sobrecorriente cortó el alambre y protegió el cableado. Nunca lo reemplaces por uno de más amperaje."; };
+    el.querySelector("#frep").onclick=()=>{ w.setAttribute("d","M102,80 Q150,55 198,80");
+      w.setAttribute("stroke","var(--accent)"); cap.textContent="Fusible nuevo del mismo amperaje. Si vuelve a saltar, hay una falla: buscá el corto."; };
+  },
+
+  /* ---- Relé ---- */
+  relay(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 360 220">
+        <rect x="60" y="40" width="240" height="140" rx="10" fill="var(--surface-2)" stroke="var(--border)"/>
+        <!-- bobina -->
+        <rect x="90" y="70" width="24" height="80" rx="4" fill="none" stroke="var(--primary)" stroke-width="3"/>
+        <text x="102" y="65" text-anchor="middle" font-size="11" fill="currentColor">Bobina</text>
+        <text x="102" y="170" text-anchor="middle" font-size="11" fill="currentColor">85 / 86</text>
+        <!-- contacto -->
+        <circle cx="210" cy="80" r="5" fill="var(--text)"/><text x="210" y="68" text-anchor="middle" font-size="11" fill="currentColor">30</text>
+        <circle cx="270" cy="120" r="5" fill="var(--text)"/><text x="285" y="124" font-size="11" fill="currentColor">87</text>
+        <line id="rcontact" x1="210" y1="80" x2="250" y2="55" stroke="var(--accent)" stroke-width="4"/>
+        <path d="M150,110 L185,110" stroke="var(--muted)" stroke-dasharray="4" />
+      </svg>
+      <figcaption id="rcap">Relé en reposo: 30 y 87 separados. Energizá la bobina.</figcaption>
+    </figure>
+    <div style="text-align:center"><button class="btn sm" id="rbtn">🔌 Energizar bobina (85–86)</button></div>`;
+    const c=el.querySelector("#rcontact"), cap=el.querySelector("#rcap"); let on=false;
+    el.querySelector("#rbtn").onclick=(e)=>{ on=!on;
+      if(on){ c.setAttribute("x2","270"); c.setAttribute("y2","120"); cap.textContent="¡Clic! La bobina atrae el contacto: 30 se une con 87 y pasa la corriente al consumo."; e.target.textContent="🔌 Desenergizar bobina"; }
+      else { c.setAttribute("x2","250"); c.setAttribute("y2","55"); cap.textContent="Relé en reposo: el resorte separó 30 de 87. No pasa corriente al consumo."; e.target.textContent="🔌 Energizar bobina (85–86)"; } };
+  },
+
+  /* ---- Serie ---- */
+  seriesCircuit(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 460 180">
+        <rect x="30" y="60" width="26" height="70" rx="4" fill="#3a4b66"/>
+        <rect x="20" y="35" width="420" height="0" />
+        <path d="M43,60 L43,30 L200,30 M260,30 L417,30 L417,130 L43,130 L43,130" fill="none" stroke="var(--muted)" stroke-width="5"/>
+        <circle cx="155" cy="30" r="18" fill="#f4c542" id="s1"/>
+        <circle cx="305" cy="30" r="18" fill="#f4c542" id="s2"/>
+        <line x1="200" y1="30" x2="222" y2="30" stroke="var(--muted)" stroke-width="5"/>
+        <line x1="240" y1="30" x2="260" y2="30" stroke="var(--muted)" stroke-width="5"/>
+        <text x="155" y="70" text-anchor="middle" font-size="11" fill="currentColor">L1</text>
+        <text x="305" y="70" text-anchor="middle" font-size="11" fill="currentColor">L2</text>
+      </svg>
+      <figcaption id="scap">En serie: una sola ruta. Cortá una lámpara y mirá qué pasa.</figcaption>
+    </figure>
+    <div style="text-align:center"><button class="btn sm ghost" id="scut">Cortar L1</button></div>`;
+    let cut=false; const s1=el.querySelector("#s1"),s2=el.querySelector("#s2"),cap=el.querySelector("#scap");
+    el.querySelector("#scut").onclick=(e)=>{ cut=!cut;
+      if(cut){ s1.setAttribute("fill","#666"); s2.setAttribute("fill","#666"); cap.textContent="Al cortar L1 se apagan LAS DOS: en serie, si se interrumpe uno, no circula corriente por ninguno."; e.target.textContent="Reparar L1"; }
+      else { s1.setAttribute("fill","#f4c542"); s2.setAttribute("fill","#f4c542"); cap.textContent="En serie: una sola ruta. Cortá una lámpara y mirá qué pasa."; e.target.textContent="Cortar L1"; } };
+  },
+
+  /* ---- Paralelo ---- */
+  parallelCircuit(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 460 200">
+        <rect x="30" y="70" width="26" height="70" rx="4" fill="#3a4b66"/>
+        <path d="M43,70 L43,40 L420,40 L420,150 L43,150 L43,140" fill="none" stroke="var(--muted)" stroke-width="5"/>
+        <line x1="180" y1="40" x2="180" y2="150" stroke="var(--muted)" stroke-width="5"/>
+        <line x1="300" y1="40" x2="300" y2="150" stroke="var(--muted)" stroke-width="5"/>
+        <circle cx="180" cy="95" r="18" fill="#f4c542" id="p1"/>
+        <circle cx="300" cy="95" r="18" fill="#f4c542" id="p2"/>
+        <text x="210" y="100" font-size="11" fill="currentColor">L1</text>
+        <text x="330" y="100" font-size="11" fill="currentColor">L2</text>
+      </svg>
+      <figcaption id="pcap">En paralelo: cada lámpara tiene su camino. Cortá una y mirá.</figcaption>
+    </figure>
+    <div style="text-align:center"><button class="btn sm ghost" id="pcut">Cortar L1</button></div>`;
+    let cut=false; const p1=el.querySelector("#p1"),cap=el.querySelector("#pcap");
+    el.querySelector("#pcut").onclick=(e)=>{ cut=!cut;
+      if(cut){ p1.setAttribute("fill","#666"); cap.textContent="L1 cortada pero L2 SIGUE prendida: en paralelo cada rama es independiente. Así está cableado casi todo el auto."; e.target.textContent="Reparar L1"; }
+      else { p1.setAttribute("fill","#f4c542"); cap.textContent="En paralelo: cada lámpara tiene su camino. Cortá una y mirá."; e.target.textContent="Cortar L1"; } };
+  },
+
+  /* ---- Símbolos de esquema ---- */
+  symbols(el){
+    const items=[
+      ["Batería","M10,20 L10,10 M5,15 L15,15 M22,20 L22,8 M19,14 L25,14"],
+      ["Lámpara","circle"],
+      ["Resistencia","M2,15 L8,15 L11,8 L16,22 L21,8 L24,15 L30,15"],
+      ["Fusible","M3,15 L9,15 Q15,5 21,15 Q15,25 9,15"],
+      ["Masa","M15,6 L15,16 M8,16 L22,16 M10,20 L20,20 M13,24 L17,24"],
+      ["Interruptor","M3,18 L12,18 L22,8 M22,18 L30,18"],
+      ["Diodo","M5,15 L14,15 M14,8 L14,22 L24,15 L14,8 M24,8 L24,22"],
+      ["Motor","circleM"]
+    ];
+    el.innerHTML = `<div class="card"><h3 style="margin-top:0">Símbolos más comunes</h3>
+      <div class="grid grid-3">${items.map(([n,p])=>`
+        <div style="text-align:center">
+          <svg viewBox="0 0 32 30" width="80" height="60" style="background:var(--surface-2);border-radius:8px">
+            ${p==="circle"?'<circle cx="16" cy="15" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10,9 L22,21 M22,9 L10,21" stroke="currentColor" stroke-width="1.2"/>':
+              p==="circleM"?'<circle cx="16" cy="15" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="16" y="19" text-anchor="middle" font-size="9" fill="currentColor">M</text>':
+              `<path d="${p}" fill="none" stroke="currentColor" stroke-width="1.5"/>`}
+          </svg>
+          <div style="font-size:.8rem">${n}</div>
+        </div>`).join("")}</div>
+      <p class="muted" style="font-size:.82rem;margin-bottom:0">Cada fabricante varía. Siempre confiá en la referencia del manual del modelo.</p>
+    </div>`;
+  },
+
+  /* ---- Alternador ---- */
+  alternator(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 420 240">
+        <circle cx="150" cy="120" r="80" fill="var(--surface-2)" stroke="var(--border)" stroke-width="2"/>
+        <circle cx="150" cy="120" r="40" fill="none" stroke="var(--primary)" stroke-width="6"/>
+        <text x="150" y="124" text-anchor="middle" font-size="11" fill="currentColor">Rotor</text>
+        <text x="150" y="55" text-anchor="middle" font-size="11" fill="currentColor">Estator</text>
+        <rect x="280" y="60" width="100" height="40" rx="6" fill="#2b6cc9"/><text x="330" y="85" text-anchor="middle" fill="#fff" font-size="10">Rectificador</text>
+        <rect x="280" y="140" width="100" height="40" rx="6" fill="#c97a2b"/><text x="330" y="165" text-anchor="middle" fill="#fff" font-size="10">Regulador</text>
+        <line x1="230" y1="120" x2="280" y2="80" stroke="var(--muted)" stroke-width="3"/>
+        <line x1="230" y1="120" x2="280" y2="160" stroke="var(--muted)" stroke-width="3"/>
+      </svg>
+      <figcaption>Rotor (campo) gira dentro del estator (genera CA trifásica) → rectificador (diodos, pasa a CC) → regulador (mantiene ~14 V).</figcaption>
+    </figure>`;
+  },
+
+  /* ---- Motor de arranque ---- */
+  starter(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 420 220">
+        <rect x="40" y="80" width="160" height="80" rx="14" fill="#7a8aa0"/>
+        <text x="120" y="125" text-anchor="middle" fill="#fff" font-size="12">Motor (burro)</text>
+        <rect x="60" y="40" width="120" height="34" rx="10" fill="#566"/>
+        <text x="120" y="62" text-anchor="middle" fill="#fff" font-size="11">Solenoide</text>
+        <rect x="200" y="105" width="40" height="30" fill="#999"/>
+        <text x="220" y="100" text-anchor="middle" font-size="10" fill="currentColor">Piñón</text>
+        <circle cx="300" cy="120" r="55" fill="none" stroke="var(--muted)" stroke-width="10" stroke-dasharray="6 6"/>
+        <text x="300" y="124" text-anchor="middle" font-size="10" fill="currentColor">Corona</text>
+      </svg>
+      <figcaption>El solenoide empuja el piñón contra la corona del volante y cierra el contacto de potencia que alimenta al motor del burro.</figcaption>
+    </figure>`;
+  },
+
+  /* ---- Inyección: flujo sensores → ECU → actuadores ---- */
+  injection(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 460 240">
+        <rect x="180" y="90" width="100" height="60" rx="10" fill="var(--primary)"/>
+        <text x="230" y="125" text-anchor="middle" fill="#fff" font-size="14">ECU</text>
+        ${["CKP","MAP","ECT","TPS","O2"].map((s,i)=>`
+          <rect x="20" y="${20+i*40}" width="70" height="28" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+          <text x="55" y="${38+i*40}" text-anchor="middle" font-size="11" fill="currentColor">${s}</text>
+          <line x1="90" y1="${34+i*40}" x2="180" y2="120" stroke="var(--ok)" stroke-width="1.5"/>`).join("")}
+        ${["Inyectores","Bobinas","Ralentí"].map((a,i)=>`
+          <rect x="370" y="${40+i*55}" width="80" height="30" rx="6" fill="var(--surface-2)" stroke="var(--border)"/>
+          <text x="410" y="${59+i*55}" text-anchor="middle" font-size="10" fill="currentColor">${a}</text>
+          <line x1="280" y1="120" x2="370" y2="${55+i*55}" stroke="var(--accent)" stroke-width="1.5"/>`).join("")}
+        <text x="55" y="14" text-anchor="middle" font-size="10" fill="var(--muted)">SENSORES</text>
+        <text x="410" y="30" text-anchor="middle" font-size="10" fill="var(--muted)">ACTUADORES</text>
+      </svg>
+      <figcaption>La ECU lee los sensores (verde), calcula y comanda los actuadores (naranja). Si un sensor miente, todo el cálculo sale mal.</figcaption>
+    </figure>`;
+  },
+
+  /* ---- Iluminación: faro con relé ---- */
+  lighting(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 460 200">
+        <rect x="20" y="80" width="26" height="60" rx="4" fill="#3a4b66"/><text x="33" y="160" text-anchor="middle" font-size="10" fill="currentColor">BAT</text>
+        <rect x="90" y="60" width="40" height="24" rx="4" fill="#c97a2b"/><text x="110" y="52" text-anchor="middle" font-size="10" fill="currentColor">Fusible</text>
+        <rect x="170" y="50" width="60" height="44" rx="6" fill="#2b6cc9"/><text x="200" y="76" text-anchor="middle" fill="#fff" font-size="10">Relé</text>
+        <rect x="180" y="120" width="50" height="20" rx="4" fill="var(--surface-2)" stroke="var(--border)"/><text x="205" y="134" text-anchor="middle" font-size="9" fill="currentColor">Llave luces</text>
+        <circle cx="360" cy="80" r="24" fill="#f4c542"/><text x="360" y="40" text-anchor="middle" font-size="10" fill="currentColor">Faro</text>
+        <line x1="46" y1="95" x2="90" y2="72" stroke="var(--muted)" stroke-width="3"/>
+        <line x1="130" y1="72" x2="170" y2="72" stroke="var(--muted)" stroke-width="3"/>
+        <line x1="230" y1="72" x2="336" y2="80" stroke="var(--muted)" stroke-width="3"/>
+        <line x1="360" y1="104" x2="360" y2="160" stroke="var(--muted)" stroke-width="3"/>
+        <path d="M150,140 L360,160" stroke="#555" stroke-width="4"/>
+        <text x="300" y="180" text-anchor="middle" font-size="10" fill="currentColor">Masa</text>
+      </svg>
+      <figcaption>La llave comanda la bobina del relé (corriente chica); el relé pasa toda la corriente del faro (corriente grande). Por eso una falla puede estar en el relé, no en la lámpara.</figcaption>
+    </figure>`;
+  },
+
+  /* ---- CAN bus con onda animada ---- */
+  canbus(el){
+    el.innerHTML = `<figure class="figure">
+      <svg viewBox="0 0 460 240">
+        ${[0,1,2].map(i=>`<rect x="${40+i*150}" y="20" width="90" height="40" rx="6" fill="var(--primary)"/>
+          <text x="${85+i*150}" y="45" text-anchor="middle" fill="#fff" font-size="11">ECU ${i+1}</text>
+          <line x1="${85+i*150}" y1="60" x2="${85+i*150}" y2="85" stroke="var(--muted)" stroke-width="2"/>`).join("")}
+        <line x1="40" y1="90" x2="420" y2="90" stroke="var(--ok)" stroke-width="3"/>
+        <line x1="40" y1="105" x2="420" y2="105" stroke="var(--bad)" stroke-width="3"/>
+        <text x="430" y="93" font-size="10" fill="var(--ok)">H</text>
+        <text x="430" y="108" font-size="10" fill="var(--bad)">L</text>
+        <rect x="20" y="85" width="14" height="25" fill="none" stroke="currentColor"/><text x="27" y="130" text-anchor="middle" font-size="9" fill="currentColor">120Ω</text>
+        <rect x="426" y="85" width="14" height="25" fill="none" stroke="currentColor"/>
+        <polyline id="cwh" points="" fill="none" stroke="var(--ok)" stroke-width="2"/>
+        <polyline id="cwl" points="" fill="none" stroke="var(--bad)" stroke-width="2"/>
+        <text x="230" y="230" text-anchor="middle" font-size="10" fill="var(--muted)">CAN-H sube y CAN-L baja al transmitir (espejadas)</text>
+      </svg>
+      <figcaption>Dos cables (CAN-H verde, CAN-L rojo) y dos terminadoras de 120 Ω → ~60 Ω medidos. Las ondas son espejo una de la otra.</figcaption>
+    </figure>`;
+    const wh=el.querySelector("#cwh"), wl=el.querySelector("#cwl");
+    let t=0;
+    const bits=[0,1,1,0,1,0,0,1,1,0,1,1,0,0,1,0];
+    function draw(){
+      let ph="",pl=""; const y0=150;
+      for(let x=0;x<=380;x+=4){
+        const b=bits[Math.floor((x/24+t)%bits.length)];
+        const hy=y0-(b?16:0), ly=y0+(b?16:0);
+        ph+=`${40+x},${hy} `; pl+=`${40+x},${ly} `;
+      }
+      wh.setAttribute("points",ph); wl.setAttribute("points",pl);
+      t+=0.4;
+    }
+    if(el._timer) clearInterval(el._timer);
+    el._timer=setInterval(draw,90); draw();
+  },
+
+  /* ---- Osciloscopio interactivo ---- */
+  scope(el){
+    el.innerHTML = `<div class="card">
+      <div class="chip-row" id="scChips"></div>
+      <canvas id="scCanvas" width="640" height="240" style="width:100%;background:#04130a;border-radius:10px"></canvas>
+      <p class="muted" id="scDesc" style="font-size:.85rem;margin:.5rem 0 0"></p>
+    </div>`;
+    const signals={
+      CKP:{label:"CKP inductivo", desc:"Onda senoidal que crece con las RPM. El 'diente faltante' marca la referencia de PMS.", fn:(x)=>{ const gap=(x%200>150&&x%200<170); return gap?0:Math.sin(x*0.25)*Math.min(1,x/100);}},
+      Inyector:{label:"Inyector", desc:"Pulso de masa con el pico de inducción (la 'joroba') al cerrar. El ancho = tiempo de inyección.", fn:(x)=>{ const p=x%180; if(p<10) return -0.9; if(p<70) return -0.9; if(p>=70&&p<82) return 1.6; return 0;}},
+      Lambda:{label:"Sonda lambda", desc:"Oscila entre 0,1 y 0,9 V cruzando rápido los 0,45 V. Lenta = sonda vaga.", fn:(x)=>Math.sin(x*0.06)>0?0.85:-0.85},
+      CAN:{label:"CAN-H / CAN-L", desc:"Dos señales espejadas. Si una falta o hay ruido, hay problema de bus.", fn:(x)=>((Math.floor(x/18)%2)?0.8:-0.2)}
+    };
+    const chips=el.querySelector("#scChips");
+    Object.keys(signals).forEach((k,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===0?" on":""); c.textContent=signals[k].label; c.dataset.k=k; chips.appendChild(c); });
+    const cv=el.querySelector("#scCanvas"), ctx=cv.getContext("2d"); let cur="CKP", off=0;
+    el.querySelector("#scDesc").textContent=signals.CKP.desc;
+    chips.onclick=(e)=>{ if(!e.target.dataset.k)return; cur=e.target.dataset.k;
+      [...chips.children].forEach(c=>c.classList.toggle("on",c.dataset.k===cur));
+      el.querySelector("#scDesc").textContent=signals[cur].desc; };
+    function frame(){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      ctx.strokeStyle="rgba(95,217,154,.18)"; ctx.lineWidth=1;
+      for(let gx=0;gx<cv.width;gx+=40){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,cv.height);ctx.stroke();}
+      for(let gy=0;gy<cv.height;gy+=40){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(cv.width,gy);ctx.stroke();}
+      ctx.strokeStyle="#9fffce"; ctx.lineWidth=2; ctx.beginPath();
+      const mid=cv.height/2, amp=70, f=signals[cur].fn;
+      for(let x=0;x<cv.width;x++){ const y=mid-f(x+off)*amp; x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+      ctx.stroke(); off+=2;
+      el._raf=requestAnimationFrame(frame);
+    }
+    if(el._raf) cancelAnimationFrame(el._raf); frame();
+  }
+};
+
+</script>
+<script>
+/* ===========================================================================
+   STORE — Progreso y estadísticas (persistencia en localStorage)
+   =========================================================================== */
+const Store = (() => {
+  const KEY = "electroauto_ar_v1";
+  const def = {
+    xp: 0,
+    lessons: {},          // lessonId -> true
+    quizzes: {},          // quizId -> {best, attempts}
+    topics: {},           // topic -> {ok, total}
+    cases: {},            // caseId -> true (resuelto/leído)
+    sim: {},              // scenarioKey -> true (resuelto)
+    exams: {},            // examId -> bestPercent
+    errors: [],           // historial de errores [{q, topic, date}]
+    theme: "light"
+  };
+  let data = load();
+
+  function load(){
+    try{ const raw = localStorage.getItem(KEY); return raw ? Object.assign({}, def, JSON.parse(raw)) : structuredCloneSafe(def); }
+    catch(e){ return structuredCloneSafe(def); }
+  }
+  function structuredCloneSafe(o){ return JSON.parse(JSON.stringify(o)); }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} updateXPBadge(); }
+  function updateXPBadge(){ const el = document.getElementById("xpValue"); if(el) el.textContent = data.xp; }
+
+  return {
+    data: () => data,
+    save,
+    addXP(n){ data.xp += n; save(); },
+    // Lecciones
+    isLessonDone(id){ return !!data.lessons[id]; },
+    markLesson(id){ if(!data.lessons[id]){ data.lessons[id]=true; data.xp+=10; save(); } },
+    // Quizzes
+    recordQuiz(quizId, percent){
+      const q = data.quizzes[quizId] || {best:0, attempts:0};
+      q.attempts++; q.best = Math.max(q.best, percent);
+      data.quizzes[quizId]=q;
+      data.xp += Math.round(percent/10);
+      save();
+    },
+    // Temas (para recomendaciones)
+    recordAnswer(topic, ok, qtext){
+      if(!topic) topic = "general";
+      const t = data.topics[topic] || {ok:0,total:0};
+      t.total++; if(ok) t.ok++;
+      data.topics[topic]=t;
+      if(!ok && qtext){
+        data.errors.unshift({q:qtext, topic, date:Date.now()});
+        data.errors = data.errors.slice(0,50);
+      }
+      save();
+    },
+    // Casos
+    markCase(id){ if(!data.cases[id]){ data.cases[id]=true; data.xp+=8; save(); } },
+    isCaseDone(id){ return !!data.cases[id]; },
+    // Simulador
+    markSim(key){ if(!data.sim[key]){ data.sim[key]=true; data.xp+=12; save(); } },
+    isSimDone(key){ return !!data.sim[key]; },
+    // Exámenes
+    recordExam(id, percent){
+      data.exams[id] = Math.max(data.exams[id]||0, percent);
+      data.xp += Math.round(percent/5);
+      save();
+    },
+    // Tema claro/oscuro
+    getTheme(){ return data.theme; },
+    setTheme(t){ data.theme=t; save(); },
+    // Análisis
+    weakTopics(){
+      return Object.entries(data.topics)
+        .map(([k,v]) => ({topic:k, ratio: v.total? v.ok/v.total : 1, total:v.total}))
+        .filter(x => x.total>=2 && x.ratio < 0.7)
+        .sort((a,b)=> a.ratio-b.ratio);
+    },
+    reset(){ data = structuredCloneSafe(def); save(); }
+  };
+})();
+
+</script>
+<script>
+/* ===========================================================================
+   SIMULADOR — Lógica del tester virtual
+   Modos: V (tensión continua), CONT (continuidad), Ω (resistencia),
+          A (pinza amperométrica), VCA (ripple/alterna).
+   Resistencia entre dos nodos: camino de menor resistencia (Dijkstra).
+   =========================================================================== */
+const Simulator = (() => {
+  const FAULTS = {
+    todo_ok:"No hay falla (funciona OK)",
+    lamp_open:"Lámpara quemada (filamento abierto)",
+    fuse_open:"Fusible quemado",
+    bad_ground:"Mala masa (caída de tensión)",
+    short_ground:"Cortocircuito a masa",
+    battery_low:"Batería descargada/floja",
+    bad_terminal:"Borne/cable con resistencia",
+    no_command:"Falta el positivo de mando",
+    no_charge:"Alternador no carga",
+    diode:"Diodo del rectificador dañado"
+  };
+  let state = { benchIdx:0, scIdx:0, mode:"V", red:null, black:null, active:"red" };
+
+  function bench(){ return BENCHES[state.benchIdx]; }
+  function scenario(){ return bench().scenarios[state.scIdx]; }
+
+  function buildAdj(sc){
+    const adj={};
+    (sc.edges||[]).forEach(([a,b,r])=>{
+      (adj[a]=adj[a]||[]).push([b,r]);
+      (adj[b]=adj[b]||[]).push([a,r]);
+    });
+    return adj;
+  }
+  function resistance(a,b){
+    if(a===b) return 0;
+    const adj=buildAdj(scenario());
+    const dist={}; const seen={};
+    Object.keys(adj).forEach(n=>dist[n]=Infinity);
+    if(!(a in adj)||!(b in adj)) return Infinity;
+    dist[a]=0;
+    while(true){
+      let u=null,best=Infinity;
+      for(const n in dist){ if(!seen[n]&&dist[n]<best){best=dist[n];u=n;} }
+      if(u===null) break;
+      seen[u]=true;
+      (adj[u]||[]).forEach(([v,r])=>{ if(dist[u]+r<dist[v]) dist[v]=dist[u]+r; });
+    }
+    return dist[b];
+  }
+
+  function reading(){
+    const sc=scenario(), m=state.mode, r=state.red, b=state.black;
+    const needTwo = (m==="V"||m==="CONT"||m==="OHM");
+    if(needTwo && (!r||!b)) return {val:"--", unit:"Apoyá las dos puntas"};
+    switch(m){
+      case "V":{
+        const v=(sc.pot[r]??0)-(sc.pot[b]??0);
+        const av=Math.abs(v);
+        if(av<1) return {val:(v*1000).toFixed(0), unit:"mV (continua)"};
+        return {val:v.toFixed(2), unit:"V (continua)"};
+      }
+      case "CONT":{
+        const res=resistance(r,b);
+        if(res<5) return {val:"🔊 "+res.toFixed(2), unit:"Ω · ¡CONTINUIDAD!"};
+        return {val:"OL", unit:"sin continuidad"};
+      }
+      case "OHM":{
+        const res=resistance(r,b);
+        if(!isFinite(res)) return {val:"OL", unit:"Ω (circuito abierto)"};
+        if(res>=1000) return {val:(res/1000).toFixed(2), unit:"kΩ"};
+        return {val:res.toFixed(2), unit:"Ω"};
+      }
+      case "AMP":{
+        return {val:(sc.current??0).toFixed(sc.current>=10?0:2), unit:"A (pinza en alimentación)"};
+      }
+      case "VCA":{
+        return {val:((sc.ripple??0)*1000).toFixed(0), unit:"mV (alterna / ripple)"};
+      }
+    }
+  }
+
+  function render(host){
+    host.innerHTML = `
+      <div class="crumb"><span class="back" data-go="#/inicio">Inicio</span> › Simulador de taller</div>
+      <h1>🔧 Simulador de taller</h1>
+      <p class="muted">Elegí un banco y una falla. Apoyá las puntas del tester en los puntos del circuito y medí. Cuando creas saber qué pasa, resolvé la falla.</p>
+
+      <div class="chip-row" id="benchSel"></div>
+      <div class="chip-row" id="scSel"></div>
+
+      <div class="sim-wrap" style="margin-top:1rem">
+        <div class="sim-board">
+          <svg id="simSvg" viewBox="0 0 600 340" style="color:var(--text)"></svg>
+          <p class="probe-info" id="probeInfo"></p>
+        </div>
+        <div>
+          <div class="meter">
+            <div class="screen"><div id="mScreen">--</div><div class="unit" id="mUnit">elegí modo</div></div>
+            <div class="mode-row" id="modeRow"></div>
+            <div style="margin-top:.5rem;display:flex;gap:.4rem">
+              <button class="btn sm" id="probeRed" style="flex:1;background:#e53935">● Punta roja</button>
+              <button class="btn sm" id="probeBlack" style="flex:1;background:#222">● Punta negra</button>
+            </div>
+            <button class="btn sm ghost" id="probeClear" style="width:100%;margin-top:.4rem;color:#9fffce;border-color:#1b3142">Soltar puntas</button>
+          </div>
+          <div class="card" style="margin-top:1rem">
+            <b>🎯 Objetivo</b>
+            <p id="simHint" style="font-size:.9rem;margin:.4rem 0"></p>
+            <button class="btn sm accent" id="solveBtn" style="width:100%">¿Cuál es la falla?</button>
+            <div id="solveBox"></div>
+          </div>
+        </div>
+      </div>`;
+
+    // selectores de banco
+    const bs=host.querySelector("#benchSel");
+    BENCHES.forEach((b,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===state.benchIdx?" on":""); c.textContent=b.name; c.onclick=()=>{state.benchIdx=i;state.scIdx=0;resetProbes();render(host);}; bs.appendChild(c); });
+    // selectores de escenario
+    const ss=host.querySelector("#scSel");
+    bench().scenarios.forEach((s,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===state.scIdx?" on":""); c.textContent=s.name; c.onclick=()=>{state.scIdx=i;resetProbes();render(host);}; ss.appendChild(c); });
+
+    // modos
+    const modes=[["V","Tensión V"],["CONT","Continuidad"],["OHM","Resistencia Ω"],["AMP","Pinza A"],["VCA","Ripple VCA"]];
+    const mr=host.querySelector("#modeRow");
+    modes.forEach(([k,l])=>{ const btn=document.createElement("button"); btn.className="btn"+(state.mode===k?" on":""); btn.textContent=l; btn.onclick=()=>{state.mode=k;refresh(host);}; mr.appendChild(btn); });
+
+    host.querySelector("#simHint").textContent=scenario().hint;
+    drawBoard(host);
+    wireProbes(host);
+    host.querySelector("#solveBtn").onclick=()=>showSolve(host);
+    host.querySelectorAll("[data-go]").forEach(a=>a.onclick=()=>location.hash=a.dataset.go);
+    refresh(host);
+  }
+
+  function resetProbes(){ state.red=null; state.black=null; state.active="red"; }
+
+  function drawBoard(host){
+    const svg=host.querySelector("#simSvg"); const b=bench();
+    let dots="";
+    b.nodes.forEach(n=>{
+      const cls = state.red===n.id?"node-dot sel-red":state.black===n.id?"node-dot sel-black":"node-dot";
+      dots+=`<circle class="${cls}" data-node="${n.id}" cx="${n.x}" cy="${n.y}" r="9" fill="var(--surface)" stroke="var(--primary)" stroke-width="2"></circle>
+             <text x="${n.x}" y="${n.y-14}" text-anchor="middle" font-size="9" fill="var(--muted)">${n.label}</text>`;
+    });
+    svg.innerHTML = b.bg + dots;
+    svg.querySelectorAll(".node-dot").forEach(c=>{
+      c.onclick=()=>{
+        const id=c.dataset.node;
+        if(state.active==="red"){ state.red = (state.red===id?null:id); state.active="black"; }
+        else { state.black = (state.black===id?null:id); state.active="red"; }
+        drawBoard(host); refresh(host); markActiveBtn(host);
+      };
+    });
+  }
+
+  function wireProbes(host){
+    host.querySelector("#probeRed").onclick=()=>{state.active="red";markActiveBtn(host);};
+    host.querySelector("#probeBlack").onclick=()=>{state.active="black";markActiveBtn(host);};
+    host.querySelector("#probeClear").onclick=()=>{resetProbes();drawBoard(host);refresh(host);markActiveBtn(host);};
+    markActiveBtn(host);
+  }
+  function markActiveBtn(host){
+    const r=host.querySelector("#probeRed"), bl=host.querySelector("#probeBlack");
+    if(!r) return;
+    r.style.outline = state.active==="red"?"3px solid #ffd54f":"none";
+    bl.style.outline = state.active==="black"?"3px solid #ffd54f":"none";
+  }
+
+  function refresh(host){
+    // marcar modo activo
+    host.querySelectorAll("#modeRow .btn").forEach(btn=>btn.classList.remove("on"));
+    const modes=["V","CONT","OHM","AMP","VCA"];
+    const idx=modes.indexOf(state.mode);
+    if(host.querySelectorAll("#modeRow .btn")[idx]) host.querySelectorAll("#modeRow .btn")[idx].classList.add("on");
+    const rd=reading();
+    host.querySelector("#mScreen").textContent=rd.val;
+    host.querySelector("#mUnit").textContent=rd.unit;
+    const nr=state.red?bench().nodes.find(n=>n.id===state.red).label:"—";
+    const nb=state.black?bench().nodes.find(n=>n.id===state.black).label:"—";
+    host.querySelector("#probeInfo").innerHTML=`Punta roja: <b style="color:#e53935">${nr}</b> · Punta negra: <b>${nb}</b>`;
+  }
+
+  function showSolve(host){
+    const sc=scenario();
+    const correct = sc.answer || "todo_ok";
+    // armar opciones: correcta + 3 distractores
+    const pool=Object.keys(FAULTS).filter(k=>k!==correct);
+    const opts=[correct];
+    while(opts.length<4 && pool.length){ const i=Math.floor(Math.random()*pool.length); opts.push(pool.splice(i,1)[0]); }
+    opts.sort(()=>Math.random()-0.5);
+    const box=host.querySelector("#solveBox");
+    box.innerHTML = `<p style="font-size:.88rem;margin:.6rem 0 .3rem"><b>¿Qué falla tiene este banco?</b></p>`+
+      opts.map(k=>`<button class="quiz-opt" data-k="${k}">${FAULTS[k]}</button>`).join("");
+    box.querySelectorAll(".quiz-opt").forEach(btn=>{
+      btn.onclick=()=>{
+        box.querySelectorAll(".quiz-opt").forEach(o=>o.classList.add("disabled"));
+        const ok = btn.dataset.k===correct;
+        btn.classList.add(ok?"correct":"wrong");
+        if(!ok) box.querySelector(`[data-k="${correct}"]`).classList.add("correct");
+        const key=bench().id+"_"+sc.id;
+        Store.recordAnswer("simulador", ok);
+        if(ok) Store.markSim(key);
+        box.insertAdjacentHTML("beforeend",
+          `<div class="explain">${ok?"✅ ¡Correcto! ":"❌ La respuesta correcta está marcada. "}<br><b>Diagnóstico:</b> ${sc.diag}</div>`);
+        App.refreshXP();
+      };
+    });
+  }
+
+  return { render };
+})();
+
+</script>
+<script>
+/* ===========================================================================
+   APP — Router, render de páginas, quizzes, exámenes, práctica y progreso.
+   =========================================================================== */
+const App = (() => {
+  const app = () => document.getElementById("app");
+
+  /* ---------- utilidades ---------- */
+  function el(html){ const d=document.createElement("div"); d.innerHTML=html.trim(); return d.firstElementChild; }
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+  function mountVisuals(scope){ scope.querySelectorAll("[data-visual]").forEach(m=>{ const fn=VISUALS[m.dataset.visual]; if(fn) try{fn(m);}catch(e){console.warn("visual",m.dataset.visual,e);} }); }
+  function allQuestions(){ const out=[]; for(const qid in QUIZZES) QUIZZES[qid].forEach(q=>out.push(Object.assign({qid},q))); return out; }
+  function levelQuizIds(li){ const out=[]; CURRICULUM[li].modules.forEach(m=>m.lessons.forEach(l=>{ if(l.quizId) out.push(l.quizId); })); return out; }
+  function questionsForQuizIds(ids){ const out=[]; ids.forEach(id=>(QUIZZES[id]||[]).forEach(q=>out.push(Object.assign({qid:id},q)))); return out; }
+
+  function refreshXP(){ const e=document.getElementById("xpValue"); if(e) e.textContent=Store.data().xp; }
+
+  /* ---------- router ---------- */
+  function route(){
+    const h=location.hash.replace(/^#\/?/,"");
+    const p=h.split("/").filter(Boolean);
+    const page=p[0]||"inicio";
+    // marcar nav
+    document.querySelectorAll(".nav-link").forEach(a=>a.classList.toggle("active", a.dataset.route===page ||
+      (page==="nivel"&&a.dataset.route==="aprender") || (page==="leccion"&&a.dataset.route==="aprender") ||
+      (page==="caso"&&a.dataset.route==="casos") || (page==="examen"&&a.dataset.route==="aprender")));
+    closeNav();
+    app().scrollTop=0; window.scrollTo(0,0);
+    switch(page){
+      case "inicio": return renderInicio();
+      case "aprender": return renderAprender();
+      case "nivel": return renderNivel(+p[1]||0);
+      case "leccion": return renderLeccion(+p[1], +p[2], +p[3]);
+      case "examen": return renderExamen(+p[1]);
+      case "simulador": return Simulator.render(app());
+      case "herramientas": return renderHerramientas();
+      case "casos": return renderCasos();
+      case "caso": return renderCaso(p[1]);
+      case "practica": return renderPractica();
+      case "biblioteca": return renderBiblioteca();
+      case "progreso": return renderProgreso();
+      default: return renderInicio();
+    }
+  }
+
+  /* ---------- INICIO ---------- */
+  function renderInicio(){
+    const d=Store.data();
+    const totalLessons=CURRICULUM.reduce((a,l)=>a+l.modules.reduce((b,m)=>b+m.lessons.length,0),0);
+    const doneLessons=Object.keys(d.lessons).length;
+    app().innerHTML = `
+      <div class="hero">
+        <h1>Electricidad y electrónica automotriz</h1>
+        <p>Aprendé desde cero hasta nivel profesional, con terminología y métodos de taller argentinos. Teoría clara, simulador de tester, casos de falla reales y mucha práctica.</p>
+        <div style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap">
+          <a class="btn" href="#/aprender">📚 Empezar a aprender</a>
+          <a class="btn" style="background:rgba(255,255,255,.2);color:#fff" href="#/simulador">🔧 Probar el simulador</a>
+        </div>
+      </div>
+
+      <div class="grid grid-3" style="margin-bottom:1.4rem">
+        <div class="card stat"><span class="n">${doneLessons}/${totalLessons}</span><span class="l">Lecciones completadas</span>
+          <div class="bar" style="margin-top:.5rem"><span style="width:${totalLessons?doneLessons/totalLessons*100:0}%"></span></div></div>
+        <div class="card stat"><span class="n">${d.xp}</span><span class="l">Puntos de experiencia (★)</span></div>
+        <div class="card stat"><span class="n">${Object.keys(d.cases).length}/${CASES.length}</span><span class="l">Casos de falla resueltos</span></div>
+      </div>
+
+      <h2>Plan de aprendizaje</h2>
+      <div class="grid grid-2">
+        ${CURRICULUM.map((lv,i)=>{
+          const lc=lv.modules.reduce((a,m)=>a+m.lessons.length,0);
+          const dc=lv.modules.reduce((a,m)=>a+m.lessons.filter(l=>Store.isLessonDone(l.id)).length,0);
+          return `<div class="card click" data-go="#/nivel/${i}">
+            <span class="pill ${lv.color}">${lv.levelName}</span>
+            <p style="margin:.6rem 0">${lv.intro}</p>
+            <div class="bar"><span style="width:${lc?dc/lc*100:0}%"></span></div>
+            <small class="muted">${dc}/${lc} lecciones</small>
+          </div>`;
+        }).join("")}
+      </div>
+
+      <h2 style="margin-top:1.6rem">Accesos rápidos</h2>
+      <div class="grid grid-3">
+        <div class="card click" data-go="#/casos"><h3>🚗 Casos de falla</h3><p class="muted">Diagnóstico real paso a paso: síntomas, mediciones y solución.</p></div>
+        <div class="card click" data-go="#/practica"><h3>🎯 Práctica intensiva</h3><p class="muted">Ejercicios aleatorios enfocados en lo que más te cuesta.</p></div>
+        <div class="card click" data-go="#/biblioteca"><h3>📕 Biblioteca</h3><p class="muted">Valores típicos, fórmulas, fusibles y procedimientos.</p></div>
+      </div>`;
+    wireGo();
+  }
+
+  /* ---------- APRENDER (lista de niveles) ---------- */
+  function renderAprender(){
+    app().innerHTML = `<h1>📚 Plan de aprendizaje</h1>
+      <p class="muted">Cuatro niveles progresivos. Completá las lecciones y rendí el examen de cada nivel.</p>
+      <div class="list-rows" style="margin-top:1rem">
+      ${CURRICULUM.map((lv,i)=>{
+        const lc=lv.modules.reduce((a,m)=>a+m.lessons.length,0);
+        const dc=lv.modules.reduce((a,m)=>a+m.lessons.filter(l=>Store.isLessonDone(l.id)).length,0);
+        return `<div class="row-item" data-go="#/nivel/${i}">
+          <span class="ic">${["🟦","🟩","🟧","🟪"][i]}</span>
+          <div style="flex:1"><b>${lv.levelName}</b><br><small class="muted">${lc} lecciones · ${lv.modules.length} módulos</small></div>
+          <span class="done">${dc}/${lc}</span>
+        </div>`;
+      }).join("")}
+      </div>`;
+    wireGo();
+  }
+
+  /* ---------- NIVEL (módulos y lecciones) ---------- */
+  function renderNivel(li){
+    const lv=CURRICULUM[li]; if(!lv) return renderAprender();
+    const lc=lv.modules.reduce((a,m)=>a+m.lessons.length,0);
+    const dc=lv.modules.reduce((a,m)=>a+m.lessons.filter(l=>Store.isLessonDone(l.id)).length,0);
+    app().innerHTML = `
+      <div class="crumb"><span class="back" data-go="#/aprender">Plan</span> › ${lv.levelName}</div>
+      <span class="pill ${lv.color}">${lv.levelName}</span>
+      <h1>${lv.levelName}</h1>
+      <p>${lv.intro}</p>
+      ${lv.modules.map((m,mi)=>`
+        <div class="card" style="margin-bottom:1rem">
+          <h3>${m.icon} ${m.title}</h3>
+          <div class="list-rows">
+          ${m.lessons.map((l,xi)=>`
+            <div class="row-item" data-go="#/leccion/${li}/${mi}/${xi}">
+              <span class="ic">${Store.isLessonDone(l.id)?"✅":"📖"}</span>
+              <div style="flex:1"><b>${l.title}</b><br><small class="muted">~${l.minutes} min</small></div>
+            </div>`).join("")}
+          </div>
+        </div>`).join("")}
+      <div class="card" style="text-align:center">
+        <h3>📝 Examen de ${lv.levelName}</h3>
+        <p class="muted">10 preguntas del nivel. ${dc<lc?"Te conviene completar las lecciones primero.":"¡Ya completaste las lecciones, dale!"}</p>
+        ${Store.data().exams["nivel"+li]?`<p class="muted">Mejor nota: <b>${Store.data().exams["nivel"+li]}%</b></p>`:""}
+        <button class="btn" data-go="#/examen/${li}">Rendir examen</button>
+      </div>`;
+    wireGo();
+  }
+
+  /* ---------- LECCIÓN ---------- */
+  function renderLeccion(li,mi,xi){
+    const lv=CURRICULUM[li]; const m=lv&&lv.modules[mi]; const l=m&&m.lessons[xi];
+    if(!l) return renderAprender();
+    app().innerHTML = `
+      <div class="crumb"><span class="back" data-go="#/nivel/${li}">${lv.levelName}</span> › ${m.title}</div>
+      <span class="pill ${lv.color}">${lv.levelName}</span>
+      <h1>${l.title}</h1>
+      <div class="lesson">${l.html}</div>
+      <div id="lessonQuiz"></div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem">
+        <button class="btn" id="markDone">${Store.isLessonDone(l.id)?"✅ Lección completada":"Marcar como completada (+10★)"}</button>
+        ${nextLessonBtn(li,mi,xi)}
+      </div>`;
+    mountVisuals(app());
+    if(l.quizId && QUIZZES[l.quizId]) renderQuiz(document.getElementById("lessonQuiz"), QUIZZES[l.quizId], {title:"Mini–quiz de la lección", quizId:l.quizId});
+    document.getElementById("markDone").onclick=(e)=>{ Store.markLesson(l.id); e.target.textContent="✅ Lección completada"; refreshXP(); };
+    wireGo();
+  }
+  function nextLessonBtn(li,mi,xi){
+    const lv=CURRICULUM[li], m=lv.modules[mi];
+    if(xi+1<m.lessons.length) return `<button class="btn ghost" data-go="#/leccion/${li}/${mi}/${xi+1}">Siguiente lección →</button>`;
+    if(mi+1<lv.modules.length) return `<button class="btn ghost" data-go="#/leccion/${li}/${mi+1}/0">Siguiente módulo →</button>`;
+    return `<button class="btn ghost" data-go="#/examen/${li}">Ir al examen del nivel →</button>`;
+  }
+
+  /* ---------- QUIZ (componente reutilizable) ---------- */
+  function renderQuiz(host, questions, opts={}){
+    opts=Object.assign({title:"Quiz", quizId:null, examId:null, onFinish:null}, opts);
+    const qs=opts.shuffle===false?questions:shuffle(questions);
+    let idx=0, score=0;
+    function show(){
+      const q=qs[idx];
+      host.innerHTML = `<div class="card" style="margin-top:1.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">${opts.title}</h3><span class="tag">${idx+1} / ${qs.length}</span>
+        </div>
+        <p style="font-weight:600;margin-top:.8rem">${q.q}</p>
+        <div id="opts"></div>
+        <div id="qx"></div>
+      </div>`;
+      const oc=host.querySelector("#opts");
+      shuffle(q.opts.map((t,i)=>({t,i}))).forEach(o=>{
+        const b=el(`<button class="quiz-opt">${o.t}</button>`);
+        b.onclick=()=>answer(o.i,q,host);
+        oc.appendChild(b);
+      });
+    }
+    function answer(i,q,host){
+      const ok=i===q.correct;
+      if(ok) score++;
+      Store.recordAnswer(q.topic, ok, q.q);
+      host.querySelectorAll(".quiz-opt").forEach(b=>{
+        b.classList.add("disabled");
+        if(b.textContent===q.opts[q.correct]) b.classList.add("correct");
+        if(b.textContent===q.opts[i]&&!ok) b.classList.add("wrong");
+      });
+      host.querySelector("#qx").innerHTML=`<div class="explain">${ok?"✅ Correcto. ":"❌ Incorrecto. "}${q.explain}</div>
+        <button class="btn sm" id="nextq" style="margin-top:.6rem">${idx+1<qs.length?"Siguiente":"Ver resultado"}</button>`;
+      host.querySelector("#nextq").onclick=()=>{ idx++; if(idx<qs.length) show(); else finish(); };
+      refreshXP();
+    }
+    function finish(){
+      const pct=Math.round(score/qs.length*100);
+      if(opts.quizId) Store.recordQuiz(opts.quizId, pct);
+      if(opts.examId) Store.recordExam(opts.examId, pct);
+      host.innerHTML=`<div class="card" style="margin-top:1.5rem;text-align:center">
+        <h3>${pct>=70?"🎉 ¡Aprobado!":"📚 A repasar"}</h3>
+        <div class="stat" style="align-items:center"><span class="n">${pct}%</span><span class="l">${score} de ${qs.length} correctas</span></div>
+        <button class="btn" id="again" style="margin-top:.8rem">Reintentar</button>
+      </div>`;
+      host.querySelector("#again").onclick=()=>{ idx=0;score=0; show(); };
+      refreshXP();
+      if(opts.onFinish) opts.onFinish(pct);
+    }
+    show();
+  }
+
+  /* ---------- EXAMEN ---------- */
+  function renderExamen(li){
+    const lv=CURRICULUM[li]; if(!lv) return renderAprender();
+    const pool=questionsForQuizIds(levelQuizIds(li));
+    const qs=shuffle(pool).slice(0,Math.min(10,pool.length));
+    app().innerHTML=`<div class="crumb"><span class="back" data-go="#/nivel/${li}">${lv.levelName}</span> › Examen</div>
+      <h1>📝 Examen — ${lv.levelName}</h1>
+      <p class="muted">${qs.length} preguntas. Necesitás 70% para aprobar.</p><div id="examBox"></div>`;
+    renderQuiz(document.getElementById("examBox"), qs, {title:"Examen "+lv.levelName, examId:"nivel"+li});
+    wireGo();
+  }
+
+  /* ---------- HERRAMIENTAS ---------- */
+  function renderHerramientas(){
+    app().innerHTML=`<h1>🛠️ Entrenamiento en herramientas</h1>
+      <p class="muted">Cómo usar correctamente cada instrumento de medición y prueba.</p>
+      <div class="grid grid-2" style="margin-top:1rem">
+      ${LIBRARY.herramientas.map(h=>`
+        <div class="card"><h3>${h.icon} ${h.nombre}</h3>
+          <p>${h.uso}</p>
+          <ul>${h.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
+        </div>`).join("")}
+      </div>
+      <div class="card" style="margin-top:1rem;text-align:center">
+        <h3>¿Listo para practicar?</h3>
+        <p class="muted">Aplicá lo aprendido midiendo en el simulador de taller.</p>
+        <a class="btn" href="#/simulador">Ir al simulador 🔧</a>
+      </div>`;
+  }
+
+  /* ---------- CASOS ---------- */
+  function renderCasos(){
+    const cats=[...new Set(CASES.map(c=>c.categoria))];
+    app().innerHTML=`<h1>🚗 Casos de falla reales</h1>
+      <p class="muted">Diagnóstico paso a paso como en el taller. Filtrá por categoría.</p>
+      <div class="chip-row" id="catFilter"><span class="chip on" data-cat="">Todos</span>
+        ${cats.map(c=>`<span class="chip" data-cat="${c}">${c}</span>`).join("")}</div>
+      <div class="list-rows" id="caseList"></div>`;
+    const list=()=>document.getElementById("caseList");
+    function draw(cat){
+      list().innerHTML=CASES.filter(c=>!cat||c.categoria===cat).map(c=>`
+        <div class="row-item" data-go="#/caso/${c.id}">
+          <span class="ic">${Store.isCaseDone(c.id)?"✅":"🔍"}</span>
+          <div style="flex:1"><b>${c.titulo}</b><br><small class="muted">${c.categoria} · Dificultad: ${c.dificultad}</small></div>
+        </div>`).join("");
+      wireGo();
+    }
+    document.getElementById("catFilter").onclick=(e)=>{ if(!e.target.dataset.cat&&e.target.dataset.cat!=="") return;
+      document.querySelectorAll("#catFilter .chip").forEach(c=>c.classList.remove("on")); e.target.classList.add("on"); draw(e.target.dataset.cat); };
+    draw("");
+  }
+  function renderCaso(id){
+    const c=CASES.find(x=>x.id===id); if(!c) return renderCasos();
+    app().innerHTML=`<div class="crumb"><span class="back" data-go="#/casos">Casos</span> › ${c.categoria}</div>
+      <h1>${c.titulo}</h1>
+      <div class="card"><h3>🩺 Síntomas</h3><ul>${c.sintomas.map(s=>`<li>${s}</li>`).join("")}</ul></div>
+      <div class="card" style="margin-top:1rem"><h3>🤔 Posibles causas</h3><ul>${c.causas.map(s=>`<li>${s}</li>`).join("")}</ul></div>
+      <div class="card" style="margin-top:1rem"><h3>🔧 Procedimiento de diagnóstico</h3><ol>${c.procedimiento.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <div class="card" style="margin-top:1rem"><h3>📐 Mediciones esperadas</h3>
+        <table class="tbl"><tr><th>Punto de medición</th><th>Valor esperado</th></tr>
+        ${c.mediciones.map(m=>`<tr><td>${m.punto}</td><td>${m.esperado}</td></tr>`).join("")}</table></div>
+      <div class="card" style="margin-top:1rem;border-left:4px solid var(--ok)">
+        <h3>✅ Solución</h3>
+        <div id="solWrap"><button class="btn" id="revealSol">Revelar solución</button>
+        <p class="muted" style="margin-top:.5rem;font-size:.85rem">Intentá razonar el diagnóstico antes de mirarla.</p></div>
+      </div>`;
+    document.getElementById("revealSol").onclick=()=>{
+      document.getElementById("solWrap").innerHTML=`<p>${c.solucion}</p>`;
+      Store.markCase(c.id); refreshXP();
+    };
+    wireGo();
+  }
+
+  /* ---------- PRÁCTICA INTENSIVA ---------- */
+  function renderPractica(){
+    const weak=Store.weakTopics();
+    app().innerHTML=`<h1>🎯 Práctica intensiva</h1>
+      <p class="muted">Generá una sesión de ejercicios aleatorios. Si ya respondiste preguntas, priorizamos tus temas más flojos.</p>
+      ${weak.length?`<div class="callout dato"><b>Temas a reforzar</b>${weak.slice(0,4).map(w=>`${w.topic} (${Math.round(w.ratio*100)}%)`).join(" · ")}</div>`:""}
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0">
+        <button class="btn" id="genQuiz">⚡ Sesión de 8 preguntas</button>
+        <button class="btn ghost" id="genDrag">🧩 Ejercicio de identificación</button>
+      </div>
+      <div id="pracBox"></div>`;
+    document.getElementById("genQuiz").onclick=()=>{
+      const all=allQuestions();
+      const weakTopics=Store.weakTopics().map(w=>w.topic);
+      let pool=all;
+      if(weakTopics.length){ const w=all.filter(q=>weakTopics.includes(q.topic)); pool=w.concat(all); }
+      // quitar duplicados manteniendo orden, tomar 8 al azar de un set ampliado
+      const picked=shuffle(pool).slice(0,8);
+      renderQuiz(document.getElementById("pracBox"), picked, {title:"Práctica intensiva"});
+    };
+    document.getElementById("genDrag").onclick=()=>renderDragExercise(document.getElementById("pracBox"));
+    wireGo();
+  }
+
+  /* ---------- EJERCICIO ARRASTRAR/IDENTIFICAR ---------- */
+  const DRAG_SETS=[
+    { title:"Asigná cada fusible a su amperaje (por color)",
+      items:[["Rojo","10 A"],["Azul","15 A"],["Amarillo","20 A"],["Verde","30 A"]] },
+    { title:"Relacioná cada sensor con lo que mide",
+      items:[["ECT","Temperatura del motor"],["TPS","Posición de mariposa"],["CKP","RPM / posición cigüeñal"],["MAP","Presión del múltiple"]] },
+    { title:"Asociá cada pin del relé con su función",
+      items:[["85 / 86","Bobina (comando)"],["30","Entrada de corriente"],["87","Salida al consumo"],["87a","Salida en reposo"]] },
+    { title:"Relacioná el síntoma con la causa más probable",
+      items:[["Fusible que vuela","Cortocircuito a masa"],["Luces mortecinas","Mala masa"],["Burro gira lento","Batería floja"],["No carga, testigo on","Alternador/correa"]] }
+  ];
+  function renderDragExercise(host){
+    const set=DRAG_SETS[Math.floor(Math.random()*DRAG_SETS.length)];
+    const left=shuffle(set.items.map(p=>p[0]));
+    const right=shuffle(set.items.map(p=>p[1]));
+    const correct={}; set.items.forEach(p=>correct[p[0]]=p[1]);
+    let selected=null;
+    host.innerHTML=`<div class="card" style="margin-top:1rem">
+      <h3>${set.title}</h3>
+      <p class="muted" style="font-size:.85rem">Tocá un elemento de la izquierda y luego su pareja de la derecha (en celular o PC).</p>
+      <div class="grid grid-2">
+        <div id="dLeft" class="list-rows"></div>
+        <div id="dRight" class="list-rows"></div>
+      </div>
+      <div id="dResult" style="margin-top:.8rem"></div>
+      <button class="btn ghost sm" id="dAgain" style="margin-top:.6rem">Otro ejercicio</button>
+    </div>`;
+    const L=host.querySelector("#dLeft"), R=host.querySelector("#dRight");
+    const pairs={}; // left->right elegido
+    left.forEach(t=>{ const c=el(`<div class="row-item" data-l="${t}"><b>${t}</b><span class="done" style="display:none">→</span></div>`);
+      c.onclick=()=>{ selected=t; host.querySelectorAll("#dLeft .row-item").forEach(x=>x.style.borderColor="");
+        c.style.borderColor="var(--accent)"; }; L.appendChild(c); });
+    right.forEach(t=>{ const c=el(`<div class="row-item" data-r="${t}">${t}</div>`);
+      c.onclick=()=>{ if(!selected) return;
+        pairs[selected]=t;
+        host.querySelector(`#dLeft [data-l="${cssEsc(selected)}"] .done`).style.display="inline";
+        host.querySelector(`#dLeft [data-l="${cssEsc(selected)}"]`).querySelector(".done").textContent="→ "+t;
+        selected=null; host.querySelectorAll("#dLeft .row-item").forEach(x=>x.style.borderColor="");
+        if(Object.keys(pairs).length===left.length) check();
+      }; R.appendChild(c); });
+    function check(){
+      let ok=0; left.forEach(t=>{ if(pairs[t]===correct[t]) ok++; });
+      const pct=Math.round(ok/left.length*100);
+      Store.recordAnswer("identificación", pct>=75); if(pct===100) Store.addXP(10);
+      host.querySelector("#dResult").innerHTML=`<div class="explain">${pct===100?"✅ ¡Perfecto! ":pct>=50?"🟡 Casi. ":"❌ A repasar. "}
+        Acertaste ${ok}/${left.length}.<br>${set.items.map(p=>`<b>${p[0]}</b> → ${p[1]}`).join("<br>")}</div>`;
+      refreshXP();
+    }
+    host.querySelector("#dAgain").onclick=()=>renderDragExercise(host);
+  }
+  function cssEsc(s){ return s.replace(/"/g,'\\"'); }
+
+  /* ---------- BIBLIOTECA ---------- */
+  function renderBiblioteca(){
+    app().innerHTML=`<h1>📕 Biblioteca técnica</h1>
+      <p class="muted">Valores y guías de referencia rápida. Siempre confirmá con el dato del fabricante del modelo.</p>
+      <div class="chip-row" id="libNav">
+        ${["Valores de sensores","Fórmulas","Fusibles y relés","Procedimientos","Guías rápidas"].map((t,i)=>`<span class="chip${i===0?" on":""}" data-i="${i}">${t}</span>`).join("")}
+      </div>
+      <div id="libBox"></div>`;
+    const box=()=>document.getElementById("libBox");
+    const views=[
+      ()=>`<table class="tbl"><tr><th>Sensor</th><th>En frío</th><th>Caliente</th><th>Señal</th></tr>
+        ${LIBRARY.sensores.map(s=>`<tr><td><b>${s.nombre}</b><br><small class="muted">${s.nota}</small></td><td>${s.frio}</td><td>${s.caliente}</td><td>${s.senal}</td></tr>`).join("")}</table>`,
+      ()=>`<div class="grid grid-2">${LIBRARY.formulas.map(f=>`<div class="card"><h3>${f.nombre}</h3><p style="font-size:1.25rem;text-align:center"><b>${f.f}</b></p><p class="muted">${f.desc}</p></div>`).join("")}</div>`,
+      ()=>`<div class="card"><h3>Color → amperaje (fusible de uña)</h3><table class="tbl"><tr><th>Color</th><th>Amperaje</th></tr>${LIBRARY.fusibles.colores.map(c=>`<tr><td>${c.color}</td><td>${c.amp}</td></tr>`).join("")}</table></div>
+        <div class="card" style="margin-top:1rem"><h3>Abreviaturas comunes en la fusiblera</h3><table class="tbl"><tr><th>Sigla</th><th>Significado</th></tr>${LIBRARY.fusibles.abreviaturas.map(a=>`<tr><td><b>${a.sigla}</b></td><td>${a.sig}</td></tr>`).join("")}</table></div>`,
+      ()=>`<div class="list-rows">${LIBRARY.procedimientos.map(p=>`<div class="card"><h3>${p.nombre}</h3><ol>${p.pasos.map(s=>`<li>${s}</li>`).join("")}</ol></div>`).join("")}</div>`,
+      ()=>`<div class="grid grid-2">${LIBRARY.guias.map(g=>`<div class="card"><h3>${g.t}</h3><p>${g.c}</p></div>`).join("")}</div>`
+    ];
+    function draw(i){ box().innerHTML=views[i](); }
+    document.getElementById("libNav").onclick=(e)=>{ if(!e.target.dataset.i) return;
+      document.querySelectorAll("#libNav .chip").forEach(c=>c.classList.remove("on")); e.target.classList.add("on"); draw(+e.target.dataset.i); };
+    draw(0);
+  }
+
+  /* ---------- PROGRESO ---------- */
+  function renderProgreso(){
+    const d=Store.data();
+    const totalLessons=CURRICULUM.reduce((a,l)=>a+l.modules.reduce((b,m)=>b+m.lessons.length,0),0);
+    const doneLessons=Object.keys(d.lessons).length;
+    const topics=Object.entries(d.topics).map(([k,v])=>({k,ok:v.ok,total:v.total,pct:v.total?Math.round(v.ok/v.total*100):0})).sort((a,b)=>a.pct-b.pct);
+    const weak=Store.weakTopics();
+    app().innerHTML=`<h1>📈 Mi progreso</h1>
+      <div class="grid grid-3">
+        <div class="card stat"><span class="n">${d.xp}</span><span class="l">Experiencia ★</span></div>
+        <div class="card stat"><span class="n">${doneLessons}/${totalLessons}</span><span class="l">Lecciones</span></div>
+        <div class="card stat"><span class="n">${Object.keys(d.cases).length}/${CASES.length}</span><span class="l">Casos resueltos</span></div>
+      </div>
+
+      <div class="card" style="margin-top:1.2rem"><h3>🧭 Recomendaciones personalizadas</h3>
+        ${weak.length? `<p>Conviene reforzar estos temas:</p><ul>${weak.slice(0,5).map(w=>`<li><b>${w.topic}</b> — ${Math.round(w.ratio*100)}% de aciertos</li>`).join("")}</ul>
+           <a class="btn sm" href="#/practica">Practicar ahora</a>`
+          : `<p class="muted">Respondé algunos quizzes y acá vas a ver en qué enfocarte. ${doneLessons===0?"Empezá por el Nivel Inicial.":""}</p>`}
+      </div>
+
+      <div class="card" style="margin-top:1rem"><h3>📊 Desempeño por tema</h3>
+        ${topics.length? topics.map(t=>`<div style="margin:.5rem 0"><div style="display:flex;justify-content:space-between"><span>${t.k}</span><small class="muted">${t.ok}/${t.total}</small></div><div class="bar"><span style="width:${t.pct}%;background:${t.pct>=70?'var(--ok)':t.pct>=40?'var(--warn)':'var(--bad)'}"></span></div></div>`).join("")
+          : `<p class="muted">Todavía no hay datos. Hacé quizzes para generar estadísticas.</p>`}
+      </div>
+
+      <div class="card" style="margin-top:1rem"><h3>📝 Exámenes rendidos</h3>
+        ${Object.keys(d.exams).length? `<table class="tbl"><tr><th>Examen</th><th>Mejor nota</th></tr>${Object.entries(d.exams).map(([k,v])=>`<tr><td>${k.replace('nivel','Nivel ')}</td><td>${v}%</td></tr>`).join("")}</table>`
+          : `<p class="muted">Aún no rendiste exámenes.</p>`}
+      </div>
+
+      <div class="card" style="margin-top:1rem"><h3>🕑 Historial de errores</h3>
+        ${d.errors.length? `<div class="list-rows">${d.errors.slice(0,8).map(e=>`<div class="row-item"><span class="ic">❌</span><div style="flex:1"><small>${e.q}</small><br><span class="tag">${e.topic}</span></div></div>`).join("")}</div>`
+          : `<p class="muted">Sin errores registrados. ¡Bien ahí!</p>`}
+      </div>
+
+      <div style="margin-top:1rem"><button class="btn ghost sm" id="resetBtn">Reiniciar todo mi progreso</button></div>`;
+    document.getElementById("resetBtn").onclick=()=>{ if(confirm("¿Seguro que querés borrar todo tu progreso?")){ Store.reset(); refreshXP(); route(); } };
+    wireGo();
+  }
+
+  /* ---------- navegación / helpers UI ---------- */
+  function wireGo(){ document.querySelectorAll("[data-go]").forEach(e=>{ e.style.cursor="pointer"; e.onclick=()=>location.hash=e.dataset.go; }); }
+  function openNav(){ document.getElementById("sidebar").classList.add("open"); document.getElementById("backdrop").classList.add("show"); }
+  function closeNav(){ document.getElementById("sidebar").classList.remove("open"); document.getElementById("backdrop").classList.remove("show"); }
+
+  /* ---------- init ---------- */
+  function init(){
+    // tema
+    const t=Store.getTheme(); applyTheme(t);
+    document.getElementById("themeToggle").onclick=()=>{ const n=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark"; applyTheme(n); Store.setTheme(n); };
+    document.getElementById("navToggle").onclick=openNav;
+    document.getElementById("backdrop").onclick=closeNav;
+    document.querySelectorAll(".nav-link").forEach(a=>a.addEventListener("click",closeNav));
+    window.addEventListener("hashchange", route);
+    refreshXP();
+    if(!location.hash) location.hash="#/inicio"; else route();
+  }
+  function applyTheme(t){ document.documentElement.setAttribute("data-theme",t); document.getElementById("themeToggle").textContent = t==="dark"?"☀️":"🌙"; }
+
+  return { init, route, refreshXP };
+})();
+
+document.addEventListener("DOMContentLoaded", App.init);
+
+</script>
+</body></html>
