@@ -224,6 +224,18 @@ table.tbl th{background:var(--surface-2)}
 @media (min-width:861px){
   #navToggle{display:none}
 }
+
+/* Panel de ayuda del simulador */
+.sim-help{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin:.8rem 0;box-shadow:var(--shadow)}
+.sim-help summary{cursor:pointer;padding:.8rem 1rem;font-weight:700;color:var(--primary-2);list-style:none}
+.sim-help summary::-webkit-details-marker{display:none}
+.sim-help summary::before{content:"▸ ";color:var(--accent)}
+.sim-help[open] summary::before{content:"▾ "}
+.sim-help-body{padding:0 1.1rem 1rem;font-size:.9rem}
+.sim-help-body h4{margin:.9rem 0 .3rem;color:var(--text)}
+.sim-help-body ul,.sim-help-body ol{padding-left:1.2rem;margin:.3rem 0}
+.sim-help-body li{margin:.25rem 0}
+.sim-help-rule{background:var(--surface-2);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:.6rem .8rem;margin-top:.8rem}
 </style>
 </head>
 <body>
@@ -2147,6 +2159,39 @@ const Simulator = (() => {
       '<div class="crumb"><span class="back" data-go="#/inicio">Inicio</span> › Simulador de taller</div>'+
       '<h1>🔧 Simulador de taller</h1>'+
       '<p class="muted">Elegí un banco y una falla. Girá la perilla del tester, apoyá las puntas (clic en los puntos del circuito) y leé. Cuando creas saber qué pasa, resolvé la falla.</p>'+
+      '<details class="sim-help"><summary>📖 ¿Cómo leer el esquema y usar el simulador? (tocá para abrir)</summary>'+
+      '<div class="sim-help-body">'+
+        '<h4>1) Cómo leer el esquema</h4>'+
+        '<ul>'+
+          '<li>El <b>positivo (+)</b> sale de la batería y recorre el circuito; la corriente atraviesa el consumo y vuelve por la <b>masa (−)</b>, que es el chasis del auto.</li>'+
+          '<li>Las <b>líneas grises</b> son los cables. Los <b>círculos con etiqueta</b> son los puntos de medición donde podés apoyar las puntas del tester.</li>'+
+          '<li>Los <b>puntos naranjas en movimiento</b> muestran la corriente circulando. Si no se mueven, no hay corriente (circuito abierto o sin alimentación).</li>'+
+          '<li><b>Símbolos:</b> batería (rectángulo con + y −), fusible (onda), relé (caja), faro/lámpara (círculo con una X), motor / burro / alternador (círculo con letra), y la masa (las rayitas horizontales que se achican).</li>'+
+        '</ul>'+
+        '<h4>2) Cómo usar el tester (multímetro)</h4>'+
+        '<ul>'+
+          '<li><b>Girá la perilla</b> para elegir qué medís:'+
+            '<ul>'+
+              '<li><b>V⎓ Tensión (continua):</b> diferencia de potencial entre los dos puntos. Para esto el circuito tiene que estar <b>con tensión</b>.</li>'+
+              '<li><b>Ω Resistencia:</b> cuánto se opone un componente o tramo. Se mide <b>SIN tensión</b>.</li>'+
+              '<li><b>•)) Continuidad:</b> pita (BEEP) si hay camino cerrado (resistencia muy baja). Ideal para fusibles, cables y masas.</li>'+
+              '<li><b>A⎓ Pinza amperométrica:</b> la corriente que circula por la malla.</li>'+
+              '<li><b>V~ Ripple (alterna):</b> ondulación de alterna en los bornes; sirve para detectar diodos del alternador.</li>'+
+            '</ul></li>'+
+          '<li>Elegí la <b>punta roja</b> (positivo) o la <b>punta negra</b> (negativo / masa) y hacé <b>clic en un punto</b> del circuito: se dibuja el cable hasta ahí.</li>'+
+          '<li>La <b>pantalla</b> muestra el valor con su unidad y, abajo, una <b>interpretación</b> de la lectura. El botón <b>HOLD</b> congela el número.</li>'+
+        '</ul>'+
+        '<h4>3) Paso a paso</h4>'+
+        '<ol>'+
+          '<li>Elegí un <b>banco</b> (luces, arranque o carga).</li>'+
+          '<li>Elegí una <b>falla</b> (o «Funcionando OK» para ver cómo se mide lo normal).</li>'+
+          '<li>Girá la perilla al <b>modo</b> que quieras usar.</li>'+
+          '<li>Seleccioná <b>punta roja</b> y <b>punta negra</b> y tocá <b>dos puntos</b> del circuito.</li>'+
+          '<li><b>Leé</b> el valor y compará con lo que dice el Objetivo.</li>'+
+          '<li>Cuando sepas qué pasa, tocá <b>«¿Cuál es la falla?»</b> y confirmá.</li>'+
+        '</ol>'+
+        '<p class="sim-help-rule">🔑 <b>Regla de oro:</b> la <b>tensión</b> y la <b>caída de tensión</b> se miden CON el circuito funcionando; la <b>resistencia</b> y la <b>continuidad</b>, SIEMPRE con el circuito SIN tensión.</p>'+
+      '</div></details>'+
       '<div class="chip-row" id="benchSel"></div>'+
       '<div class="chip-row" id="scSel"></div>'+
       '<div class="sim-grid">'+
