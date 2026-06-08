@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Plataforma para aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina." />
+<meta name="description" content="Aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina." />
 <meta name="theme-color" content="#0d47a1" />
 <title>ElectroAuto AR — Electricidad y Electrónica Automotriz</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -120,66 +120,56 @@ table.tbl th{background:var(--surface-2)}
 .quiz-opt.disabled{cursor:default;pointer-events:none}
 .explain{margin:.6rem 0 0;padding:.7rem .9rem;border-radius:10px;background:var(--surface-2);font-size:.9rem}
 
-/* Simulator */
-.sim-wrap{display:grid;grid-template-columns:1fr 320px;gap:1rem}
-.sim-board{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem;min-height:340px}
-.sim-board svg{width:100%;height:auto}
-.meter{background:#10202e;border:1px solid #0a141d;border-radius:14px;padding:1rem;color:#9fffce;font-family:"Courier New",monospace}
-.meter .screen{background:#04130a;border-radius:8px;padding:.7rem;text-align:right;font-size:1.9rem;
-  letter-spacing:1px;min-height:2.4em;display:flex;flex-direction:column;justify-content:center}
-.meter .screen .unit{font-size:.9rem;color:#5fd99a}
-.mode-row{display:flex;flex-wrap:wrap;gap:.35rem;margin:.6rem 0}
-.mode-row .btn{flex:1 1 auto;background:#1b3142;font-size:.8rem;padding:.45rem}
-.mode-row .btn.on{background:var(--accent);color:#111}
-.probe-info{font-size:.82rem;color:#bcd}
-.node-dot{cursor:pointer}
-.node-dot:hover{stroke:var(--accent);stroke-width:3}
-.node-dot.sel-red{stroke:#e53935;stroke-width:4}
-.node-dot.sel-black{stroke:#111;stroke-width:4}
-[data-theme="dark"] .node-dot.sel-black{stroke:#fff;stroke-width:4}
+/* ===== Simulador profesional ===== */
+.sim-grid{display:grid;grid-template-columns:1fr 340px;gap:1rem;margin-top:1rem}
+.sim-board{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:.8rem;box-shadow:var(--shadow)}
+.sim-board-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;flex-wrap:wrap;gap:.4rem}
+.ignition{font-size:.82rem;color:var(--muted)}
+#simSvg{width:100%;height:auto;display:block;background:
+  linear-gradient(0deg,transparent 23px,rgba(125,140,170,.07) 24px),
+  linear-gradient(90deg,transparent 23px,rgba(125,140,170,.07) 24px);
+  background-size:24px 24px;border:1px solid var(--border);border-radius:12px}
+.sim-legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-top:.5rem;padding:0 .3rem}
+.sim-legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:.25rem;vertical-align:middle}
+.sim-legend .dot-r{background:#e53935}.sim-legend .dot-b{background:#111827;border:1px solid #888}
+.sim-legend .dot-f{background:var(--accent)}
 
-/* stats */
-.stat{display:flex;flex-direction:column;gap:.1rem}
-.stat .n{font-size:1.8rem;font-weight:800;color:var(--primary-2)}
-.stat .l{color:var(--muted);font-size:.85rem}
-.tag{font-size:.72rem;background:var(--surface-2);padding:.15rem .5rem;border-radius:6px;color:var(--muted)}
+/* SVG componentes y cables */
+.wire{fill:none;stroke:var(--muted);stroke-width:4;stroke-linejoin:round;stroke-linecap:round;opacity:.85}
+.cmp-fill{fill:var(--surface-2);stroke:var(--border);stroke-width:1.5}
+.cmp-box{fill:var(--surface-2);stroke:var(--primary);stroke-width:1.5}
+.cmp-line{stroke:var(--text);stroke-width:2.5;fill:none;stroke-linecap:round}
+.cmp-accent{stroke:var(--accent);stroke-width:3}
+.cmp-lamp{fill:#f4c542;stroke:#b8901f;stroke-width:1.5}
+.cmp-motor{fill:var(--surface-2);stroke:var(--primary);stroke-width:2}
+.cmp-label{fill:var(--muted);font-size:11px;font-weight:600;letter-spacing:.02em}
+.cmp-label-b{fill:var(--text);font-size:13px;font-weight:800}
+.flow-dot{fill:var(--accent);filter:drop-shadow(0 0 3px var(--accent))}
+.term-hit{fill:transparent}
+.term-dot{fill:var(--surface);stroke:var(--primary);stroke-width:2.5}
+.term:hover .term-dot{stroke:var(--accent);stroke-width:3}
+.term.sel-red .term-dot{stroke:#e53935;stroke-width:3}
+.term.sel-black .term-dot{stroke:#111827;stroke-width:3}
+.term-ring{fill:none;stroke:var(--accent);stroke-width:2;opacity:.8}
+.lbl-bg{fill:var(--surface);stroke:var(--border);stroke-width:1;opacity:.96}
+.lbl-tx{fill:var(--text);font-size:11px;font-weight:600}
 
-.hero{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border-radius:18px;
-  padding:1.8rem;margin-bottom:1.4rem}
-.hero h1{color:#fff;margin-top:0}
-.hero p{opacity:.95;max-width:60ch}
-.hero .btn{background:#fff;color:var(--primary)}
-.hero .btn:hover{background:#ffe9cf}
-
-.list-rows{display:flex;flex-direction:column;gap:.5rem}
-.row-item{display:flex;align-items:center;gap:.7rem;background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;padding:.7rem .9rem;cursor:pointer}
-.row-item:hover{border-color:var(--primary)}
-.row-item .ic{font-size:1.3rem}
-.row-item .done{margin-left:auto;color:var(--ok);font-weight:700}
-.chip-row{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0}
-.chip{background:var(--surface-2);border:1px solid var(--border);padding:.35rem .7rem;border-radius:999px;
-  cursor:pointer;font-size:.85rem}
-.chip.on{background:var(--primary);color:#fff;border-color:var(--primary)}
-
-.dz{min-height:60px;border:2px dashed var(--border);border-radius:10px;padding:.5rem;display:flex;
-  flex-wrap:wrap;gap:.4rem;align-content:flex-start}
-.dz.over{border-color:var(--accent);background:var(--surface-2)}
-.drag{background:var(--primary);color:#fff;padding:.4rem .7rem;border-radius:8px;cursor:grab;font-size:.88rem}
-.drag.placed{background:var(--ok)}
-
-@media (max-width:860px){
-  .sim-wrap{grid-template-columns:1fr}
-  .sidebar{position:fixed;left:0;top:54px;z-index:50;transform:translateX(-100%);transition:transform .22s;box-shadow:var(--shadow)}
-  .sidebar.open{transform:translateX(0)}
-  .backdrop.show{display:block;position:fixed;inset:54px 0 0 0;background:rgba(0,0,0,.4);z-index:45}
-  .content{padding:1rem}
-  h1{font-size:1.4rem}
-}
-@media (min-width:861px){
-  #navToggle{display:none}
-}
-</style>
+/* Multímetro (DMM) */
+.sim-side{display:flex;flex-direction:column;gap:1rem}
+.dmm{background:linear-gradient(180deg,#ffb300,#ff8f00);border-radius:18px;padding:.9rem;box-shadow:var(--shadow)}
+[data-theme="dark"] .dmm{background:linear-gradient(180deg,#d98a00,#b86f00)}
+.dial-svg{width:100%;max-width:230px;display:block;margin:0 auto}
+.dial-body{fill:#1a1f2b}
+.dial-face{fill:#0e1320;stroke:#2a3550;stroke-width:2}
+.dial-tick{fill:#5b6b85}
+.dial-label{fill:#cdd7ea;font-size:14px;font-weight:800}
+.dial-fn.on .dial-label{fill:#ffd54f}
+.dial-fn.on .dial-tick{fill:#ffd54f}
+.dial-fn:hover .dial-label{fill:#fff}
+.dial-knob{fill:#2a3550;stroke:#475a82;stroke-width:2}
+.dial-knob-tx{fill:#9fb2d0;font-size:8px;font-weight:700;letter-spacing:.1em}
+.dial-knob-ptr{fill:#ffd54f}
+.dmm-screen{background:#04130a;border:2px solid #03240f;border-radius:10px;pad</style>
 </head>
 <body>
 <header class="topbar">
@@ -1289,69 +1279,81 @@ window.LIBRARY = {
 </script>
 <script>
 /* ===========================================================================
-   SIMULADOR DE TALLER — Bancos de prueba
-   Modelo simplificado pero coherente para enseñar a medir:
-   - nodes: puntos donde podés apoyar las puntas del tester (con coords SVG).
-   - bg: dibujo de fondo del banco (SVG).
-   - scenarios: cada falla define:
-       pot   -> potencial (V) de cada nodo respecto a masa, contacto dado.
-       edges -> resistencias entre nodos {a,b,r} para medir ohms/continuidad.
-       current -> corriente de la malla principal (lo que vería una pinza).
-       hint  -> objetivo de la práctica.
-       diag  -> explicación de la falla (se revela al resolver).
-   NOTA didáctica: en la realidad la resistencia se mide SIN tensión.
+   SIMULADOR DE TALLER — Bancos de prueba (layout profesional)
+   Por banco: viewBox, comps (SVG componentes), wires (cableado),
+   flowPath (animación de corriente), nodes (puntos de medición {id,label,x,y,lp}).
+   Por escenario: pot (V por nodo), edges (resistencias), current, ripple,
+   hint, answer, diag.
    =========================================================================== */
 window.BENCHES = [
 {
   id:"luces",
   name:"Circuito de luces (faro con relé)",
   desc:"Batería → fusible → relé → lámpara → masa. Practicá tensión, continuidad y caída de tensión.",
-  nodes:[
-    {id:"BATP", label:"Batería +", x:70, y:80},
-    {id:"FIN",  label:"Entrada fusible", x:180, y:55},
-    {id:"FOUT", label:"Salida fusible", x:260, y:55},
-    {id:"R30",  label:"Relé 30", x:350, y:55},
-    {id:"R87",  label:"Relé 87", x:430, y:95},
-    {id:"LP",   label:"Lámpara +", x:500, y:150},
-    {id:"LN",   label:"Lámpara − (masa)", x:430, y:230},
-    {id:"GND",  label:"Masa chasis", x:250, y:285},
-    {id:"BATN", label:"Batería −", x:70, y:150}
+  viewBox:"0 0 760 380",
+  comps:`
+    <rect x="48" y="150" width="54" height="120" rx="8" class="cmp-fill"/>
+    <line x1="62" y1="178" x2="62" y2="200" class="cmp-line"/><line x1="52" y1="189" x2="72" y2="189" class="cmp-line"/>
+    <line x1="88" y1="220" x2="88" y2="242" class="cmp-line"/><line x1="80" y1="231" x2="96" y2="231" class="cmp-line"/>
+    <text x="75" y="290" text-anchor="middle" class="cmp-label">BATERÍA 12 V</text>
+    <rect x="190" y="92" width="84" height="36" rx="8" class="cmp-box"/>
+    <path d="M205,110 q15,-16 26,0 q15,16 26,0" fill="none" class="cmp-accent"/>
+    <text x="232" y="80" text-anchor="middle" class="cmp-label">FUSIBLE 15 A</text>
+    <rect x="360" y="86" width="120" height="48" rx="8" class="cmp-box"/>
+    <text x="420" y="115" text-anchor="middle" class="cmp-label-b">RELÉ</text>
+    <text x="420" y="74" text-anchor="middle" class="cmp-label">comando llave → bobina</text>
+    <circle cx="640" cy="190" r="30" class="cmp-lamp"/>
+    <path d="M620,170 L660,210 M660,170 L620,210" class="cmp-line"/>
+    <text x="640" y="148" text-anchor="middle" class="cmp-label">FARO</text>
+    <line x1="360" y1="300" x2="360" y2="318" class="cmp-line"/>
+    <line x1="338" y1="318" x2="382" y2="318" class="cmp-line"/>
+    <line x1="345" y1="326" x2="375" y2="326" class="cmp-line"/>
+    <line x1="352" y1="334" x2="368" y2="334" class="cmp-line"/>`,
+  wires:[
+    [[75,110],[640,110]],
+    [[640,110],[640,160]],
+    [[640,220],[640,300]],
+    [[640,300],[75,300]],
+    [[75,300],[75,270]],
+    [[75,150],[75,110]]
   ],
-  bg:`<rect x="40" y="60" width="60" height="110" rx="6" fill="#3a4b66"/>
-      <text x="70" y="120" text-anchor="middle" fill="#fff" font-size="11">BAT 12V</text>
-      <rect x="200" y="35" width="50" height="40" rx="5" fill="#c97a2b"/>
-      <text x="225" y="30" text-anchor="middle" fill="currentColor" font-size="11">Fusible</text>
-      <rect x="330" y="35" width="90" height="70" rx="6" fill="#2b6cc9"/>
-      <text x="375" y="75" text-anchor="middle" fill="#fff" font-size="11">Relé</text>
-      <circle cx="500" cy="150" r="26" fill="#f4c542"/>
-      <text x="500" y="115" text-anchor="middle" fill="currentColor" font-size="11">Lámpara</text>
-      <rect x="120" y="278" width="260" height="10" fill="#555"/>
-      <text x="250" y="312" text-anchor="middle" fill="currentColor" font-size="11">Masa / chasis</text>`,
+  flowPath:"M75,110 L640,110 L640,300 L75,300 Z",
+  nodes:[
+    {id:"BATP", label:"Batería +", x:75,  y:110, lp:"left"},
+    {id:"FIN",  label:"Entrada fusible", x:190, y:110, lp:"top"},
+    {id:"FOUT", label:"Salida fusible", x:274, y:110, lp:"top"},
+    {id:"R30",  label:"Relé 30 (entrada)", x:360, y:110, lp:"top"},
+    {id:"R87",  label:"Relé 87 (salida)", x:480, y:110, lp:"top"},
+    {id:"LP",   label:"Lámpara +", x:640, y:140, lp:"right"},
+    {id:"LN",   label:"Lámpara − (masa)", x:640, y:255, lp:"right"},
+    {id:"GND",  label:"Masa chasis", x:360, y:300, lp:"bottom"},
+    {id:"BATN", label:"Batería −", x:75,  y:300, lp:"bottom"}
+  ],
   scenarios:[
-    { id:"ok", name:"Funcionando OK", hint:"Recorré el circuito: medí tensión en cada punto. Verás 12 V hasta la lámpara y la caída sobre ella.",
+    { id:"ok", name:"Funcionando OK", hint:"Recorré el circuito midiendo tensión punto por punto: vas a ver ~12 V hasta la lámpara y la caída sobre ella.",
       current:4.1,
       pot:{BATP:12.5,FIN:12.5,FOUT:12.4,R30:12.4,R87:12.3,LP:12.2,LN:0.1,GND:0,BATN:0},
       edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","LN",3],["LN","GND",0.02],["GND","BATN",0.01]],
       diag:"Todo en orden: la lámpara recibe ~12 V y cae sobre ella. La masa cae casi 0 V." },
-    { id:"lamp", name:"La luz no prende (falla oculta)", hint:"Llega tensión a la lámpara pero no enciende. Medí tensión en Lámpara + y resistencia de la lámpara.",
+    { id:"lamp", name:"La luz no prende (falla oculta)", hint:"Llega tensión a la lámpara pero no enciende. Medí tensión en Lámpara + y después la resistencia de la lámpara (modo Ω).",
       current:0,
       pot:{BATP:12.5,FIN:12.5,FOUT:12.5,R30:12.5,R87:12.5,LP:12.5,LN:0,GND:0,BATN:0},
       edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LN","GND",0.02],["GND","BATN",0.01]],
       answer:"lamp_open",
       diag:"FILAMENTO CORTADO. Hay 12,5 V en Lámpara + (no circula corriente, por eso no hay caída), pero la resistencia de la lámpara da OL (infinito): está quemada." },
-    { id:"fuse", name:"La luz no prende (falla oculta)", hint:"Medí tensión antes y después del fusible. ¿Dónde se pierde?",
+    { id:"fuse", name:"La luz no prende (falla oculta)", hint:"Medí tensión antes y después del fusible. ¿Dónde se pierde la tensión?",
       current:0,
       pot:{BATP:12.5,FIN:12.5,FOUT:0,R30:0,R87:0,LP:0,LN:0,GND:0,BATN:0},
       edges:[["BATP","FIN",0.01],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","LN",3],["LN","GND",0.02],["GND","BATN",0.01]],
       answer:"fuse_open",
       diag:"FUSIBLE QUEMADO. Hay 12,5 V en la entrada del fusible y 0 V en la salida: el fusible está abierto (cortado)." },
-    { id:"ground", name:"La luz prende muy débil", hint:"La lámpara alumbra poco. Hacé la prueba de caída de tensión en la masa (Lámpara − a Masa chasis), con la luz encendida.",
+    { id:"ground", name:"La luz prende muy débil", hint:"La lámpara alumbra poco. Hacé la prueba de caída de tensión en la masa (Lámpara − a Masa chasis) con la luz encendida.",
       current:1.8,
       pot:{BATP:12.5,FIN:12.4,FOUT:12.4,R30:12.4,R87:12.3,LP:12.2,LN:7.1,GND:0,BATN:0},
       edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","LN",3],["LN","GND",4],["GND","BATN",0.01]],
       answer:"bad_ground",
       diag:"MALA MASA. La caída de tensión entre Lámpara − y Masa chasis es enorme (~7 V cuando debería ser <0,2 V). La masa con resistencia se 'roba' tensión y la lámpara queda débil." },
-    { id:"short", name:"El fusible se quema al instante", hint:"Cambiás el fusible y vuela. Con el circuito SIN tensión, medí resistencia entre Lámpara + y Masa chasis.",
+    { id:"short", name:"El fusible se quema al instante", hint:"Cambiás el fusible y vuela. Con el circuito SIN tensión, medí resistencia (Ω) entre Lámpara + y Masa chasis.",
       current:0,
       pot:{BATP:12.5,FIN:12.5,FOUT:0,R30:0,R87:0,LP:0,LN:0,GND:0,BATN:0},
       edges:[["BATP","FIN",0.01],["FOUT","R30",0.01],["R30","R87",0.03],["R87","LP",0.02],["LP","GND",0.2],["LP","LN",3],["LN","GND",0.02],["GND","BATN",0.01]],
@@ -1363,29 +1365,47 @@ window.BENCHES = [
   id:"arranque",
   name:"Circuito de arranque (burro)",
   desc:"Batería → mando de llave → solenoide → motor de arranque → masa. Practicá caída de tensión en bornes.",
-  nodes:[
-    {id:"BATP", label:"Batería +", x:70, y:80},
-    {id:"CMD",  label:"Positivo de mando (llave)", x:230, y:55},
-    {id:"SOL",  label:"Solenoide", x:340, y:80},
-    {id:"STB",  label:"Borne grueso del burro", x:450, y:120},
-    {id:"SBODY",label:"Cuerpo del burro (masa)", x:430, y:230},
-    {id:"GND",  label:"Masa chasis / motor", x:240, y:285},
-    {id:"BATN", label:"Batería −", x:70, y:150}
+  viewBox:"0 0 760 380",
+  comps:`
+    <rect x="44" y="150" width="54" height="120" rx="8" class="cmp-fill"/>
+    <line x1="58" y1="178" x2="58" y2="200" class="cmp-line"/><line x1="48" y1="189" x2="68" y2="189" class="cmp-line"/>
+    <line x1="84" y1="220" x2="84" y2="242" class="cmp-line"/><line x1="76" y1="231" x2="92" y2="231" class="cmp-line"/>
+    <text x="71" y="290" text-anchor="middle" class="cmp-label">BATERÍA 12 V</text>
+    <rect x="350" y="88" width="100" height="44" rx="8" class="cmp-box"/>
+    <text x="400" y="115" text-anchor="middle" class="cmp-label-b">SOLENOIDE</text>
+    <circle cx="600" cy="185" r="34" class="cmp-motor"/>
+    <text x="600" y="191" text-anchor="middle" class="cmp-label-b">M</text>
+    <text x="600" y="140" text-anchor="middle" class="cmp-label">BURRO (arranque)</text>
+    <line x1="300" y1="305" x2="300" y2="323" class="cmp-line"/>
+    <line x1="278" y1="323" x2="322" y2="323" class="cmp-line"/>
+    <line x1="285" y1="331" x2="315" y2="331" class="cmp-line"/>
+    <line x1="292" y1="339" x2="308" y2="339" class="cmp-line"/>`,
+  wires:[
+    [[71,110],[510,110]],
+    [[300,55],[300,90]],
+    [[510,110],[600,110],[600,151]],
+    [[600,219],[600,305]],
+    [[600,305],[71,305]],
+    [[71,305],[71,270]],
+    [[71,150],[71,110]]
   ],
-  bg:`<rect x="40" y="60" width="60" height="110" rx="6" fill="#3a4b66"/>
-      <text x="70" y="120" text-anchor="middle" fill="#fff" font-size="11">BAT 12V</text>
-      <rect x="300" y="55" width="160" height="60" rx="8" fill="#566"/>
-      <circle cx="430" cy="150" r="30" fill="#7a8aa0"/>
-      <text x="380" y="100" text-anchor="middle" fill="#fff" font-size="11">Burro</text>
-      <rect x="120" y="278" width="260" height="10" fill="#555"/>
-      <text x="240" y="312" text-anchor="middle" fill="currentColor" font-size="11">Masa motor/chasis</text>`,
+  flowPath:"M71,110 L600,110 L600,305 L71,305 Z",
+  nodes:[
+    {id:"BATP", label:"Batería +", x:71,  y:110, lp:"left"},
+    {id:"CMD",  label:"Positivo de mando (llave)", x:300, y:55, lp:"top"},
+    {id:"SOL",  label:"Solenoide (salida)", x:400, y:110, lp:"bottom"},
+    {id:"STB",  label:"Borne grueso del burro", x:510, y:110, lp:"top"},
+    {id:"SBODY",label:"Cuerpo del burro (masa)", x:600, y:255, lp:"right"},
+    {id:"GND",  label:"Masa motor/chasis", x:300, y:305, lp:"bottom"},
+    {id:"BATN", label:"Batería −", x:71,  y:305, lp:"bottom"}
+  ],
   scenarios:[
     { id:"ok", name:"Arranca normal", hint:"Medí caída de tensión entre Batería + y Borne del burro mientras arranca (debe ser <0,3 V).",
       current:180,
       pot:{BATP:12.0,CMD:11.9,SOL:11.8,STB:11.7,SBODY:0.2,GND:0.1,BATN:0},
       edges:[["BATP","CMD",0.01],["CMD","SOL",0.02],["SOL","STB",0.03],["STB","SBODY",0.06],["SBODY","GND",0.01],["GND","BATN",0.01]],
       diag:"Sano: la caída en cables y bornes es mínima. El burro recibe casi toda la tensión de batería." },
-    { id:"low", name:"Gira muy lento", hint:"Medí la tensión de batería mientras intentás arrancar.",
+    { id:"low", name:"Gira muy lento", hint:"Medí la tensión de batería mientras intentás arrancar (modo V).",
       current:90,
       pot:{BATP:8.4,CMD:8.3,SOL:8.2,STB:8.1,SBODY:0.3,GND:0.2,BATN:0},
       edges:[["BATP","CMD",0.01],["CMD","SOL",0.02],["SOL","STB",0.03],["STB","SBODY",0.06],["SBODY","GND",0.01],["GND","BATN",0.01]],
@@ -1408,23 +1428,42 @@ window.BENCHES = [
 {
   id:"carga",
   name:"Sistema de carga (alternador)",
-  desc:"Alternador → batería → consumos. Practicá medición de tensión de carga y ripple.",
-  nodes:[
-    {id:"ALTB", label:"Salida alternador B+", x:120, y:90},
-    {id:"BATP", label:"Batería +", x:320, y:80},
-    {id:"LOAD", label:"Consumos (luces)", x:480, y:120},
-    {id:"GND",  label:"Masa chasis", x:300, y:280},
-    {id:"BATN", label:"Batería −", x:320, y:160}
+  desc:"Alternador → batería → consumos. Practicá medición de tensión de carga y ripple (VCA).",
+  viewBox:"0 0 760 380",
+  comps:`
+    <circle cx="110" cy="185" r="40" class="cmp-motor"/>
+    <text x="110" y="191" text-anchor="middle" class="cmp-label-b">ALT</text>
+    <text x="110" y="140" text-anchor="middle" class="cmp-label">ALTERNADOR</text>
+    <rect x="335" y="150" width="54" height="120" rx="8" class="cmp-fill"/>
+    <line x1="349" y1="178" x2="349" y2="200" class="cmp-line"/><line x1="339" y1="189" x2="359" y2="189" class="cmp-line"/>
+    <line x1="375" y1="220" x2="375" y2="242" class="cmp-line"/><line x1="367" y1="231" x2="383" y2="231" class="cmp-line"/>
+    <text x="362" y="290" text-anchor="middle" class="cmp-label">BATERÍA 12 V</text>
+    <circle cx="600" cy="160" r="26" class="cmp-lamp"/>
+    <path d="M583,143 L617,177 M617,143 L583,177" class="cmp-line"/>
+    <text x="600" y="118" text-anchor="middle" class="cmp-label">CONSUMOS</text>
+    <line x1="235" y1="305" x2="235" y2="323" class="cmp-line"/>
+    <line x1="213" y1="323" x2="257" y2="323" class="cmp-line"/>
+    <line x1="220" y1="331" x2="250" y2="331" class="cmp-line"/>
+    <line x1="227" y1="339" x2="243" y2="339" class="cmp-line"/>`,
+  wires:[
+    [[110,145],[110,110],[600,110]],
+    [[362,110],[362,150]],
+    [[600,110],[600,134]],
+    [[600,186],[600,305]],
+    [[110,225],[110,305]],
+    [[600,305],[110,305]],
+    [[362,270],[362,305]]
   ],
-  bg:`<circle cx="100" cy="110" r="40" fill="#2b6cc9"/>
-      <text x="100" y="115" text-anchor="middle" fill="#fff" font-size="11">ALT</text>
-      <rect x="290" y="60" width="60" height="110" rx="6" fill="#3a4b66"/>
-      <text x="320" y="120" text-anchor="middle" fill="#fff" font-size="11">BAT</text>
-      <rect x="450" y="95" width="60" height="50" rx="6" fill="#f4c542"/>
-      <rect x="170" y="273" width="260" height="10" fill="#555"/>
-      <text x="300" y="307" text-anchor="middle" fill="currentColor" font-size="11">Masa / chasis</text>`,
+  flowPath:"M110,110 L600,110 L600,305 L110,305 Z",
+  nodes:[
+    {id:"ALTB", label:"Salida alternador B+", x:110, y:110, lp:"top"},
+    {id:"BATP", label:"Batería +", x:362, y:110, lp:"top"},
+    {id:"LOAD", label:"Consumos (luces)", x:600, y:110, lp:"top"},
+    {id:"GND",  label:"Masa chasis", x:235, y:305, lp:"bottom"},
+    {id:"BATN", label:"Batería −", x:362, y:305, lp:"bottom"}
+  ],
   scenarios:[
-    { id:"ok", name:"Carga correcta (motor en marcha)", hint:"Medí tensión entre Batería + y Batería −. Probá también modo CA (ripple).",
+    { id:"ok", name:"Carga correcta (motor en marcha)", hint:"Medí tensión entre Batería + y Batería − (modo V). Después cambiá a VCA para ver el ripple.",
       current:35, ripple:0.02,
       pot:{ALTB:14.3,BATP:14.2,LOAD:14.1,GND:0,BATN:0},
       edges:[["ALTB","BATP",0.02],["BATP","LOAD",0.03],["LOAD","GND",0.4],["GND","BATN",0.01]],
@@ -1435,7 +1474,7 @@ window.BENCHES = [
       edges:[["ALTB","BATP",0.02],["BATP","LOAD",0.03],["LOAD","GND",0.4],["GND","BATN",0.01]],
       answer:"no_charge",
       diag:"NO CARGA. Con el motor andando la tensión es ~12,1 V (igual que batería en reposo). Revisá correa, escobillas, regulador, diodos y cable de excitación." },
-    { id:"diode", name:"Fallas eléctricas raras con motor en marcha", hint:"La tensión parece ok. Cambiá el tester a modo CA (ripple) y medí en los bornes.",
+    { id:"diode", name:"Fallas eléctricas raras con motor en marcha", hint:"La tensión parece ok. Cambiá el tester a modo VCA (ripple) y medí en los bornes.",
       current:35, ripple:0.85,
       pot:{ALTB:13.9,BATP:13.8,LOAD:13.7,GND:0,BATN:0},
       edges:[["ALTB","BATP",0.02],["BATP","LOAD",0.03],["LOAD","GND",0.4],["GND","BATN",0.01]],
@@ -1880,9 +1919,9 @@ const Store = (() => {
 </script>
 <script>
 /* ===========================================================================
-   SIMULADOR — Lógica del tester virtual
-   Modos: V (tensión continua), CONT (continuidad), Ω (resistencia),
-          A (pinza amperométrica), VCA (ripple/alterna).
+   SIMULADOR — Multímetro virtual profesional
+   Modos: V (continua), CONT (continuidad), OHM (resistencia),
+          AMP (pinza amperométrica), VCA (alterna/ripple), OFF.
    Resistencia entre dos nodos: camino de menor resistencia (Dijkstra).
    =========================================================================== */
 const Simulator = (() => {
@@ -1898,191 +1937,266 @@ const Simulator = (() => {
     no_charge:"Alternador no carga",
     diode:"Diodo del rectificador dañado"
   };
-  let state = { benchIdx:0, scIdx:0, mode:"V", red:null, black:null, active:"red" };
+  const MODES=[
+    {k:"V",   label:"V⎓",  deg:-130, name:"Tensión (continua)"},
+    {k:"OHM", label:"Ω",   deg:-78,  name:"Resistencia"},
+    {k:"CONT",label:"•))", deg:-26,  name:"Continuidad"},
+    {k:"AMP", label:"A⎓",  deg:26,   name:"Pinza amperométrica"},
+    {k:"VCA", label:"V~",  deg:78,   name:"Alterna / ripple"},
+    {k:"OFF", label:"OFF", deg:130,  name:"Apagado"}
+  ];
+  let state = { benchIdx:0, scIdx:0, mode:"V", red:null, black:null, active:"red", hold:false };
 
-  function bench(){ return BENCHES[state.benchIdx]; }
-  function scenario(){ return bench().scenarios[state.scIdx]; }
+  const bench = () => BENCHES[state.benchIdx];
+  const scenario = () => bench().scenarios[state.scIdx];
+  const modeDeg = (k)=> (MODES.find(m=>m.k===k)||{}).deg||0;
 
-  function buildAdj(sc){
-    const adj={};
-    (sc.edges||[]).forEach(([a,b,r])=>{
-      (adj[a]=adj[a]||[]).push([b,r]);
-      (adj[b]=adj[b]||[]).push([a,r]);
-    });
-    return adj;
-  }
+  function buildAdj(sc){ const adj={}; (sc.edges||[]).forEach(([a,b,r])=>{ (adj[a]=adj[a]||[]).push([b,r]); (adj[b]=adj[b]||[]).push([a,r]); }); return adj; }
   function resistance(a,b){
     if(a===b) return 0;
-    const adj=buildAdj(scenario());
-    const dist={}; const seen={};
+    const adj=buildAdj(scenario()); const dist={}, seen={};
     Object.keys(adj).forEach(n=>dist[n]=Infinity);
     if(!(a in adj)||!(b in adj)) return Infinity;
     dist[a]=0;
-    while(true){
-      let u=null,best=Infinity;
+    while(true){ let u=null,best=Infinity;
       for(const n in dist){ if(!seen[n]&&dist[n]<best){best=dist[n];u=n;} }
-      if(u===null) break;
-      seen[u]=true;
-      (adj[u]||[]).forEach(([v,r])=>{ if(dist[u]+r<dist[v]) dist[v]=dist[u]+r; });
-    }
+      if(u===null) break; seen[u]=true;
+      (adj[u]||[]).forEach(([v,r])=>{ if(dist[u]+r<dist[v]) dist[v]=dist[u]+r; }); }
     return dist[b];
   }
 
   function reading(){
     const sc=scenario(), m=state.mode, r=state.red, b=state.black;
-    const needTwo = (m==="V"||m==="CONT"||m==="OHM");
-    if(needTwo && (!r||!b)) return {val:"--", unit:"Apoyá las dos puntas"};
+    if(m==="OFF") return {val:"", unit:"", note:"Perilla en OFF — elegí una función.", cls:""};
+    const needTwo=(m==="V"||m==="CONT"||m==="OHM");
+    if(needTwo && (!r||!b)) return {val:"– – –", unit:"", note:"Apoyá las dos puntas (roja y negra) en dos puntos del circuito.", cls:""};
     switch(m){
       case "V":{
-        const v=(sc.pot[r]??0)-(sc.pot[b]??0);
-        const av=Math.abs(v);
-        if(av<1) return {val:(v*1000).toFixed(0), unit:"mV (continua)"};
-        return {val:v.toFixed(2), unit:"V (continua)"};
+        const v=(sc.pot[r]??0)-(sc.pot[b]??0), av=Math.abs(v);
+        let note,cls;
+        if(av<0.3){ note="Sin diferencia: mismo potencial o sin tensión en este tramo."; cls="warn"; }
+        else if(av>=11){ note="Tensión de línea/batería presente (~12 V)."; cls="ok"; }
+        else { note="Tensión parcial: posible caída de tensión o divisor. Revisá dónde se pierde."; cls="warn"; }
+        if(av<1) return {val:(v*1000).toFixed(0), unit:"mV ⎓", note, cls};
+        return {val:v.toFixed(2), unit:"V ⎓", note, cls};
       }
       case "CONT":{
         const res=resistance(r,b);
-        if(res<5) return {val:"🔊 "+res.toFixed(2), unit:"Ω · ¡CONTINUIDAD!"};
-        return {val:"OL", unit:"sin continuidad"};
+        if(res<5) return {val:res.toFixed(1), unit:"Ω", note:"🔊 ¡BEEP! Hay continuidad (camino cerrado).", cls:"ok", beep:true};
+        return {val:"OL", unit:"", note:"Sin continuidad: circuito abierto entre esos puntos.", cls:"bad"};
       }
       case "OHM":{
         const res=resistance(r,b);
-        if(!isFinite(res)) return {val:"OL", unit:"Ω (circuito abierto)"};
-        if(res>=1000) return {val:(res/1000).toFixed(2), unit:"kΩ"};
-        return {val:res.toFixed(2), unit:"Ω"};
+        if(!isFinite(res)) return {val:"OL", unit:"Ω", note:"Resistencia infinita = circuito abierto (cortado).", cls:"bad"};
+        let cls = res<1 ? "bad" : "ok";
+        let note = res<1 ? "Casi 0 Ω: posible cortocircuito o conexión directa." : "Valor de resistencia del componente/tramo.";
+        if(res>=1000) return {val:(res/1000).toFixed(2), unit:"kΩ", note, cls};
+        return {val:res.toFixed(2), unit:"Ω", note, cls};
       }
       case "AMP":{
-        return {val:(sc.current??0).toFixed(sc.current>=10?0:2), unit:"A (pinza en alimentación)"};
+        const i=sc.current??0;
+        return {val:i.toFixed(i>=10?0:2), unit:"A", note: i>0?"Corriente de la malla (pinza en la alimentación).":"No circula corriente (circuito abierto o sin consumo).", cls:i>0?"ok":"bad"};
       }
       case "VCA":{
-        return {val:((sc.ripple??0)*1000).toFixed(0), unit:"mV (alterna / ripple)"};
+        const rp=(sc.ripple??0);
+        const cls = rp>0.1?"bad":"ok";
+        const note = rp>0.1?"Ripple ALTO ⚠ — diodos del rectificador sospechosos.":"Ripple bajo (normal, <50 mV).";
+        return {val:(rp*1000).toFixed(0), unit:"mV ~", note, cls};
       }
     }
   }
 
-  function render(host){
-    host.innerHTML = `
-      <div class="crumb"><span class="back" data-go="#/inicio">Inicio</span> › Simulador de taller</div>
-      <h1>🔧 Simulador de taller</h1>
-      <p class="muted">Elegí un banco y una falla. Apoyá las puntas del tester en los puntos del circuito y medí. Cuando creas saber qué pasa, resolvé la falla.</p>
-
-      <div class="chip-row" id="benchSel"></div>
-      <div class="chip-row" id="scSel"></div>
-
-      <div class="sim-wrap" style="margin-top:1rem">
-        <div class="sim-board">
-          <svg id="simSvg" viewBox="0 0 600 340" style="color:var(--text)"></svg>
-          <p class="probe-info" id="probeInfo"></p>
-        </div>
-        <div>
-          <div class="meter">
-            <div class="screen"><div id="mScreen">--</div><div class="unit" id="mUnit">elegí modo</div></div>
-            <div class="mode-row" id="modeRow"></div>
-            <div style="margin-top:.5rem;display:flex;gap:.4rem">
-              <button class="btn sm" id="probeRed" style="flex:1;background:#e53935">● Punta roja</button>
-              <button class="btn sm" id="probeBlack" style="flex:1;background:#222">● Punta negra</button>
-            </div>
-            <button class="btn sm ghost" id="probeClear" style="width:100%;margin-top:.4rem;color:#9fffce;border-color:#1b3142">Soltar puntas</button>
-          </div>
-          <div class="card" style="margin-top:1rem">
-            <b>🎯 Objetivo</b>
-            <p id="simHint" style="font-size:.9rem;margin:.4rem 0"></p>
-            <button class="btn sm accent" id="solveBtn" style="width:100%">¿Cuál es la falla?</button>
-            <div id="solveBox"></div>
-          </div>
-        </div>
-      </div>`;
-
-    // selectores de banco
-    const bs=host.querySelector("#benchSel");
-    BENCHES.forEach((b,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===state.benchIdx?" on":""); c.textContent=b.name; c.onclick=()=>{state.benchIdx=i;state.scIdx=0;resetProbes();render(host);}; bs.appendChild(c); });
-    // selectores de escenario
-    const ss=host.querySelector("#scSel");
-    bench().scenarios.forEach((s,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===state.scIdx?" on":""); c.textContent=s.name; c.onclick=()=>{state.scIdx=i;resetProbes();render(host);}; ss.appendChild(c); });
-
-    // modos
-    const modes=[["V","Tensión V"],["CONT","Continuidad"],["OHM","Resistencia Ω"],["AMP","Pinza A"],["VCA","Ripple VCA"]];
-    const mr=host.querySelector("#modeRow");
-    modes.forEach(([k,l])=>{ const btn=document.createElement("button"); btn.className="btn"+(state.mode===k?" on":""); btn.textContent=l; btn.onclick=()=>{state.mode=k;refresh(host);}; mr.appendChild(btn); });
-
-    host.querySelector("#simHint").textContent=scenario().hint;
-    drawBoard(host);
-    wireProbes(host);
-    host.querySelector("#solveBtn").onclick=()=>showSolve(host);
-    host.querySelectorAll("[data-go]").forEach(a=>a.onclick=()=>location.hash=a.dataset.go);
-    refresh(host);
+  function labelEl(n){
+    const w = Math.max(38, n.label.length*6.3+14), h=20;
+    let x=n.x, y=n.y, anchor="middle";
+    if(n.lp==="top"){ y=n.y-26; }
+    else if(n.lp==="bottom"){ y=n.y+26; }
+    else if(n.lp==="left"){ x=n.x-16; anchor="end"; }
+    else if(n.lp==="right"){ x=n.x+16; anchor="start"; }
+    let rx;
+    if(anchor==="middle") rx=x-w/2;
+    else if(anchor==="end") rx=x-w+4; else rx=x-4;
+    const ty=y+0;
+    return '<g class="term-label">'+
+      '<rect x="'+rx+'" y="'+(ty-12)+'" width="'+w+'" height="'+h+'" rx="6" class="lbl-bg"/>'+
+      '<text x="'+x+'" y="'+(ty+3)+'" text-anchor="'+anchor+'" class="lbl-tx">'+n.label+'</text></g>';
   }
 
-  function resetProbes(){ state.red=null; state.black=null; state.active="red"; }
+  function lead(x1,y1,x2,y2,color){
+    const mx=(x1+x2)/2+30;
+    return '<path d="M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2+'" fill="none" stroke="'+color+'" stroke-width="3" stroke-linecap="round" opacity="0.85"/>'+
+           '<circle cx="'+x1+'" cy="'+y1+'" r="4" fill="'+color+'"/>';
+  }
 
   function drawBoard(host){
-    const svg=host.querySelector("#simSvg"); const b=bench();
+    const wrap=host.querySelector("#simSvgWrap"); const b=bench(), sc=scenario();
+    const W=parseFloat(b.viewBox.split(" ")[2]);
+    let wires="";
+    (b.wires||[]).forEach(poly=>{ const pts=poly.map(p=>p.join(",")).join(" "); wires+='<polyline points="'+pts+'" class="wire"/>'; });
+    let flow="";
+    if((sc.current||0)>0 && b.flowPath){
+      const dur = sc.current>=100 ? 1.6 : 2.6;
+      for(let i=0;i<4;i++){
+        flow+='<circle r="4.5" class="flow-dot"><animateMotion dur="'+dur+'s" begin="'+(i*(dur/4))+'s" repeatCount="indefinite" path="'+b.flowPath+'"/></circle>';
+      }
+    }
+    let leads="";
+    if(state.red){ const n=b.nodes.find(x=>x.id===state.red); leads+=lead(n.x,n.y,W-2,90,"#e53935"); }
+    if(state.black){ const n=b.nodes.find(x=>x.id===state.black); leads+=lead(n.x,n.y,W-2,250,"#111827"); }
     let dots="";
     b.nodes.forEach(n=>{
-      const cls = state.red===n.id?"node-dot sel-red":state.black===n.id?"node-dot sel-black":"node-dot";
-      dots+=`<circle class="${cls}" data-node="${n.id}" cx="${n.x}" cy="${n.y}" r="9" fill="var(--surface)" stroke="var(--primary)" stroke-width="2"></circle>
-             <text x="${n.x}" y="${n.y-14}" text-anchor="middle" font-size="9" fill="var(--muted)">${n.label}</text>`;
+      const sel = state.red===n.id?"sel-red":state.black===n.id?"sel-black":"";
+      dots+='<g class="term '+sel+'" data-node="'+n.id+'">'+
+        '<circle cx="'+n.x+'" cy="'+n.y+'" r="11" class="term-hit"/>'+
+        '<circle cx="'+n.x+'" cy="'+n.y+'" r="7" class="term-dot"/>'+
+        (sel?'<circle cx="'+n.x+'" cy="'+n.y+'" r="13" class="term-ring"/>':"")+
+      '</g>';
     });
-    svg.innerHTML = b.bg + dots;
-    svg.querySelectorAll(".node-dot").forEach(c=>{
-      c.onclick=()=>{
-        const id=c.dataset.node;
-        if(state.active==="red"){ state.red = (state.red===id?null:id); state.active="black"; }
-        else { state.black = (state.black===id?null:id); state.active="red"; }
-        drawBoard(host); refresh(host); markActiveBtn(host);
+    let labels=""; b.nodes.forEach(n=>labels+=labelEl(n));
+    wrap.innerHTML = '<svg id="simSvg" preserveAspectRatio="xMidYMid meet" viewBox="'+b.viewBox+'">'+
+      '<g class="layer-wires">'+wires+'</g>'+flow+b.comps+leads+
+      '<g class="layer-terms">'+dots+'</g><g class="layer-labels">'+labels+'</g></svg>';
+    const svg=wrap.querySelector("#simSvg");
+    svg.querySelectorAll(".term").forEach(g=>{
+      g.style.cursor="pointer";
+      g.onclick=()=>{ const id=g.dataset.node;
+        if(state.active==="red"){ state.red=(state.red===id?null:id); if(state.red) state.active="black"; }
+        else { state.black=(state.black===id?null:id); if(state.black) state.active="red"; }
+        drawBoard(host); updateMeter(host); markActiveBtn(host);
       };
     });
   }
 
-  function wireProbes(host){
+  function meterSVG(){
+    const cx=110, cy=120, r=72;
+    let fns="";
+    MODES.forEach(m=>{
+      const a=(m.deg-90)*Math.PI/180, lx=cx+(r+20)*Math.cos(a), ly=cy+(r+20)*Math.sin(a);
+      const on=state.mode===m.k;
+      fns+='<g class="dial-fn '+(on?'on':'')+'" data-mode="'+m.k+'" style="cursor:pointer">'+
+        '<circle cx="'+(cx+(r-4)*Math.cos(a))+'" cy="'+(cy+(r-4)*Math.sin(a))+'" r="3" class="dial-tick"/>'+
+        '<text x="'+lx+'" y="'+(ly+4)+'" text-anchor="middle" class="dial-label">'+m.label+'</text></g>';
+    });
+    return '<svg viewBox="0 0 220 250" class="dial-svg">'+
+      '<rect x="6" y="6" width="208" height="238" rx="16" class="dial-body"/>'+
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" class="dial-face"/>'+
+      fns+
+      '<g transform="rotate('+modeDeg(state.mode)+' '+cx+' '+cy+')">'+
+        '<polygon points="'+(cx-7)+','+cy+' '+(cx+7)+','+cy+' '+cx+','+(cy-r+8)+'" class="dial-knob-ptr"/></g>'+
+      '<circle cx="'+cx+'" cy="'+cy+'" r="22" class="dial-knob"/>'+
+      '<text x="'+cx+'" y="'+(cy+4)+'" text-anchor="middle" class="dial-knob-tx">SELECT</text></svg>';
+  }
+
+  function render(host){
+    host.innerHTML =
+      '<div class="crumb"><span class="back" data-go="#/inicio">Inicio</span> › Simulador de taller</div>'+
+      '<h1>🔧 Simulador de taller</h1>'+
+      '<p class="muted">Elegí un banco y una falla. Girá la perilla del tester, apoyá las puntas (clic en los puntos del circuito) y leé. Cuando creas saber qué pasa, resolvé la falla.</p>'+
+      '<div class="chip-row" id="benchSel"></div>'+
+      '<div class="chip-row" id="scSel"></div>'+
+      '<div class="sim-grid">'+
+        '<div class="sim-board">'+
+          '<div class="sim-board-head"><span class="tag" id="boardName"></span><span class="ignition" id="ignState"></span></div>'+
+          '<div id="simSvgWrap"></div>'+
+          '<div class="sim-legend"><span><i class="dot-r"></i> Punta roja</span><span><i class="dot-b"></i> Punta negra</span><span><i class="dot-f"></i> Corriente</span></div>'+
+        '</div>'+
+        '<div class="sim-side">'+
+          '<div class="dmm">'+
+            meterSVG()+
+            '<div class="dmm-screen">'+
+              '<div class="dmm-row"><span class="dmm-fn" id="dmmFn"></span><span class="dmm-hold" id="dmmHold">HOLD</span></div>'+
+              '<div class="dmm-val"><span id="dmmVal">– – –</span> <span class="dmm-unit" id="dmmUnit"></span></div>'+
+            '</div>'+
+            '<div class="probe-pick"><button class="probe-btn red" id="probeRed">● Punta roja</button><button class="probe-btn black" id="probeBlack">● Punta negra</button></div>'+
+            '<div class="probe-status" id="probeStatus"></div>'+
+            '<div class="dmm-note" id="dmmNote"></div>'+
+          '</div>'+
+          '<div class="card sim-obj"><b>🎯 Objetivo</b><p id="simHint"></p>'+
+            '<button class="btn sm accent" id="solveBtn" style="width:100%">¿Cuál es la falla?</button><div id="solveBox"></div></div>'+
+        '</div>'+
+      '</div>';
+
+    const bs=host.querySelector("#benchSel");
+    BENCHES.forEach((b,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===state.benchIdx?" on":""); c.textContent=b.name; c.onclick=()=>{state.benchIdx=i;state.scIdx=0;resetProbes();render(host);}; bs.appendChild(c); });
+    const ss=host.querySelector("#scSel");
+    bench().scenarios.forEach((s,i)=>{ const c=document.createElement("span"); c.className="chip"+(i===state.scIdx?" on":""); c.textContent=s.name; c.onclick=()=>{state.scIdx=i;resetProbes();render(host);}; ss.appendChild(c); });
+
+    host.querySelector("#boardName").textContent=bench().name;
+    host.querySelector("#simHint").textContent=scenario().hint;
+    setIgnition(host);
+    drawBoard(host);
+    wireMeter(host);
+    host.querySelector("#solveBtn").onclick=()=>showSolve(host);
+    host.querySelectorAll("[data-go]").forEach(a=>a.onclick=()=>location.hash=a.dataset.go);
+    updateMeter(host); markActiveBtn(host);
+  }
+
+  function setIgnition(host){
+    const sc=scenario(), on=(sc.current||0)>0 || Object.values(sc.pot||{}).some(v=>Math.abs(v)>1);
+    const e=host.querySelector("#ignState");
+    e.innerHTML = on ? '🔌 Contacto/encendido: <b>ON</b>' : '⏻ Sistema: <b>en reposo</b>';
+  }
+
+  function resetProbes(){ state.red=null; state.black=null; state.active="red"; }
+
+  function wireMeter(host){
+    host.querySelectorAll(".dial-fn").forEach(g=>{ g.onclick=()=>{ state.mode=g.dataset.mode; refreshDial(host); updateMeter(host); }; });
     host.querySelector("#probeRed").onclick=()=>{state.active="red";markActiveBtn(host);};
     host.querySelector("#probeBlack").onclick=()=>{state.active="black";markActiveBtn(host);};
-    host.querySelector("#probeClear").onclick=()=>{resetProbes();drawBoard(host);refresh(host);markActiveBtn(host);};
-    markActiveBtn(host);
+    host.querySelector("#dmmHold").onclick=()=>{ state.hold=!state.hold; host.querySelector("#dmmHold").classList.toggle("on",state.hold); if(!state.hold) updateMeter(host); };
+  }
+  function refreshDial(host){
+    const wrap=host.querySelector(".dmm");
+    const tmp=document.createElement("div"); tmp.innerHTML=meterSVG();
+    wrap.replaceChild(tmp.firstElementChild, wrap.querySelector(".dial-svg"));
+    host.querySelectorAll(".dial-fn").forEach(g=>{ g.onclick=()=>{ state.mode=g.dataset.mode; refreshDial(host); updateMeter(host); }; });
   }
   function markActiveBtn(host){
     const r=host.querySelector("#probeRed"), bl=host.querySelector("#probeBlack");
     if(!r) return;
-    r.style.outline = state.active==="red"?"3px solid #ffd54f":"none";
-    bl.style.outline = state.active==="black"?"3px solid #ffd54f":"none";
+    r.classList.toggle("active", state.active==="red");
+    bl.classList.toggle("active", state.active==="black");
   }
 
-  function refresh(host){
-    // marcar modo activo
-    host.querySelectorAll("#modeRow .btn").forEach(btn=>btn.classList.remove("on"));
-    const modes=["V","CONT","OHM","AMP","VCA"];
-    const idx=modes.indexOf(state.mode);
-    if(host.querySelectorAll("#modeRow .btn")[idx]) host.querySelectorAll("#modeRow .btn")[idx].classList.add("on");
-    const rd=reading();
-    host.querySelector("#mScreen").textContent=rd.val;
-    host.querySelector("#mUnit").textContent=rd.unit;
-    const nr=state.red?bench().nodes.find(n=>n.id===state.red).label:"—";
-    const nb=state.black?bench().nodes.find(n=>n.id===state.black).label:"—";
-    host.querySelector("#probeInfo").innerHTML=`Punta roja: <b style="color:#e53935">${nr}</b> · Punta negra: <b>${nb}</b>`;
+  function updateMeter(host){
+    if(state.hold) return;
+    const rd=reading(), b=bench();
+    const md=MODES.find(m=>m.k===state.mode);
+    host.querySelector("#dmmFn").textContent = md?md.name:"";
+    host.querySelector("#dmmVal").textContent = rd.val;
+    host.querySelector("#dmmUnit").textContent = rd.unit||"";
+    const note=host.querySelector("#dmmNote");
+    note.textContent = rd.note||"";
+    note.className = "dmm-note "+(rd.cls||"");
+    const valEl=host.querySelector("#dmmVal");
+    valEl.className = rd.cls||"";
+    if(rd.beep){ const s=host.querySelector(".dmm-screen"); s.classList.add("beep"); setTimeout(()=>s&&s.classList.remove("beep"),250); }
+    const nr=state.red?b.nodes.find(n=>n.id===state.red).label:"—";
+    const nb=state.black?b.nodes.find(n=>n.id===state.black).label:"—";
+    host.querySelector("#probeStatus").innerHTML='<span class="ps red">Roja: <b>'+nr+'</b></span><span class="ps black">Negra: <b>'+nb+'</b></span>';
   }
 
   function showSolve(host){
-    const sc=scenario();
-    const correct = sc.answer || "todo_ok";
-    // armar opciones: correcta + 3 distractores
+    const sc=scenario(), correct=sc.answer||"todo_ok";
     const pool=Object.keys(FAULTS).filter(k=>k!==correct);
     const opts=[correct];
     while(opts.length<4 && pool.length){ const i=Math.floor(Math.random()*pool.length); opts.push(pool.splice(i,1)[0]); }
     opts.sort(()=>Math.random()-0.5);
     const box=host.querySelector("#solveBox");
-    box.innerHTML = `<p style="font-size:.88rem;margin:.6rem 0 .3rem"><b>¿Qué falla tiene este banco?</b></p>`+
-      opts.map(k=>`<button class="quiz-opt" data-k="${k}">${FAULTS[k]}</button>`).join("");
+    box.innerHTML='<p style="font-size:.88rem;margin:.6rem 0 .3rem"><b>¿Qué falla tiene este banco?</b></p>'+
+      opts.map(k=>'<button class="quiz-opt" data-k="'+k+'">'+FAULTS[k]+'</button>').join("");
     box.querySelectorAll(".quiz-opt").forEach(btn=>{
       btn.onclick=()=>{
         box.querySelectorAll(".quiz-opt").forEach(o=>o.classList.add("disabled"));
-        const ok = btn.dataset.k===correct;
+        const ok=btn.dataset.k===correct;
         btn.classList.add(ok?"correct":"wrong");
-        if(!ok) box.querySelector(`[data-k="${correct}"]`).classList.add("correct");
+        if(!ok) box.querySelector('[data-k="'+correct+'"]').classList.add("correct");
         const key=bench().id+"_"+sc.id;
         Store.recordAnswer("simulador", ok);
         if(ok) Store.markSim(key);
         box.insertAdjacentHTML("beforeend",
-          `<div class="explain">${ok?"✅ ¡Correcto! ":"❌ La respuesta correcta está marcada. "}<br><b>Diagnóstico:</b> ${sc.diag}</div>`);
-        App.refreshXP();
+          '<div class="explain">'+(ok?"✅ ¡Correcto! ":"❌ La respuesta correcta está marcada. ")+'<br><b>Diagnóstico:</b> '+sc.diag+'</div>');
+        if(window.App&&App.refreshXP) App.refreshXP();
       };
     });
   }
