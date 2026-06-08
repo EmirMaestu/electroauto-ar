@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!-- build: panel de ayuda v1780939519 -->
 <html lang="es-AR">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina." />
+<meta name="description" content="Aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina. Incluye GNC 5a generación." />
 <meta name="theme-color" content="#0d47a1" />
 <title>ElectroAuto AR — Electricidad y Electrónica Automotriz</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -237,6 +236,11 @@ table.tbl th{background:var(--surface-2)}
 .sim-help-body ul,.sim-help-body ol{padding-left:1.2rem;margin:.3rem 0}
 .sim-help-body li{margin:.25rem 0}
 .sim-help-rule{background:var(--surface-2);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:.6rem .8rem;margin-top:.8rem}
+
+/* GNC */
+.gnc-fig{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:.4rem;margin-bottom:.6rem;text-align:center}
+.gnc-fig svg{width:100%;max-width:240px;height:auto}
+.gnc-steps li{margin:.55rem 0;line-height:1.5}
 </style>
 </head>
 <body>
@@ -256,6 +260,7 @@ table.tbl th{background:var(--surface-2)}
 <a href="#/casos" class="nav-link" data-route="casos">🚗 Casos de falla</a>
 <a href="#/practica" class="nav-link" data-route="practica">🎯 Práctica intensiva</a>
 <a href="#/biblioteca" class="nav-link" data-route="biblioteca">📕 Biblioteca técnica</a>
+<a href="#/gnc" class="nav-link" data-route="gnc">⛽ GNC (Logan 2008)</a>
 <a href="#/progreso" class="nav-link" data-route="progreso">📈 Mi progreso</a>
 <div class="sidebar-foot"><small>Hecho para talleres argentinos 🇦🇷</small></div>
 </nav>
@@ -1555,6 +1560,194 @@ window.BENCHES = [
 </script>
 <script>
 /* ===========================================================================
+   GNC 5ª GENERACIÓN — Referencia orientada a un Renault Logan 2008
+   (motor 1.6 8v nafta, 4 cilindros). Inyección secuencial de gas.
+   IMPORTANTE: el GNC es un equipo aftermarket. Los COLORES de cable, la marca
+   del kit (Tomasetto, BRC, Longas, Multipoint, etc.) y la ubicación exacta de
+   las piezas VARÍAN según el equipo y el instalador. Todo lo que sigue es
+   REPRESENTATIVO de un Logan 2008 típico, para entender y visualizar; siempre
+   confirmá con el equipo real y la documentación del kit instalado.
+   =========================================================================== */
+window.GNC = {
+  intro:
+    'El <b>GNC de 5ª generación</b> (inyección secuencial de gas) es el equivalente a la inyección electrónica de nafta, pero con metano. '+
+    'En tu <b>Logan 2008</b> (motor 1.6 de 4 cilindros) trabaja así: el auto <b>arranca siempre en nafta</b>, y cuando el reductor toma temperatura y se dan las condiciones (RPM, etc.), <b>conmuta a gas</b> automáticamente. '+
+    'Una <b>computadora de GNC</b> lee el <b>pulso de inyección original de nafta</b> y lo recalcula según la <b>presión del gas</b>, la <b>temperatura del gas y del reductor</b>, la <b>presión del múltiple</b> y la <b>sonda lambda</b>, y comanda una <b>rampa de 4 inyectores de gas</b> (uno por cilindro). '+
+    'A diferencia de generaciones viejas (mezclador/venturi), acá cada cilindro recibe su dosis justa de gas, de forma secuencial, como la nafta.',
+
+  caveat:
+    'Recordá: este esquema es <b>representativo de un Logan 2008</b>. Los <b>colores de cable</b> y la posición real dependen de la <b>marca del kit y del instalador</b>. Usalo para entender el sistema; para trabajar, confiá en el equipo concreto y su manual.',
+
+  components: [
+    {
+      id:"cilindro", name:"Cilindro / tubo de GNC + multiválvula", icon:"🛢️",
+      what:"El recipiente de acero (o de fibra) donde se almacena el metano comprimido a alta presión. La multiválvula es el conjunto de seguridad y corte montado en su boca.",
+      forr:"Guardar el gas. En el Logan suele ir en el baúl. Lleno carga hasta ~200 bar (200 kg/cm²). La multiválvula corta el gas, tiene válvula de exceso de flujo y alivio de seguridad.",
+      look:"Cilindro horizontal/vertical en el baúl, con una válvula y cañería fina de acero saliendo de un extremo.",
+      svg:'<svg viewBox="0 0 220 120"><rect x="20" y="35" width="150" height="50" rx="25" class="cmp-fill"/><rect x="168" y="50" width="20" height="20" rx="3" class="cmp-box"/><line x1="188" y1="60" x2="210" y2="60" class="cmp-line"/><text x="95" y="64" text-anchor="middle" class="cmp-label-b">~200 bar</text><text x="178" y="45" text-anchor="middle" class="cmp-label">multiválvula</text></svg>'
+    },
+    {
+      id:"carga", name:"Boca / válvula de carga", icon:"⛽",
+      what:"La toma por donde el surtidor del GNC inyecta el gas al cilindro. Lleva una válvula antirretorno.",
+      forr:"Cargar gas sin que vuelva hacia afuera. En el Logan suele estar cerca del paragolpes/baúl o junto a la tapa de combustible.",
+      look:"Una boca metálica con rosca/pico donde se enchufa la manguera del surtidor.",
+      svg:'<svg viewBox="0 0 220 120"><circle cx="80" cy="60" r="26" class="cmp-box"/><circle cx="80" cy="60" r="10" class="cmp-fill"/><line x1="106" y1="60" x2="180" y2="60" class="cmp-line"/><path d="M150,52 l10,8 l-10,8" fill="none" class="cmp-accent"/><text x="80" y="100" text-anchor="middle" class="cmp-label">boca de carga (antirretorno)</text></svg>'
+    },
+    {
+      id:"alta", name:"Cañería de alta presión", icon:"➰",
+      what:"El caño fino de acero inoxidable que lleva el gas a 200 bar desde el cilindro hasta el reductor.",
+      forr:"Transportar el gas a alta presión. Nunca se interviene si no es en taller habilitado: a 200 bar es peligroso.",
+      look:"Caño metálico fino y rígido que recorre por debajo del auto desde el baúl hasta el motor.",
+      svg:'<svg viewBox="0 0 220 120"><path d="M20,80 C70,80 70,40 120,40 C170,40 170,70 200,70" fill="none" class="cmp-line" style="stroke-width:5"/><text x="110" y="105" text-anchor="middle" class="cmp-label">caño de acero · 200 bar</text></svg>'
+    },
+    {
+      id:"electrovalvula", name:"Electroválvula de alta (corte de gas)", icon:"🔌",
+      what:"Una válvula eléctrica que abre o cierra el paso de gas de alta presión. Suele estar en el reductor o en la línea.",
+      forr:"Cortar el gas cuando el auto anda en nafta o está apagado. La comanda la ECU de GNC dándole 12 V.",
+      look:"Una bobina cilíndrica con un cable, montada sobre el reductor o la cañería.",
+      svg:'<svg viewBox="0 0 220 120"><rect x="80" y="40" width="40" height="45" rx="5" class="cmp-box"/><line x1="100" y1="40" x2="100" y2="20" class="cmp-line"/><line x1="60" y1="85" x2="140" y2="85" class="cmp-line" style="stroke-width:5"/><path d="M100,18 l6,0" class="cmp-accent"/><text x="100" y="108" text-anchor="middle" class="cmp-label">bobina + 12 V = abre</text></svg>'
+    },
+    {
+      id:"reductor", name:"Reductor / regulador (vaporizador)", icon:"🌡️",
+      what:"El corazón del sistema. Baja la presión del gas de ~200 bar a una presión de trabajo baja (~1 a 2 bar) y lo vaporiza. Se calienta con el agua del motor.",
+      forr:"Entregar gas a presión estable y temperatura adecuada a los inyectores. Por eso el auto necesita estar caliente para pasar a gas: el reductor usa el agua del motor para no congelarse.",
+      look:"Bloque de aluminio con mangueras de agua (las del sistema de refrigeración), entrada de gas de alta y salida de baja, con la electroválvula y el sensor de temperatura.",
+      svg:'<svg viewBox="0 0 220 130"><rect x="55" y="35" width="110" height="60" rx="10" class="cmp-fill"/><line x1="20" y1="50" x2="55" y2="50" class="cmp-line" style="stroke-width:5"/><text x="20" y="42" class="cmp-label">alta</text><line x1="165" y1="65" x2="205" y2="65" class="cmp-line"/><text x="195" y="57" text-anchor="middle" class="cmp-label">baja</text><path d="M70,95 C70,115 95,115 95,95" fill="none" class="cmp-accent" style="stroke-width:4"/><path d="M125,95 C125,115 150,115 150,95" fill="none" class="cmp-accent" style="stroke-width:4"/><text x="110" y="70" text-anchor="middle" class="cmp-label-b">REDUCTOR</text><text x="110" y="128" text-anchor="middle" class="cmp-label">mangueras de agua del motor</text></svg>'
+    },
+    {
+      id:"filtro", name:"Filtro de gas (fase gaseosa)", icon:"🧽",
+      what:"Un filtro en la línea de baja presión, entre el reductor y el riel de inyectores.",
+      forr:"Atrapar impurezas y aceites para que los inyectores de gas no se ensucien ni se traben. Es un mantenimiento clave (se cambia periódicamente).",
+      look:"Cartucho plástico/metálico en línea, con dos mangueras de baja presión.",
+      svg:'<svg viewBox="0 0 220 110"><line x1="20" y1="55" x2="70" y2="55" class="cmp-line"/><rect x="70" y="38" width="80" height="34" rx="8" class="cmp-box"/><line x1="150" y1="55" x2="200" y2="55" class="cmp-line"/><text x="110" y="60" text-anchor="middle" class="cmp-label-b">FILTRO</text><text x="110" y="95" text-anchor="middle" class="cmp-label">cambio periódico</text></svg>'
+    },
+    {
+      id:"riel", name:"Riel / rampa de inyectores de GNC", icon:"💉",
+      what:"El conjunto de inyectores de gas. En tu Logan, al ser 4 cilindros, hay 4 inyectores de gas (uno por cilindro), tipo electroválvula rápida (Valtek / Rail).",
+      forr:"Dosificar e inyectar el gas a cada cilindro, en el momento justo, igual que los inyectores de nafta. La ECU de GNC abre cada inyector el tiempo calculado.",
+      look:"Bloque con 4 inyectores en fila, mangueritas individuales que van a cada caño de admisión, y un conector eléctrico.",
+      svg:'<svg viewBox="0 0 220 120"><rect x="40" y="35" width="140" height="26" rx="6" class="cmp-box"/>'+
+          '<g class="cmp-accent" style="stroke-width:6">'+
+          '<line x1="60" y1="61" x2="60" y2="85"/><line x1="100" y1="61" x2="100" y2="85"/><line x1="140" y1="61" x2="140" y2="85"/><line x1="180" y1="61" x2="180" y2="85"/></g>'+
+          '<line x1="40" y1="30" x2="40" y2="18" class="cmp-line"/>'+
+          '<text x="110" y="52" text-anchor="middle" class="cmp-label-b">4 inyectores de gas</text>'+
+          '<text x="110" y="105" text-anchor="middle" class="cmp-label">uno por cilindro</text></svg>'
+    },
+    {
+      id:"mapt", name:"Sensor MAP-T del gas (presión + temperatura)", icon:"📈",
+      what:"Mide la presión del gas en el riel (respecto del múltiple) y la temperatura del gas. A veces son dos sensores o uno combinado (MAP-Sensor).",
+      forr:"Decirle a la ECU de GNC cuánta presión real tiene el gas y a qué temperatura, para calcular el tiempo de inyección correcto y detectar caídas de presión (filtro tapado, reductor flojo).",
+      look:"Pequeña pieza plástica con una manguerita al riel y un conector de varios cables.",
+      svg:'<svg viewBox="0 0 220 110"><rect x="80" y="35" width="55" height="40" rx="6" class="cmp-box"/><line x1="80" y1="55" x2="55" y2="55" class="cmp-line"/><line x1="135" y1="45" x2="160" y2="45" class="cmp-accent"/><line x1="135" y1="55" x2="160" y2="55" class="cmp-accent"/><line x1="135" y1="65" x2="160" y2="65" class="cmp-accent"/><text x="107" y="60" text-anchor="middle" class="cmp-label-b">MAP-T</text><text x="107" y="98" text-anchor="middle" class="cmp-label">presión y temp. del gas</text></svg>'
+    },
+    {
+      id:"ecu", name:"Computadora / ECU de GNC (centralita)", icon:"🧠",
+      what:"La unidad electrónica que gobierna todo el equipo de gas. Va escondida bajo el tablero o en el vano motor.",
+      forr:"Leer los inyectores de nafta, la sonda lambda, las RPM, la presión y temperatura del gas, y comandar los inyectores de gas, las electroválvulas y la conmutación. Se calibra con el software del kit (no con un scanner OBD2 común).",
+      look:"Caja sellada con un mazo de muchos cables (el arnés del equipo de GNC).",
+      svg:'<svg viewBox="0 0 220 110"><rect x="55" y="30" width="110" height="50" rx="8" class="cmp-box"/><g class="cmp-line">'+
+          '<line x1="55" y1="42" x2="40" y2="42"/><line x1="55" y1="55" x2="40" y2="55"/><line x1="55" y1="68" x2="40" y2="68"/>'+
+          '<line x1="165" y1="42" x2="180" y2="42"/><line x1="165" y1="55" x2="180" y2="55"/><line x1="165" y1="68" x2="180" y2="68"/></g>'+
+          '<text x="110" y="60" text-anchor="middle" class="cmp-label-b">ECU GNC</text><text x="110" y="100" text-anchor="middle" class="cmp-label">se calibra con software del kit</text></svg>'
+    },
+    {
+      id:"conmutador", name:"Conmutador / selector nafta–gas", icon:"🎚️",
+      what:"El botón/llave en el tablero con luces (LEDs) que indican el nivel de gas y si vas en nafta o en gas.",
+      forr:"Elegir manualmente nafta o gas, ver el nivel del cilindro y avisar (un pitido) cuando conmuta o cuando se queda sin gas. Se comunica con la ECU de GNC.",
+      look:"Pieza chica en el tablero con un botón y 4 leds verdes/rojo de nivel.",
+      svg:'<svg viewBox="0 0 220 90"><rect x="50" y="25" width="120" height="40" rx="8" class="cmp-box"/><circle cx="70" cy="45" r="5" class="cmp-lamp"/><circle cx="88" cy="45" r="5" class="cmp-lamp"/><circle cx="106" cy="45" r="5" class="cmp-lamp"/><circle cx="124" cy="45" r="5" class="cmp-fill"/><circle cx="150" cy="45" r="8" class="cmp-accent" style="fill:var(--accent)"/><text x="110" y="82" text-anchor="middle" class="cmp-label">nivel de gas + nafta/gas</text></svg>'
+    },
+    {
+      id:"emulador", name:"Arnés / emulador de inyectores de nafta", icon:"🧵",
+      what:"El mazo que se intercala en los conectores de los inyectores de nafta. Deja pasar la señal cuando vas en nafta y la corta (emulándola) cuando vas en gas.",
+      forr:"Cortar la nafta cuando andás en gas SIN que la computadora de nafta tire código de error. La ECU de GNC lee ese pulso de nafta para calcular cuánto gas inyectar.",
+      look:"Dos conectores por inyector (uno al inyector, otro al mazo original) y cables que van a la ECU de GNC.",
+      svg:'<svg viewBox="0 0 220 110"><rect x="30" y="45" width="26" height="20" rx="3" class="cmp-box"/><rect x="150" y="45" width="26" height="20" rx="3" class="cmp-box"/><line x1="56" y1="55" x2="150" y2="55" class="cmp-line"/><line x1="100" y1="55" x2="100" y2="85" class="cmp-accent"/><circle cx="100" cy="55" r="4" class="cmp-accent" style="fill:var(--accent)"/><text x="40" y="40" text-anchor="middle" class="cmp-label">mazo</text><text x="163" y="40" text-anchor="middle" class="cmp-label">inyector</text><text x="110" y="100" text-anchor="middle" class="cmp-label">corte/emulación → ECU GNC</text></svg>'
+    },
+    {
+      id:"senales", name:"Señales que LEE el equipo (RPM y sonda lambda)", icon:"📡",
+      what:"El equipo de GNC no solo comanda: también lee señales del auto. Las dos clásicas son las RPM (revoluciones) y la sonda lambda (oxígeno).",
+      forr:"Las RPM le dicen el régimen del motor (para conmutar y calcular). La sonda lambda le dice si la mezcla quedó rica o pobre para autoajustarse. En 5ª gen muchos kits leen además el pulso de los inyectores de nafta.",
+      look:"Cables finos que se 'pinchan' o conectan a la señal de RPM (bobina/tacómetro) y al cable de señal de la sonda lambda.",
+      svg:'<svg viewBox="0 0 220 110"><path d="M20,70 q15,-40 30,0 q15,40 30,0 q15,-40 30,0" fill="none" class="cmp-accent"/><text x="55" y="95" text-anchor="middle" class="cmp-label">RPM</text><path d="M120,55 h15 v25 h15 v-25 h15 v25 h15" fill="none" class="cmp-line"/><text x="160" y="95" text-anchor="middle" class="cmp-label">lambda</text></svg>'
+    }
+  ],
+
+  cables: [
+    {cable:"Positivo permanente (+30)", color:"Rojo grueso (con fusible)", senal:"12 V siempre", funcion:"Alimenta la ECU de GNC. Sale de batería con su propio fusible."},
+    {cable:"Positivo por contacto (+15)", color:"Rojo/Naranja fino", senal:"12 V con la llave dada", funcion:"Le avisa a la ECU que el contacto está puesto (auto encendido)."},
+    {cable:"Masa", color:"Negro", senal:"0 V (chasis)", funcion:"Retorno de la ECU y las electroválvulas. Una mala masa da fallas raras."},
+    {cable:"Señal de RPM", color:"Gris / Blanco (varía)", senal:"Pulsos (onda)", funcion:"Le dice las revoluciones del motor; se toma de la bobina o del tacómetro."},
+    {cable:"Señal sonda lambda", color:"Depende del auto", senal:"0,1–0,9 V oscilando", funcion:"La ECU de GNC la LEE para autoajustar la mezcla (no la corta)."},
+    {cable:"Inyectores de nafta (emulador)", color:"Pares por inyector", senal:"Pulso de nafta", funcion:"Lee el pulso original y corta los inyectores de nafta al andar en gas."},
+    {cable:"Inyectores de gas", color:"Desde ECU al riel", senal:"Pulso de comando (masa)", funcion:"La ECU abre cada inyector de gas el tiempo calculado."},
+    {cable:"Electroválvula del reductor / alta", color:"1 cable + masa", senal:"12 V = abre gas", funcion:"Habilita el paso de gas cuando corresponde."},
+    {cable:"Sensor MAP-T (4 cables típicos)", color:"5 V, masa, señal P, señal T", senal:"5 V ref. / analógicas", funcion:"Presión y temperatura del gas hacia la ECU."},
+    {cable:"Sensor temp. del reductor (NTC)", color:"2 cables", senal:"Resistencia variable", funcion:"Permite conmutar a gas recién cuando el reductor está caliente."},
+    {cable:"Conmutador", color:"Mazo propio", senal:"Comunicación + nivel", funcion:"Selección nafta/gas y lectura del nivel del cilindro."}
+  ],
+
+  leer: [
+    'Pensá el GNC como DOS partes: la <b>línea de gas</b> (mecánica/neumática) y el <b>arnés eléctrico</b> (señales). Leé cada una por separado.',
+    '<b>Línea de gas (seguí el gas):</b> cilindro → multiválvula → cañería de ALTA (200 bar) → electroválvula de alta → reductor (baja a ~1–2 bar y calienta con agua del motor) → filtro → riel de inyectores → caños de admisión del motor.',
+    '<b>Arnés eléctrico (seguí las señales):</b> la ECU de GNC recibe <b>positivo permanente</b>, <b>positivo por contacto</b> y <b>masa</b>; LEE las <b>RPM</b>, la <b>sonda lambda</b> y el <b>pulso de los inyectores de nafta</b>; y COMANDA los <b>inyectores de gas</b>, las <b>electroválvulas</b> y el <b>emulador de nafta</b>.',
+    '<b>Regla práctica:</b> entradas (lo que la ECU lee) y salidas (lo que la ECU comanda). Si algo no funciona, definí primero si falla una ENTRADA (señal que no llega) o una SALIDA (comando que no sale).',
+    '<b>Conmutación:</b> el auto arranca en nafta; cuando el sensor de temperatura del reductor supera el umbral (motor caliente) y hay RPM correctas, la ECU corta nafta, abre las electroválvulas y pasa a gas. Por eso en frío SIEMPRE arranca en nafta.',
+    '<b>Diagnóstico fino:</b> el GNC de 5ª gen se diagnostica y calibra con el <b>software del fabricante del kit</b> (notebook + interfaz), no con un scanner OBD2 común. Ahí ves presión de gas, temperaturas, tiempos de inyección y mapas.'
+  ],
+
+  fallas: [
+    {
+      sintoma:"No conmuta a gas (se queda en nafta)",
+      causas:"Reductor que no toma temperatura, sensor de temp del reductor, sin nivel de gas, fusible de la ECU de GNC, conmutador, llave de paso del cilindro cerrada.",
+      diagnostico:"Verificá nivel en el conmutador y que la llave del cilindro esté abierta. Medí 12 V de alimentación de la ECU. Con software, mirá la temperatura del reductor: si no sube, revisá circulación de agua/sensor.",
+      medicion:"Alimentación ECU: 12 V (permanente y contacto). Temp. reductor en software debe subir con el motor caliente."
+    },
+    {
+      sintoma:"Conmuta y se apaga / vuelve a nafta",
+      causas:"Presión de gas baja (filtro tapado, reductor flojo), inyectores de gas sucios/trabados, electroválvula que no abre bien, cilindro casi vacío.",
+      diagnostico:"Con software mirá la presión del riel: si cae al exigir, sospechá filtro o reductor. Revisá apertura de electroválvulas (12 V).",
+      medicion:"Presión de trabajo ~1–2 bar estable. Si cae mucho bajo carga = restricción (filtro) o reductor."
+    },
+    {
+      sintoma:"Tironeos o falta de fuerza en gas",
+      causas:"Calibración (mapa) desajustada, inyectores de gas sucios, bujías/cables gastados (el gas exige más al encendido), entradas de aire falso, filtro tapado.",
+      diagnostico:"Compará el comportamiento en nafta vs gas. Revisá bujías (en gas conviene grado/estado óptimo). Recalibrá con software y limpiá/probá inyectores.",
+      medicion:"Bujías en buen estado y separación correcta. Tiempos de inyección de gas coherentes en software."
+    },
+    {
+      sintoma:"Alto consumo de gas / poca autonomía",
+      causas:"Calibración rica, fuga de gas, sonda lambda vaga, presión mal regulada.",
+      diagnostico:"Descartá fugas (agua jabonosa/detector). Revisá lambda y recalibrá. Verificá presión del reductor.",
+      medicion:"Sin burbujas en uniones. Lambda oscilando 0,1–0,9 V. Presión según especificación del kit."
+    },
+    {
+      sintoma:"Olor a gas / sospecha de fuga",
+      causas:"Unión floja, manguera de baja dañada, multiválvula o cañería de alta.",
+      diagnostico:"⚠ Prioridad seguridad: ventilá, no generes chispas, no fumes. Buscá la fuga con agua jabonosa o detector. La alta presión SOLO en taller habilitado.",
+      medicion:"Prueba de estanqueidad con agua jabonosa: no deben formarse burbujas en ninguna unión."
+    },
+    {
+      sintoma:"No arranca ni en nafta después de instalar/tocar el equipo",
+      causas:"Emulador de inyectores mal conectado, masa floja del equipo, relé/positivo del equipo.",
+      diagnostico:"Revisá conectores del emulador en los inyectores de nafta y la masa del equipo. Verificá que llegue el pulso a los inyectores de nafta.",
+      medicion:"Pulso de inyector de nafta presente (lámpara LED / osciloscopio). Masa del equipo firme (<0,2 V de caída)."
+    }
+  ],
+
+  seguridad: [
+    'El GNC trabaja a <b>alta presión (hasta 200 bar)</b>. La parte de alta presión (cilindro, multiválvula, cañería de alta) <b>solo se interviene en taller habilitado</b>.',
+    'El <b>cilindro tiene vencimiento</b>: en Argentina requiere prueba hidráulica periódica (revisión del recipiente). No uses un cilindro vencido.',
+    'El equipo necesita su <b>oblea / revisión (CRPC)</b> al día para circular y cargar.',
+    'Ante <b>olor a gas</b>: ventilá, no generes chispas ni llamas, cerrá la llave del cilindro y llevalo a revisar.',
+    'Para diagnóstico eléctrico podés medir con tester, pero <b>la calibración y los mapas se tocan con el software del kit</b> y conviene que lo haga el instalador.',
+    'En tu Logan, al andar en gas, cuidá <b>bujías y encendido</b>: el GNC exige una chispa sana. Un encendido flojo que en nafta no se nota, en gas tira tirones.'
+  ]
+};
+
+</script>
+<script>
+/* ===========================================================================
    VISUALES INTERACTIVOS
    Cada función recibe el contenedor (div.vmount) y dibuja el widget.
    Se montan automáticamente desde app.js buscando [data-visual].
@@ -2346,6 +2539,7 @@ const App = (() => {
       case "caso": return renderCaso(p[1]);
       case "practica": return renderPractica();
       case "biblioteca": return renderBiblioteca();
+      case "gnc": return renderGNC();
       case "progreso": return renderProgreso();
       default: return renderInicio();
     }
@@ -2733,6 +2927,29 @@ const App = (() => {
       <div style="margin-top:1rem"><button class="btn ghost sm" id="resetBtn">Reiniciar todo mi progreso</button></div>`;
     document.getElementById("resetBtn").onclick=()=>{ if(confirm("¿Seguro que querés borrar todo tu progreso?")){ Store.reset(); refreshXP(); route(); } };
     wireGo();
+  }
+
+  /* ---------- GNC 5ª gen (Logan 2008) ---------- */
+  function renderGNC(){
+    const g=window.GNC;
+    app().innerHTML = `
+      <h1>⛽ GNC 5ª generación — Logan 2008</h1>
+      <div class="callout warn"><b>Importante</b>${g.caveat}</div>
+      <div class="chip-row" id="gncNav">${["Qué es","Componentes","Cableado","Cómo leer","Fallas","Seguridad"].map((t,i)=>`<span class="chip${i===0?' on':''}" data-i="${i}">${t}</span>`).join("")}</div>
+      <div id="gncBox"></div>`;
+    const box=()=>document.getElementById("gncBox");
+    const views=[
+      ()=>`<div class="card"><p>${g.intro}</p></div>`,
+      ()=>`<p class="muted">Ilustraciones representativas de un Logan 2008 (no a escala). Tocá cada tarjeta para entender qué es y para qué sirve.</p><div class="grid grid-2">${g.components.map(c=>`<div class="card"><div class="gnc-fig">${c.svg}</div><h3>${c.icon} ${c.name}</h3><p><b>Qué es:</b> ${c.what}</p><p><b>Para qué sirve:</b> ${c.forr}</p><p class="muted"><b>Cómo se ve:</b> ${c.look}</p></div>`).join("")}</div>`,
+      ()=>`<div class="card"><p class="muted">Colores <b>típicos/representativos</b>: varían según el kit (Tomasetto, BRC, Longas, etc.) y el instalador.</p><table class="tbl"><tr><th>Cable</th><th>Color típico</th><th>Señal</th><th>Función</th></tr>${g.cables.map(c=>`<tr><td><b>${c.cable}</b></td><td>${c.color}</td><td>${c.senal}</td><td>${c.funcion}</td></tr>`).join("")}</table></div>`,
+      ()=>`<div class="card"><ol class="gnc-steps">${g.leer.map(s=>`<li>${s}</li>`).join("")}</ol></div>`,
+      ()=>`<div class="list-rows">${g.fallas.map(f=>`<div class="card"><h3>🔧 ${f.sintoma}</h3><p><b>Causas posibles:</b> ${f.causas}</p><p><b>Diagnóstico:</b> ${f.diagnostico}</p><p><b>Mediciones esperadas:</b> ${f.medicion}</p></div>`).join("")}</div>`,
+      ()=>`<div class="card"><ul class="gnc-steps">${g.seguridad.map(s=>`<li>${s}</li>`).join("")}</ul></div>`
+    ];
+    function draw(i){ box().innerHTML=views[i](); window.scrollTo(0,0); }
+    document.getElementById("gncNav").onclick=(e)=>{ if(e.target.dataset.i===undefined) return;
+      document.querySelectorAll("#gncNav .chip").forEach(c=>c.classList.remove("on")); e.target.classList.add("on"); draw(+e.target.dataset.i); };
+    draw(0);
   }
 
   /* ---------- navegación / helpers UI ---------- */
