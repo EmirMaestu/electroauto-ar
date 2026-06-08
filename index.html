@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina. Incluye GNC 5a generación." />
+<meta name="description" content="Aprender electricidad y electrónica automotriz desde cero hasta nivel profesional, adaptada a Argentina. Incluye GNC 5a generación y simulador." />
 <meta name="theme-color" content="#0d47a1" />
 <title>ElectroAuto AR — Electricidad y Electrónica Automotriz</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -1554,6 +1554,95 @@ window.BENCHES = [
       answer:"diode",
       diag:"DIODO DEL RECTIFICADOR DAÑADO. La continua parece normal (13,8 V), pero el ripple de CA es altísimo (0,85 V; debería ser <0,05 V). El alternador 'ensucia' la línea y causa fallas raras de electrónica." }
   ]
+},
+{
+  id:"gnc",
+  name:"GNC 5ª gen (Logan 2008) — eléctrico",
+  desc:"Parte ELÉCTRICA del equipo de gas: alimentación de la ECU, electroválvula, masa del equipo y 5 V del sensor. (La presión se diagnostica con el software del kit.)",
+  viewBox:"0 0 760 380",
+  comps:`
+    <rect x="40" y="150" width="54" height="120" rx="8" class="cmp-fill"/>
+    <line x1="54" y1="178" x2="54" y2="200" class="cmp-line"/><line x1="44" y1="189" x2="64" y2="189" class="cmp-line"/>
+    <line x1="80" y1="220" x2="80" y2="242" class="cmp-line"/><line x1="72" y1="231" x2="88" y2="231" class="cmp-line"/>
+    <text x="67" y="290" text-anchor="middle" class="cmp-label">BATERÍA 12 V</text>
+    <rect x="188" y="96" width="64" height="28" rx="6" class="cmp-box"/>
+    <path d="M198,110 q9,-12 16,0 q9,12 16,0" fill="none" class="cmp-accent"/>
+    <text x="220" y="86" text-anchor="middle" class="cmp-label">FUSIBLE GNC</text>
+    <rect x="330" y="128" width="172" height="86" rx="10" class="cmp-box"/>
+    <text x="416" y="166" text-anchor="middle" class="cmp-label-b">ECU GNC</text>
+    <text x="416" y="184" text-anchor="middle" class="cmp-label">computadora de gas</text>
+    <rect x="642" y="148" width="34" height="46" rx="5" class="cmp-box"/>
+    <line x1="648" y1="156" x2="670" y2="156" class="cmp-line"/><line x1="648" y1="164" x2="670" y2="164" class="cmp-line"/><line x1="648" y1="172" x2="670" y2="172" class="cmp-line"/><line x1="648" y1="180" x2="670" y2="180" class="cmp-line"/>
+    <text x="659" y="142" text-anchor="middle" class="cmp-label">electroválvula</text>
+    <rect x="398" y="250" width="66" height="38" rx="6" class="cmp-fill"/>
+    <text x="431" y="273" text-anchor="middle" class="cmp-label-b">MAP-T</text>
+    <line x1="640" y1="305" x2="640" y2="322" class="cmp-line"/>
+    <line x1="620" y1="322" x2="660" y2="322" class="cmp-line"/>
+    <line x1="627" y1="330" x2="653" y2="330" class="cmp-line"/>
+    <line x1="634" y1="338" x2="646" y2="338" class="cmp-line"/>`,
+  wires:[
+    [[67,110],[360,110]],
+    [[360,110],[360,128]],
+    [[502,150],[560,150]],
+    [[560,150],[659,150]],
+    [[659,194],[659,305]],
+    [[431,214],[431,250]],
+    [[431,288],[431,305]],
+    [[400,214],[400,305]],
+    [[67,110],[67,150]],
+    [[67,270],[67,305]],
+    [[67,305],[659,305]]
+  ],
+  flowPath:"M67,110 L659,110 L659,305 L67,305 Z",
+  nodes:[
+    {id:"BATP", label:"Batería +", x:67,  y:110, lp:"left"},
+    {id:"FIN",  label:"Entrada fusible GNC", x:188, y:110, lp:"top"},
+    {id:"FOUT", label:"Salida fusible GNC", x:252, y:110, lp:"top"},
+    {id:"ECUP", label:"Aliment. ECU (+)", x:360, y:110, lp:"top"},
+    {id:"EVC",  label:"Comando electroválvula", x:560, y:150, lp:"top"},
+    {id:"EVB",  label:"Electroválvula (bobina)", x:659, y:150, lp:"right"},
+    {id:"REF",  label:"5 V ref (sensor MAP-T)", x:431, y:240, lp:"right"},
+    {id:"ECUG", label:"Masa ECU GNC", x:400, y:305, lp:"bottom"},
+    {id:"GND",  label:"Masa chasis", x:640, y:305, lp:"bottom"},
+    {id:"BATN", label:"Batería −", x:67,  y:305, lp:"bottom"}
+  ],
+  scenarios:[
+    { id:"ok", name:"En gas, funcionando OK", hint:"Recorré la parte eléctrica: 12 V en la alimentación de la ECU, 12 V en la electroválvula (abierta), 5 V en el sensor y masa firme.",
+      current:0.8,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.4,ECUP:12.4,EVC:12.3,EVB:12.2,REF:5.0,ECUG:0.1,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","ECUP",0.01],["ECUP","EVC",0.5],["EVC","EVB",0.02],["EVB","GND",24],["ECUP","REF",100],["REF","GND",5000],["ECUG","GND",0.01],["GND","BATN",0.01]],
+      diag:"En gas y sano: la ECU de GNC tiene 12 V, la electroválvula recibe 12 V (abre el gas), el sensor MAP-T tiene sus 5 V de referencia y la masa del equipo cae casi 0 V." },
+    { id:"fusible", name:"No pasa a gas (revisá alimentación)", hint:"El auto no conmuta y sigue en nafta. Medí tensión antes y después del fusible del equipo de GNC.",
+      current:0,
+      pot:{BATP:12.5,FIN:12.5,FOUT:0,ECUP:0,EVC:0,EVB:0,REF:0,ECUG:0,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FOUT","ECUP",0.01],["ECUP","EVC",0.5],["EVC","EVB",0.02],["EVB","GND",24],["ECUP","REF",100],["REF","GND",5000],["ECUG","GND",0.01],["GND","BATN",0.01]],
+      answer:"fuse_open",
+      diag:"FUSIBLE DEL EQUIPO QUEMADO. Hay 12 V en la entrada del fusible y 0 V en la salida: sin alimentación la ECU de GNC no trabaja y el auto se queda en nafta." },
+    { id:"masa", name:"Conmuta raro / inestable en gas", hint:"Anda con tirones al pasar a gas. Hacé caída de tensión entre Masa ECU GNC y Masa chasis (debería ser <0,2 V).",
+      current:0.8,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.4,ECUP:12.4,EVC:12.3,EVB:12.2,REF:5.0,ECUG:3.5,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","ECUP",0.01],["ECUP","EVC",0.5],["EVC","EVB",0.02],["EVB","GND",24],["ECUP","REF",100],["REF","GND",5000],["ECUG","GND",4],["GND","BATN",0.01]],
+      answer:"bad_ground",
+      diag:"MALA MASA DEL EQUIPO. La masa de la ECU de GNC está a ~3,5 V respecto del chasis (debería ser <0,2 V). Una masa con resistencia genera conmutaciones erráticas y fallas raras." },
+    { id:"comando", name:"No abre el gas (comando)", hint:"Medí tensión en el Comando de la electroválvula y después en la Bobina de la electroválvula. ¿Llega el 12 V hasta la bobina?",
+      current:0,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.4,ECUP:12.4,EVC:12.3,EVB:0,REF:5.0,ECUG:0.1,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","ECUP",0.01],["ECUP","EVC",0.5],["EVB","GND",24],["ECUP","REF",100],["REF","GND",5000],["ECUG","GND",0.01],["GND","BATN",0.01]],
+      answer:"no_command",
+      diag:"EL COMANDO NO LLEGA A LA BOBINA. La ECU manda 12 V (hay tensión en Comando electroválvula) pero a la bobina llegan 0 V: cable de comando cortado o conector flojo. Sin 12 V, la electroválvula no abre el gas." },
+    { id:"bobina", name:"No abre el gas (bobina)", hint:"Con el sistema SIN tensión, medí la resistencia de la bobina (Electroválvula a Masa chasis): debería dar ~20–30 Ω.",
+      current:0,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.4,ECUP:12.4,EVC:12.3,EVB:12.2,REF:5.0,ECUG:0.1,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","ECUP",0.01],["ECUP","EVC",0.5],["EVC","EVB",0.02],["ECUP","REF",100],["REF","GND",5000],["ECUG","GND",0.01],["GND","BATN",0.01]],
+      answer:"coil_open",
+      diag:"BOBINA CORTADA. Llega el comando (12 V en la bobina, sin corriente), pero la resistencia de la bobina da un valor altísimo en vez de ~20–30 Ω: el bobinado de la electroválvula está abierto. No abre el gas." },
+    { id:"ref", name:"Anda mal en gas (sensor sin 5 V)", hint:"Tirones y mala calibración en gas. Medí la tensión de referencia del sensor MAP-T (5 V ref a Masa chasis): deberían ser 5 V.",
+      current:0.8,
+      pot:{BATP:12.5,FIN:12.5,FOUT:12.4,ECUP:12.4,EVC:12.3,EVB:12.2,REF:0,ECUG:0.1,GND:0,BATN:0},
+      edges:[["BATP","FIN",0.01],["FIN","FOUT",0.02],["FOUT","ECUP",0.01],["ECUP","EVC",0.5],["EVC","EVB",0.02],["EVB","GND",24],["REF","GND",5000],["ECUG","GND",0.01],["GND","BATN",0.01]],
+      answer:"ev_ref",
+      diag:"SIN 5 V DE REFERENCIA. El sensor MAP-T mide 0 V donde debería haber 5 V: sin esa referencia la ECU no lee la presión del gas y la inyección sale mal. Revisá el cable de 5 V y el conector/masa del sensor." }
+  ]
 }
 ];
 
@@ -2196,7 +2285,9 @@ const Simulator = (() => {
     bad_terminal:"Borne/cable con resistencia",
     no_command:"Falta el positivo de mando",
     no_charge:"Alternador no carga",
-    diode:"Diodo del rectificador dañado"
+    diode:"Diodo del rectificador dañado",
+    coil_open:"Bobina de electroválvula cortada",
+    ev_ref:"Sin 5 V de referencia (sensor MAP-T)"
   };
   const MODES=[
     {k:"V",   label:"V⎓",  deg:-130, name:"Tensión (continua)"},
