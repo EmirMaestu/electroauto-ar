@@ -62,4 +62,13 @@ export const GLOSSARY: GlossaryEntry[] = [
   { term: "RTO", alias: ["revisión técnica", "VTV"], cat: "general", def: "Revisión técnica vehicular obligatoria. En Mendoza se la conoce como RTO; en otras provincias, VTV." },
   { term: "GNC", cat: "general", def: "Gas natural comprimido. Se guarda a ~200 bar en el tubo y un reductor lo baja a la presión de trabajo para inyectarlo." },
   { term: "Reductor", alias: ["regulador de GNC"], cat: "general", def: "Equipo de GNC que baja la presión del gas desde el tubo a la de trabajo y lo calienta con el agua del motor para que no se congele." },
+  { term: "Fluencia", alias: ["límite elástico", "Rp0,2"], cat: "fisica", def: "Tensión desde la cual una pieza queda deformada para siempre al descargarla. En un tornillo 10.9 es de unos 900 MPa." },
+  { term: "TTY", alias: ["tornillo de estiramiento"], cat: "motor", def: "Tornillo que se aprieta por torque + ángulo hasta apenas pasar la fluencia. Queda estirado: no se reutiliza salvo que el fabricante diga lo contrario." },
+  { term: "Fatiga", cat: "fisica", def: "Rotura por cargas repetidas menores a las que la pieza aguanta una sola vez. Suele arrancar en roscas, estriados, rayones u óxido." },
+  { term: "Patinamiento", alias: ["slip"], cat: "chasis", def: "Diferencia entre la velocidad del auto y la de la rueda. Al frenar, la adherencia es máxima con 10–20 % de patinamiento: el ABS trabaja ahí." },
+  { term: "Vapor lock", alias: ["fading de líquido"], cat: "chasis", def: "Burbujas de vapor en el líquido de frenos viejo (con agua) por el calor de las pinzas: el pedal se va al piso." },
+  { term: "Blow-by", cat: "motor", def: "Gases de combustión que se escapan por los aros hacia el cárter. Mucho blow-by = aros o cilindros gastados." },
+  { term: "VVT", alias: ["distribución variable", "variador"], cat: "motor", def: "Sistema que adelanta o atrasa el árbol de levas con aceite a presión, comandado por la ECU con una electroválvula (OCV) por PWM." },
+  { term: "Presostato", alias: ["bulbo de aceite"], cat: "electrica", def: "Interruptor que se acciona por presión. El de aceite prende el testigo por debajo de unos 0,3–0,5 bar." },
+  { term: "Soplado", alias: ["boost", "presión de turbo"], cat: "motor", def: "Presión que agrega el turbo por encima de la atmosférica: MAP absoluto menos presión atmosférica." },
 ];

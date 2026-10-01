@@ -205,6 +205,36 @@ export const TOOLS: Tool[] = [
     uso: "Tubo largo con goma interna que sostiene la bujía. Medidas típicas: 16 mm y 21 mm (5/8\" y 13/16\").",
     tips: ["Sacá bujías con el motor frío, sobre todo en tapas de aluminio.", "Antes de sacarla, soplá el pozo de la bujía: la tierra (y en Mendoza hay mucha) se cae al cilindro."],
   },
+  {
+    id: "manometro-aceite", nombre: "Manómetro de presión de aceite", icon: "🛢️", cat: "fluidos", prioridad: 2,
+    uso: "Se rosca en lugar del presostato (bulbo) de aceite para medir la presión real. El testigo del tablero sólo te avisa cuando ya es tarde.",
+    tips: ["Medí con el aceite caliente (más de 80 °C): en frío cualquier motor da buena presión.", "Anotá ralentí y 2.000–3.000 rpm y comparalo con el dato de fábrica."],
+  },
+  {
+    id: "termometro-ir", nombre: "Termómetro infrarrojo", icon: "🌡️", cat: "motor", prioridad: 1,
+    uso: "Mide temperatura sin tocar: mangueras de radiador, termostato, entrada y salida del catalizador, discos de freno, cilindros del escape (el que está frío no está quemando).",
+    tips: ["Apuntá a superficies opacas: el metal brillante o cromado engaña la lectura.", "Compará siempre dos puntos (entrada y salida, un lado y el otro) más que el valor absoluto."],
+  },
+  {
+    id: "maquina-humo", nombre: "Máquina de humo", icon: "💨", cat: "motor", prioridad: 3,
+    uso: "Llena de humo inofensivo la admisión, el turbo, el escape o el sistema de evaporación para encontrar pérdidas que a simple vista no se ven.",
+    tips: ["En sistemas de turbo, no pases de 1 bar de presión.", "Con buena luz (o linterna) buscá por dónde sale el humo: juntas, mangueras, abrazaderas."],
+  },
+  {
+    id: "bomba-vacio", nombre: "Bomba de vacío manual", icon: "🫙", cat: "motor", prioridad: 2,
+    uso: "Bombín con vacuómetro para probar actuadores de vacío (wastegate, válvulas EGR viejas, servofreno), regular sensores MAP en banco y chequear que una membrana no pierda.",
+    tips: ["Aplicá vacío y fijate que la aguja se mantenga: si baja sola, hay pérdida.", "Con un MAP en banco: a más vacío, menos tensión de salida."],
+  },
+  {
+    id: "regloscopio", nombre: "Regloscopio (alineador de faros)", icon: "🔦", cat: "motor", prioridad: 3,
+    uso: "Mide la altura e inclinación del haz de los faros para que iluminen bien sin encandilar. Es lo que usan en la RTO.",
+    tips: ["Cubiertas infladas, tanque a medio llenar y conductor a bordo (o peso equivalente) antes de regular."],
+  },
+  {
+    id: "reloj-comparador", nombre: "Reloj comparador", icon: "⏱️", cat: "precision", prioridad: 3,
+    uso: "Mide desplazamientos chicos con base magnética: alabeo de discos de freno, juego axial del cigüeñal o del turbo, excentricidad de ejes.",
+    tips: ["Fijá bien la base magnética y precargá el palpador antes de poner a cero."],
+  },
 ];
 
 export const toolById = (id: string) => TOOLS.find((t) => t.id === id);
