@@ -1,0 +1,86 @@
+[
+ {
+  "title": "Asigná cada fusible a su amperaje (por color)",
+  "items": [
+   [
+    "Rojo",
+    "10 A"
+   ],
+   [
+    "Azul",
+    "15 A"
+   ],
+   [
+    "Amarillo",
+    "20 A"
+   ],
+   [
+    "Verde",
+    "30 A"
+   ]
+  ]
+ },
+ {
+  "title": "Relacioná cada sensor con lo que mide",
+  "items": [
+   [
+    "ECT",
+    "Temperatura del motor"
+   ],
+   [
+    "TPS",
+    "Posición de mariposa"
+   ],
+   [
+    "CKP",
+    "RPM / posición cigüeñal"
+   ],
+   [
+    "MAP",
+    "Presión del múltiple"
+   ]
+  ]
+ },
+ {
+  "title": "Asociá cada pin del relé con su función",
+  "items": [
+   [
+    "85 / 86",
+    "Bobina (comando)"
+   ],
+   [
+    "30",
+    "Entrada de corriente"
+   ],
+   [
+    "87",
+    "Salida al consumo"
+   ],
+   [
+    "87a",
+    "Salida en reposo"
+   ]
+  ]
+ },
+ {
+  "title": "Relacioná el síntoma con la causa más probable",
+  "items": [
+   [
+    "Fusible que vuela",
+    "Cortocircuito a masa"
+   ],
+   [
+    "Luces mortecinas",
+    "Mala masa"
+   ],
+   [
+    "Burro gira lento",
+    "Batería floja"
+   ],
+   [
+    "No carga, testigo on",
+    "Alternador/correa"
+   ]
+  ]
+ }
+]

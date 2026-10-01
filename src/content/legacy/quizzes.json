@@ -1,0 +1,810 @@
+{
+ "q_i1l1": [
+  {
+   "q": "¿En qué unidad se mide la tensión eléctrica?",
+   "opts": [
+    "Ampere (A)",
+    "Volt (V)",
+    "Ohm (Ω)",
+    "Watt (W)"
+   ],
+   "correct": 1,
+   "explain": "La tensión o voltaje se mide en volts. Es la 'presión' eléctrica.",
+   "topic": "básico"
+  },
+  {
+   "q": "Con el motor en marcha y el alternador cargando, ¿qué tensión es normal en la batería?",
+   "opts": [
+    "12,0 V",
+    "10,5 V",
+    "13,8 a 14,7 V",
+    "16 V"
+   ],
+   "correct": 2,
+   "explain": "Cargando, el alternador eleva a ~13,8–14,7 V. 12 V es batería en reposo.",
+   "topic": "carga"
+  },
+  {
+   "q": "La oposición al paso de la corriente se llama:",
+   "opts": [
+    "Potencia",
+    "Resistencia",
+    "Corriente",
+    "Capacidad"
+   ],
+   "correct": 1,
+   "explain": "La resistencia (ohms) se opone al paso de la corriente.",
+   "topic": "básico"
+  },
+  {
+   "q": "¿Cómo se mide siempre la resistencia de un componente?",
+   "opts": [
+    "Con el circuito alimentado",
+    "Con el circuito SIN alimentación",
+    "Con el motor en marcha",
+    "Con la pinza amperométrica"
+   ],
+   "correct": 1,
+   "explain": "El óhmetro inyecta su propia corriente: medir con tensión presente da datos inválidos y puede dañar el tester.",
+   "topic": "medición"
+  }
+ ],
+ "q_i1l2": [
+  {
+   "q": "¿Cuál es la fórmula de la Ley de Ohm?",
+   "opts": [
+    "V = I / R",
+    "V = I × R",
+    "V = R / I",
+    "V = I + R"
+   ],
+   "correct": 1,
+   "explain": "V = I × R. De ahí I = V/R y R = V/I.",
+   "topic": "ohm"
+  },
+  {
+   "q": "Una lámpara de stop de 21 W a 12 V consume aproximadamente:",
+   "opts": [
+    "0,5 A",
+    "1,75 A",
+    "5 A",
+    "21 A"
+   ],
+   "correct": 1,
+   "explain": "I = P/V = 21/12 ≈ 1,75 A.",
+   "topic": "ohm"
+  },
+  {
+   "q": "Si la resistencia de un circuito BAJA mucho (corto), la corriente:",
+   "opts": [
+    "Baja",
+    "No cambia",
+    "Sube mucho",
+    "Se hace cero"
+   ],
+   "correct": 2,
+   "explain": "I = V/R: si R baja, I sube. Por eso un corto dispara la corriente y vuela el fusible.",
+   "topic": "ohm"
+  },
+  {
+   "q": "¿Por qué se calienta un cable con mala conexión (alta resistencia)?",
+   "opts": [
+    "Por la humedad",
+    "Disipa potencia como calor (I²×R)",
+    "Porque baja la tensión",
+    "No se calienta"
+   ],
+   "correct": 1,
+   "explain": "La potencia disipada P = I²×R se convierte en calor en la resistencia indeseada.",
+   "topic": "ohm"
+  }
+ ],
+ "q_i1l3": [
+  {
+   "q": "En el auto, el retorno de corriente (negativo) generalmente es:",
+   "opts": [
+    "Un cable rojo grueso",
+    "La masa: chasis y bloque del motor",
+    "La antena",
+    "El tanque de nafta"
+   ],
+   "correct": 1,
+   "explain": "Se usa masa a chasis para ahorrar cable. Por eso las malas masas causan muchas fallas.",
+   "topic": "masa"
+  },
+  {
+   "q": "Las luces se ponen mortecinas al prender otro consumo. ¿Primer sospechoso?",
+   "opts": [
+    "La radio",
+    "Mala masa / conexión con resistencia",
+    "El alternador nuevo",
+    "El airbag"
+   ],
+   "correct": 1,
+   "explain": "Síntoma clásico de masa floja o conexión con resistencia. Revisá y limpiá masas primero.",
+   "topic": "masa"
+  },
+  {
+   "q": "Un cable cortado provoca un circuito:",
+   "opts": [
+    "Cerrado",
+    "Abierto",
+    "En corto",
+    "En paralelo"
+   ],
+   "correct": 1,
+   "explain": "Sin camino para la corriente = circuito abierto. No hay continuidad.",
+   "topic": "básico"
+  }
+ ],
+ "q_i2l1": [
+  {
+   "q": "¿A qué protege principalmente un fusible?",
+   "opts": [
+    "Al componente",
+    "Al cableado (mazo)",
+    "A la batería",
+    "Al conductor humano"
+   ],
+   "correct": 1,
+   "explain": "El fusible protege el cableado para evitar que se queme o se incendie ante un corto.",
+   "topic": "fusible"
+  },
+  {
+   "q": "Un fusible de uña ROJO corresponde a:",
+   "opts": [
+    "5 A",
+    "10 A",
+    "20 A",
+    "30 A"
+   ],
+   "correct": 1,
+   "explain": "Código de color estándar: rojo = 10 A.",
+   "topic": "fusible"
+  },
+  {
+   "q": "Si un fusible salta repetido, lo correcto es:",
+   "opts": [
+    "Poner uno de más amperaje",
+    "Buscar la falla (corto/sobreconsumo)",
+    "Puentearlo con alambre",
+    "Sacarlo y dejarlo sin fusible"
+   ],
+   "correct": 1,
+   "explain": "Si salta, hay falla. Subir amperaje o puentear puede quemar el mazo o causar incendio.",
+   "topic": "fusible"
+  }
+ ],
+ "q_i2l2": [
+  {
+   "q": "¿Para qué sirve un relé?",
+   "opts": [
+    "Para medir corriente",
+    "Para que una corriente chica maneje una grande",
+    "Para rectificar alterna",
+    "Para guardar memoria"
+   ],
+   "correct": 1,
+   "explain": "Es un interruptor electromagnético: el comando chico acciona el consumo grande.",
+   "topic": "relé"
+  },
+  {
+   "q": "En la numeración estándar, ¿entre qué pines va la bobina del relé?",
+   "opts": [
+    "30 y 87",
+    "85 y 86",
+    "30 y 85",
+    "87 y 87a"
+   ],
+   "correct": 1,
+   "explain": "85 y 86 son la bobina (el comando). 30 es entrada y 87 salida al consumo.",
+   "topic": "relé"
+  },
+  {
+   "q": "¿Cómo confirmás rápido que un relé común funciona?",
+   "opts": [
+    "Lo pesás",
+    "Lo cambiás por uno gemelo del mismo auto",
+    "Lo calentás",
+    "Medís la batería"
+   ],
+   "correct": 1,
+   "explain": "Intercambiarlo por uno igual (electro, bocina) es la prueba más rápida en el taller.",
+   "topic": "relé"
+  }
+ ],
+ "q_i2l3": [
+  {
+   "q": "Una batería en reposo marca 12,3 V. Está:",
+   "opts": [
+    "100% cargada",
+    "Al ~50%",
+    "Sobrecargada",
+    "Perfecta"
+   ],
+   "correct": 1,
+   "explain": "12,3 V ≈ 50% de carga. 12,7–12,8 V es plena carga.",
+   "topic": "batería"
+  },
+  {
+   "q": "Durante el arranque en frío, la tensión de batería no debería caer de:",
+   "opts": [
+    "11 V",
+    "9,6 V",
+    "6 V",
+    "3 V"
+   ],
+   "correct": 1,
+   "explain": "Bajo carga de arranque, menos de 9,6 V indica batería floja o muy descargada.",
+   "topic": "batería"
+  },
+  {
+   "q": "La 'pelusa' blanca/verde en los bornes es:",
+   "opts": [
+    "Pintura",
+    "Sulfatación: aumenta resistencia",
+    "Normal, no afecta",
+    "Grasa de fábrica"
+   ],
+   "correct": 1,
+   "explain": "La sulfatación de bornes agrega resistencia y causa arranque flojo o caídas de tensión.",
+   "topic": "batería"
+  }
+ ],
+ "q_m1l1": [
+  {
+   "q": "En un circuito en SERIE, ¿qué se mantiene igual en todos los componentes?",
+   "opts": [
+    "La tensión",
+    "La corriente",
+    "La potencia",
+    "La resistencia"
+   ],
+   "correct": 1,
+   "explain": "En serie circula la misma corriente por todos; las tensiones se suman.",
+   "topic": "circuitos"
+  },
+  {
+   "q": "Las cargas del auto (luces, radio) suelen estar conectadas:",
+   "opts": [
+    "En serie",
+    "En paralelo",
+    "En estrella",
+    "Sin conexión"
+   ],
+   "correct": 1,
+   "explain": "En paralelo: cada una recibe 12 V y funciona independiente de las demás.",
+   "topic": "circuitos"
+  },
+  {
+   "q": "Midiendo entre los dos lados de una conexión con corriente leés 0,8 V. Eso indica:",
+   "opts": [
+    "Todo perfecto",
+    "Una resistencia indeseada (mal contacto)",
+    "Que falta tensión de batería",
+    "Un fusible nuevo"
+   ],
+   "correct": 1,
+   "explain": "Una buena conexión cae casi 0 V. 0,8 V con corriente = mal contacto/resistencia ahí.",
+   "topic": "medición"
+  }
+ ],
+ "q_m1l2": [
+  {
+   "q": "En un esquema eléctrico, por convención general arriba va el ____ y abajo la ____.",
+   "opts": [
+    "negativo / señal",
+    "positivo / masa",
+    "masa / positivo",
+    "CAN-H / CAN-L"
+   ],
+   "correct": 1,
+   "explain": "Convención: positivo arriba, masa abajo. La corriente 'baja' por la carga.",
+   "topic": "diagramas"
+  },
+  {
+   "q": "¿Qué te indica un punto identificado como G101 o M1 en el diagrama?",
+   "opts": [
+    "Un fusible",
+    "Un punto de masa",
+    "La ECU",
+    "Un relé"
+   ],
+   "correct": 1,
+   "explain": "Son identificadores de puntos de masa, muy útiles para ubicar conexiones a chasis.",
+   "topic": "diagramas"
+  },
+  {
+   "q": "Para no perderte en un circuito grande conviene:",
+   "opts": [
+    "Cambiar piezas al azar",
+    "Dividir el circuito al medio y medir (búsqueda binaria)",
+    "Medir solo la batería",
+    "Borrar los códigos"
+   ],
+   "correct": 1,
+   "explain": "Dividir y medir al medio te dice si la falla está antes o después: ahorra tiempo.",
+   "topic": "método"
+  }
+ ],
+ "q_m2l1": [
+  {
+   "q": "El puente rectificador del alternador sirve para:",
+   "opts": [
+    "Subir las RPM",
+    "Convertir corriente alterna en continua",
+    "Enfriar la batería",
+    "Medir la temperatura"
+   ],
+   "correct": 1,
+   "explain": "El estator genera alterna trifásica; los diodos la rectifican a continua.",
+   "topic": "carga"
+  },
+  {
+   "q": "Medís en VAC (alterna) sobre los bornes con el motor andando y leés 0,6 V. Indica:",
+   "opts": [
+    "Alternador perfecto",
+    "Diodos del rectificador en mal estado",
+    "Batería nueva",
+    "Correa floja"
+   ],
+   "correct": 1,
+   "explain": "Demasiado 'ripple' de alterna (>50 mV) delata diodos dañados.",
+   "topic": "carga"
+  },
+  {
+   "q": "El testigo de batería encendido con el motor en marcha NO suele deberse a:",
+   "opts": [
+    "Correa cortada/floja",
+    "Escobillas gastadas",
+    "Cable de excitación cortado",
+    "Bujías gastadas"
+   ],
+   "correct": 3,
+   "explain": "Las bujías son del encendido, no del sistema de carga.",
+   "topic": "carga"
+  }
+ ],
+ "q_m2l2": [
+  {
+   "q": "Girás la llave y se oye un 'click' pero el burro no gira. Sospecha más probable:",
+   "opts": [
+    "Tanque vacío",
+    "Batería floja/masa/cables o carbones del burro",
+    "Bujías",
+    "Sonda lambda"
+   ],
+   "correct": 1,
+   "explain": "El solenoide pega (click) pero no hay corriente suficiente: batería, masa, cables o burro consumido.",
+   "topic": "arranque"
+  },
+  {
+   "q": "La prueba de caída de tensión en arranque mide entre:",
+   "opts": [
+    "Dos puntos que deberían estar al mismo potencial, con corriente",
+    "La radio y el tablero",
+    "El faro y la batería",
+    "La ECU y la masa de señal"
+   ],
+   "correct": 0,
+   "explain": "Se mide entre puntos que deberían ser un mismo potencial (cable + de bat. y + del burro) mientras arranca.",
+   "topic": "medición"
+  },
+  {
+   "q": "El piñón del burro engrana con:",
+   "opts": [
+    "El cigüeñal directo",
+    "La corona del volante motor",
+    "El árbol de levas",
+    "La bomba de agua"
+   ],
+   "correct": 1,
+   "explain": "El Bendix empuja el piñón contra la corona del volante para hacer girar el motor.",
+   "topic": "arranque"
+  }
+ ],
+ "q_a1l1": [
+  {
+   "q": "Un sensor NTC (ECT/IAT), al aumentar la temperatura:",
+   "opts": [
+    "Aumenta su resistencia",
+    "Disminuye su resistencia",
+    "Mantiene la resistencia",
+    "Genera tensión propia"
+   ],
+   "correct": 1,
+   "explain": "NTC = coeficiente negativo: más temperatura, menos resistencia.",
+   "topic": "sensores"
+  },
+  {
+   "q": "El CKP de tipo inductivo genera una señal:",
+   "opts": [
+    "De onda cuadrada 0-5 V",
+    "Alterna (senoidal) que él mismo produce",
+    "Constante de 12 V",
+    "De 5 V de referencia"
+   ],
+   "correct": 1,
+   "explain": "El inductivo genera su propia tensión alterna al pasar los dientes de la rueda fónica.",
+   "topic": "sensores"
+  },
+  {
+   "q": "La mayoría de los sensores analógicos reciben de la ECU:",
+   "opts": [
+    "12 V y nada más",
+    "5 V de referencia y masa",
+    "220 V",
+    "Solo masa"
+   ],
+   "correct": 1,
+   "explain": "La ECU reparte 5 V de referencia y masa; el sensor devuelve una señal variable.",
+   "topic": "sensores"
+  },
+  {
+   "q": "El TPS marca saltos bruscos al abrir la mariposa lentamente. Esto indica:",
+   "opts": [
+    "Funciona perfecto",
+    "Pista del potenciómetro gastada/sucia",
+    "Sonda lambda vaga",
+    "Batería baja"
+   ],
+   "correct": 1,
+   "explain": "La señal del TPS debe subir suave; saltos = pista desgastada.",
+   "topic": "sensores"
+  }
+ ],
+ "q_a1l2": [
+  {
+   "q": "¿Cómo comanda la ECU a la mayoría de los inyectores y actuadores?",
+   "opts": [
+    "Cortando el positivo",
+    "Dando masa (lado bajo) con positivo permanente",
+    "Variando los 5 V",
+    "Con corriente alterna"
+   ],
+   "correct": 1,
+   "explain": "Control por masa: positivo permanente y la ECU abre/cierra el negativo por pulsos.",
+   "topic": "actuadores"
+  },
+  {
+   "q": "La resistencia típica de un inyector de nafta de alta impedancia es:",
+   "opts": [
+    "0,5 Ω",
+    "12–16 Ω",
+    "120 Ω",
+    "1 MΩ"
+   ],
+   "correct": 1,
+   "explain": "Suelen estar en 12–16 Ω. Muy bajo = en corto; abierto = cortado.",
+   "topic": "actuadores"
+  },
+  {
+   "q": "El 'ancho de pulso' del inyector (ms) determina:",
+   "opts": [
+    "El avance de encendido",
+    "La cantidad de nafta inyectada",
+    "La presión de aceite",
+    "La carga de batería"
+   ],
+   "correct": 1,
+   "explain": "Más tiempo abierto = más nafta. Es como la ECU dosifica el combustible.",
+   "topic": "actuadores"
+  }
+ ],
+ "q_a1l3": [
+  {
+   "q": "En 'lazo cerrado', la ECU corrige la mezcla usando principalmente:",
+   "opts": [
+    "El TPS",
+    "La sonda lambda (O2)",
+    "El sensor de knock",
+    "El velocímetro"
+   ],
+   "correct": 1,
+   "explain": "En lazo cerrado la sonda lambda informa el oxígeno y la ECU ajusta en tiempo real.",
+   "topic": "inyección"
+  },
+  {
+   "q": "Un LTFT muy positivo (+18%) sugiere:",
+   "opts": [
+    "Mezcla muy rica",
+    "El motor pide más nafta: aire falso o baja presión de nafta",
+    "Inyectores goteando",
+    "Todo normal"
+   ],
+   "correct": 1,
+   "explain": "Trim positivo alto = la ECU agrega nafta para compensar: entrada de aire, presión baja o MAF subestimando.",
+   "topic": "inyección"
+  },
+  {
+   "q": "La relación aire/nafta estequiométrica ideal en nafta es aproximadamente:",
+   "opts": [
+    "1:1",
+    "14,7:1",
+    "50:1",
+    "100:1"
+   ],
+   "correct": 1,
+   "explain": "≈14,7 partes de aire por 1 de nafta (relación estequiométrica).",
+   "topic": "inyección"
+  }
+ ],
+ "q_a2l1": [
+  {
+   "q": "En un sistema COP (Coil On Plug) hay:",
+   "opts": [
+    "Una bobina y distribuidor",
+    "Una bobina por bujía, sin cables",
+    "Dos bujías por bobina siempre",
+    "Ninguna bobina"
+   ],
+   "correct": 1,
+   "explain": "COP: una bobina sobre cada bujía, sin cables de alta.",
+   "topic": "encendido"
+  },
+  {
+   "q": "Un código P0301 indica:",
+   "opts": [
+    "Mezcla pobre",
+    "Fallo de encendido (misfire) en el cilindro 1",
+    "Sonda lambda lenta",
+    "CAN caído"
+   ],
+   "correct": 1,
+   "explain": "P030X = misfire en el cilindro X. P0300 es aleatorio.",
+   "topic": "encendido"
+  },
+  {
+   "q": "Para confirmar si un misfire es por la bobina, conviene:",
+   "opts": [
+    "Cambiar la batería",
+    "Intercambiar la bobina de cilindro y ver si el fallo 'se muda'",
+    "Borrar el código y nada más",
+    "Cambiar el filtro de aire"
+   ],
+   "correct": 1,
+   "explain": "Si al mover la bobina a otro cilindro el fallo lo sigue, la pieza es la culpable.",
+   "topic": "método"
+  }
+ ],
+ "q_a2l2": [
+  {
+   "q": "Se apagan juntas posición + giro + stop de un solo lado. Primer sospechoso:",
+   "opts": [
+    "Las tres lámparas a la vez",
+    "La masa común de ese sector",
+    "La ECU",
+    "La batería"
+   ],
+   "correct": 1,
+   "explain": "Que fallen varias del mismo lado apunta a la masa común, no a las lámparas.",
+   "topic": "iluminación"
+  },
+  {
+   "q": "¿Por qué los faros usan relé?",
+   "opts": [
+    "Para gastar más batería",
+    "Para no pasar toda la corriente por la llave del volante",
+    "Para hacer ruido",
+    "Para subir la tensión"
+   ],
+   "correct": 1,
+   "explain": "El relé maneja la corriente alta; la llave solo comanda la bobina (corriente baja).",
+   "topic": "iluminación"
+  },
+  {
+   "q": "Una sola lámpara no prende, las demás del grupo sí. Más probable:",
+   "opts": [
+    "Fusible general",
+    "La lámpara o su masa",
+    "El relé principal",
+    "La llave de luces"
+   ],
+   "correct": 1,
+   "explain": "Si es una sola, casi siempre es la lámpara o su masa puntual.",
+   "topic": "iluminación"
+  }
+ ],
+ "q_p1l1": [
+  {
+   "q": "Antes de condenar una ECU, SIEMPRE conviene verificar:",
+   "opts": [
+    "El color del tablero",
+    "Alimentaciones, masas y 5 V de referencia",
+    "La presión de las cubiertas",
+    "El nivel de nafta"
+   ],
+   "correct": 1,
+   "explain": "La ECU falla poco. Verificá sus alimentaciones, masas y referencias antes de cambiarla.",
+   "topic": "ECU"
+  },
+  {
+   "q": "En un DTC tipo P0171, la letra 'P' significa:",
+   "opts": [
+    "Presión",
+    "Powertrain (motor/transmisión)",
+    "Parking",
+    "Potencia"
+   ],
+   "correct": 1,
+   "explain": "P = powertrain. B carrocería, C chasis, U red de comunicación.",
+   "topic": "diagnóstico"
+  },
+  {
+   "q": "Un código de falla (DTC) te indica:",
+   "opts": [
+    "Exactamente la pieza a cambiar",
+    "El circuito o síntoma a investigar",
+    "Que la ECU está rota",
+    "Que hay que borrar y listo"
+   ],
+   "correct": 1,
+   "explain": "Orienta hacia un circuito o síntoma; el diagnóstico lo hacés vos.",
+   "topic": "diagnóstico"
+  }
+ ],
+ "q_p1l2": [
+  {
+   "q": "Entre CAN-H y CAN-L, con la red sin alimentar, deberías medir:",
+   "opts": [
+    "120 Ω",
+    "60 Ω",
+    "0 Ω",
+    "Infinito"
+   ],
+   "correct": 1,
+   "explain": "Dos terminadoras de 120 Ω en paralelo dan ~60 Ω. Es la prueba rápida de la red.",
+   "topic": "CAN"
+  },
+  {
+   "q": "Si medís 120 Ω en vez de 60 Ω en el CAN, probablemente:",
+   "opts": [
+    "Todo perfecto",
+    "Falta una resistencia terminadora o la red está partida",
+    "Hay un corto",
+    "Sobra tensión"
+   ],
+   "correct": 1,
+   "explain": "120 Ω indica una sola terminadora activa: falta la otra o el bus está cortado.",
+   "topic": "CAN"
+  },
+  {
+   "q": "Un código tipo U0100 indica:",
+   "opts": [
+    "Falla mecánica",
+    "Pérdida de comunicación con un módulo (ECM)",
+    "Mezcla pobre",
+    "Sensor de temperatura"
+   ],
+   "correct": 1,
+   "explain": "Los códigos U son de red: pérdida de comunicación entre módulos.",
+   "topic": "CAN"
+  },
+  {
+   "q": "En reposo, los cables CAN-H y CAN-L están aproximadamente en:",
+   "opts": [
+    "0 V ambos",
+    "2,5 V ambos",
+    "12 V ambos",
+    "5 V y 0 V"
+   ],
+   "correct": 1,
+   "explain": "Ambos descansan cerca de 2,5 V; al transmitir, H sube y L baja.",
+   "topic": "CAN"
+  }
+ ],
+ "q_p1l3": [
+  {
+   "q": "La función 'freeze frame' (congelado) del scanner muestra:",
+   "opts": [
+    "Una foto del motor",
+    "Las condiciones en el momento en que se grabó la falla",
+    "El manual del auto",
+    "El precio del repuesto"
+   ],
+   "correct": 1,
+   "explain": "Guarda RPM, temperatura, carga, etc., del instante de la falla. Muy útil.",
+   "topic": "scanner"
+  },
+  {
+   "q": "La ECT marca –40°C con el motor caliente. Significa:",
+   "opts": [
+    "El motor está congelado",
+    "Sensor o cable cortado (valor de fuga)",
+    "Todo normal",
+    "La ECU explotó"
+   ],
+   "correct": 1,
+   "explain": "–40°C es el valor 'a circuito abierto' típico: sensor o cable cortado.",
+   "topic": "scanner"
+  },
+  {
+   "q": "En el conector OBD2, los pines 6 y 14 corresponden a:",
+   "opts": [
+    "Positivo y masa",
+    "CAN-H y CAN-L",
+    "K-line y L-line",
+    "Dos masas"
+   ],
+   "correct": 1,
+   "explain": "Pin 6 = CAN-H, pin 14 = CAN-L. Pin 16 positivo; 4 y 5 masas.",
+   "topic": "scanner"
+  }
+ ],
+ "q_p2l1": [
+  {
+   "q": "En el osciloscopio, el eje horizontal representa:",
+   "opts": [
+    "La tensión",
+    "El tiempo",
+    "La corriente",
+    "La resistencia"
+   ],
+   "correct": 1,
+   "explain": "Vertical = tensión, horizontal = tiempo. Por eso ves la 'forma' de la señal.",
+   "topic": "osciloscopio"
+  },
+  {
+   "q": "¿Por qué el osciloscopio detecta fallas que el scanner no?",
+   "opts": [
+    "Porque es más caro",
+    "Porque ve eventos rápidos (glitches) que el scanner promedia",
+    "Porque borra códigos",
+    "Porque mide nafta"
+   ],
+   "correct": 1,
+   "explain": "El scanner muestrea lento y promedia; el osciloscopio captura microcortes de ms.",
+   "topic": "osciloscopio"
+  },
+  {
+   "q": "En la señal de un CKP inductivo, un 'diente faltante' marca:",
+   "opts": [
+    "Una falla",
+    "La referencia de PMS (punto muerto superior)",
+    "Un corto",
+    "La masa"
+   ],
+   "correct": 1,
+   "explain": "La rueda fónica tiene un diente menos como referencia de posición del cigüeñal.",
+   "topic": "osciloscopio"
+  }
+ ],
+ "q_p2l2": [
+  {
+   "q": "El PRIMER paso del método de diagnóstico es:",
+   "opts": [
+    "Cambiar la pieza más cara",
+    "Verificar/reproducir la falla",
+    "Borrar los códigos",
+    "Llamar al cliente"
+   ],
+   "correct": 1,
+   "explain": "Primero confirmás que la falla existe y la reproducís. No diagnostiques de oídas.",
+   "topic": "método"
+  },
+  {
+   "q": "Para una falla intermitente, una técnica útil es:",
+   "opts": [
+    "Esperar a que se rompa del todo",
+    "Wiggle test: mover el mazo buscando que falle",
+    "Cambiar la ECU directamente",
+    "Subir el amperaje del fusible"
+   ],
+   "correct": 1,
+   "explain": "Mover el cableado, calentar/enfriar o mojar conectores ayuda a provocar la intermitencia.",
+   "topic": "método"
+  },
+  {
+   "q": "La mayoría de las fallas eléctricas reales son por:",
+   "opts": [
+    "ECU quemada",
+    "Resistencias indeseadas: masas, conectores, bornes",
+    "Sensores de fábrica fallados",
+    "Software"
+   ],
+   "correct": 1,
+   "explain": "Mal contacto/masa es la causa nº1. La prueba de caída de tensión con carga las encuentra.",
+   "topic": "método"
+  }
+ ]
+}
