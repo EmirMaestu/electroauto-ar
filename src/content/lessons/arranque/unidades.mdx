@@ -1,0 +1,274 @@
+El manual dice que los bulones de rueda van a **110 N·m**. Tu torquímetro, que compraste usado, está marcado en **lb·ft**. En la gomería te inflan las cubiertas a "32", la etiqueta de la puerta dice **2,2 bar** y el scanner muestra el MAP en **kPa**. El aceite, en un manual viejo, pide 4 "litros" y en uno yanqui, 4,2 "quarts". Bienvenido al taller: acá conviven por lo menos tres sistemas de unidades, y nadie te avisa cuál está usando.
+
+No es un detalle de prolijidad. En 1999 la NASA perdió una sonda en Marte porque un equipo calculaba la fuerza de los motores en libras y otro la leía en newtons. En el taller el resultado es menos espectacular pero igual de caro: un tornillo pasado de rosca, una cubierta mal inflada, una tapa de cilindros apretada a un tercio de lo que corresponde. Esta lección te deja manejando las unidades **de memoria y con trucos mentales**, y con un conversor a mano para cuando haga falta el número exacto.
+
+<Libro pag="pág. 28–41" />
+
+## El Sistema Internacional, en criollo
+
+El **Sistema Internacional (SI)** es el idioma oficial de la ciencia y de casi todo el mundo, incluida la Argentina. Se arma con **siete unidades de base** y, a partir de ellas, todas las demás.
+
+| Magnitud | Unidad SI | Símbolo | Dónde la ves en el auto |
+|---|---|---|---|
+| Longitud | metro | m | Medidas, distancias, diámetros (en mm) |
+| Masa | kilogramo | kg | Peso del auto, de una pieza |
+| Tiempo | segundo | s | Ancho de pulso de un inyector (en ms) |
+| Corriente eléctrica | ampere | A | Consumo del burro, de una lámpara |
+| Temperatura | kelvin | K | En la práctica usamos °C |
+| Cantidad de sustancia | mol | mol | Química de la combustión y las baterías |
+| Intensidad luminosa | candela | cd | Faros |
+
+Con esas siete se construyen las **unidades derivadas** que vas a usar todos los días:
+
+| Magnitud | Unidad | Símbolo | Equivale a | En el auto |
+|---|---|---|---|---|
+| Fuerza | newton | N | kg·m/s² | Lo que empuja un pistón, lo que hace un resorte |
+| Torque | newton metro | N·m | N × m | Apriete de tornillos, torque del motor |
+| Presión | pascal | Pa | N/m² | Cubiertas, aceite, nafta, compresión (en kPa o bar) |
+| Energía | joule | J | N·m | Lo que hay en la nafta o en la batería |
+| Potencia | watt | W | J/s | Potencia del motor (en kW) |
+| Tensión | volt | V | W/A | Batería, sensores |
+| Resistencia | ohm | Ω | V/A | Inyectores, bobinas, sensores |
+| Frecuencia | hertz | Hz | 1/s | Señales de sensores, vibraciones |
+
+<Dato title="Torque y energía, ¿no son lo mismo?">
+Las dos se arman con newton por metro, pero son cosas distintas: en el **torque** la fuerza y el brazo forman un ángulo recto (es una fuerza "de giro"); en la **energía** la fuerza empuja a lo largo del camino recorrido. Por eso el torque se escribe **N·m** y la energía **J**, aunque dimensionalmente coincidan.
+</Dato>
+
+## Por qué en el taller conviven tantas unidades
+
+Porque los autos y las herramientas vienen de lugares y de épocas distintas:
+
+- **El sistema métrico** (el SI y sus parientes): autos europeos, japoneses, coreanos, chinos y casi todo lo que se fabrica en la región.
+- **El sistema imperial y el de Estados Unidos**: pulgadas, libras, psi, galones, °F. Aparece en autos y manuales norteamericanos, en mucha herramienta, y en costumbres que quedaron (la gomería mide en psi; los tubos de bujía y los encastres de las llaves se nombran en pulgadas).
+- **Las unidades técnicas viejas**: kilogramo fuerza (kgf), kg/cm², caballo vapor (CV). No son del SI, pero los manuales de hace unas décadas y mucha gente de oficio las siguen usando. Cuando un mecánico dice que el aceite tiene "3 kilos" de presión, está hablando de kg/cm², que es casi lo mismo que bar.
+
+Tu trabajo no es elegir un sistema: es **saber pasar de uno a otro sin equivocarte**. Probá:
+
+<ConversorUnidades />
+
+## Prefijos: del micro al mega
+
+Los prefijos multiplican o dividen la unidad por 1.000 (o por 10, 100). Con cinco prefijos cubrís el 99 % de lo que vas a leer en un auto.
+
+| Prefijo | Símbolo | Factor | Ejemplo del taller |
+|---|---|---|---|
+| mega | M | × 1.000.000 | **MΩ**: impedancia de entrada de un buen tester (10 MΩ); **MPa**: 200 MPa en un common rail = 2.000 bar |
+| kilo | k | × 1.000 | **kΩ**: secundario de una bobina; **kW**: potencia; **kPa**: MAP; **kV**: chispa |
+| (la unidad) | — | × 1 | V, A, Ω, W, Pa |
+| mili | m | ÷ 1.000 | **mV**: sonda lambda (100 a 900 mV); **mA**: consumo con el auto apagado; **ms**: ancho de pulso del inyector |
+| micro | µ | ÷ 1.000.000 | **µm**: tolerancias de mecanizado; **µs**: flancos de señales; **µA**: corrientes de fuga |
+
+Tres reglas de escritura que evitan errores:
+
+- **Mayúscula o minúscula importa.** **m** es mili (÷ 1.000) y **M** es mega (× 1.000.000). Entre 5 **m**Ω y 5 **M**Ω hay mil millones de veces de diferencia.
+- **k minúscula** para kilo (kW, kΩ, km). La "K" mayúscula es kelvin.
+- **Un espacio entre el número y la unidad**: 12 V, 3,5 bar, 110 N·m. La excepción son los grados de ángulo (15°) y, por costumbre, °C (aunque lo correcto también es 20 °C).
+
+<Ejemplo title="Leer el tester sin perderse">
+El tester marca **0,452** en la escala de **V** midiendo una sonda lambda:
+
+<Calc>0,452 V × 1.000 = 452 mV</Calc>
+
+Mide un sensor de temperatura y marca **2,48 k** en la escala de Ω:
+
+<Calc>2,48 kΩ × 1.000 = 2.480 Ω</Calc>
+
+Resultado: <Res>452 mV (justo en la mitad del rango de la sonda, que está pasando de rica a pobre) y 2.480 Ω (motor frío, unos 20 °C)</Res>. Mirá siempre la letrita que acompaña al número en la pantalla: es la mitad de la medición.
+</Ejemplo>
+
+## Fuerza: newton y kilogramo fuerza
+
+La **masa** (kg) es cuánta materia tiene algo; el **peso** es la fuerza con la que la Tierra lo atrae, y se mide en **newtons**.
+
+<Formula name="Peso" vars={{ "F": "peso [N]", "m": "masa [kg]", "g": "aceleración de la gravedad ≈ 9,81 m/s²" }}>
+  F = m · g
+</Formula>
+
+El **kilogramo fuerza (kgf)** es el peso de una masa de 1 kg: **1 kgf = 9,81 N ≈ 10 N**. Es la unidad que usamos sin darnos cuenta cuando decimos "le hice 30 kilos de fuerza a la llave".
+
+<Dato>
+**Regla mental:** para pasar de kgf a N, multiplicá por 10 (y si querés precisión, por 9,81). Un auto de 1.200 kg pesa unos 11.800 N.
+</Dato>
+
+## Torque: N·m, kgf·m y lb·ft
+
+El <Term t="Torque">torque</Term> es una fuerza de giro: **fuerza por brazo de palanca**. La misma fuerza en una llave más larga da más torque; por eso un caño en la punta de la llave afloja lo que a mano no sale.
+
+<Formula name="Torque" vars={{ "M": "torque [N·m]", "F": "fuerza perpendicular a la llave [N]", "r": "brazo de palanca: distancia del centro del tornillo al punto donde empujás [m]" }}>
+  M = F · r
+</Formula>
+
+<Ejemplo title="¿Cuánto hay que empujar para apretar una rueda?">
+Un bulón de rueda va a **110 N·m** y usás una llave cruz con un brazo de **35 cm**:
+
+<Calc>F = M / r = 110 N·m / 0,35 m ≈ 314 N</Calc>
+
+<Calc>314 N / 9,81 ≈ 32 kgf</Calc>
+
+Resultado: <Res>tenés que empujar con unos 32 kg de fuerza en la punta de la llave</Res>. Si te parás encima de una llave de 35 cm con 80 kg, le das unos 275 N·m: más del doble. Por eso las ruedas se aprietan con **torquímetro** y en cruz, no "a pata".
+</Ejemplo>
+
+Las conversiones que más vas a usar:
+
+- **1 kgf·m ≈ 10 N·m** (exacto 9,81). Un manual viejo que dice "11 kgm" está pidiendo unos 108 N·m.
+- **1 lb·ft ≈ 1,36 N·m.** De N·m a lb·ft, multiplicá por ¾. 110 N·m son unas 81 lb·ft.
+- **1 lb·in = 1/12 de lb·ft.** Cuidado con esta: los torques chicos de los manuales yanquis vienen en libras-pulgada.
+
+## Potencia: kW, CV y HP
+
+La <Term t="Potencia">potencia</Term> es **qué tan rápido se hace un trabajo**. Dos autos pueden tener el mismo torque, pero el que lo da a más vueltas tiene más potencia. En el motor:
+
+<Formula name="Potencia del motor" vars={{ "P": "potencia [kW]", "M": "torque [N·m]", "n": "velocidad del motor [rpm]", "9.550": "constante que junta 60 s/min, 2π y el paso de W a kW" }}>
+  P = M · n / 9.550
+</Formula>
+
+<Ejemplo title="La potencia de un 1.6">
+Un motor 1.6 naftero da su potencia máxima a unas **5.750 rpm**, con un torque a esas vueltas de **135 N·m**:
+
+<Calc>P = 135 × 5.750 / 9.550 ≈ 81 kW</Calc>
+
+<Calc>81 kW / 0,735 ≈ 110 CV</Calc>
+
+Resultado: <Res>81 kW = 110 CV</Res>. Es el número que aparece en la publicidad. Fijate que el torque máximo de ese motor (unos 155 N·m) aparece mucho antes, a unas 4.000 rpm: torque máximo y potencia máxima casi nunca coinciden.
+</Ejemplo>
+
+- **1 CV ≈ 0,735 kW**: los kW son más o menos **¾ de los CV**. Al revés, **1 kW ≈ 1,36 CV**.
+- **CV y HP son casi iguales** (1 HP = 1,014 CV): el HP es el caballo norteamericano, el CV el europeo. Para el taller, da lo mismo.
+- **kW no es kWh.** El kW es potencia; el **kWh** es energía (potencia durante un tiempo). Un eléctrico puede tener un motor de 100 kW y una batería de 50 kWh: son dos datos distintos.
+
+## Presión: bar, psi, kPa y "kilos"
+
+La <Term t="Presión">presión</Term> es fuerza repartida en una superficie. La unidad SI es el pascal (Pa = N/m²), que es chiquitísimo: por eso en el auto se usan el **kPa**, el **bar** y el **psi**.
+
+<Formula name="Presión" vars={{ "p": "presión [Pa = N/m²]", "F": "fuerza [N]", "A": "área donde se reparte [m²]" }}>
+  p = F / A
+</Formula>
+
+**La regla de oro: 1 bar ≈ 14,5 psi ≈ 1 kg/cm² ≈ 100 kPa ≈ 1 atmósfera.** Con eso hacés casi todo de cabeza:
+
+- Cubiertas a **32 psi**: 32 / 14,5 ≈ **2,2 bar**.
+- Presión de nafta **3,5 bar**: 3,5 × 14,5 ≈ **51 psi**.
+- MAP de **35 kPa**: 0,35 bar absolutos (mucho vacío: motor en ralentí).
+- Common rail a **2.000 bar** = 200 MPa: más de 29.000 psi.
+
+### Relativa o absoluta: la trampa más común
+
+Hay dos maneras de contar la presión, y confundirlas es uno de los errores más frecuentes:
+
+- **Presión relativa (o manométrica):** se cuenta **desde la presión del aire que nos rodea**. El cero es "igual que afuera". Es lo que marcan el manómetro de cubiertas, el de aceite, el de nafta y el compresómetro.
+- **Presión absoluta:** se cuenta **desde el vacío total**. Es lo que mide el sensor <Term t="MAP">MAP</Term> y el barómetro. Por eso un MAP, con el motor parado, no marca cero: marca la presión atmosférica.
+
+<Formula name="Absoluta y relativa" vars={{ "p_abs": "presión absoluta", "p_rel": "presión relativa (la del manómetro)", "p_atm": "presión atmosférica del lugar (≈ 1,013 bar a nivel del mar; ≈ 0,93 bar en Mendoza)" }}>
+  p<sub>abs</sub> = p<sub>rel</sub> + p<sub>atm</sub>
+</Formula>
+
+Mirá cómo cambia lo que marca el manómetro de una cubierta sin que cambie el aire de adentro, sólo con la altura y la temperatura:
+
+<ArranquePresionCubierta />
+
+<Ojo>
+En un manómetro de doble escala (bar afuera, psi adentro, o al revés) es facilísimo leer la escala equivocada: 2,2 en la escala de bar y 32 en la de psi son lo mismo, pero inflar a "32 bar" reventaría la cubierta, e inflar a "2,2 psi" la dejaría en la llanta. Antes de leer, fijate **de qué escala es la aguja que estás mirando**.
+</Ojo>
+
+**El vacío** también es una presión relativa, pero por debajo de la atmosférica. Los vacuómetros de taller miden en **pulgadas de mercurio (inHg)**: un motor sano en ralentí, a nivel del mar, marca 17 a 21 inHg de vacío. Eso equivale a un MAP de unos 30 a 40 kPa absolutos.
+
+## Temperatura: °C, °F y K
+
+<Formula name="Celsius a Fahrenheit y kelvin" vars={{ "T_F": "temperatura en grados Fahrenheit", "T_C": "temperatura en grados Celsius", "T_K": "temperatura en kelvin" }}>
+  T<sub>F</sub> = T<sub>C</sub> · 1,8 + 32  ·  T<sub>K</sub> = T<sub>C</sub> + 273,15
+</Formula>
+
+- **Truco rápido:** de °C a °F, **duplicá y sumá 30**. 20 °C → 70 °F (el exacto es 68). Anda bien para temperaturas de todos los días; en temperaturas de motor se desvía más: 90 °C → 210 °F por la regla, 194 °F exactos.
+- **Las diferencias no llevan el +32:** si el motor sube 10 °C, sube 18 °F.
+- **Los kelvin** aparecen en las fórmulas de gases (la presión de una cubierta crece con la temperatura **absoluta**): 20 °C son 293 K. No hay "grados kelvin": se dice simplemente kelvin.
+
+## Volumen y cilindrada
+
+- **1 litro = 1.000 cm³**, y cm³ es lo mismo que "cc". Un motor "1.6" tiene unos 1.600 cm³ de <Term t="Cilindrada">cilindrada</Term>; un "2.0", unos 2.000.
+- **1 in³ ≈ 16,4 cm³.** Los motores norteamericanos clásicos se nombraban así: un V8 "350" son 350 in³ ≈ **5,7 litros**.
+- **El galón** de Estados Unidos son **3,79 litros**; el inglés (imperial), **4,55**. Un "quart" es un cuarto de galón de EE. UU.: casi un litro (0,95 L).
+
+## Velocidad y vueltas
+
+- **De km/h a m/s, dividí por 3,6.** A 100 km/h vas a casi 28 m/s: un segundo mirando el celular son 28 metros a ciegas. Las fórmulas de física (energía, distancia de frenado) siempre van en m/s.
+- **mph × 1,6 ≈ km/h.** 60 mph son unos 97 km/h.
+- **rpm** son vueltas por minuto. Para las fórmulas de física a veces hace falta la velocidad angular en radianes por segundo: **ω = 2π · n / 60**. A 3.000 rpm, ω ≈ 314 rad/s.
+
+## Longitud: milímetros y pulgadas
+
+- **1 pulgada = 25,4 mm**, exactos (por definición).
+- Las llaves y tubos métricos van en mm (8, 10, 12, 13, 14, 17, 19...). Los de pulgada, en fracciones: **½″ = 12,7 mm**, 9/16″ = 14,3 mm, ¾″ = 19,05 mm.
+- **El encastre de las llaves de tubo se nombra en pulgadas aunque el juego sea métrico:** ¼″, ⅜″ y ½″ (y ¾″ para camiones). Un "tubo de 13 con encastre de media" es eso.
+- **Las bujías** comunes llevan rosca **M14 × 1,25** (14 mm de diámetro, paso de 1,25 mm) y se sacan con tubo de **16 mm o 21 mm** (que también se venden como ⅝″ y 13/16″).
+- **Las roscas métricas** se escriben **M diámetro × paso**: un M10 × 1,25 tiene 10 mm de diámetro y avanza 1,25 mm por vuelta. Las de pulgada se nombran por hilos por pulgada (UNC, UNF): no son intercambiables con las métricas aunque "parezca que entran".
+- **Las galgas** viejas vienen en **milésimas de pulgada**: 1 milésima ≈ 0,025 mm, así que una galga de "10" son 0,25 mm.
+
+<Ojo>
+Una llave de ½″ (12,7 mm) "entra" en un bulón de 13 mm, pero con juego: cuando hacés fuerza, **redondea la cabeza**. Lo mismo un tubo de 19 mm en una tuerca de ¾″. Usá siempre la medida justa y, para tornillos duros, tubos de 6 caras.
+</Ojo>
+
+## Cifras significativas y redondeo
+
+Convertir no es copiar todos los decimales que tira la calculadora. Si inflaste a **32 psi**, en bar son **2,2 bar**, no 2,20632. Ese "32" tiene dos cifras de información; inventarle cinco decimales es mentir precisión que no tenés.
+
+**La regla práctica:** el resultado se redondea a la **misma cantidad de cifras significativas que el dato menos preciso**.
+
+- 110 CV → 80,9 kW → **81 kW**.
+- 12,63 V en un tester que tiene una precisión de ±0,5 % → 12,6 V es lo que de verdad sabés.
+- Un calibre de 0,02 mm no mide micrones: no anotes "79,513 mm".
+
+Y al revés: **no redondees en el medio de una cuenta**. Hacé todo con los datos completos y redondeá al final.
+
+<EnElTaller title="Unidades en el día a día">
+
+- **Torquímetro:** muchos traen doble escala (N·m y lb·ft). Fijate cuál estás leyendo antes de apretar, y guardalo siempre en el mínimo.
+- **Scanner y apps OBD:** se pueden configurar en métrico o en imperial. Dejalo en **métrico** (°C, kPa, km/h) para comparar con los valores del manual y de este curso.
+- **Manuales en inglés:** antes de usar un valor, convertilo y anotalo en tu unidad. Mejor una cuenta de más que un tornillo de menos.
+- **Gomería:** psi. **Etiqueta de la puerta y manual:** bar o kPa (a veces los tres).
+
+</EnElTaller>
+
+<Electronica>
+Adentro de la ECU todo se calcula en unidades coherentes (la mayoría del SI): presiones en kPa, temperaturas en °C o K, tiempos en milisegundos, ángulos de cigüeñal en grados. Los sensores, en cambio, le hablan a la ECU en **volts**: el MAP manda, por ejemplo, 1 V con mucho vacío y 4 V a fondo, y la ECU lo convierte a kPa con una tabla. Por eso el mismo dato aparece de dos formas en el scanner: el **valor de ingeniería** (35 kPa) y la **tensión de la señal** (1,2 V). Cuando un dato del scanner no te cierra, mirá las dos.
+</Electronica>
+
+<Mediciones title="Valores típicos del auto, con su unidad (siempre según fabricante)">
+  <Medicion punto="Presión de cubiertas (auto mediano)" esperado="28–35 psi ≈ 1,9–2,4 bar" como="Manómetro en la válvula, en frío" nota="Es presión relativa. El dato está en la puerta del conductor o en la tapa del tanque." />
+  <Medicion punto="Presión de nafta (multipunto)" esperado="3–4 bar ≈ 45–58 psi" como="Manómetro en el riel de inyectores" />
+  <Medicion punto="Compresión (nafta)" esperado="10–14 bar ≈ 145–200 psi" como="Compresómetro, motor caliente y mariposa abierta" nota="Diferencia máxima entre cilindros: 10–15 %." />
+  <Medicion punto="Presión de aceite en caliente" esperado="Ralentí ≥ 0,5–1 bar; 2.000–3.000 rpm ≈ 2–4 bar" como="Manómetro en lugar del bulbo de aceite" />
+  <Medicion punto="MAP con contacto y motor parado" esperado="≈ 101 kPa a nivel del mar; ≈ 92–93 kPa en Mendoza" como="Scanner, datos en vivo" nota="Es presión absoluta: tiene que dar la del lugar." />
+  <Medicion punto="Batería en reposo" esperado="12,6–12,7 V" como="Tester en DC sobre los bornes, auto apagado hace un rato" />
+  <Medicion punto="Sonda lambda (banda angosta)" esperado="100–900 mV, oscilando" como="Tester o scanner, motor caliente a 2.500 rpm" />
+</Mediciones>
+
+<Herramientas ids={["torquimetro", "tester", "calibre", "galgas", "juego-llaves"]} />
+
+## Errores comunes
+
+| Error | Qué pasa | Cómo evitarlo |
+|---|---|---|
+| Confundir **lb·ft** con **lb·in** | El tornillo queda 12 veces más apretado (o más flojo) de lo que pide el manual | Leé dos veces la unidad del manual yanqui |
+| Leer la **escala equivocada** del manómetro | Cubiertas a la mitad o al doble | Mirá de qué escala es la aguja |
+| **mΩ** por **MΩ** | Mil millones de veces de diferencia | Mayúscula = mega; minúscula = mili |
+| Comparar **relativa** con **absoluta** | "El MAP marca 93 con el motor parado, está roto" (no: está midiendo bien la atmósfera) | Preguntate desde dónde cuenta el cero |
+| **kW** por **kWh** | Mezclar potencia con energía | kW es "qué tan rápido"; kWh es "cuánto" |
+| Galón **inglés** por galón **de EE. UU.** | 20 % de diferencia en aceite o refrigerante | Fijate el origen del manual |
+| Diferencias de temperatura con el **+32** | Errores enormes en °F | El +32 sólo va con temperaturas, no con saltos |
+| Llave en **pulgadas** en tornillo **métrico** | Cabeza redondeada | Medida justa, siempre |
+
+<Mendoza>
+En Mendoza la presión atmosférica ronda los **925 hPa** (0,93 bar), contra 1.013 hPa a nivel del mar. Eso aparece en todo lo que se mide **en absoluto** (el MAP con el motor parado marca unos 92–93 kPa) y en todo lo que se compara con un dato de fábrica tomado a nivel del mar (compresión y vacío dan un poco menos). Y las cubiertas que inflás en el Gran Mendoza marcan **unos 3 psi más** cuando llegás a Las Cuevas. Todo eso lo vemos en [Mecánica en Mendoza](/aprender/arranque/mendoza).
+</Mendoza>
+
+<PuntosClave>
+1. El SI tiene siete unidades de base; las que más usás en el taller son derivadas: N, N·m, Pa (kPa, bar), W (kW), V, A y Ω.
+2. Los prefijos van de a mil: µ, m, (la unidad), k, M. **m minúscula es mili; M mayúscula es mega.**
+3. Trucos mentales: **1 kgf·m ≈ 10 N·m**; **1 lb·ft ≈ 1,36 N·m**; **1 CV ≈ 0,735 kW** (kW ≈ ¾ de los CV); **1 bar ≈ 14,5 psi ≈ 1 kg/cm² ≈ 100 kPa**.
+4. Torque = fuerza × brazo. Potencia = torque × vueltas: **P [kW] = M [N·m] · n [rpm] / 9.550**.
+5. El manómetro mide presión **relativa**; el MAP y el barómetro, **absoluta**. Absoluta = relativa + atmosférica.
+6. °F = °C × 1,8 + 32 (rápido: duplicá y sumá 30). Las diferencias de temperatura no llevan el +32.
+7. 1 pulgada = 25,4 mm; ½″ = 12,7 mm. Los encastres de las llaves de tubo se nombran en pulgadas aunque el juego sea métrico.
+8. Redondeá al final y con las cifras que de verdad conocés: 32 psi son 2,2 bar, no 2,20632.
+</PuntosClave>
