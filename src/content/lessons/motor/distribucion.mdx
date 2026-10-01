@@ -1,0 +1,207 @@
+Ruta 40, un domingo. El auto venía bárbaro y de golpe se apaga, sin un ruido, como si le hubieran cortado la llave. Das arranque y la burra gira "liviana", más rápido que de costumbre, pero el motor no prende. Lo llevás en grúa y el mecánico, después de sacar una tapa plástica, te dice: "Se cortó la correa de distribución. Ojalá no haya doblado válvulas".
+
+Esa correa, que muchas veces nadie mira hasta que se corta, es la que mantiene **sincronizados** el cigüeñal y los árboles de levas: que cada válvula abra y cierre en el momento exacto en que el pistón la necesita. En esta lección vas a ver cómo funciona la distribución por dentro, qué es la puesta a punto, por qué la correa se cambia por kilómetros **o por años**, qué hace la distribución variable y cómo la ECU se da cuenta cuando algo se corrió.
+
+<Libro pag="pág. 690–711 · 716–731" />
+
+## Para qué sirve la distribución
+
+En la lección de [4 tiempos](/aprender/motor/cuatro-tiempos) viste que cada cilindro necesita que la válvula de admisión abra para la admisión, que las dos estén cerradas en compresión y explosión, y que la de escape abra para el escape. Alguien tiene que abrir y cerrar esas "puertas" en el momento justo, miles de veces por minuto, y siempre en sincronía con la posición del pistón. Eso es la **distribución**: el conjunto de árbol de levas, válvulas, resortes, botadores y la transmisión (correa, cadena o engranajes) que los conecta al cigüeñal.
+
+## El árbol de levas y la relación 2:1
+
+El <Term t="Árbol de levas">árbol de levas</Term> es un eje con una **leva** por cada válvula. Una leva es una "panza" excéntrica: tiene un **círculo base** (mientras la válvula apoya ahí, está cerrada), dos **flancos** (la rampa de subida y la de bajada) y una **nariz** (el punto de máxima apertura).
+
+- La **alzada** es cuánto abre la válvula: en motores de calle, unos 8–10 mm.
+- La **duración** es cuántos grados de cigüeñal está abierta: típicamente 220–260°.
+
+Como cada válvula tiene que abrir **una vez por ciclo** y el ciclo dura **dos vueltas** de cigüeñal, el árbol de levas tiene que girar a **la mitad**.
+
+<Formula name="Relación de la distribución" vars={{ "n_levas": "vueltas (o rpm) del árbol de levas", "n_cig": "vueltas (o rpm) del cigüeñal", "z": "cantidad de dientes de cada piñón" }}>
+  n<sub>levas</sub> = n<sub>cig</sub> / 2  ·  z<sub>levas</sub> = 2 · z<sub>cig</sub>
+</Formula>
+
+<Ejemplo title="Dientes y vueltas">
+Un piñón de cigüeñal de 21 dientes mueve una correa que también pasa por un piñón de árbol de levas. Para que las levas giren a la mitad, el de levas tiene que tener el doble:
+
+<Calc>z_levas = 2 × 21 = 42 dientes</Calc>
+
+Con el motor a 3.000 rpm, el árbol de levas gira a:
+
+<Calc>n_levas = 3.000 / 2 = 1.500 rpm</Calc>
+
+Resultado: <Res>21 y 42 dientes; 3.000 y 1.500 rpm</Res>. Si un diente de la correa "salta", el árbol de levas queda corrido 360° / 42 = 8,6° de leva, que son **17° de cigüeñal**. Un diente parece poco, pero el motor ya anda notablemente mal.
+</Ejemplo>
+
+## SOHC, DOHC, 8 válvulas y 16 válvulas
+
+- **SOHC** (un árbol de levas a la cabeza): un solo árbol en la tapa mueve todas las válvulas, generalmente con balancines. Típico de los 8 válvulas: 2 por cilindro (una de admisión, una de escape).
+- **DOHC** (doble árbol a la cabeza): un árbol para las de admisión y otro para las de escape. Típico de los 16 válvulas: 4 por cilindro (dos y dos). Más válvulas = más área de paso = el motor respira mejor arriba, y la bujía queda en el centro de la cámara.
+- Los motores viejos (y algunas camionetas) tienen el árbol en el **block** (OHV) y mueven las válvulas con varillas largas y balancines.
+
+## Válvulas, resortes, botadores y balancines
+
+**Válvulas.** Tienen forma de hongo: la **cabeza** cierra contra un **asiento** postizo de material duro en la tapa, y el **vástago** corre dentro de una **guía**. La de admisión es más grande (el aire entra empujado sólo por la atmósfera; el escape sale con presión). La de escape trabaja al rojo (600–800 °C) y se hace de aceros especiales; en algunos motores es hueca y rellena de **sodio** para sacar calor.
+
+**Retenes de válvula.** Unos capuchones de goma sobre la guía que dejan pasar sólo el aceite justo para lubricar el vástago. Cuando se endurecen, el aceite baja por la guía con el motor parado: **humo azul al arrancar** que después se va.
+
+**Resortes.** Cierran la válvula y la mantienen pegada a la leva. Si el motor se pasa de vueltas, el resorte no llega a seguir la leva: la válvula "flota", golpea contra el asiento o contra el pistón. El corte de inyección (corte de rpm) está para eso.
+
+**Botadores.** La pieza entre la leva y la válvula (o el balancín). Tiene que quedar una pequeña **luz** cuando la válvula está cerrada, porque la válvula se dilata al calentarse y, si no tuviera dónde crecer, quedaría abierta.
+
+- **Mecánicos:** la luz se regula (con tornillo y contratuerca, o con **pastillas calibradas**). Se mide en frío con **galgas**: típicamente 0,15–0,25 mm en admisión y 0,25–0,40 mm en escape, según fabricante. Poca luz: la válvula no termina de cerrar y se quema. Mucha luz: "tic-tic" constante y menos alzada.
+- **Hidráulicos:** adentro tienen un pistoncito que se llena de aceite del motor y "se estira" lo justo para que no haya luz. No se regulan. Al arrancar después de mucho tiempo parado pueden hacer **tic-tic unos segundos** hasta llenarse; si siguen sonando en caliente, están gastados, sucios o el aceite está mal (nivel, viscosidad, presión).
+
+**Balancines.** Palancas que invierten o multiplican el movimiento. Los modernos suelen ser **balancines de rodillo**: la leva empuja un rodillo con rulemán (menos rozamiento) y el balancín apoya en un botador hidráulico fijo.
+
+## El diagrama de distribución
+
+En teoría, la admisión abriría en el PMS y cerraría en el PMI, y lo mismo el escape. En la práctica, las válvulas abren **antes** y cierran **después**, porque el gas tiene inercia: no arranca ni frena instantáneamente.
+
+- **AAA, avance a la apertura de admisión:** la admisión abre unos grados **antes del PMS** (típico 5–20°), para que ya esté abierta cuando el pistón empiece a bajar.
+- **RCA, retraso al cierre de admisión:** cierra bastante **después del PMI** (típico 40–60°). El aire viene lanzado por el conducto y sigue entrando aunque el pistón ya esté subiendo. Es el ajuste que más influye en dónde está el torque.
+- **AAE, avance a la apertura de escape:** el escape abre **antes del PMI** (típico 40–60°). Se pierde un poco de empuje, pero el gas, que todavía tiene 3–5 bar, sale solo y el pistón no tiene que hacer fuerza para sacarlo después.
+- **RCE, retraso al cierre de escape:** cierra **después del PMS** (típico 5–20°), aprovechando que el gas que se va "tira" del que queda.
+
+Entre AAA y RCE las dos válvulas están abiertas a la vez: el <Term t="Cruce de válvulas">cruce de válvulas</Term>. A altas vueltas ayuda a barrer la cámara y llenarla mejor; en ralentí, en cambio, deja que gas de escape vuelva a la admisión y el motor regula inestable. Por eso un árbol de levas "de competición" (mucho cruce) hace que el motor tiemble en ralentí.
+
+<DiagramaValvulas />
+
+## Correa, cadena o engranajes
+
+<Distribucion />
+
+| | Correa dentada | Cadena | Engranajes |
+|---|---|---|---|
+| Ruido | Muy silenciosa | Algo de ruido (más si está estirada) | Ruidosa (zumbido) |
+| Lubricación | Seca, afuera del motor bajo una tapa | Adentro del motor, bañada en aceite | Adentro, con aceite |
+| Mantenimiento | Se cambia por km o años con su kit | En teoría "de por vida"; en la práctica, se estira | Prácticamente nada |
+| Puntos débiles | Edad, calor, aceite o refrigerante encima, tensor y rodillos | Aceite sucio o vencido, tensor hidráulico, guías plásticas | Costo, peso |
+| Dónde se ve | La mayoría de los nafteros y diésel livianos | Muchos motores modernos, motos, camionetas | Diésel de camión, motores industriales |
+
+<EnElTaller title="Tensores y rodillos">
+
+La correa necesita la **tensión justa**: floja salta dientes; muy tirante gasta los rulemanes y la propia correa. Casi todos los motores modernos tienen **tensor automático**: un brazo con resorte (o un pistón hidráulico) y un rodillo con rulemán que apoya en la espalda de la correa. Tiene una **ventana o un puntero** que indica la posición correcta al instalarlo. Los **rodillos guía** (poleas lisas) desvían la correa para que abrace más dientes del piñón.
+
+Un rulemán de tensor gastado empieza con un zumbido o silbido que cambia con las rpm; si se traba, la correa se corta o se come. **Por eso el tensor y los rodillos se cambian siempre con la correa.**
+
+</EnElTaller>
+
+## La puesta a punto
+
+Poner a punto la distribución es dejar el cigüeñal y los árboles de levas en una posición **relativa** exacta. Los fabricantes la marcan con **marcas** en los piñones, en la polea y en el block o la tapa; y muchos motores no tienen marcas confiables y se ponen a punto con **trabas** (pernos o placas que fijan el cigüeñal en el PMS y los árboles en su posición).
+
+Como el árbol de levas gira a la mitad, las marcas del cigüeñal coinciden **en cada vuelta**, pero las de levas sólo **cada dos**. Si después de cambiar una correa girás el motor una vuelta y ves la marca del cigüeñal en su lugar y las de levas "del lado de abajo", no está corrido: falta otra vuelta. Lo vas a ver en la animación.
+
+<Pasos>
+
+1. **Conseguí el procedimiento exacto del motor.** Del manual o de una base de datos técnica: marcas, trabas, torque de cada tornillo y método de tensado. Cada motor es distinto.
+2. **Batería desconectada, motor frío.** Nunca se hace una distribución con el motor caliente: el aluminio dilatado cambia la tensión.
+3. **Llevá el cilindro 1 a PMS.** Girá el cigüeñal **en el sentido normal de giro** (horario visto de frente, en la mayoría) con una llave en el bulón de la polea. Nunca con la burra, nunca al revés.
+4. **Colocá las trabas.** Las de cigüeñal y las de levas. Si no entran, no fuerces: girá otra vuelta.
+5. **Aflojá el tensor y sacá la correa vieja.** Con las trabas puestas, el motor no se puede mover. Revisá si hay pérdidas de aceite por retenes de cigüeñal o levas, o de agua por la bomba: cualquier líquido arruina la correa nueva.
+6. **Montá el kit.** Rodillos, tensor y (si corresponde) bomba de agua nuevos. Colocá la correa sin torcerla ni doblarla, respetando el sentido de giro impreso, empezando por el cigüeñal y manteniendo tenso el lado que va al árbol de levas.
+7. **Tensá y apretá.** Seguí el procedimiento del fabricante (en los automáticos, hasta que el puntero quede en la ventana) y apretá todo con **torquímetro**.
+8. **Sacá las trabas y girá el motor a mano dos vueltas completas.** Tiene que girar suave. Si se traba, **pará**: algo está mal y podés estar tocando una válvula.
+9. **Volvé a colocar las trabas.** Tienen que entrar sin esfuerzo y el puntero del tensor tiene que seguir en su lugar. Si no, se empieza de nuevo.
+10. **Arrancá y escuchá.** Ni zumbidos ni golpes. Revisá con el scanner que no haya códigos de correlación y que el valor de desfase de levas, si el motor lo muestra, esté en rango.
+
+</Pasos>
+
+<Peligro title="Motor interferente">
+En un <Term t="Motor interferente">motor interferente</Term>, con el pistón en PMS y una válvula abierta, la válvula ocupa el mismo lugar que el pistón. Mientras la distribución esté en fase no se tocan nunca. Pero si la correa se corta, los árboles de levas se clavan donde estaban (alguna válvula de algún cilindro queda abierta) mientras el cigüeñal sigue girando por inercia: **el pistón golpea la válvula y la dobla**. A veces también rompe guías, pistones o el árbol de levas. La mayoría de los motores modernos son interferentes: por eso no se estira el cambio de correa. Y por eso, cuando hacés una distribución, nunca girás el cigüeñal con las levas sueltas.
+</Peligro>
+
+## Cuándo se cambia y qué trae el kit
+
+La correa es goma reforzada con hilos de fibra de vidrio o aramida. Se gasta por kilómetros (los dientes se deforman) y **se envejece por tiempo** (el caucho se endurece y se cuartea aunque el auto no ande).
+
+- **Intervalo:** el que diga el fabricante, típicamente entre **40.000 y 120.000 km** o **cada 4 a 6 años**, **lo que ocurra primero**. En uso severo (calor, polvo, ripio, mucho ralentí, remolque, taxi o remís) se usa el intervalo más corto.
+- **Qué se cambia:** correa, **tensor** y **rodillos**. Si la bomba de agua la mueve la correa de distribución, **también la bomba** (una bomba que pierde o se traba después arruina la correa nueva, y cambiarla es el mismo trabajo). Se aprovecha para revisar retenes de cigüeñal y levas y la correa de accesorios.
+- **Una correa que hay que cambiar ya:** grietas en la espalda o entre dientes, dientes faltantes o "pelados", bordes deshilachados, manchas de aceite o refrigerante, brillo vidrioso.
+
+Las **cadenas** no tienen intervalo fijo, pero se **estiran**: los pernos de cada eslabón se gastan y la cadena se alarga décimas de milímetro, que sumadas en toda la cadena atrasan las levas varios grados. Aceite sucio o cambiado tarde es la causa número uno. Se cambian con sus guías, patines y tensor.
+
+## Distribución variable (VVT)
+
+Ya viste que un diagrama de distribución fijo es un compromiso: lo que conviene en ralentí no conviene a altas vueltas. La **distribución variable** mueve el árbol de levas (casi siempre el de admisión, a veces también el de escape) unos grados respecto del cigüeñal mientras el motor anda.
+
+- **El variador (fasador):** en lugar de un piñón común, el árbol tiene un piñón con un **rotor de paletas** adentro. El rotor está fijo al árbol de levas y la carcasa al piñón. Entre las paletas hay cámaras: si se llena de aceite un lado, el árbol avanza; si se llena el otro, se atrasa.
+- **La electroválvula (OCV):** una válvula de corredera, comandada por la ECU con una señal **PWM**, que manda aceite a presión a un lado o al otro, o lo encierra para mantener la posición.
+- **El control:** la ECU calcula un ángulo **objetivo** según rpm y carga, mide el ángulo **real** comparando CMP con CKP, y corrige el PWM hasta que coincidan.
+- Al arrancar, el variador queda trabado con un **pasador** en la posición de reposo (generalmente todo atrasado) hasta que hay presión de aceite.
+
+Qué busca la ECU con cada posición:
+
+- **Ralentí:** poco cruce, para un ralentí estable.
+- **Carga parcial (crucero):** mucho cruce: parte del escape vuelve al cilindro (recirculación interna), baja la temperatura de combustión y las pérdidas por bombeo. Menos consumo y menos NOx.
+- **A fondo, pocas vueltas:** la admisión cierra antes: se atrapa más aire, más torque abajo.
+- **A fondo, muchas vueltas:** la admisión cierra tarde, aprovechando la inercia del aire: más potencia arriba.
+
+Algunos motores, además, cambian la **alzada** (dos perfiles de leva que se seleccionan con un pasador hidráulico, o sistemas que regulan la alzada en forma continua y casi no necesitan mariposa).
+
+<Ojo title="Aceite sucio = VVT que falla">
+El variador y la OCV funcionan con el aceite del motor, que pasa por conductos y filtritos de malla muy finos. Con aceite vencido, barro o una viscosidad distinta a la indicada, la OCV se traba, el filtrito se tapa o el variador no llega a la posición. Síntomas: ralentí inestable, falta de fuerza, testigo de motor encendido con códigos de VVT y, a veces, **traqueteo de 1–2 segundos al arrancar** (el pasador del variador gastado). Antes de cambiar piezas caras: aceite y filtro correctos, y revisar el filtrito de la OCV.
+</Ojo>
+
+<Electronica>
+
+**CKP contra CMP: así se da cuenta la ECU de que la distribución se corrió.** La ECU sabe dónde está el cigüeñal por el sensor <Term t="CKP">CKP</Term> y dónde está el árbol de levas por el <Term t="CMP">CMP</Term>. Con la distribución bien puesta, el flanco de la señal del CMP aparece siempre en el mismo diente de la rueda fónica del cigüeñal. Si aparece unos grados antes o después (más que lo que la ECU tolera, típicamente 5–10°), guarda **P0016** (correlación cigüeñal–levas, banco 1, sensor A = admisión) o **P0017** (sensor B = escape). Causas: un diente saltado, una **cadena estirada**, un variador trabado fuera de su posición de reposo, o una rueda fónica corrida (chaveta rota en la polea).
+
+**Cómo confirmarlo:**
+
+- **Scanner:** muchos motores muestran el "desfase" o "correlación" de levas en datos en vivo, y el ángulo **objetivo y real** del VVT. Con el motor en ralentí y el variador en reposo, el real tiene que estar en el valor de fábrica. En cadenas, ese valor se va corriendo a medida que la cadena se estira: es la mejor manera de saber cuánto le queda sin desarmar.
+- **Osciloscopio:** CKP y CMP en dos canales al mismo tiempo, y comparás la posición de los pulsos del CMP contra el hueco de la rueda fónica con un oscilograma de referencia del mismo motor. Un diente corrido se ve clarito.
+
+**Códigos de VVT:**
+
+- **P0010:** circuito eléctrico de la OCV (cable cortado, ficha, bobina abierta). La OCV típicamente mide unos **6–12 Ω** (según fabricante).
+- **P0011 / P0012:** el árbol de admisión no llega a la posición pedida (demasiado avanzado, o "rendimiento del sistema") o está demasiado atrasado. **P0014 / P0013** son lo mismo para el escape.
+- **Prueba rápida:** con el motor en ralentí, activá la OCV con el scanner (prueba de actuadores). Al avanzar la admisión aumenta el cruce y **el motor tiene que temblar o casi apagarse**. Si no cambia nada, el variador no se está moviendo: aceite, OCV, filtrito o variador.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Luz de válvulas (botadores mecánicos, en frío)" esperado="Adm. ≈ 0,15–0,25 mm · Esc. ≈ 0,25–0,40 mm" como="Galgas entre leva y botador (o balancín y válvula), con la leva de espaldas a la válvula" nota="Según fabricante. En autos a GNC conviene controlarla más seguido." />
+  <Medicion punto="Tensión de la correa" esperado="Puntero del tensor dentro de la ventana" como="Visual, con el motor frío y después de girar 2 vueltas a mano" nota="Tensores manuales: con tensiómetro o el método del manual." />
+  <Medicion punto="Correlación CKP–CMP" esperado="Dentro del rango del fabricante (pocos grados)" como="Scanner (datos en vivo) u osciloscopio con CKP y CMP simultáneos" nota="Corrido: P0016/P0017. En cadenas, va empeorando con el estiramiento." />
+  <Medicion punto="VVT: ángulo objetivo vs real" esperado="Siguen juntos, error de pocos grados" como="Scanner, acelerando y en ralentí" nota="Error sostenido: P0011/P0012. Revisar aceite y OCV." />
+  <Medicion punto="Resistencia de la OCV" esperado="≈ 6–12 Ω" como="Tester en los pines de la electroválvula, desconectada" nota="Abierta o en corto: P0010." />
+</Mediciones>
+
+<Herramientas ids={["kit-distribucion", "torquimetro", "galgas", "scanner", "osciloscopio", "estetoscopio", "tester", "juego-llaves"]} />
+
+## Ruidos y fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Traqueteo metálico 1–3 s al arrancar en frío, después se calma | Cadena estirada o tensor hidráulico que tarda en cargar; pasador del variador gastado | Correlación de levas en el scanner; revisar aceite; escuchar con estetoscopio en la tapa de distribución |
+| "Tic-tic" rápido que sigue el ritmo del motor | Botador hidráulico que no se llena, o luz de válvulas excesiva (mecánicos) | Estetoscopio sobre la tapa de válvulas; medir luz; revisar nivel y presión de aceite |
+| Zumbido o silbido que sube con las rpm, desde la tapa de distribución | Rulemán de tensor o rodillo gastado | Motor apagado: girá a mano el rodillo (sin correa) y sentí si raspa o tiene juego |
+| Motor sin fuerza, todos los cilindros parejos pero bajos, P0016 | Distribución corrida un diente | Marcas y trabas; CKP/CMP en el osciloscopio |
+| Motor que se apaga de golpe y la burra gira "liviana" | Correa cortada | Sacá la tapa de distribución o mirá si el árbol de levas gira al dar arranque. **No sigas dando arranque** |
+| Ralentí inestable, testigo encendido, P0011 | VVT trabado por aceite sucio, OCV o filtrito | Prueba de actuadores de la OCV, cambio de aceite, revisar el filtrito |
+| Humo azul sólo al arrancar | Retenes de válvula endurecidos | El humo desaparece en pocos segundos; compresión normal |
+
+<Mendoza>
+
+**Calor y tierra envejecen la correa.** El caucho sufre con los veranos de 35–40 °C bajo el capot y con la tierra fina del zonda o del ripio, que se mete por la tapa de distribución y actúa como lija entre la correa y los piñones. En la provincia conviene tomar el **intervalo más corto** del fabricante (el de uso severo) y no estirar los **años** aunque el auto ande poco.
+
+**GNC y luz de válvulas.** Con GNC las válvulas y sus asientos se gastan más: la válvula se va "hundiendo" en el asiento y la luz de válvulas **se achica**. En un motor con botadores mecánicos, si nadie la controla, llega a cero: la válvula de escape no termina de cerrar y se quema (lo vas a ver como un cilindro con compresión baja que no sube con aceite). En autos a gas, controlá la luz de válvulas en cada service grande.
+
+**Montaña y frenado con motor.** Bajando la Ruta 7 con marcha corta, el motor gira alto y empujado por las ruedas. Es perfecto para no recalentar los frenos, pero respetá el corte de rpm: si el motor se pasa de vueltas (por ejemplo, al meter un cambio demasiado corto en bajada), las válvulas pueden flotar y tocar los pistones aunque la correa esté sana.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. La distribución mantiene **sincronizados** cigüeñal y levas. El árbol de levas gira a **la mitad** (21 dientes contra 42, por ejemplo): las marcas coinciden todas juntas **cada dos vueltas** de cigüeñal.
+2. Las válvulas abren **antes** y cierran **después** de los puntos muertos (AAA, RCA, AAE, RCE) por la inercia del gas. Alrededor del PMS de cruce están las dos abiertas: el **cruce de válvulas**.
+3. Botadores mecánicos: luz en frío con galgas (≈ 0,15–0,25 adm. / 0,25–0,40 esc., según fabricante). Hidráulicos: sin regulación; "tic-tic" al arrancar hasta que se llenan.
+4. Correa: silenciosa pero con **cambio obligatorio por km o años** (típico 40.000–120.000 km o 4–6 años), siempre con **tensor y rodillos** y, si la mueve, la **bomba de agua**. Cadena: dura más, pero se estira con aceite sucio.
+5. Puesta a punto: marcas y **trabas**, girar sólo en el sentido de giro, tensar con el método del fabricante y **dos vueltas a mano** antes de arrancar.
+6. En un **motor interferente**, si se corta la correa, el pistón dobla válvulas. No se estira el cambio.
+7. La ECU compara **CKP y CMP**: distribución corrida o cadena estirada = **P0016/P0017**. VVT: OCV comandada por PWM; **P0010** eléctrico, **P0011/P0012** no llega a la posición.
+8. El VVT funciona con el aceite del motor: **aceite sucio = VVT que falla**. Antes de cambiar el variador, cambiá aceite y filtro y revisá el filtrito de la OCV.
+
+</PuntosClave>

@@ -1,0 +1,280 @@
+"Golpea abajo." Pocas frases asustan tanto en un taller. Un ruido metálico, grave, que sigue el ritmo del motor y se hace más fuerte cuando acelerás y soltás. Casi siempre es una biela que perdió su película de aceite, y casi siempre empezó con algo chico: un testigo de aceite que parpadeaba en los semáforos, un service estirado, un nivel que nadie miró.
+
+En esta lección desarmamos (con la cabeza) el **tren alternativo**: el pistón, los aros, el bulón, la biela, los metales, el cigüeñal y el volante. Son las piezas que reciben el golpe de la combustión y lo convierten en giro. Vas a ver cómo trabajan, qué fuerzas soportan, de dónde salen el **torque** y la **potencia**, y cómo se mide cada una en el taller para saber si un motor se puede salvar.
+
+<Libro pag="pág. 672–711" />
+
+## Quién es quién
+
+Seguí el camino de la fuerza desde arriba: la presión del gas empuja la **cabeza del pistón**; el pistón la pasa al **bulón**; el bulón, al **pie de biela**; la biela la lleva hasta su **cabeza**, que abraza el **muñón** del cigüeñal con dos medias cáscaras llamadas **metales**; el cigüeñal gira apoyado en sus propios metales de **bancada**, y al final de todo el **volante motor** guarda energía y la entrega a la caja a través del embrague.
+
+<Biela />
+
+Mirá el brazo de palanca en verde: en el PMS es **cero**. Si la presión llegara toda justo ahí, empujaría el cigüeñal "contra el piso" sin hacerlo girar. Por eso la chispa se adelanta lo justo para que la presión máxima llegue unos 10–20° después del PMS, cuando la biela ya tiene ángulo y la manivela ya tiene palanca.
+
+## El pistón
+
+El pistón es una pieza de **aleación de aluminio con silicio**, fundida o forjada. Aluminio porque es liviano (el pistón cambia de dirección dos veces por vuelta: a 6.000 rpm, 200 veces por segundo) y porque conduce muy bien el calor. El silicio lo hace más duro y, sobre todo, hace que se dilate menos.
+
+Sus partes:
+
+- **Cabeza (corona):** la cara que mira a la cámara. Puede ser plana, con rebajes para las válvulas o, en los diésel, con la cámara de combustión tallada adentro (una "bañadera").
+- **Zona de aros:** las ranuras donde van los tres aros. Arriba del primer aro queda el "fuego" (la franja más caliente).
+- **Alojamiento del bulón:** dos "orejas" gruesas que sostienen el bulón.
+- **Falda:** la parte de abajo, que guía al pistón contra la pared y apoya de costado cuando la biela está inclinada.
+
+### Un pistón frío no es redondo
+
+La cabeza del pistón trabaja a **250–350 °C**; la falda, bastante menos; y el cilindro (de hierro, o con camisa de hierro), a unos 100–150 °C. Encima, el aluminio se dilata casi el doble que el hierro. Si el pistón fuera un cilindro perfecto en frío, en caliente se agarraría.
+
+Por eso los pistones se fabrican **ovalados** (más chicos en la dirección del bulón, donde hay más material que se dilata) y **cónicos** (más finos arriba, donde se calientan más). En caliente quedan casi redondos y con la luz justa.
+
+<Formula name="Dilatación lineal" vars={{ "ΔL": "cuánto crece la medida [mm]", "α": "coeficiente de dilatación: aluminio de pistón ≈ 0,000021 /°C; hierro ≈ 0,000011 /°C", "L": "medida original [mm]", "ΔT": "aumento de temperatura [°C]" }}>
+  ΔL = α · L · ΔT
+</Formula>
+
+<Ejemplo title="¿Cuánto crece la cabeza de un pistón de 79,5 mm?">
+De 20 °C (frío, en el banco) a 300 °C (andando), ΔT = 280 °C.
+
+<Calc>ΔL = 0,000021 × 79,5 × 280 = 0,47 mm</Calc>
+
+La pared del cilindro, de hierro, pasa de 20 a 130 °C:
+
+<Calc>ΔL = 0,000011 × 79,5 × 110 = 0,10 mm</Calc>
+
+Resultado: <Res>la cabeza del pistón crece casi 0,4 mm más que el cilindro</Res>. Por eso la zona de la cabeza tiene mucha más luz que la falda, y por eso un motor que se recalienta "agarra" pistones: la luz en la falda es de apenas unas centésimas (típico 0,02–0,06 mm, según fabricante).
+</Ejemplo>
+
+En motores turbo y diésel, la cabeza se refrigera con un **chorro de aceite** que sale del block y apunta por debajo del pistón. Si ese pico se tapa o se dobla, el pistón se recalienta y se perfora.
+
+## Los aros
+
+Son anillos abiertos de fundición o acero, más grandes que el cilindro en libertad: al meterlos en el cilindro se cierran y quedan apretados contra la pared. Un pistón de auto lleva tres:
+
+1. **Aro de compresión (de fuego).** Sella la presión. Suele tener la cara abombada y un recubrimiento duro.
+2. **Segundo aro.** Ayuda a sellar lo que se escapa del primero y, con su cara inclinada, **raspa el aceite hacia abajo** cuando el pistón baja.
+3. **Aceitero (rascador).** Dos rieles finitos y un expansor ondulado en el medio (o una pieza ranurada con un resorte). Deja en la pared una película de aceite de micrones y manda el resto, por agujeros en la ranura, al interior del pistón y de ahí al cárter.
+
+<Aros />
+
+El secreto que muestra la animación: el aro de compresión **no sella sólo con su propia tensión**. En compresión y explosión, el gas se mete por arriba y por detrás del aro y lo empuja contra la pared y contra el flanco de abajo de la ranura. Cuanta más presión, más aprieta. Por eso un aro pegado en su ranura (por carbonilla) no sella aunque esté nuevo: el gas ya no puede meterse detrás.
+
+Datos que vas a usar:
+
+- **Luz entre puntas** (la separación entre las dos puntas del aro, metido en el cilindro): nuevo, unos **0,20–0,40 mm** para el de compresión; el aceitero suele llevar más. Límite de desgaste: cerca de **1 mm**. Manda el dato del fabricante.
+- **Luz en la ranura** (juego de arriba a abajo): unas centésimas. Si es mucha, el aro "bombea" aceite hacia la cámara.
+- **Al armar:** la marca **TOP** (o un punto) va **hacia arriba**, y las puntas de los aros se reparten a unos **120°** entre sí, nunca alineadas ni del lado del empuje.
+
+### Blow-by y consumo de aceite
+
+Siempre se escapa un poquito de gas por los aros hacia el cárter: es el **blow-by**. El motor lo saca por la ventilación del cárter (el respiradero, la válvula PCV o el separador de aceite) y lo manda de nuevo a la admisión para quemarlo. Con aros gastados el blow-by aumenta muchísimo: sale humo por la tapa de aceite o por la varilla con el motor andando, el cárter se presuriza y empieza a tirar aceite por retenes y juntas.
+
+Del otro lado, en admisión (con vacío en la cámara) sube aceite que después se quema: **humo azul** por el escape y el nivel que baja entre services. Humo azul **sólo al arrancar** después de estar parado, en cambio, suele ser de los **retenes de válvula** (el aceite baja por las guías mientras el motor está parado).
+
+## El bulón
+
+Es un tubo de acero templado que une el pistón con el pie de biela. Puede ser **flotante** (gira libre en el pistón y en la biela, sujeto con seguros a los costados) o **fijo** (calzado a presión o en caliente en el pie de biela). Suele estar un poquito **desplazado** del centro del pistón, hacia el lado de empuje, para que el pistón cambie de lado sin golpear contra la pared al pasar por el PMS.
+
+## La biela
+
+Una barra de acero forjado (o sinterizado), con sección en "I" o "H" para ser liviana y rígida. Arriba, el **pie**, con un buje de bronce (si el bulón es flotante). Abajo, la **cabeza**, partida en dos: el cuerpo y el **sombrerete**, unidos con dos tornillos.
+
+- En muchos motores modernos la cabeza se fabrica entera y después **se fractura** a propósito: la superficie rota queda irregular y encastra perfecto. Cada sombrerete tiene su biela y su posición: **nunca se mezclan ni se dan vuelta**.
+- Los **tornillos de biela** suelen ser de **estiramiento (TTY)**: se aprietan a un torque y después un ángulo (por ejemplo, 30 N·m + 90°, sólo como idea: cada motor tiene el suyo). Al apretarlos se estiran a propósito y no recuperan su forma: **se cambian siempre** que se desarman.
+
+## Los metales: el cigüeñal flota en aceite
+
+El cigüeñal no gira "apoyado" en sus <Term t="Metales">metales</Term>. Gira sobre una **película de aceite** de unas centésimas de milímetro. Al girar, el muñón arrastra aceite y lo mete en la cuña que se forma entre el muñón y el metal; esa cuña levanta una presión altísima (cientos de bar en el punto de carga) que sostiene el eje sin que haya contacto metal con metal. Es el mismo efecto que hace que una cubierta "flote" sobre el agua en la ruta (aquaplaning), pero acá es lo que queremos.
+
+Para que eso funcione hacen falta tres cosas:
+
+- **Luz de aceite** correcta (el espacio entre muñón y metal): típicamente **0,02–0,06 mm** según el motor. Poca luz, no entra aceite; mucha, se escapa y la presión cae.
+- **Aceite a presión** llegando por los agujeros del block y del cigüeñal. La bomba no "levanta" el eje: repone el aceite que se escapa por los costados.
+- **Velocidad**: en el arranque, durante un instante, no hay película. Por eso la mayor parte del desgaste de metales ocurre en los arranques en frío.
+
+Los metales son medias cáscaras de acero con un recubrimiento blando (aleaciones de aluminio, cobre-plomo con una capa finita encima). Si entra una partícula, se incrusta en el metal blando en lugar de rayar el cigüeñal. Cuando se rectifica el cigüeñal, se ponen metales de **sobremedida** (más gruesos): 0,25, 0,50, 0,75 mm.
+
+Uno de los metales de bancada (o un par de medialunas) controla el **juego axial** del cigüeñal: cuánto se mueve hacia adelante y atrás. Típico 0,05–0,25 mm. Si se gasta (por ejemplo, por apoyar el pie en el embrague en cada semáforo), el cigüeñal "camina" y puede romper el block o el sensor de cigüeñal.
+
+## El cigüeñal
+
+Un eje de acero forjado o fundición nodular con:
+
+- **Muñones de bancada:** los que están en el eje, apoyados en el block (en un 4 cilindros, generalmente 5).
+- **Muñones de biela (manivelas):** desplazados del eje la mitad de la carrera. En un 4 en línea, a 180°.
+- **Contrapesos:** compensan el peso de la manivela y parte de la biela para que no vibre.
+- **Conductos de aceite** que llevan aceite de los muñones de bancada a los de biela.
+- Adelante: el **piñón de distribución**, la **polea amortiguadora** (un aro de goma entre dos partes metálicas que frena las vibraciones de torsión del cigüeñal) y, muchas veces, la **rueda fónica** del sensor CKP. Atrás: la brida del volante. En las dos puntas, un **retén** que no deja salir el aceite.
+
+<Ojo title="La polea amortiguadora también se gasta">
+Con los años la goma se cuartea o se despega y el aro exterior "patina" respecto del cubo. Síntomas: vibración, ruido, la marca de puesta a punto de la polea que ya no coincide con la del block y, en casos extremos, se suelta el aro y destroza la correa de accesorios. Revisala cada vez que cambies la correa.
+</Ojo>
+
+## El volante motor y el bimasa
+
+El **volante** es un disco pesado atornillado al cigüeñal. Guarda energía en las explosiones y la devuelve en los otros tiempos, para que el giro sea parejo. Tiene la **corona dentada** donde engrana la burra de arranque y la cara donde apoya el disco de embrague.
+
+Muchos diésel modernos (y algunos nafteros turbo) usan **volante bimasa**: dos discos unidos por resortes curvos que absorben las vibraciones del motor antes de que lleguen a la caja. Funciona muy bien hasta que se gasta: golpeteo al arrancar o al apagar, vibración en ralentí, ruido metálico al soltar el embrague. Se revisa midiendo el giro libre y el "juego" entre las dos masas con la herramienta del fabricante; cuando está fuera de medida, no se repara, se cambia (muchas veces junto con el embrague).
+
+## Las fuerzas: gas e inercia
+
+Al tren alternativo le llegan dos fuerzas grandes.
+
+<Formula name="Fuerza del gas sobre el pistón" vars={{ "F": "fuerza [N]", "p": "presión en el cilindro, relativa al cárter [Pa] (1 bar = 100.000 Pa)", "A": "área del pistón = π/4 · d² [m²]" }}>
+  F = p · A
+</Formula>
+
+<Ejemplo title="La patada de una explosión">
+Pistón de 79,5 mm: A = 0,7854 × 0,0795² = 0,00496 m². Presión máxima a fondo, 60 bar = 6.000.000 Pa.
+
+<Calc>F = 6.000.000 × 0,00496 = 29.800 N</Calc>
+
+Resultado: <Res>casi 30.000 N, como apoyar 3 toneladas sobre el pistón</Res>, cientos de veces por segundo. Eso es lo que aguantan el bulón, la biela y los metales.
+</Ejemplo>
+
+La otra fuerza es la **inercia**: el pistón (con aros, bulón y parte de la biela) tiene que frenar hasta cero en cada punto muerto y volver a acelerar. La aceleración máxima, en el PMS, es aproximadamente r · ω² · (1 + λ), donde r es el radio de la manivela, ω la velocidad angular y λ = r / largo de biela (≈ 0,3).
+
+<Ejemplo title="Inercia a 6.000 rpm">
+Masa en movimiento: unos 0,5 kg. r = 0,040 m (carrera de 80,5 mm). ω = 6.000 × 2π / 60 = 628 rad/s.
+
+<Calc>a = 0,040 × 628² × 1,3 = 20.500 m/s² (¡unas 2.100 veces la gravedad!)</Calc>
+
+<Calc>F = m · a = 0,5 × 20.500 = 10.250 N</Calc>
+
+Resultado: <Res>más de 1 tonelada sólo para frenar y arrancar el pistón</Res>. Y crece con el **cuadrado** de las rpm: a 7.000 rpm ya son 14.000 N. Por eso un motor pasado de vueltas rompe bielas aunque no tenga carga, y por eso los motores de alto régimen buscan pistones y bielas livianos.
+</Ejemplo>
+
+## Torque y potencia
+
+El <Term t="Torque">torque</Term> (o par motor) es la **fuerza de giro** que entrega el cigüeñal: fuerza por brazo de palanca, en newton-metro (N·m). Si en la punta de una llave de 0,5 m hacés 100 N, aplicás 50 N·m. El torque del motor depende de cuánto aire y combustible logra quemar **en cada ciclo**: es la "fuerza" del motor.
+
+La <Term t="Potencia">potencia</Term> es **cuánto trabajo por segundo** hace: torque por velocidad de giro. Un motor con poco torque puede tener mucha potencia si gira muy rápido (una moto de 600 cm³ a 14.000 rpm), y un diésel grande con mucho torque puede tener potencia moderada porque gira lento.
+
+<Formula name="Potencia a partir del torque" vars={{ "P": "potencia [kW]", "M": "torque [N·m]", "n": "régimen [rpm]", "9550": "sale de 60.000 / 2π: pasa de rpm a radianes por segundo y de W a kW" }}>
+  P = M · n / 9550
+</Formula>
+
+<Ejemplo title="Un 1.6 atmosférico">
+Torque máximo: 155 N·m a 4.000 rpm.
+
+<Calc>P = 155 × 4.000 / 9550 = 64,9 kW</Calc>
+
+Para pasar a caballos: 1 CV = 0,7355 kW (o sea, 1 kW = 1,36 CV).
+
+<Calc>64,9 kW × 1,36 = 88 CV</Calc>
+
+A 5.750 rpm el torque ya bajó a unos 134 N·m, pero como gira más rápido:
+
+<Calc>P = 134 × 5.750 / 9550 = 80,7 kW ≈ 110 CV</Calc>
+
+Resultado: <Res>el torque máximo y la potencia máxima no están en las mismas rpm</Res>. El torque es máximo donde el motor respira mejor; la potencia sigue subiendo mientras el torque no caiga más rápido de lo que suben las vueltas.
+</Ejemplo>
+
+<Dato title="CV, HP y kW">
+En la Argentina se habla de **CV** (caballo de vapor métrico, 0,7355 kW). Los fabricantes estadounidenses usan **HP** (0,7457 kW): 100 HP son 101 CV. La unidad oficial es el **kW**, y es la que está en la cédula y en el certificado de fabricación.
+</Dato>
+
+<CurvaTorquePotencia />
+
+Entre el régimen de torque máximo y el de potencia máxima está la zona donde el motor "empuja" de verdad: ahí conviene cambiar de marcha cuando querés aceleración. Para gastar poco, al revés: marchas largas y pocas vueltas, cerca del torque máximo pero con poca carga.
+
+### Velocidad media del pistón
+
+Un número que muestra qué tan exigido está un motor:
+
+<Formula name="Velocidad media del pistón" vars={{ "vm": "velocidad media [m/s]", "s": "carrera [m]", "n": "régimen [rpm]" }}>
+  v<sub>m</sub> = 2 · s · n / 60
+</Formula>
+
+<Ejemplo title="Nuestro 1.6 en el corte">
+Carrera 80,5 mm = 0,0805 m, a 6.000 rpm:
+
+<Calc>vm = 2 × 0,0805 × 6.000 / 60 = 16,1 m/s</Calc>
+
+Resultado: <Res>16 m/s de promedio (58 km/h), frenando a cero 200 veces por segundo</Res>. Los nafteros de calle andan entre 14 y 20 m/s en su régimen máximo; los diésel de camión, entre 10 y 13. Por eso los motores de carrera larga no pueden girar tan alto.
+</Ejemplo>
+
+## En el taller: cómo se mide
+
+Cuando un motor se desarma (para una reparación o para decidir si vale la pena), cada pieza se mide y se compara con las tolerancias del manual. Estas son las mediciones básicas.
+
+<EnElTaller title="Cilindros: ovalización y conicidad">
+
+Con el **alesómetro** calibrado al diámetro nominal con el micrómetro, medís cada cilindro en **tres alturas** (arriba, justo debajo del escalón que deja el aro de fuego; al medio; y abajo) y en **dos direcciones** (a lo largo del motor y a lo ancho).
+
+- **Ovalización:** diferencia entre las dos direcciones a la misma altura. El desgaste es mayor en la dirección del empuje del pistón.
+- **Conicidad:** diferencia entre arriba y abajo. Arriba se gasta más (más presión y temperatura, menos aceite).
+- Si se pasa del límite del fabricante (típicamente unas pocas centésimas, del orden de 0,03–0,05 mm), se **rectifica** a la sobremedida siguiente y se ponen pistones y aros de esa medida. Si apenas está, a veces alcanza con un **bruñido** (el rayado cruzado que retiene aceite) y aros nuevos.
+
+</EnElTaller>
+
+<Pasos>
+
+1. **Luz entre puntas de los aros.** Meté el aro en el cilindro, empujalo derechito con la cabeza de un pistón hasta la zona menos gastada y medí la separación de las puntas con **galgas**. Nuevo: 0,20–0,40 mm (compresión); límite ≈ 1 mm.
+2. **Luz de aceite de metales con plastigage.** Limpiá y secá muñón y metal (sin aceite). Poné un hilo de plastigage a lo largo del muñón, montá el sombrerete y apretá **al torque y ángulo del manual sin girar el cigüeñal**. Desarmá y compará el ancho del hilo aplastado con la escala del sobre.
+3. **Muñones del cigüeñal.** Con **micrómetro**, en dos direcciones y en dos puntos de cada muñón: ovalización y conicidad de apenas milésimas a una o dos centésimas. Mirá también rayas y color (azulado = recalentado).
+4. **Juego axial del cigüeñal.** Comparador con base magnética contra la punta del cigüeñal, o galgas entre la medialuna y el cigüeñal. Típico 0,05–0,25 mm.
+5. **Bulón y pie de biela.** Sin pistón: el bulón no tiene que tener juego que se sienta con los dedos. Con el pistón armado, si al moverlo de arriba a abajo "golpetea", hay juego.
+6. **Torque final.** Tornillos de biela y de bancada **nuevos si son TTY**, roscas limpias y aceitadas (o como diga el manual), torquímetro y luego **transportador de ángulo**. Apretá en el orden indicado y en etapas.
+
+</Pasos>
+
+<Electronica>
+
+La ECU **no ve** directamente el desgaste de metales ni de aros, pero hay pistas electrónicas:
+
+- **Presión de aceite.** El testigo se enciende con un presostato que cierra a 0,3–0,5 bar. Muchos motores modernos tienen **sensor** de presión con lectura en el scanner y una bomba de aceite variable comandada por la ECU (con códigos de la familia P0520–P0524 o propios de la marca). Presión baja en caliente, en ralentí, es el primer síntoma de metales gastados.
+- **Sensor de detonación.** Es un micrófono pegado al block. Un golpe de biela fuerte puede "parecerle" detonación: la ECU atrasa el encendido y el motor pierde fuerza. Si en el scanner ves mucho atraso por detonación en un motor que golpea, sospechá también de lo mecánico.
+- **CKP y fallas de encendido.** Un cilindro con aros gastados empuja menos: el cigüeñal se acelera menos en su turno y la ECU puede contar fallas de encendido en ese cilindro (P0301–P0304) aunque bujía y bobina estén bien. Siempre que un cilindro marque fallas y el encendido esté bien, hacé compresión.
+- **Ventilación del cárter.** Algunos motores miden la presión del cárter: un blow-by excesivo puede generar códigos del sistema de ventilación (PCV).
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Luz entre puntas, aro de compresión" esperado="0,20–0,40 mm nuevo; límite ≈ 1 mm" como="Aro dentro del cilindro, en escuadra, galgas" nota="Según fabricante. El aceitero suele llevar más luz." />
+  <Medicion punto="Luz de aceite de metales" esperado="0,02–0,06 mm" como="Plastigage con el sombrerete apretado a torque, sin girar" nota="Fuera de medida: metales nuevos o rectificado a sobremedida." />
+  <Medicion punto="Ovalización y conicidad del cilindro" esperado="Pocas centésimas (típico máx. 0,03–0,05 mm)" como="Alesómetro calibrado con micrómetro, 3 alturas × 2 direcciones" nota="Pasado: rectificar y pistones de sobremedida." />
+  <Medicion punto="Juego axial del cigüeñal" esperado="0,05–0,25 mm" como="Comparador en la punta del cigüeñal o galgas en la medialuna" nota="Mucho juego: medialunas gastadas (pie en el embrague)." />
+  <Medicion punto="Presión de aceite en caliente" esperado="Ralentí ≥ 0,5–1 bar; 2.000–3.000 rpm ≈ 2–4 bar" como="Manómetro en lugar del presostato, o sensor en el scanner" nota="Baja en caliente y en ralentí: metales con mucha luz o bomba gastada." />
+  <Medicion punto="Torque de tornillos de biela/bancada" esperado="Según manual (torque + ángulo)" como="Torquímetro + transportador de ángulo, en etapas" nota="Tornillos TTY: siempre nuevos." />
+</Mediciones>
+
+<Herramientas ids={["torquimetro", "calibre", "micrometro", "alesometro", "galgas", "plastigage", "estetoscopio", "compresometro"]} />
+
+## Fallas típicas
+
+| Falla | Cómo suena o se nota | Cuándo aparece | Causa típica |
+|---|---|---|---|
+| **Golpe de biela** | Golpe metálico seco, grave, al ritmo del motor | Más fuerte en caliente, al acelerar de golpe y al soltar (cambio de carga), entre 2.000 y 3.000 rpm | Falta de aceite o aceite degradado, metal gastado, tornillo flojo. Presión de aceite baja |
+| **Golpe de bancada** | Más sordo y profundo ("toc" pesado) | Bajo carga, en subida o arrancando en marcha alta | Lo mismo que la biela. Suele venir con presión baja |
+| **Metales fundidos** | Golpe fuerte, el motor se traba o se detiene, testigo de aceite | De golpe, después de quedarse sin aceite o con el testigo prendido | Nivel bajo, bomba, chupador tapado, service muy estirado |
+| **Aros pegados o gastados** | Sin ruido: humo azul, consumo de aceite, blow-by, falta de fuerza | Progresivo; peor después de muchos viajes cortos | Carbonilla por aceite vencido, recalentamiento, polvo por filtro roto |
+| **Pistón rayado o con "cacheteo"** | Golpe hueco de costado, como un cascabeleo grave | En frío, y desaparece al calentar (si es leve) | Recalentamiento, falta de lubricación, luz excesiva |
+| **Bulón con juego** | Golpe agudo y doble ("tac-tac") | En ralentí, más claro en caliente | Desgaste del buje del pie de biela o del alojamiento |
+
+<Ojo title="Golpe de biela: pará">
+Si escuchás un golpe de biela, **apagá y no sigas andando**. Mientras el cigüeñal no esté rayado, se arregla con metales nuevos (y quizás un pulido). Si seguís, la biela termina agarrándose al muñón o rompiéndose y saliendo por el costado del block: ahí el motor ya no tiene arreglo razonable. Con el estetoscopio, el golpe de biela se escucha más fuerte en el costado del block, a la altura del cigüeñal, cerca del cilindro que falla. Cortando el inyector o la bobina de ese cilindro (balance de cilindros), el golpe suele cambiar o bajar.
+</Ojo>
+
+<Mendoza>
+
+**Polvo y ripio: el enemigo de aros y cilindros.** Una carcasa de filtro de aire mal cerrada, un filtro roto o una manguera de admisión fisurada después del filtro dejan entrar tierra fina. Esa tierra es abrasiva: en pocos miles de kilómetros "lija" aros y cilindros, y el motor empieza a consumir aceite y a perder compresión. Si andás por ripio o en zona de viento zonda, revisá el filtro seguido y fijate que no haya polvo **después** del filtro (en la manguera hacia la mariposa).
+
+**Cuestas largas y calor.** Subir la Ruta 7 hacia Uspallata cargado, en verano, es carga alta sostenida: el aceite trabaja muy caliente y finito. Un aceite vencido o de viscosidad incorrecta pierde película justo cuando más se necesita. Respetá el aceite y los intervalos del manual (en uso severo, el intervalo corto).
+
+**Altura y potencia.** El motor atmosférico pierde cerca de 1 % de potencia cada 100 m: en Uspallata, un 20 %. Probalo en la animación de curvas subiendo la altura. Un turbo compensa buena parte.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. El tren alternativo (pistón, aros, bulón, biela, metales, cigüeñal y volante) convierte la presión del gas en giro. El brazo de palanca es cero en los puntos muertos: por eso la presión máxima se busca unos grados después del PMS.
+2. El pistón es de aluminio y se dilata casi el doble que el hierro: viene **ovalado y cónico** en frío para quedar redondo y con la luz justa en caliente.
+3. El aro de compresión sella porque **el propio gas lo aprieta** contra la pared. El aceitero deja una película de micrones. Aros gastados: blow-by, humo azul y consumo de aceite.
+4. El cigüeñal **flota en una película de aceite**: luz de 0,02–0,06 mm, aceite a presión y velocidad. Sin aceite, se funden los metales en segundos.
+5. Una explosión empuja al pistón con unas **3 toneladas** y la inercia a 6.000 rpm suma **más de 1 tonelada**, que crece con el cuadrado de las rpm.
+6. **P = M · n / 9550** (kW). 1 kW = 1,36 CV. El torque máximo y la potencia máxima están en rpm distintas; entre ellos está la zona de empuje.
+7. En el taller: alesómetro para cilindros, micrómetro para muñones, galgas para aros, plastigage para metales y torquímetro con ángulo para los tornillos (TTY siempre nuevos).
+8. Un golpe de biela es para **apagar ya**. Presión de aceite baja en caliente y un testigo que parpadea son el aviso previo.
+
+</PuntosClave>

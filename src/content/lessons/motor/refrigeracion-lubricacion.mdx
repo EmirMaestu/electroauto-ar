@@ -1,0 +1,327 @@
+Enero, 38 °C a la sombra, Ruta 7 subiendo hacia Uspallata con el auto cargado, la familia adentro y el aire acondicionado a fondo. La aguja de temperatura, que siempre está clavada en el medio, empieza a trepar. El conductor piensa "ya baja" y sigue. Diez kilómetros después sale vapor por debajo del capot. El que tuvo suerte, perdió el día. El que siguió manejando, terminó con la junta de tapa quemada y la tapa de cilindros torcida.
+
+La otra historia típica es la del testigo rojo de la aceitera que "se prendía un ratito en los semáforos". Un día el motor empezó a golpear y no hubo más que hacer: metales fundidos, cigüeñal rayado.
+
+Los dos sistemas de esta lección son los que **mantienen vivo al motor**: la refrigeración saca el calor que sobra y la lubricación evita que las piezas se toquen. Cuando entendés cómo funcionan por dentro, cada síntoma te cuenta algo: una manguera fría, un ventilador que no arranca, una presión que baja en caliente.
+
+<Libro pag="pág. 732–749" />
+
+## Un motor es una estufa que además empuja
+
+Un motor naftero convierte en movimiento sólo entre el 25 y el 38 % de la energía de la nafta; un diesel moderno, alrededor del 40 %. El resto es calor. Repartido a grandes rasgos, de cada 100 partes de energía que entran:
+
+- **un tercio** sale como trabajo (mueve el auto),
+- **un tercio** se va por el escape,
+- **un tercio** pasa a las paredes del motor y se lo tiene que llevar el **refrigerante** (y una parte, el aceite).
+
+Ese último tercio es muchísimo. Si el motor entrega 50 kW subiendo una cuesta, el refrigerante tiene que sacar **otros 40 a 50 kW**: como diez estufas eléctricas grandes prendidas adentro del block.
+
+¿Y por qué no dejarlo frío, entonces? Porque un motor frío también se rompe, sólo que más despacio: la nafta no se evapora bien y lava el aceite de las paredes, los aros no sellan, el agua de la combustión se condensa en el cárter, gasta más y contamina más. El motor está diseñado para trabajar con el refrigerante entre **85 y 105 °C** según el modelo y la carga. La refrigeración no busca "enfriar": busca **mantener la temperatura justa**.
+
+<Formula name="Calor que se lleva un fluido" vars={{ "Q": "potencia térmica que se lleva [kW]", "ṁ": "caudal másico de refrigerante [kg/s]", "c": "calor específico [kJ/(kg·K)]; agua ≈ 4,2 · mezcla 50 % ≈ 3,6", "ΔT": "cuánto se calienta al pasar por el motor [°C o K]" }}>
+  Q = ṁ · c · ΔT
+</Formula>
+
+<Ejemplo title="¿Cuánto refrigerante tiene que mover la bomba?">
+Un 1.6 subiendo a Potrerillos manda unos 45 kW al refrigerante. Queremos que el líquido se caliente sólo 8 °C al pasar por el motor (para que no haya zonas mucho más calientes que otras). Con refrigerante 50 % (c ≈ 3,6):
+
+<Calc>ṁ = Q / (c · ΔT) = 45 / (3,6 × 8) = 1,56 kg/s</Calc>
+
+La mezcla pesa más o menos 1 kg por litro, así que son 1,5 litros por segundo:
+
+<Calc>1,56 L/s × 60 = 94 L/min</Calc>
+
+Resultado: <Res>la bomba de agua mueve unos 90–100 litros por minuto</Res>, un balde de 10 litros cada 6 segundos. Con la bomba gastada, el mismo calor se lleva con menos caudal y el ΔT crece: el agua sale del motor mucho más caliente de lo que entra.
+</Ejemplo>
+
+## El circuito, pieza por pieza
+
+Seguí una gota de refrigerante desde la bomba:
+
+1. **Bomba de agua.** Una bomba centrífuga movida por la correa de accesorios o la de distribución (en muchos motores se cambia con el kit de distribución); algunos motores modernos la tienen **eléctrica** o desacoplable. Falla el **sello** (gotea por un agujerito de testigo), el **rulemán** (ruido, juego en la polea) y, más traicionero, las **paletas corroídas o rotas**: gira, pero no mueve agua.
+2. **Camisas de agua.** Son los conductos que rodean los cilindros en el block y que pasan por la tapa alrededor de las cámaras de combustión y de los asientos de válvula. La junta de tapa tiene agujeros calibrados que reparten el agua entre block y tapa.
+3. **Termostato.** Sale de la tapa y es la válvula que decide si el agua va al radiador o vuelve directo a la bomba. Lo vemos en detalle más abajo.
+4. **Radiador.** Tubos planos de aluminio con aletas onduladas soldadas entre ellos, y dos tanques plásticos (uno de entrada y otro de salida). El agua caliente entra por la manguera de arriba, baja por los tubos cediendo calor al aire y sale más fría por la manguera de abajo.
+5. **Electroventilador.** Cuando el auto anda rápido, el aire que entra por la parrilla alcanza. Parado o despacio, no. Ahí la ECU prende el ventilador, con un relé o con un módulo que regula la velocidad (dos velocidades o PWM). En camionetas grandes y camiones puede ser mecánico, con un embrague viscoso.
+6. **Depósito de expansión.** Un tanque plástico en el punto más alto del sistema. El refrigerante se dilata al calentarse (ya vas a ver cuánto) y el depósito recibe ese excedente. También junta el aire y los gases para que no queden burbujas dando vueltas. En muchos autos la **tapa presurizada** está en el depósito, no en el radiador.
+7. **Calefacción.** Un radiadorcito dentro del tablero. Le llega agua caliente del motor siempre, aunque el termostato esté cerrado: por eso la calefacción empieza a calentar antes de que la aguja llegue al medio.
+
+<CircuitoRefrigeracion />
+
+Lo que más te va a servir en el taller: con el termostato cerrado el radiador está aislado y frío; cuando abre, la **manguera de arriba se calienta de golpe**. Tocando las mangueras (con cuidado) sabés en qué momento está el sistema.
+
+<Tip title="Si se te calienta en la ruta">
+La calefacción es un segundo radiador. Si la aguja sube: apagá el aire acondicionado, poné la **calefacción al máximo con el ventilador a fondo** y abrí las ventanillas. Bajá un cambio para que el motor gire más (la bomba mueve más agua) y aflojá el acelerador. Si la aguja sigue subiendo, pará en un lugar seguro y dejá el motor en ralentí un par de minutos con la calefacción prendida antes de apagarlo. **No abras la tapa.**
+</Tip>
+
+## El termostato por dentro
+
+El termostato común no tiene nada electrónico. Adentro de una cápsula de bronce hay una **cera** especial que, cuando se funde, aumenta de volumen. Esa expansión empuja un pasador fijo; como el pasador no se puede mover, lo que se mueve es la cápsula, que arrastra la válvula y la despega de su asiento. Un resorte la vuelve a cerrar cuando la cera se enfría.
+
+<Termostato />
+
+Datos que conviene saber:
+
+- La **temperatura de apertura** viene grabada en la brida (por ejemplo, 87 °C). Según el motor va de **82 a 95 °C**.
+- Abre del todo unos **10 a 15 °C más arriba**, con una carrera de unos **8 mm**.
+- Muchos tienen una **válvula de bypass** abajo (doble efecto): mientras la principal abre, la de abajo cierra el retorno directo a la bomba.
+- Tienen un agujerito con un pasador suelto (la **purga** o "jiggle valve") que deja pasar el aire. Se monta **hacia arriba**.
+
+Los motores más nuevos usan **termostatos con mapa**: tienen una resistencia adentro de la cera que la ECU alimenta con una señal PWM. Calentando la cera, el termostato abre antes aunque el agua esté más fría. Así la ECU deja el motor más caliente (105–110 °C) en ciudad y carga parcial, donde gasta menos y contamina menos, y lo baja a 85–90 °C cuando le pedís todo, para alejarse de la detonación. Algunos motores directamente tienen válvulas rotativas comandadas por motor eléctrico en lugar de termostato.
+
+<Ojo title="Sacar el termostato no arregla nada">
+Todavía se ve gente que saca el termostato "para que no caliente". El motor anda siempre frío: desgaste, más consumo, aceite diluido, calefacción que no calienta y, en el scanner, el código **P0128**. Y en algunos motores el agua deja de repartirse bien (el termostato también es una restricción calculada) y se recalienta una zona de la tapa. Si calienta, hay que encontrar por qué.
+</Ojo>
+
+## Presión, tapa y punto de ebullición
+
+El agua hierve a 100 °C sólo a nivel del mar. Hierve cuando la presión de su vapor iguala a la presión que tiene encima: si arriba hay **más** presión, hierve más caliente; si hay **menos**, hierve antes.
+
+El sistema de refrigeración está **cerrado y presurizado**. Cuando el refrigerante se calienta se dilata, y como no tiene por dónde escapar, la presión sube. La tapa (del radiador o del depósito) tiene una **válvula con resorte** que deja subir esa presión hasta su valor, típicamente **1,0 a 1,5 bar** por encima de la atmosférica, y ahí abre y alivia al depósito o al exterior. Tiene además una segunda válvula chiquita, la de **vacío**, que al enfriarse deja volver líquido del depósito para que las mangueras no se aplasten.
+
+<Formula name="Punto de ebullición del agua (fórmula de bolsillo)" vars={{ "T_eb": "temperatura de ebullición [°C]", "p_abs": "presión absoluta = atmosférica + la de la tapa [bar]", "1,013": "presión atmosférica a nivel del mar [bar]" }}>
+  T<sub>eb</sub> ≈ 100 · (p<sub>abs</sub> / 1,013)<sup>0,25</sup>
+</Formula>
+
+Es una aproximación (le erra por 1–2 °C), pero sirve para hacer la cuenta con la calculadora del celular.
+
+<Ejemplo title="¿Por qué con una tapa de 1,2 bar el agua hierve a 120 °C?">
+**A nivel del mar**, con la tapa sana de 1,2 bar:
+
+<Calc>p_abs = 1,013 + 1,2 = 2,213 bar → 2,213 / 1,013 = 2,18</Calc>
+<Calc>T_eb ≈ 100 × 2,18^0,25 = 100 × 1,216 = 121,6 °C</Calc>
+
+**En Las Cuevas** (≈ 3.150 m, presión ≈ 0,69 bar) con la misma tapa:
+
+<Calc>p_abs = 0,69 + 1,2 = 1,89 bar → 1,89 / 1,013 = 1,87 → T_eb ≈ 100 × 1,169 = 117 °C</Calc>
+
+Y **en Las Cuevas con la tapa vencida** (el resorte ya no sostiene presión):
+
+<Calc>p_abs = 0,69 bar → 0,69 / 1,013 = 0,68 → T_eb ≈ 100 × 0,908 = 90,8 °C</Calc>
+
+Resultado: <Res>sin presión, en la cordillera el agua hierve a unos 90 °C</Res>: justo la temperatura de trabajo del motor. El glicol del refrigerante 50 % le suma unos 7 °C, pero igual queda en el límite.
+</Ejemplo>
+
+<PuntoEbullicion />
+
+<Ejemplo title="¿Cuánto crece el refrigerante al calentarse?">
+La mezcla de agua y glicol aumenta su volumen alrededor de un 0,06 % por cada grado (β ≈ 0,0006 por °C). Un sistema de 6 litros que pasa de 20 a 100 °C:
+
+<Calc>ΔV = β · V · ΔT = 0,0006 × 6 L × 80 °C ≈ 0,29 L</Calc>
+
+Resultado: <Res>casi 300 cm³ de más</Res> entre el motor frío y caliente.
+</Ejemplo>
+
+Por eso el nivel del depósito se controla **en frío** entre MIN y MAX. Si lo llenás hasta el tope en caliente, cuando se enfría queda bajo; si lo llenás hasta el tope en frío, al calentarse tira el excedente por el rebalse.
+
+<Peligro title="Nunca abras la tapa en caliente">
+Con el motor caliente el refrigerante está a más de 100 °C **y a presión**. Si abrís la tapa, la presión cae de golpe, el líquido hierve instantáneamente y sale como un chorro de vapor y agua hirviendo. Es una de las quemaduras más comunes del taller. Esperá a que se enfríe (que puedas apretar la manguera de arriba con la mano) y abrí con un trapo, de a poco, primero hasta el primer tope para que alivie.
+</Peligro>
+
+## El refrigerante no es agua
+
+El líquido que va en el sistema es una mezcla de **agua** con **etilenglicol** (el anticongelante) y un paquete de **inhibidores de corrosión**. Cada componente tiene su función:
+
+- El **glicol** baja el punto de congelamiento y sube el de ebullición. Con 50 % protege hasta unos **−35 °C**; con 33 %, hasta unos −18 °C. Más de 60–70 % es contraproducente: transmite peor el calor y vuelve a congelar más arriba.
+- Los **inhibidores** forman una capa que protege el aluminio, el hierro, el bronce y las soldaduras. Con el tiempo se gastan; por eso el refrigerante **se cambia** aunque "se vea bien": cada 2 años los de tecnología vieja (inorgánicos), 4 a 5 años o más los orgánicos de larga duración. Manda el fabricante.
+- El **agua** tiene que ser **desmineralizada**. El agua de la canilla trae calcio y magnesio que se pegan como sarro en los conductos y en los tubitos del radiador, y cloro que ataca el aluminio.
+
+<Ojo title="El color no es garantía">
+Rojo, rosa, verde, azul, amarillo: cada fabricante tiñe como quiere. Lo que importa es la **norma** que pide el motor (está en el manual o en el depósito; por ejemplo, las especificaciones G12/G13 de VW o la de cada marca). Mezclar tecnologías incompatibles puede formar un barro gelatinoso que tapa el radiador. Si no sabés qué tiene, vaciá y lavá antes de cargar el nuevo.
+</Ojo>
+
+Más detalles sobre tipos y normas en la lección de [refrigerantes](/aprender/fluidos-operacion/refrigerantes).
+
+## Lubricación: el aceite hace cinco trabajos
+
+El aceite no sólo "lubrica". Adentro del motor tiene cinco tareas a la vez:
+
+1. **Lubricar:** separa las piezas que se mueven con una película para que no se toquen.
+2. **Enfriar:** se lleva calor de los pistones, los metales y el turbo (en muchos motores hay chorros que rocían aceite debajo de los pistones).
+3. **Limpiar:** arrastra el hollín, las partículas de desgaste y la tierra que entró, y las deja en el filtro.
+4. **Sellar:** completa el sello entre aros y cilindro.
+5. **Proteger:** sus aditivos neutralizan los ácidos de la combustión y evitan la corrosión.
+
+### El circuito de aceite
+
+Es un sistema **a presión** (y una parte por salpicado y niebla):
+
+- El **cárter** es el depósito: ahí el aceite se junta, se enfría y largan las burbujas.
+- El **chupador**, un caño con una malla, lo toma del fondo.
+- La **bomba** (de engranajes, de lóbulos o de paletas), movida por el cigüeñal o por una cadena, lo empuja. Las más nuevas son de **caudal variable**: la ECU baja la presión cuando no hace falta para ahorrar energía.
+- La **válvula de alivio** limita la presión máxima (típicamente 4 a 6 bar) devolviendo el sobrante al cárter.
+- El **filtro** retiene las partículas. Tiene una **válvula de by-pass** que se abre si el filtro está tapado (o el aceite muy espeso): el motor prefiere aceite sucio antes que sin aceite. Muchos tienen también una membrana **antirretorno** para que el filtro no se vacíe con el motor parado.
+- Muchos motores tienen un **enfriador de aceite** (un intercambiador aceite-agua al lado del filtro). Ojo con esto, que más abajo vuelve.
+- La **galería principal** recorre el block y reparte a los **metales de bancada**; desde ahí, perforaciones dentro del cigüeñal llevan aceite a los **metales de biela**. Otra subida va a la tapa: **árbol de levas**, botadores hidráulicos, variador de fase. Y una cañería aparte alimenta el **turbo**.
+- Todo vuelve al cárter **por gravedad**.
+
+<CircuitoAceite />
+
+### El cigüeñal no apoya: flota
+
+Esta es la parte más linda. Entre el muñón del cigüeñal y el metal hay una luz de **centésimas de milímetro** (típicamente 0,02 a 0,07 mm de diferencia de diámetro). Cuando el eje gira, arrastra aceite y lo mete en la zona donde la luz se achica, como una cuña. El aceite no alcanza a escaparse por los costados, se le sube la presión y **levanta el eje**. Con el motor andando bien, el cigüeñal no toca nunca el metal: flota sobre una película de pocos micrones. Eso se llama **lubricación hidrodinámica**.
+
+<Formula name="Espesor mínimo de la película" vars={{ "h_min": "espesor mínimo de aceite [µm]", "c": "luz radial (la mitad de la diametral) [µm]", "ε": "excentricidad: 0 = eje centrado, 1 = eje apoyado en el metal" }}>
+  h<sub>min</sub> = c · (1 − ε)
+</Formula>
+
+<Ejemplo title="¿Cuánto aceite queda entre el cigüeñal y el metal?">
+Un metal de biela con 0,05 mm de luz diametral tiene una luz radial c = 0,025 mm = 25 µm. Con carga fuerte, el muñón se corre hasta una excentricidad de 0,9:
+
+<Calc>h_min = 25 µm × (1 − 0,9) = 2,5 µm</Calc>
+
+Resultado: <Res>2,5 milésimas de milímetro</Res>. Un pelo tiene unos 70 µm: la película es casi **30 veces más fina que un pelo**. Y aguanta presiones de decenas a cientos de MPa (cientos o miles de bar), mientras el manómetro del tablero marca 3 bar.
+</Ejemplo>
+
+<PeliculaAceite />
+
+Tres consecuencias que explican fallas reales: **tironear** en un cambio alto, a pocas vueltas y a fondo, castiga los metales; un aceite **diluido con nafta** (motor que ahoga, inyector que gotea) o recalentado pierde capacidad de carga; y **dando arranque casi no hay película**, así que la mayor parte del desgaste pasa en los arranques en frío.
+
+### Presión de aceite: qué te dice y qué no
+
+La bomba **no fabrica presión: manda caudal**. La presión aparece porque ese caudal tiene que escaparse por las luces de los metales. Entonces la presión depende de tres cosas:
+
+- **Las vueltas:** más rpm, más caudal, más presión (hasta que abre la válvula de alivio).
+- **La temperatura del aceite:** en frío es espeso y la presión es alta (suele tocar la válvula de alivio); en caliente es fino y la presión baja.
+- **Las luces:** metales gastados dejan escapar más aceite y la presión baja, sobre todo **en caliente y en ralentí**.
+
+Valores típicos (siempre según fabricante): con el motor caliente, **al menos 0,5–1 bar en ralentí** y **2 a 4 bar a 2.000–3.000 rpm**. Una regla vieja de los mecánicos dice "10 psi cada 1.000 rpm" (unos 0,7 bar cada 1.000 rpm, en caliente) y para motores clásicos no anda mal.
+
+El testigo rojo del tablero lo maneja un **presostato**: un interruptor que conecta a masa mientras **no hay** presión y abre cuando la presión supera unos **0,3–0,5 bar**. O sea: el testigo no te avisa que la presión está "baja", te avisa que **prácticamente no hay**. Si se prende andando, **pará el motor ya**. Cada segundo cuenta.
+
+<Dato title="Viscosidad y normas, en dos líneas">
+**5W-30**: la "W" es de *winter* (invierno). El primer número indica cómo fluye en frío (más bajo, mejor arranque en frío); el segundo, qué tan espeso es en caliente, a 100 °C. Las normas **API** (SP, SN para nafta; CK-4 para diesel) y **ACEA** (A/B, C para autos con filtro de partículas, E para pesados) dicen qué aditivos y qué resistencia tiene. Y muchas marcas tienen su propia homologación: manda el manual. Todo esto en detalle en [aceites y lubricantes](/aprender/fluidos-operacion/aceites).
+</Dato>
+
+### Consumo de aceite: cuánto es normal
+
+Todo motor consume algo de aceite: una parte pasa por los aros y se quema, otra se va por las guías de válvula y por el respiradero del cárter. La pregunta es cuánto.
+
+<Formula name="Consumo de aceite" vars={{ "C": "consumo [L cada 1.000 km]", "V": "aceite que agregaste para volver al mismo nivel [L]", "d": "kilómetros recorridos" }}>
+  C = V / d × 1.000
+</Formula>
+
+<Ejemplo title="¿Está consumiendo de más?">
+Cambiaste el aceite, lo dejaste justo en la marca MAX y a los 3.000 km tuviste que agregar 0,75 L para volver a la misma marca (siempre en llano, motor frío o después de 5 minutos apagado).
+
+<Calc>C = 0,75 / 3.000 × 1.000 = 0,25 L / 1.000 km</Calc>
+
+Resultado: <Res>0,25 L cada 1.000 km</Res>. Para la mayoría de los fabricantes es aceptable (muchos toleran hasta 0,5 L/1.000 km y algunos más). Si te da 1 L cada 1.000 km o más, hay que buscar: aros, retenes de válvula, turbo, respiradero tapado o una pérdida externa.
+</Ejemplo>
+
+Pistas para ubicar el consumo:
+
+- **Humo azul al acelerar fuerte** después de un rato andando: aros gastados o pegados. Suele venir con presión en el cárter (sale aire por la varilla o la tapa de aceite).
+- **Humo azul al arrancar o después de bajar una pendiente larga con el pie levantado** (y se va enseguida): retenes de válvula.
+- **Humo azul en un turbo**, aceite en las mangueras del intercooler: turbo con retenes gastados o, muy seguido, retorno de aceite del turbo tapado.
+- **Manchas en el piso:** pérdidas por retenes, junta de tapa de válvulas, tapón, filtro mal apretado.
+
+### Cuando el aceite y el agua se mezclan
+
+- **Aceite con agua** ("mayonesa" marrón clara en la varilla o en la tapa de aceite, nivel de aceite que **sube**): el refrigerante está entrando al aceite. Sospechosos: **junta de tapa**, **enfriador de aceite** (el intercambiador aceite-agua) roto, fisura en tapa o block. Es urgente: el agua arruina la película de aceite y los metales se funden.
+- **Agua con aceite** (manchas aceitosas o barro marrón en el depósito de expansión): es al revés, el aceite a presión pasa al refrigerante. Típico del **enfriador de aceite** y también de la junta de tapa.
+
+<Ojo title="No toda mayonesa es junta de tapa">
+En invierno, con viajes cortos (ir y volver del trabajo en 10 minutos), el vapor de agua de la combustión se condensa en la tapa de válvulas y forma una mayonesa **sólo en la tapa de aceite**, sin que baje el refrigerante. Una ruta larga la seca. Antes de condenar la junta: ¿baja el nivel del depósito? ¿hay mayonesa también en la varilla y en el cárter? ¿da positivo la prueba de CO₂?
+</Ojo>
+
+<EnElTaller title="Pruebas que vas a hacer siempre">
+
+**Prueba de presión del sistema de refrigeración** (en frío):
+
+<Pasos>
+1. **Nivel y conexión.** Con el motor frío, completá el nivel y colocá el probador en la boca del depósito (o del radiador) con su adaptador.
+2. **Presurizá.** Bombeá hasta la presión que dice la tapa (1,0–1,5 bar). No te pases: los tanques plásticos se fisuran.
+3. **Esperá 10–15 minutos.** La aguja no tiene que bajar. Si baja, buscá goteos: mangueras y abrazaderas, radiador, bomba (agujero de testigo), calefacción (alfombra mojada, olor dulce), tapones del block.
+4. **Si baja y no hay goteo a la vista.** El líquido se está yendo hacia adentro: cilindro (junta de tapa, fisura) o aceite (enfriador). Sacá las bujías y mirá si alguna está "lavada" y limpia.
+5. **Probá la tapa.** Con el adaptador de tapas, tiene que abrir a su valor (±0,1–0,2 bar) y sostener. Una tapa barata de cambiar evita muchos problemas en la cordillera.
+</Pasos>
+
+**Prueba de CO₂ (block test):** con el motor caliente y el nivel un poco bajo, se aspira el aire del depósito a través de un líquido azul. Si cambia a verde o amarillo, hay **gases de combustión en el refrigerante**: junta de tapa quemada o fisura. Otra señal: burbujas constantes en el depósito y mangueras que se ponen duras apenas arrancás.
+
+**Verificar el termostato** sin desarmar: conectá el scanner y mirá la curva del ECT desde frío. Tiene que subir de forma pareja hasta la temperatura de apertura y ahí estabilizarse; en ese momento la manguera de arriba del radiador se calienta de golpe. Si la manguera de arriba se entibia desde el arranque y la temperatura no pasa de 70–80 °C en ruta, quedó abierto. Fuera del auto, se prueba en una olla con agua y un termómetro: tiene que empezar a abrir a la temperatura grabada (±2 °C), abrir del todo unos 12 °C más arriba y volver a cerrar al enfriarse.
+
+**Purgar el aire** después de cambiar refrigerante, mangueras o bomba: con el depósito abierto y en frío, calefacción al máximo, abrí los tornillos de purga si el motor los tiene, levantá un poco la trompa del auto, arrancá y dejalo en ralentí hasta que abra el termostato y arranque el electroventilador, apretando de a ratos la manguera de arriba. Completá el nivel, cerrá y verificá de nuevo en frío al día siguiente. Algunos motores tienen un procedimiento propio (y en el taller hay equipos de **llenado al vacío** que evitan las burbujas).
+
+**Medir la presión de aceite con manómetro:** sacá el presostato (o el sensor), roscá el manómetro con el adaptador correcto, llevá el motor a temperatura (aceite a más de 80 °C, no sólo el agua) y medí en ralentí y a 2.000–3.000 rpm. Compará con el dato del fabricante. Si da bien y el testigo se prendía, el problema es el presostato o su cable.
+
+**Cambio de aceite y filtro:**
+
+<Pasos>
+1. **Motor tibio, auto nivelado.** El aceite tibio drena mejor (caliente quema).
+2. **Tapón de cárter con arandela nueva.** Apretalo al torque indicado: los cárteres de aluminio se pasan de rosca enseguida.
+3. **Filtro nuevo.** Untá la junta con aceite limpio, enroscá a mano hasta que apoye y dale unos 3/4 de vuelta más (o el torque del filtro si es de cartucho con tapa).
+4. **Cargá la cantidad del manual.** No cargues "hasta que llegue a la marca" de una: dejá que baje al cárter y medí.
+5. **Arrancá y esperá que se apague el testigo.** Tarda 2–5 segundos. Revisá que no pierda el filtro ni el tapón.
+6. **Medí de nuevo.** Con la varilla, después de 5 minutos apagado, completá. Reseteá el aviso de service si el auto lo tiene.
+</Pasos>
+
+</EnElTaller>
+
+<Electronica>
+
+**El ECT** (sensor de temperatura del refrigerante) es un termistor <Term t="NTC" />: su resistencia baja cuando sube la temperatura, típicamente **2–3 kΩ a 20 °C** y **200–300 Ω a 90 °C**. La ECU le da 5 V a través de una resistencia interna y lee la tensión: en frío ronda los 2,5–3,5 V y en caliente baja a 0,4–1 V. Con ese dato la ECU decide un montón de cosas: enriquece la mezcla y sube el ralentí en frío, ajusta el avance, decide cuándo entrar en lazo cerrado, prende el electroventilador, corta el aire acondicionado si se recalienta y le manda la temperatura al tablero por la red CAN.
+
+Códigos típicos:
+
+- **P0117**: señal del ECT muy baja (cable a masa o sensor en corto). La ECU "ve" el motor hirviendo.
+- **P0118**: señal muy alta (cable cortado o ficha suelta). La ECU "ve" −40 °C: arranca con mezcla muy rica y el ventilador puede quedar prendido a fondo, que es lo que hace como modo de emergencia.
+- **P0128**: el refrigerante no llega a la temperatura de regulación en el tiempo esperado. Casi siempre, termostato trabado abierto.
+- **P0217**: sobretemperatura del motor.
+- **P0597–P0599**: circuito de la resistencia del termostato con mapa.
+- **P0480/P0481**: circuito de control del electroventilador.
+
+**La presión de aceite** la lee un **presostato** (un interruptor a masa que prende el testigo) o, en motores con bomba de caudal variable, un **sensor de presión** de 0,5–4,5 V con el que la ECU regula la bomba entre una etapa baja (~2 bar) y una alta (~4 bar). Códigos de la familia **P0520–P0524** (P0524: presión de aceite demasiado baja). Muchos autos tienen además sensor de **nivel y temperatura de aceite** en el cárter.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Temperatura de trabajo (ECT por scanner)" esperado="85 a 105 °C" como="Motor caliente, en ralentí y en ruta" nota="Con termostato con mapa puede andar a 105–110 °C en carga parcial y es normal" />
+  <Medicion punto="Apertura del termostato" esperado="82 a 95 °C (grabado)" como="Curva del ECT por scanner o en una olla con termómetro" nota="Abre del todo unos 10–15 °C más arriba, con unos 8 mm de carrera" />
+  <Medicion punto="Electroventilador" esperado="Arranca a 92–105 °C" como="Scanner: ECT y estado del ventilador; prueba de actuadores" nota="Con A/C prendido suele andar siempre" />
+  <Medicion punto="Prueba de presión del sistema" esperado="Valor de la tapa (1,0–1,5 bar) sin caída en 10–15 min" como="Probador de presión, motor frío" />
+  <Medicion punto="Sensor ECT" esperado="2–3 kΩ a 20 °C · 200–300 Ω a 90 °C" como="Tester en resistencia, ficha desconectada" nota="Comparalo con la temperatura real (termómetro infrarrojo en la caja del termostato)" />
+  <Medicion punto="Protección del refrigerante" esperado="−25 a −37 °C" como="Refractómetro" nota="Para Alta Montaña en invierno, no menos de −30 °C" />
+  <Medicion punto="Presión de aceite (caliente)" esperado="Ralentí ≥ 0,5–1 bar · 2.000–3.000 rpm: 2–4 bar" como="Manómetro en lugar del presostato, aceite a más de 80 °C" nota="En frío, 4–6 bar (válvula de alivio)" />
+  <Medicion punto="Presostato de aceite" esperado="Continuidad a masa motor parado; abre con 0,3–0,5 bar" como="Tester en continuidad entre terminal y cuerpo" />
+</Mediciones>
+
+<Herramientas ids={["bomba-presion-refri", "probador-co2", "termometro-ir", "manometro-aceite", "refractometro", "scanner", "tester", "estetoscopio", "torquimetro", "epp"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Se recalienta parado en el tráfico; en ruta anda bien | Electroventilador que no arranca (fusible, relé, motor, ficha), radiador tapado por fuera (bichos, tierra) | Scanner: ¿arranca a 98 °C? Prueba de actuadores. Mirar el panal |
+| Se recalienta en ruta y subiendo | Radiador tapado por dentro, bomba con paletas gastadas, termostato que no abre del todo, junta de tapa | Mangueras: la de arriba hirviendo y la de abajo tibia. Prueba de CO₂ |
+| Tarda en calentar, calefacción tibia, P0128 | Termostato trabado abierto | Curva del ECT por scanner; manguera de arriba tibia desde el arranque |
+| Pierde refrigerante y no hay manchas | Junta de tapa (humo blanco con olor dulce), radiador de calefacción (alfombra mojada, vidrios empañados) | Prueba de presión, prueba de CO₂, bujía "lavada" |
+| Burbujas en el depósito, mangueras duras enseguida | Gases de combustión en el circuito | Prueba de CO₂ |
+| Hierve sólo en la cordillera | Tapa vencida, refrigerante viejo o muy diluido | Probar la tapa; refractómetro |
+| Testigo de aceite que se prende en ralentí caliente | Metales gastados, aceite diluido o muy fino, bomba gastada, presostato | Manómetro con el aceite caliente |
+| Golpeteo grave que sube con las rpm | Metal de biela | Estetoscopio; presión de aceite; cortar cilindros uno por uno |
+| Mayonesa en la tapa de aceite | Condensación (viajes cortos con frío) o agua en el aceite | ¿Baja el refrigerante? ¿Hay mayonesa en la varilla? Prueba de CO₂ |
+
+<Mendoza>
+
+- **Verano de 35–40 °C con aire acondicionado en el tráfico** de la Costanera o el Acceso Este: el condensador del A/C está delante del radiador y le calienta el aire. Si el electroventilador no anda perfecto, se recalienta parado. Antes del verano: probá que el ventilador arranque, limpiá el panal (con agua a baja presión y desde adentro hacia afuera) y revisá la tapa.
+- **Subiendo a Alta Montaña con carga o con trailer:** mirá la temperatura (mejor por scanner que con la aguja amortiguada) y aplicá el tip de más arriba si sube.
+- **Punto de ebullición más bajo con la altura:** en Uspallata el agua sola hierve a unos 93 °C y en Las Cuevas a unos 89 °C. La tapa sana y el refrigerante en buena proporción son lo que te salva.
+- **Invierno arriba:** en Uspallata o Las Cuevas la noche baja de −10 °C. Con agua sola se congela, se expande y puede **rajar el block o el radiador**. Medí la protección con refractómetro.
+- **Agua dura:** el agua de la red en Mendoza trae bastante sarro. Para completar o mezclar, usá agua desmineralizada.
+- **Tierra y zonda:** el radiador se tapa por fuera con tierra y bichos, y el polvo que pasa un filtro de aire roto termina en el aceite como lija.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. El motor tira como calor alrededor de un tercio de la energía al refrigerante. La refrigeración no busca enfriar, sino **mantener 85–105 °C**.
+2. El **termostato de cera** deja el agua en el circuito corto hasta 82–95 °C y después la manda al radiador. Sacarlo no arregla nada (P0128).
+3. La **tapa presurizada** (1,0–1,5 bar) sube el punto de ebullición unos 20 °C. Con la tapa vencida, en la cordillera el agua hierve a 90 °C.
+4. El refrigerante es **agua desmineralizada + glicol + inhibidores**: se cambia por tiempo aunque se vea bien, y el color no dice la norma.
+5. El cigüeñal **flota** sobre una película de pocos micrones. Carga, pocas vueltas, aceite fino o caliente y los arranques en frío la achican.
+6. La bomba de aceite da caudal; la **presión** sale de las luces. Baja en caliente, en ralentí y con metales gastados. El testigo se prende con menos de 0,3–0,5 bar: si se prende andando, apagá ya.
+7. Aceite con agua o agua con aceite: junta de tapa o **enfriador de aceite**. Pero una mayonesa sólo en la tapa en invierno puede ser condensación.
+8. El ECT es una NTC que la ECU usa para mezcla, ventilador y tablero: P0117/P0118 son del circuito; P0128 es del termostato.
+
+</PuntosClave>

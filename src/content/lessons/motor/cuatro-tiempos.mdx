@@ -1,0 +1,310 @@
+Girás la llave, la burra de arranque hace girar el motor un par de vueltas y, de golpe, el motor "agarra" y sigue solo. En ese segundo pasó algo increíble: adentro de cada cilindro se empezó a repetir, decenas de veces por segundo, una secuencia de cuatro pasos que convierte unas gotas de nafta en fuerza para mover una tonelada de auto.
+
+Esa secuencia es el **ciclo de 4 tiempos**, y es la base de todo lo que vas a ver en mecánica: por qué un motor pierde compresión, qué mide un vacuómetro, qué hace la correa de distribución, por qué la ECU necesita dos sensores para saber dónde está cada pistón. Si entendés bien esta lección, el resto del motor se vuelve lógico.
+
+<Libro pag="pág. 638–671" />
+
+## Qué es un motor de combustión interna
+
+Un motor de auto es una **máquina térmica**: toma la energía química del combustible, la convierte en calor quemándolo, y usa ese calor para empujar algo. Le decimos de **combustión interna** porque la combustión pasa **adentro** del mismo lugar donde se hace el trabajo: el gas que se quema es el que empuja al pistón. En una locomotora a vapor, en cambio, el fuego está en una caldera y lo que empuja es otro fluido (el vapor): combustión externa.
+
+La idea es simple. Encerrás aire con un poco de combustible en un cilindro, lo comprimís, lo prendés fuego, y el gas caliente (que quiere ocupar muchísimo más lugar) empuja un **pistón**. El pistón va y viene en línea recta; una **biela** y un **cigüeñal** convierten ese ir y venir en giro, igual que tus piernas y los pedales convierten el subir y bajar de las rodillas en el giro de la rueda de la bici.
+
+<Analogia>
+Pensá en la bici: tu rodilla es el pistón (sube y baja), tu pierna es la biela y el pedal con su palanca es el cigüeñal. Empujás fuerte sólo en la bajada y en la subida dejás que la inercia lleve el pedal. El motor hace exactamente eso, sólo que el "empujón" lo da la combustión.
+</Analogia>
+
+## Las piezas básicas
+
+Antes de ver los tiempos, conocé a los protagonistas. En la animación de abajo están numerados.
+
+- **Block (bloque).** La pieza grande de fundición de hierro o aluminio. Adentro tiene los **cilindros** (los "tubos" por donde corren los pistones) y abajo aloja al cigüeñal. Alrededor de los cilindros hay conductos de agua: las camisas de refrigeración.
+- **Tapa de cilindros.** Va atornillada arriba del block. Ahí están la <Term t="Cámara de combustión">cámara de combustión</Term>, las válvulas, los conductos de admisión y escape, y en la mayoría de los motores modernos, los árboles de levas.
+- **Junta de tapa.** La lámina que sella entre block y tapa: compresión, agua y aceite, cada uno por su lado.
+- **Pistón.** El "tapón" móvil del cilindro, de aluminio. Lleva **aros** que sellan contra la pared.
+- **Biela.** La barra que une el pistón con el cigüeñal.
+- **Cigüeñal.** El eje con manivelas (codos) que transforma el empuje en giro. Adelante tiene la polea y el piñón de distribución; atrás, el volante motor.
+- **Válvulas.** Las "puertas" del cilindro: una (o dos) de **admisión** para que entre la mezcla y una (o dos) de **escape** para que salgan los gases quemados. Las abre el **árbol de levas** y las cierran resortes.
+- **Bujía.** Hace saltar la chispa que enciende la mezcla (en los nafteros).
+- **Inyector.** Tira la nafta pulverizada, en el conducto de admisión (inyección indirecta o multipunto) o directo en el cilindro (inyección directa).
+
+## Los cuatro tiempos, uno por uno
+
+Un **tiempo** es una carrera del pistón: un viaje de punta a punta del cilindro. El punto más alto se llama <Term t="PMS">PMS</Term> (punto muerto superior) y el más bajo <Term t="PMI">PMI</Term> (punto muerto inferior). "Muerto" porque ahí el pistón se frena hasta velocidad cero y da la vuelta.
+
+Mirá la animación con calma. Podés pausarla, ir de a 5° y arrastrar el cursor sobre la barra de 720°.
+
+<CuatroTiempos />
+
+### 1. Admisión: entra la mezcla
+
+El pistón **baja** desde el PMS. La válvula de **admisión está abierta** y la de escape cerrada (salvo un instante al principio, ya vas a ver por qué). Al bajar, el pistón agranda el volumen del cilindro y la presión adentro cae por debajo de la del múltiple de admisión: la mezcla de aire y nafta entra **empujada por la atmósfera**, no "chupada" por arte de magia.
+
+- **Presión:** apenas por debajo de la del múltiple. A fondo, casi 1 bar absoluto; en ralentí, con la mariposa casi cerrada, unos 0,3–0,4 bar absolutos (eso es el "vacío" del múltiple).
+- **Temperatura:** la mezcla entra a 30–60 °C, porque se calienta un poco con el conducto y con el resto de gas quemado que queda en la cámara.
+- **Inyector:** en un multipunto, tira la nafta contra la válvula de admisión; el aire que pasa la arrastra y la termina de evaporar.
+
+### 2. Compresión: se aprieta la mezcla
+
+El pistón **sube** del PMI al PMS con las **dos válvulas cerradas**. La mezcla queda encerrada y se aprieta a una décima parte de su volumen (o menos). Al apretar un gas rápido, se calienta: es lo mismo que sentís en el inflador de la bici.
+
+- **Presión:** con el motor andando a fondo llega a 15–20 bar justo antes de la chispa. (En la prueba de compresión, con el motor girando lento con la burra, se miden menos: 10–14 bar. Ya vamos a ver por qué.)
+- **Temperatura:** 350–500 °C. No alcanza para que la nafta se prenda sola, y eso es buscado: si se prendiera sola sería <Term t="Detonación">detonación</Term>.
+- **Chispa:** salta **antes** de llegar al PMS (el <Term t="Avance de encendido">avance de encendido</Term>: 5–15° en ralentí, 25–40° en altas vueltas). La mezcla tarda unos milisegundos en quemarse y conviene que la presión máxima llegue un poquito **después** del PMS.
+
+### 3. Explosión (o expansión): el único tiempo que empuja
+
+La llama arranca en la bujía y avanza por la cámara como un frente que se expande. El gas quemado llega a más de 2.000 °C y la presión sube de golpe a 40–70 bar con el motor a fondo. Esa presión empuja al pistón hacia abajo con **varias toneladas de fuerza** y, a través de la biela, hace girar el cigüeñal.
+
+- **Válvulas:** las dos cerradas.
+- **Presión:** máxima unos 10–20° después del PMS, y después baja a medida que el pistón se aleja.
+- **Ojo con la palabra:** le decimos "explosión" por costumbre, pero lo correcto es una **combustión rápida y controlada** (el frente de llama avanza a unos 20–40 m/s). Una explosión de verdad, con onda de choque, es la detonación, y rompe pistones.
+
+### 4. Escape: salen los gases quemados
+
+Un poco **antes** de que el pistón llegue al PMI, abre la válvula de **escape**. El gas todavía tiene 3–5 bar y sale disparado solo (a esto se le dice "soplido" o descarga espontánea). Después el pistón **sube** y empuja hacia afuera lo que queda.
+
+- **Temperatura del gas:** 700–900 °C en el múltiple de escape (por eso se pone al rojo en una subida larga a fondo).
+- **Cruce de válvulas:** cerca del final, la de admisión empieza a abrir **antes** de que termine de cerrar la de escape. Durante unos grados las dos están abiertas: el gas que sale "tira" de la mezcla nueva y ayuda a vaciar la cámara. Esto se ve en detalle en la lección de [distribución](/aprender/motor/distribucion).
+
+| Tiempo | Pistón | Admisión | Escape | Presión típica | Temperatura del gas |
+|---|---|---|---|---|---|
+| 1. Admisión | baja | abierta | cerrada | 0,3–1 bar abs. | 30–60 °C |
+| 2. Compresión | sube | cerrada | cerrada | sube a 15–20 bar | 350–500 °C |
+| 3. Explosión | baja | cerrada | cerrada | pico de 40–70 bar | más de 2.000 °C |
+| 4. Escape | sube | cerrada | abierta | 1–1,2 bar (3–5 al abrir) | 700–900 °C |
+
+## Por qué hacen falta dos vueltas
+
+Cada tiempo es una carrera del pistón, y cada carrera es **media vuelta** de cigüeñal. Cuatro tiempos son cuatro medias vueltas: **dos vueltas completas (720°)** por cada ciclo. De esas dos vueltas, **sólo media vuelta empuja** (la explosión). Las otras tres medias vueltas el motor las hace "a cuenta": las mueve la inercia del volante motor y, en un motor de varios cilindros, las explosiones de los otros cilindros.
+
+Como cada válvula tiene que abrir **una sola vez** por ciclo, el árbol de levas tiene que dar **una vuelta cada dos del cigüeñal**. Por eso el piñón del árbol de levas tiene el doble de dientes que el del cigüeñal. Es la famosa **relación 2:1**.
+
+<Dato title="Una consecuencia que vas a usar mucho">
+Cuando el pistón 1 llega arriba, puede estar terminando la **compresión** (PMS de encendido) o terminando el **escape** (PMS de cruce). El cigüeñal está exactamente en la misma posición en los dos casos. Lo que cambia es el árbol de levas: en un caso las válvulas del cilindro 1 están cerradas, y en el otro están "balanceando" (las dos apenas abiertas). Así se distingue en el taller, y así lo distingue la ECU.
+</Dato>
+
+## Las medidas del motor: diámetro, carrera y cilindrada
+
+Tres medidas definen el tamaño de un motor:
+
+- **Diámetro** (*d*): el diámetro interior del cilindro.
+- **Carrera** (*s*): la distancia que recorre el pistón del PMI al PMS. Es el doble del radio de la manivela del cigüeñal.
+- **Cantidad de cilindros** (*z*).
+
+El volumen que "barre" el pistón en una carrera es un cilindro de diámetro *d* y altura *s*. Eso es la **cilindrada unitaria**. Multiplicada por la cantidad de cilindros da la <Term t="Cilindrada">cilindrada</Term> del motor, el famoso "1.6" o "2.0".
+
+<Formula name="Cilindrada" vars={{ "Vh": "cilindrada de un cilindro [cm³]", "d": "diámetro del cilindro [cm]", "s": "carrera [cm]", "z": "cantidad de cilindros", "VH": "cilindrada total [cm³]" }}>
+  V<sub>h</sub> = π/4 · d² · s  ·  V<sub>H</sub> = V<sub>h</sub> · z
+</Formula>
+
+<Ejemplo title="Cilindrada de un 1.6 de 4 cilindros">
+Un motor naftero muy común en la Argentina tiene 79,5 mm de diámetro y 80,5 mm de carrera. Pasamos a centímetros para que el resultado salga en cm³: d = 7,95 cm y s = 8,05 cm.
+
+<Calc>Vh = 0,7854 × 7,95² × 8,05 = 0,7854 × 63,20 × 8,05 = 399,6 cm³</Calc>
+
+<Calc>VH = 399,6 × 4 = 1.598 cm³</Calc>
+
+Resultado: <Res>1.598 cm³ ≈ 1,6 litros</Res>. Fijate que el diámetro va **al cuadrado**: si lo agrandás 1 mm (rectificando los cilindros a 80,5 mm) la cilindrada sube a 1.639 cm³; alargar la carrera 1 mm suma sólo 20 cm³.
+</Ejemplo>
+
+Cuando la carrera es más larga que el diámetro, el motor es **de carrera larga** (o "subcuadrado"): suele tener buen torque abajo, típico de diésel y de nafteros pensados para economía. Cuando el diámetro es mayor, es **de carrera corta** ("supercuadrado"): gira más alto, típico de motos y deportivos. Si son casi iguales, como el del ejemplo, es **cuadrado**.
+
+Jugá con la calculadora: cambiás las medidas y el cilindro se redibuja a escala.
+
+<CalcCilindrada />
+
+## La relación de compresión
+
+La <Term t="Relación de compresión">relación de compresión</Term> (ε, "épsilon") dice **cuántas veces se achica** el volumen del cilindro cuando el pistón va del PMI al PMS. Con el pistón abajo, el volumen es la cilindrada unitaria más el de la cámara (*Vc*, lo que queda arriba con el pistón en PMS). Con el pistón arriba, queda sólo la cámara.
+
+<Formula name="Relación de compresión" vars={{ "ε": "relación de compresión (se escribe 10:1, 'diez a uno')", "Vh": "cilindrada unitaria [cm³]", "Vc": "volumen de la cámara de combustión [cm³]" }}>
+  ε = (V<sub>h</sub> + V<sub>c</sub>) / V<sub>c</sub>
+</Formula>
+
+<Ejemplo title="Compresión de nuestro 1.6, y qué pasa si rectificás la tapa">
+Con Vh = 399,6 cm³ y una cámara de 44,4 cm³:
+
+<Calc>ε = (399,6 + 44,4) / 44,4 = 444,0 / 44,4 = 10,0</Calc>
+
+Ahora supongamos que la tapa vino torcida por un recalentamiento y el rectificador le saca **0,5 mm**. Ese medio milímetro, sobre un círculo de 7,95 cm de diámetro, es un "disco" de volumen:
+
+<Calc>ΔV = 0,7854 × 7,95² × 0,05 = 2,5 cm³</Calc>
+
+La cámara queda en 44,4 − 2,5 = 41,9 cm³:
+
+<Calc>ε = (399,6 + 41,9) / 41,9 = 10,5</Calc>
+
+Resultado: <Res>de 10,0:1 pasa a 10,5:1</Res>. Medio milímetro sube media unidad la compresión. Por eso, cuando se rectifica mucho una tapa, el fabricante pide una **junta de tapa más gruesa** (de sobremedida): si no, el motor puede detonar con la nafta de siempre.
+</Ejemplo>
+
+Valores típicos: nafteros entre **9:1 y 13:1** (los de inyección directa y los modernos con control de detonación, más arriba); diésel entre **15:1 y 20:1**. Más compresión da más rendimiento (se aprovecha mejor el calor), pero en un naftero el límite es la detonación: la mezcla, muy apretada y caliente, se prende sola antes de que llegue la llama.
+
+<Dato title="¿Por qué el compresómetro no marca 20 bar?">
+Si comprimís aire a 1 bar diez veces de golpe, la cuenta teórica da unos 20 bar. Pero en la prueba de compresión leés 10–14 bar. Las razones: la válvula de admisión cierra unos 40–60° **después** del PMI (así que se comprime menos volumen del que parece), el motor gira lento con la burra (el aire tiene tiempo de enfriarse contra las paredes y de escaparse un poco por los aros) y el reloj marca presión **relativa** (sobre la atmosférica). Por eso no se compara contra la teoría: se compara contra el dato del fabricante y, sobre todo, **entre cilindros**.
+</Dato>
+
+## Varios cilindros: el orden de encendido
+
+Un monocilíndrico empuja media vuelta y "descansa" una vuelta y media: anda a los tirones y necesita un volante pesado. Si ponemos **cuatro cilindros** y hacemos que exploten **en turnos**, hay una explosión cada media vuelta (720° / 4 = 180°) y el giro sale mucho más parejo.
+
+En un 4 en línea el cigüeñal tiene las manivelas a **180°**: los pistones 1 y 4 suben y bajan juntos, y el 2 y el 3 también, pero al revés. El **orden de encendido** más usado es **1-3-4-2** (algunos usan 1-2-4-3). El número 1 es el cilindro que está del lado de la distribución.
+
+<OrdenEncendido />
+
+Otros motores: un **3 cilindros** explota cada 240° (por eso vibra un poco más y suele tener un eje de balanceo), un **6 en línea** cada 120° (es de los más suaves que existen) y un **V8** cada 90°.
+
+<Dato title="El orden de encendido en el taller">
+Lo necesitás para conectar bien los cables de bujía en un motor con distribuidor o bobina doble, para interpretar un osciloscopio de encendido, para la prueba de balance de cilindros y para entender códigos de falla: si fallan el 1 y el 4 juntos, en un motor con bobina doble (chispa perdida) la sospechosa es la bobina que alimenta a ese par.
+</Dato>
+
+## Nafta contra diésel
+
+Los dos son motores de 4 tiempos con las mismas piezas básicas. La gran diferencia es **cómo se enciende** la mezcla.
+
+| | Naftero (ciclo Otto) | Diésel |
+|---|---|---|
+| Encendido | Chispa de la bujía | Autoencendido: el aire comprimido está tan caliente (más de 600 °C) que el gasoil se prende solo al inyectarlo |
+| Mezcla | Aire y nafta mezclados antes, en proporción justa (λ = 1, 14,7:1) | Entra sólo aire; el gasoil se inyecta al final de la compresión. Siempre trabaja con aire de sobra |
+| Cómo se acelera | Mariposa: se regula cuánta mezcla entra | Sin mariposa (o casi): se regula cuánto gasoil se inyecta |
+| Relación de compresión | 9:1 a 13:1 | 15:1 a 20:1 |
+| Compresión medida (prueba) | 10–14 bar | 25–35 bar |
+| Rendimiento | 25–38 % | hasta ~42 % |
+| Régimen máximo típico | 6.000–7.000 rpm | 4.000–5.000 rpm |
+
+## Al pasar: el 2 tiempos
+
+En una motosierra, una desmalezadora o una moto chica vieja, el motor hace todo en **una sola vuelta**: el pistón, al bajar, destapa unas lumbreras (agujeros) en la pared del cilindro por donde salen los gases y entra mezcla nueva, que viene precomprimida desde el cárter. No tiene válvulas ni árbol de levas, explota en cada vuelta y es liviano, pero se le escapa mezcla sin quemar por el escape y el aceite va mezclado con la nafta. En autos ya no se usa.
+
+## En el taller: cómo saber si un motor está sano por dentro
+
+Todo lo que viste se resume en una idea: el motor necesita **sellar** bien la cámara durante la compresión y la explosión. Si los aros, las válvulas o la junta de tapa dejan escapar gas, ese cilindro empuja menos, el motor tiembla, gasta más y pierde fuerza. Hay tres pruebas clásicas para saber cómo está el sellado sin desarmar nada.
+
+### Prueba de compresión
+
+Es la primera que se hace ante un motor que "falla en un cilindro", un auto usado que vas a comprar o un motor que consume aceite.
+
+<Pasos>
+
+1. **Motor a temperatura.** Dejá que llegue a temperatura normal (el electroventilador ya arrancó al menos una vez). En frío los aros sellan peor y da todo más bajo.
+2. **Batería bien cargada.** Si podés, conectá un cargador o un arrancador. Si la burra gira lento, la compresión da baja en todos.
+3. **Anulá combustible y encendido.** Sacá el fusible o relé de la bomba de nafta (o desconectá los inyectores) y desconectá las bobinas. No querés tirar nafta en los cilindros ni chispas sueltas.
+4. **Sacá todas las bujías.** No sólo la del cilindro que vas a medir. Antes, soplá con aire comprimido los pozos de bujía para que no caiga tierra adentro. Mirá cada bujía y anotá de qué cilindro es.
+5. **Enroscá el compresómetro a mano.** Empezá por el cilindro 1, con el adaptador de rosca que corresponda. No uses llave: el sello lo hace la arandela o el o-ring.
+6. **Acelerador a fondo y arranque.** Con la mariposa abierta, dale arranque hasta que la aguja deje de subir: unas **4 a 6 compresiones**. Anotá el valor máximo y fijate cómo subió la aguja.
+7. **Descargá el reloj y seguí.** Repetí en cada cilindro, con el mismo número de compresiones.
+8. **Compará.** Mirá el valor de cada uno contra el del fabricante y, sobre todo, la diferencia entre el más alto y el más bajo.
+9. **Prueba húmeda.** En el cilindro que dio bajo, echale una cucharadita (unos 5 cm³) de aceite de motor por el agujero de bujía, dale dos vueltas al motor para que se reparta y medí de nuevo.
+
+</Pasos>
+
+Cómo leerla:
+
+- **Valores típicos:** naftero sano, caliente y a fondo: **10–14 bar**; diésel: **25–35 bar** (con un compresómetro de alta presión, que se enrosca en el agujero del inyector o de la bujía de precalentamiento). Manda siempre el dato del fabricante.
+- **Diferencia máxima entre cilindros: 10–15 %.** Es más importante que el número suelto. Se calcula como (mayor − menor) / mayor.
+- **La aguja sube por pulsos.** Sano: el primer pulso ya marca más de la mitad del valor final. Aros gastados: arranca bajo y va subiendo de a poco con cada pulso. Válvula que no cierra: arranca bajo y casi no sube.
+- **Prueba húmeda.** El aceite sella momentáneamente entre aros y pared. Si la compresión **sube mucho** (más de un 15–20 %), el problema está en **aros o cilindro**. Si **no cambia**, la fuga está **arriba**: válvulas o junta.
+- **Dos cilindros vecinos bajos y parejos** (por ejemplo 2 y 3): casi seguro **junta de tapa** quemada entre ellos.
+- **Todos parejos pero bajos:** puede ser motor muy gastado (todos parejamente), puesta a punto de distribución corrida, burra lenta... o simplemente que estás **en altura**.
+- **Un cilindro con compresión más alta que el resto** (más de 20 %): carbonilla acumulada en la cámara o una junta de tapa más fina de lo que corresponde.
+
+Probalo acá: elegí una falla y medí los cuatro.
+
+<PruebaCompresion />
+
+<Peligro>
+Durante la prueba la burra hace girar el motor: manos, cables y mangueras lejos de correas y ventilador. El electroventilador puede arrancar solo aunque el motor esté apagado. Y con las bujías afuera y el encendido conectado, la bobina descarga en cualquier lado: si no desconectaste las bobinas, podés dañarlas a ellas o a la ECU, o llevarte una descarga de miles de volts.
+</Peligro>
+
+### Prueba de pérdidas (leak-down)
+
+La compresión te dice **cuánto** sella un cilindro; la prueba de pérdidas te dice **por dónde** se escapa. Se usa un probador con dos relojes: uno marca la presión de aire que entra y el otro la que queda en el cilindro. La diferencia, en porcentaje, es lo que se pierde.
+
+<Pasos>
+
+1. **Motor a temperatura y bujías afuera.** Sacá la tapa de aceite. La del radiador o del depósito, sólo cuando el sistema se enfrió y no tiene presión: abrirla en caliente quema.
+2. **Llevá el cilindro a PMS de compresión.** Las dos válvulas tienen que estar cerradas. Para saber si es el de compresión y no el de cruce, mirá que las válvulas de ese cilindro no se muevan, o tapá el agujero con el dedo mientras girás a mano: si sopla, viene la compresión.
+3. **Trabá el cigüeñal.** En un auto con caja manual, quinta puesta y freno de mano; si no, con una llave en el bulón de la polea. Con 5–7 bar adentro, el pistón empuja y el motor puede pegar media vuelta de golpe.
+4. **Calibrá y conectá el probador.** Ajustalo según sus instrucciones, conectalo con el adaptador al agujero de bujía y meté aire (típicamente 5–7 bar, según el aparato).
+5. **Leé y escuchá.** Anotá el porcentaje de pérdida y buscá por dónde sale el aire.
+
+</Pasos>
+
+| Por dónde se escucha el aire | Qué falla |
+|---|---|
+| Por el escape (caño de escape) | Válvula de escape que no cierra |
+| Por la admisión (cuerpo de mariposa o filtro) | Válvula de admisión que no cierra |
+| Por la tapa de aceite o la varilla | Aros o cilindro gastado |
+| Burbujas en el radiador o en el depósito | Junta de tapa o fisura hacia el agua |
+| Por el agujero de bujía del cilindro de al lado | Junta de tapa entre cilindros |
+
+Como referencia general (siempre según el fabricante del probador): **menos de 10 %** muy bien, **10–20 %** aceptable o gastado, **más de 20–30 %** hay un problema.
+
+### Vacuómetro: escuchar al motor por el múltiple
+
+El **vacío del múltiple** es la diferencia entre la presión atmosférica y la que hay en el múltiple de admisión. Con la mariposa casi cerrada, los pistones "tiran" contra una restricción y se forma vacío. Un vacuómetro conectado a una toma del múltiple (después de la mariposa) muestra en una sola aguja cómo trabajan todos los cilindros juntos.
+
+- **Motor sano en ralentí, a nivel del mar:** aguja firme entre **17 y 21 inHg** (pulgadas de mercurio). En el scanner, el sensor MAP marca lo mismo al revés: **30–40 kPa absolutos**.
+- **Aguja que cae a intervalos regulares** (una caída cada vez que le toca a un cilindro): una válvula quemada o que no asienta.
+- **Aguja que vibra rápido** y empeora al acelerar: guías de válvula gastadas o resortes débiles.
+- **Aguja baja pero firme:** pérdida de vacío (manguera, junta del múltiple), puesta a punto de distribución atrasada.
+- **A 2.500 rpm sostenidas el vacío va cayendo** de a poco: escape tapado (catalizador desarmado o tapado).
+- **Aceleración brusca y soltar:** la aguja tiene que bajar casi a cero y después saltar por encima del valor de ralentí. Si no sube más, aros gastados.
+
+<Electronica>
+
+**¿Cómo sabe la ECU en qué tiempo está cada cilindro?** Con dos sensores. El de **cigüeñal** (<Term t="CKP">CKP</Term>) lee una rueda fónica, típicamente de 60 dientes con 2 faltantes (60-2): con el hueco sabe dónde está el PMS del cilindro 1 y, contando dientes, la posición exacta del cigüeñal en cada momento. Pero el cigüeñal pasa por el PMS del 1 dos veces por ciclo, y el CKP no puede distinguir si es el de compresión o el de cruce. Para eso está el sensor de **árbol de levas** (<Term t="CMP">CMP</Term>), que da una señal por vuelta de levas (o un patrón de ventanas). Con los dos, la ECU sabe el ángulo de 0 a 720° y puede inyectar y encender **cilindro por cilindro** (secuencial).
+
+Si el CMP falla, muchos motores siguen andando en modo "a ciegas": inyectan por pares y hacen chispa perdida. Otros no arrancan. Se guarda un código de la familia **P0340–P0349**. Si las señales de CKP y CMP no están en la relación que la ECU espera, aparece **P0016** (distribución corrida o estirada).
+
+**Detección de fallas de encendido.** Cada explosión le da un "empujón" al cigüeñal, que se acelera un poquito. La ECU mide, con el CKP, el tiempo entre dientes y calcula esa aceleración para cada cilindro. Si a un cilindro le toca y el cigüeñal no se acelera, cuenta una falla. En el scanner se ven los **contadores de fallas por cilindro** (en datos en vivo o en Modo 6) y los códigos **P0300** (aleatoria) y **P0301–P0304** (cilindro 1 a 4). Muchas fallas seguidas encienden el testigo destellando: hay que levantar el pie, porque la nafta sin quemar recalienta el catalizador.
+
+**Balance de cilindros.** Con un scanner que tenga pruebas de actuadores, cortás el inyector de un cilindro por vez con el motor en ralentí y mirás cuánto caen las rpm. Todos los cilindros tienen que hacer caer el régimen más o menos lo mismo. El que casi no cambia nada es el que no estaba trabajando. Algunos equipos lo hacen solos e incluso calculan una **compresión relativa** midiendo la corriente de la burra mientras gira sin arrancar: cada compresión le cuesta un pico de corriente, y un cilindro flojo da un pico más bajo.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Compresión por cilindro (nafta)" esperado="10 a 14 bar" como="Compresómetro en el agujero de bujía, motor caliente, todas las bujías afuera, acelerador a fondo, 4–6 compresiones" nota="Según fabricante. A 750 m (Gran Mendoza) esperá ~8 % menos; a 1.900 m, ~20 % menos." />
+  <Medicion punto="Diferencia entre cilindros" esperado="Menos de 10–15 %" como="(mayor − menor) / mayor × 100" nota="Más importante que el valor absoluto." />
+  <Medicion punto="Compresión diésel" esperado="25 a 35 bar" como="Compresómetro de alta presión en el alojamiento del inyector o de la bujía de precalentamiento" nota="Siempre con el adaptador correcto: un compresómetro de nafta revienta." />
+  <Medicion punto="Prueba de pérdidas" esperado="Menos de 10–20 %" como="Probador de pérdidas en PMS de compresión, cigüeñal trabado" nota="Escuchá por dónde sale: escape, admisión, cárter o radiador." />
+  <Medicion punto="Vacío en ralentí (vacuómetro)" esperado="17–21 inHg a nivel del mar" como="Vacuómetro en una toma del múltiple después de la mariposa" nota="En Mendoza ≈ 15–18 inHg; en Uspallata ≈ 12–15 inHg. Lo importante es que la aguja esté firme." />
+  <Medicion punto="MAP en ralentí (scanner)" esperado="30–40 kPa absolutos" como="Datos en vivo, motor caliente, sin consumos" nota="Más alto de lo normal: pérdida de vacío, mal sellado o puesta a punto corrida." />
+  <Medicion punto="Contador de fallas de encendido" esperado="0 o casi 0 en todos los cilindros" como="Scanner: datos en vivo o Modo 6, motor en ralentí y en marcha" nota="Uno solo con fallas: bujía, bobina, inyector o compresión de ese cilindro." />
+</Mediciones>
+
+<Herramientas ids={["compresometro", "fugometro", "vacuometro", "scanner", "pinza-amperometrica", "extractor-bujias", "osciloscopio"]} />
+
+## Fallas típicas y cómo encararlas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Tiembla en ralentí, "falla un cilindro", P0302 | Bujía, bobina o inyector del 2… o compresión baja en el 2 | Intercambiá bobina/bujía con otro cilindro: si la falla se muda, es la pieza. Si no, prueba de compresión |
+| Humo azul, consume aceite, compresión baja que sube mucho con aceite | Aros gastados o pegados, cilindro rayado | Prueba húmeda y de pérdidas (sale aire por la tapa de aceite) |
+| Un cilindro bajo que no sube con aceite; vacuómetro con caídas regulares | Válvula quemada o mal asentada | Prueba de pérdidas: aire por el escape o por la admisión |
+| Dos cilindros vecinos bajos, pierde agua, humo blanco | Junta de tapa quemada | Probador de CO₂ en el refrigerante; aire por la bujía del vecino en el leak-down |
+| Todos los cilindros bajos y parejos, motor sin fuerza, P0016 | Distribución corrida un diente | Marcas de puesta a punto, correlación CKP/CMP en el scanner u osciloscopio |
+| Le cuesta arrancar en frío, compresión justa | Motor gastado en general (en un diésel, decisivo) | Compresión en frío y en caliente; blow-by |
+
+<Mendoza>
+
+**La altura cambia los números.** El cilindro se llena con el aire que hay afuera: en el Gran Mendoza (≈750 m) la presión atmosférica es unos 925 hPa contra 1.013 a nivel del mar, así que entra cerca de un 9 % menos de aire y la compresión que leés da **un 8–9 % más baja** que el dato de fábrica. En Uspallata (1.900 m) la diferencia ya es de un **20 %**: un motor perfecto que en Buenos Aires mide 12,5 bar, ahí puede marcar 10. No lo condenes por eso: fijate que estén **parejos**.
+
+Lo mismo con el vacuómetro: como marca la diferencia con la atmósfera, pierde más o menos **1 inHg cada 300 m**. Y el motor atmosférico, con menos aire, pierde potencia: alrededor de 1 % cada 100 m.
+
+**GNC.** En la provincia hay muchísimos autos a gas. El GNC quema más caliente y "seco" (no lubrica los asientos de válvula como la nafta), así que las válvulas y sus asientos sufren más. Un auto con muchos kilómetros a GNC que empieza a fallar en un cilindro es candidato número uno a prueba de compresión y de pérdidas. Si tiene botadores mecánicos, controlá la luz de válvulas más seguido.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. Un motor de 4 tiempos hace **admisión, compresión, explosión y escape**. Cada tiempo es media vuelta de cigüeñal: el ciclo completo son **dos vueltas (720°)** y sólo una media vuelta empuja.
+2. El árbol de levas gira a **la mitad** que el cigüeñal (relación 2:1) porque cada válvula abre una vez por ciclo.
+3. **Cilindrada** = π/4 · d² · s · z. **Relación de compresión** = (Vh + Vc) / Vc: nafteros 9–13:1, diésel 15–20:1.
+4. La chispa salta **antes** del PMS para que la presión máxima (40–70 bar a fondo) llegue un poco **después**, cuando hay palanca.
+5. En un 4 en línea, con orden **1-3-4-2**, hay una explosión cada 180°: por eso es mucho más suave que un monocilíndrico.
+6. Prueba de compresión: nafta **10–14 bar**, diésel **25–35 bar**, diferencia máxima **10–15 %**. La prueba húmeda separa aros (sube) de válvulas o junta (no sube); la de pérdidas te dice por dónde se escapa.
+7. La ECU sabe en qué tiempo está cada cilindro combinando **CKP + CMP**, y detecta fallas de encendido midiendo la aceleración del cigüeñal (P0300–P0304).
+8. **En altura todo mide menos**: en Mendoza la compresión y el vacío dan más bajos que el dato de fábrica. Lo que importa es que los cilindros estén parejos.
+
+</PuntosClave>

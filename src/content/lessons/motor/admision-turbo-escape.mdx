@@ -1,0 +1,302 @@
+Dos camionetas salen juntas de Luján de Cuyo hacia el Cristo Redentor. Una es naftera atmosférica; la otra, turbodiesel. En el llano andan parecido. Pasando Uspallata, la naftera empieza a pedir cambios más cortos y en los caracoles de Las Cuevas va en segunda, a fondo, con un tercio menos de potencia que al salir. La turbodiesel sigue subiendo casi como si nada.
+
+No es magia ni "el diesel es más fuerte". Es **respiración**. Un motor quema nafta o gasoil, pero lo que de verdad lo limita es **cuánto aire logra meter** en cada ciclo. Arriba de la cordillera el aire es más liviano, y el turbo es justamente una máquina para meter más aire del que entraría solo.
+
+En esta lección seguimos el aire desde el filtro hasta el cilindro, pasamos por el turbo y salimos por el escape hasta el catalizador. En cada etapa vas a ver qué se rompe, cómo lo ve la ECU y qué medir.
+
+<Libro pag="pág. 750–795" />
+
+## Un motor es una bomba de aire
+
+Para quemar 1 kg de nafta hacen falta 14,7 kg de aire (la mezcla <Term t="Estequiométrica">estequiométrica</Term>). Poner más nafta es fácil: el inyector abre un poco más. Poner más **aire** es lo difícil. Por eso la potencia de un motor está atada a la masa de aire que respira.
+
+<Formula name="Masa de aire que respira un motor de 4 tiempos" vars={{ "ṁ": "masa de aire [kg/s]", "ρ": "densidad del aire [kg/m³] = p / (R · T)", "V_H": "cilindrada total [m³]", "n": "vueltas por segundo del cigüeñal [1/s] (rpm / 60)", "η_v": "rendimiento volumétrico: qué parte del cilindro se llena de verdad", "R": "287 J/(kg·K) para el aire" }}>
+  ṁ = ρ · V<sub>H</sub> · (n / 2) · η<sub>v</sub>
+</Formula>
+
+Se divide por 2 porque en un 4 tiempos cada cilindro aspira **una vez cada dos vueltas**.
+
+<Ejemplo title="Cuánto aire chupa un 1.6 a fondo, en Mendoza y en Uspallata">
+Motor 1.6 (V_H = 0,0016 m³), a 6.000 rpm (n = 100 vueltas/s), con η_v = 0,90.
+
+**En el Gran Mendoza** (750 m, 925 hPa, 30 °C = 303 K):
+
+<Calc>ρ = 92.500 / (287 × 303) = 1,06 kg/m³</Calc>
+<Calc>ṁ = 1,06 × 0,0016 × 50 × 0,90 = 0,076 kg/s = 76 g/s</Calc>
+
+**En Uspallata** (1.900 m, 810 hPa, 22 °C = 295 K):
+
+<Calc>ρ = 81.000 / (287 × 295) = 0,96 kg/m³ → ṁ = 69 g/s</Calc>
+
+Resultado: <Res>en Uspallata entra un 9 % menos de aire que en Mendoza</Res>, y por lo tanto el motor atmosférico puede quemar un 9 % menos de nafta: pierde casi lo mismo en potencia. Ese número en g/s es justamente lo que te muestra el **MAF** en el scanner.
+</Ejemplo>
+
+El **rendimiento volumétrico** (η_v) dice qué tan bien llena el cilindro. Un atmosférico bueno anda entre 80 y 95 % (algunos superan el 100 % en un rango de vueltas gracias a la resonancia del múltiple). Un turbo, medido contra el aire de afuera, pasa holgado el 100 %: mete aire comprimido.
+
+## El camino del aire
+
+### Filtro de aire
+
+Un elemento de papel plegado que retiene el polvo. Parece una pavada, pero la tierra que pasa se mezcla con el aceite de las paredes de los cilindros y trabaja como **lija** en aros y cilindros, y en un turbo come los álabes del compresor. Un filtro tapado, además, frena el aire: el motor pierde potencia arriba y, en un turbo, el compresor genera depresión en su entrada y puede chupar aceite por los retenes del eje.
+
+<Tip>
+Si andás por ripio o hubo zonda, sacá el filtro y miralo contra una luz. Golpearlo suavemente contra la palma saca la tierra suelta, pero **no lo soples con aire comprimido desde adentro**: el papel se perfora con poros invisibles. Si está gris oscuro, se cambia.
+</Tip>
+
+### Los sensores que miden el aire
+
+La ECU tiene que saber cuánto aire entra para calcular la nafta. Lo hace de dos maneras (y muchos autos usan las dos):
+
+- **MAF** (caudalímetro): después del filtro. Una película caliente que el aire enfría; mide directamente **gramos por segundo**.
+- **MAP**: en el múltiple. Mide **presión absoluta**; con las rpm y la temperatura del aire (IAT), la ECU calcula la masa. En los turbo hay además un sensor de **presión de soplado** después del intercooler (muchas veces es un "T-MAP", presión y temperatura juntos).
+
+El detalle de cómo se prueban está en [sensores del motor](/aprender/gestion-nafta/sensores-motor). Para esta lección alcanza con una prueba de oro: **con contacto y motor parado, el MAP marca la presión atmosférica** (en el Gran Mendoza, 92–93 kPa). Si marca otra cosa, desconfiá del sensor.
+
+### Cuerpo de mariposa
+
+En un naftero, la potencia se regula **estrangulando** el aire con una mariposa: una chapita redonda que gira dentro del conducto.
+
+- **Mecánica**: un cable del pedal mueve la mariposa; el **TPS** informa la posición y un motor paso a paso o una válvula aparte maneja el ralentí.
+- **Electrónica** ("drive by wire"): el pedal no toca la mariposa. Tiene **dos potenciómetros** (uno suele dar la mitad de tensión que el otro, para que la ECU los compare). La ECU decide cuánto abrir y mueve la mariposa con un motorcito de corriente continua; **dos TPS** espejados le confirman la posición. Si algo no coincide, entra en **modo de emergencia**: un resorte deja la mariposa apenas abierta y el motor no pasa de unas 1.200–1.500 rpm.
+
+<Ojo title="Después de limpiar la mariposa, aprendizaje">
+El carbón que se junta en el borde de la mariposa cambia el aire que pasa en ralentí: ralentí inestable, se apaga al frenar. Al limpiarla, la ECU tiene "aprendida" la mariposa sucia y el ralentí queda alto o bajo. Casi todas necesitan una **adaptación** con el scanner (o un procedimiento con la llave). Y nunca abras con el dedo una mariposa motorizada con contacto puesto: el motor pelea y se rompen los engranajes de plástico.
+</Ojo>
+
+### Múltiple de admisión: el aire también rebota
+
+El múltiple tiene un **pleno** (una cámara) y un **conducto por cilindro**. Cuando la válvula de admisión se cierra de golpe, el aire que venía corriendo se frena y forma una onda de presión que viaja por el conducto a la velocidad del sonido (unos 340 m/s), rebota en el pleno y vuelve. Si llega a la válvula justo cuando está abierta, **empuja aire de más** adentro del cilindro: es la sobrealimentación "gratis" por <Term t="Resonancia">resonancia</Term>.
+
+<Ejemplo title="¿Por qué el largo del conducto importa?">
+Conducto de 40 cm: la onda va y vuelve en 0,8 m.
+
+<Calc>t = 0,8 m / 340 m/s = 2,35 ms</Calc>
+
+A 4.000 rpm el cigüeñal gira 24.000 grados por segundo:
+
+<Calc>2,35 ms × 24 °/ms = 56° de cigüeñal</Calc>
+
+A 2.000 rpm, en el mismo tiempo, gira sólo 28°. Resultado: <Res>la onda llega "a tiempo" sólo en cierto rango de vueltas</Res>. Conductos largos favorecen el torque abajo; cortos, la potencia arriba.
+</Ejemplo>
+
+Por eso muchos motores tienen **múltiples variables**: unas aletas (flaps) que la ECU mueve con un actuador de vacío o eléctrico para cambiar el largo efectivo según las rpm. Si se traban, aparecen códigos de la familia P2004–P2015 y el motor pierde fuerza en una zona de vueltas.
+
+## Sobrealimentación: el turbo
+
+Un turbocompresor son **dos ruedas en el mismo eje**. Del lado caliente, la **turbina**, que recibe los gases de escape (a 700–1.000 °C) y gira empujada por ellos. Del lado frío, el **compresor**, que chupa aire del filtro y lo manda a presión a la admisión. En el medio, la **carcasa central** con los cojinetes, que giran sobre una película de aceite igual que los metales del cigüeñal. Un turbo de auto gira entre **100.000 y 250.000 rpm**, y los más chicos superan las 300.000.
+
+La gracia es que la energía que mueve la turbina **igual se iba a tirar** por el escape. No es gratis del todo (la turbina frena un poco la salida de gases), pero el balance es muy bueno: un motor chico con turbo da la potencia de uno grande, gastando parecido al chico.
+
+<Turbo />
+
+### Presión absoluta y presión de soplado
+
+Hay dos maneras de decir la misma presión y conviene no confundirlas:
+
+<Formula name="Presión de soplado" vars={{ "p_soplado": "lo que marca un manómetro de turbo (presión relativa) [bar]", "p_MAP": "presión absoluta en el múltiple (lo que lee el MAP) [bar]", "p_atm": "presión atmosférica del lugar [bar]" }}>
+  p<sub>soplado</sub> = p<sub>MAP</sub> − p<sub>atm</sub>
+</Formula>
+
+<Ejemplo title="Misma presión en el motor, distinto soplado">
+La ECU de una turbodiesel pide 2,1 bar **absolutos** en el múltiple a plena carga.
+
+En el **Gran Mendoza** (0,925 bar):
+
+<Calc>p_soplado = 2,1 − 0,925 = 1,18 bar → el compresor comprime 2,1 / 0,925 = 2,27 veces</Calc>
+
+En **Las Cuevas** (0,69 bar):
+
+<Calc>p_soplado = 2,1 − 0,69 = 1,41 bar → relación 2,1 / 0,69 = 3,04 veces</Calc>
+
+Resultado: <Res>arriba, el turbo tiene que comprimir bastante más</Res> para darle al motor el mismo aire. Lo logra girando más rápido. Cuando llega a su límite de vueltas, la ECU baja el pedido para protegerlo, y recién ahí el motor empieza a perder potencia.
+</Ejemplo>
+
+### La wastegate: el freno del turbo
+
+Si nadie lo controla, el turbo sigue acelerando con las vueltas del motor hasta romper algo. La **wastegate** (válvula de descarga de gases) es una compuerta en la entrada de la turbina que, al abrir, **desvía parte de los gases por afuera** de la turbina.
+
+- **Neumática:** un pulmón con membrana y resorte. Lo empuja la propia presión del compresor; cuando el soplado vence al resorte, abre. Para que la ECU decida, en el medio hay una **electroválvula** (en VW la famosa N75) que, con una señal PWM, deja pasar más o menos presión al pulmón. En muchas diesel el actuador funciona con **vacío** de una bomba, controlado igual por una electroválvula.
+- **Eléctrica:** un motor con sensor de posición mueve la compuerta. Más precisa y rápida.
+
+En muchas pickups diesel modernas no hay wastegate sino **turbo de geometría variable**: unas paletas móviles alrededor de la turbina que cambian el ángulo con que pegan los gases. Cerradas, el gas entra rápido y el turbo sopla desde abajo; abiertas, deja pasar caudal sin pasarse de vueltas. Su problema clásico: el **hollín traba las paletas** (sobre todo en autos que andan siempre despacio) y aparecen sobrealimentación a ratos o falta de fuerza.
+
+### Intercooler: por qué enfriar el aire
+
+Comprimir calienta. Si inflás una cubierta con un inflador de mano, el pico se pone caliente. En el turbo pasa lo mismo, y mucho:
+
+<Formula name="Temperatura después del compresor" vars={{ "T₂": "temperatura a la salida del compresor [K]", "T₁": "temperatura del aire que entra [K] (°C + 273)", "π": "relación de compresión (p salida / p entrada, absolutas)", "0,286": "(κ − 1)/κ, con κ = 1,4 para el aire", "η_c": "rendimiento del compresor (0,65–0,78)" }}>
+  T<sub>2</sub> = T<sub>1</sub> · [1 + (π<sup>0,286</sup> − 1) / η<sub>c</sub>]
+</Formula>
+
+<Ejemplo title="Cuánto calienta el turbo y cuánto ayuda el intercooler">
+Aire a 30 °C (303 K), relación π = 2,2, rendimiento η_c = 0,72:
+
+<Calc>2,2^0,286 = 1,253 → T₂ = 303 × (1 + 0,253 / 0,72) = 303 × 1,351 = 410 K = 137 °C</Calc>
+
+Un intercooler que recupera el 75 % de la diferencia con el aire de afuera:
+
+<Calc>T₃ = 410 − 0,75 × (410 − 303) = 330 K = 57 °C</Calc>
+
+A la misma presión, la densidad es inversamente proporcional a la temperatura absoluta:
+
+<Calc>ρ₃ / ρ₂ = 410 / 330 = 1,24</Calc>
+
+Resultado: <Res>el intercooler mete un 24 % más de aire</Res> en el mismo volumen. Además, en un naftero, el aire más frío aleja la <Term t="Detonación">detonación</Term>, y en un diesel baja los NOx.
+</Ejemplo>
+
+### El retraso del turbo
+
+El turbo necesita gases para girar, y los gases dependen de cuánto acelerás. Si vas despacio y apretás a fondo, el motor responde primero como atmosférico y medio segundo o un segundo después "entra" el turbo. Es el **retraso** (turbo lag): la rueda tiene inercia y tiene que acelerar a cientos de miles de vueltas. Probalo en la animación moviendo el acelerador de golpe. Los fabricantes lo achican con turbos más chicos, geometría variable, turbinas de doble entrada (twin-scroll), dos turbos o, en los más nuevos, ayuda eléctrica.
+
+### Cómo cuidar un turbo
+
+- **Aceite, aceite, aceite.** El eje gira sobre una película de aceite a 200.000 rpm, al lado de una turbina a 800 °C. Aceite viejo, diluido o de una norma que no corresponde se carboniza en la carcasa central. Cambio en término y con la norma que pide el fabricante.
+- **No acelerar fuerte en frío.** Hasta que el aceite circula y toma temperatura, ni turbo a fondo ni vueltas altas.
+- **Dejar regular antes de apagar** después de exigirlo (subida a la cordillera, trailer, ruta rápida): 30 segundos a 1–2 minutos en ralentí. Si cortás de golpe, el aceite queda quieto dentro de la carcasa caliente y se cocina. Los turbos modernos con carcasa refrigerada por agua lo sufren menos, pero la costumbre no cuesta nada.
+- **Filtro de aire sano y mangueras sin pérdidas.** Una pérdida entre el turbo y el motor hace que el turbo gire más para compensar.
+- El turbo **no tiene retenes de goma** como un motor: tiene aros parecidos a los del pistón, que sellan porque hay presión de los dos lados. Si el cárter tiene mucha presión (respiradero tapado, aros del motor gastados) o el **retorno de aceite** del turbo está tapado o doblado, el aceite pasa a la admisión o al escape aunque el turbo esté bien. Antes de cambiar un turbo por "tirar aceite", revisá eso.
+
+### Compresor mecánico (breve)
+
+Otra forma de sobrealimentar es un **compresor volumétrico** movido por correa desde el cigüeñal (tipo Roots o de tornillos). No tiene retraso porque gira atado al motor, pero le **come potencia** al cigüeñal para moverse. Se usó mucho en algunos Mercedes "Kompressor" y en motores deportivos. Hay motores que combinan compresor abajo y turbo arriba, y los híbridos de 48 V ya usan compresores eléctricos.
+
+## El escape: sacar los gases y limpiarlos
+
+El escape no es sólo "el caño". Tiene que sacar los gases con poca **contrapresión**, limpiarlos y bajar el ruido.
+
+- **Múltiple de escape:** de fundición o de acero inoxidable, trabaja al rojo. Una **fisura** o una junta quemada hace un tic-tac en frío que desaparece al calentarse (el metal dilata y cierra la fisura). Y si la pérdida está antes de la sonda lambda, entra aire de afuera: la sonda lee mezcla pobre, la ECU agrega nafta y los trims se van a positivo.
+- **Sondas lambda:** una antes del catalizador (la que regula la mezcla) y otra después (la que vigila al catalizador). Detalle completo en [sensores del motor](/aprender/gestion-nafta/sensores-motor).
+- **Catalizador**, y en los diesel, catalizador de oxidación, **filtro de partículas** y **SCR con AdBlue** (ver [DPF, EGR y AdBlue](/aprender/diesel/dpf-scr)).
+- **Silenciadores:** de reflexión (cámaras y tubos que hacen que las ondas se cancelen) y de absorción (lana mineral que se come las frecuencias altas).
+
+### El catalizador de tres vías
+
+Adentro hay un panal cerámico (o metálico) con miles de canalitos, recubierto de una capa porosa con **platino, paladio y rodio**. Esos metales no se gastan en la reacción: la facilitan. Lo que pasa adentro, simplificado:
+
+<Formula name="Las tres conversiones (simplificadas)">
+  2 CO + O₂ → 2 CO₂<br />HC + O₂ → CO₂ + H₂O<br />2 NO + 2 CO → N₂ + 2 CO₂
+</Formula>
+
+Las dos primeras necesitan **oxígeno** (oxidación); la tercera necesita **sacarle** oxígeno a los NOx (reducción). Hacer las dos cosas a la vez sólo se puede con la mezcla justa: <Term t="Lambda">λ</Term> entre aproximadamente **0,99 y 1,005**. Por eso la ECU vive corrigiendo con la sonda.
+
+<Catalizador />
+
+Datos para recordar:
+
+- **Temperatura de encendido** (light-off): unos **250–300 °C**. Debajo no convierte casi nada. Por eso un motor frío contamina muchísimo y por eso los catalizadores se ponen cada vez más cerca del múltiple.
+- **Temperatura de trabajo:** 400–800 °C. Por encima de unos **900–1.000 °C** el panal se daña y se puede **derretir**.
+- Guarda oxígeno (un componente llamado ceria): cuando la mezcla se va un poco pobre, lo junta; cuando se va un poco rica, lo suelta. Esa "esponja de oxígeno" es la que hace que la sonda de atrás quede quieta.
+
+¿Qué mata un catalizador?
+
+- **Fallas de encendido:** la nafta cruda se quema adentro, la temperatura se dispara y el panal se funde o se rompe.
+- **Consumo de aceite:** el fósforo y las cenizas del aceite tapan los poros. Lo mismo con refrigerante (junta de tapa).
+- **Golpes y piedras:** el panal cerámico se fisura y queda suelto (suena a "piedras sueltas" al golpear el caño).
+- **Equipos de GNC mal regulados** o mezclas siempre ricas: lo recalientan o lo ensucian.
+
+<Peligro title="El escape quema, y prende fuego">
+A plena carga el múltiple, el turbo y el catalizador están entre 600 y 900 °C; el múltiple puede verse al rojo. Nunca toques el escape con el motor recién apagado. Y ojo al **estacionar sobre pasto seco** (en verano, en una banquina o en un campo): el catalizador debajo del auto puede iniciar un incendio.
+</Peligro>
+
+### Contrapresión
+
+Todo lo que frena la salida de gases (catalizador tapado, silenciador aplastado, DPF lleno) obliga al pistón a empujar en el tiempo de escape, deja gases quemados en el cilindro y le saca energía a la turbina. Resultado: el motor pierde fuerza, calienta más y el turbo no sopla. Al revés, un escape "libre" no siempre da más potencia: el motor y la ECU están calibrados para su escape, y sin catalizador la sonda de atrás lo denuncia (P0420) y no pasás la RTO.
+
+<EnElTaller title="Pruebas de admisión, turbo y escape">
+
+**Mangueras y abrazaderas del turbo.** Con el motor frío, recorré todo el circuito de presión: turbo → intercooler → mariposa o múltiple. Buscá mangueras infladas, fisuradas o blandas por el calor, abrazaderas flojas, el intercooler golpeado (las piedras del ripio lo agujerean) y rastros de aceite. Un poco de niebla de aceite adentro es normal (viene del respiradero); chorreando, no. Para encontrar pérdidas finas, se tapa la entrada del turbo y se **presuriza la admisión con aire regulado a no más de 1 bar** (o con una máquina de humo) y se busca con agua jabonosa o mirando por dónde sale el humo.
+
+**Juego del eje del turbo.** Motor frío y apagado, sacá la manguera de entrada al compresor:
+
+<Pasos>
+1. **Mirá la rueda del compresor.** Los álabes tienen que estar sanos, con el borde filoso. Comidos o doblados: entró algo (tierra, un tornillo, un pedazo de filtro).
+2. **Juego axial.** Empujá y tirá del eje en su dirección: tiene que ser **casi nulo**; el dato suele estar en unas centésimas de milímetro. Si "golpea", está gastado el cojinete axial.
+3. **Juego radial.** Moviendo el eje hacia los costados, un poco de juego es **normal**, porque los cojinetes son flotantes y con aceite se centran. Lo que nunca tiene que pasar es que la rueda **toque la carcasa** ni que haya marcas de roce.
+4. **Girá a mano.** Tiene que girar libre, sin puntos duros ni ruido.
+5. **Para medir en serio.** Comparador con base magnética en el extremo del eje y comparar con el dato del fabricante.
+</Pasos>
+
+**Humo azul en un turbo.** Antes de condenarlo: ¿hay aceite en la manguera de entrada (filtro tapado, respiradero)? ¿El retorno de aceite del turbo está libre y sin pliegues? ¿Hay presión en el cárter (sacá la varilla con el motor en marcha y mirá si sopla)? Si todo eso está bien y hay aceite a la salida del compresor y juego excesivo, es el turbo.
+
+**Pérdida de potencia.** Scanner en mano, a plena carga en una subida (con alguien que maneje): compará **soplado pedido vs real**. Si el real no llega: pérdida en mangueras, wastegate o paletas trabadas abiertas, electroválvula o mangueritas de vacío, filtro de aire tapado, escape tapado. Si el real se pasa y después corta: wastegate o paletas trabadas cerradas (P0234).
+
+**Catalizador tapado.** Tres pruebas que se complementan:
+
+<Pasos>
+1. **Vacuómetro.** En ralentí, normal. Llevá el motor a 2.500 rpm y mantenelo: si la aguja **cae lentamente** y no se recupera, el escape está restringido.
+2. **Contrapresión.** Sacá la sonda de adelante y roscá un manómetro de baja presión con adaptador. Como referencia, menos de 0,1 bar a 2.500 rpm; si pasa de 0,2 bar, algo está tapado (según fabricante).
+3. **Temperatura.** Con un termómetro infrarrojo, una vez caliente, la **salida** del catalizador tiene que estar más caliente que la entrada (las reacciones generan calor). Si sale más frío, no está convirtiendo. Y golpeá el cuerpo con la palma: si suena a piedras, el panal está roto.
+</Pasos>
+
+</EnElTaller>
+
+<Electronica>
+
+**Sensor de presión de soplado / MAP:** señal de 0,5–4,5 V proporcional a la presión **absoluta** (en turbos el rango llega a 2,5–3 bar). Con contacto y motor parado tiene que coincidir con el barómetro (en muchos autos hay un sensor barométrico aparte, dentro de la ECU). En el scanner buscá "presión de sobrealimentación especificada" y "real": en régimen estable no deberían separarse más de 0,1–0,2 bar.
+
+**Control del turbo:** la ECU maneja la electroválvula de la wastegate (o el actuador de las paletas) con una señal **PWM**: más ciclo de trabajo, más cerrada la wastegate y más soplado (en la mayoría de los sistemas). Los actuadores eléctricos tienen sensor de posición y, al cambiarlos, piden una **adaptación**.
+
+**Válvula de descarga (blow-off o recirculación):** cuando soltás el acelerador de golpe, la mariposa se cierra y el aire comprimido no tiene adónde ir: vuelve contra el compresor y lo frena (el "bombeo" del compresor). Esta válvula abre y devuelve ese aire a la entrada. Puede ser neumática o electrónica (en VW, N249).
+
+**Mariposa electrónica:** pedal con dos señales (APP1/APP2), mariposa con dos TPS. Si no coinciden: modo de emergencia y códigos como P2135 (correlación de TPS) o P2101 (motor de la mariposa).
+
+Códigos típicos:
+
+- **P0299**: subalimentación (el soplado real no llega al pedido).
+- **P0234**: sobrealimentación.
+- **P0045–P0050** y **P2563**: circuito de la electroválvula del turbo y sensor de posición de geometría variable.
+- **P0101 / P0106**: MAF o MAP fuera de rango (muchas veces por una pérdida de aire).
+- **P2004–P2015**: aletas del múltiple de admisión variable.
+- **P0420**: eficiencia del catalizador por debajo del umbral (banco 1). La ECU lo decide comparando la actividad de la sonda de atrás con la de adelante, como en la animación.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="MAP con contacto, motor parado" esperado="= presión atmosférica (≈ 92–93 kPa en el Gran Mendoza)" como="Scanner: comparar MAP y barométrica" nota="A nivel del mar ≈ 101 kPa; en Uspallata ≈ 81 kPa" />
+  <Medicion punto="Vacío en ralentí (naftero)" esperado="17–21 inHg a nivel del mar; algo menos en altura" como="Vacuómetro en una toma del múltiple" nota="Si cae lentamente a 2.500 rpm sostenidas: escape restringido" />
+  <Medicion punto="MAF en ralentí (1.6 naftero)" esperado="≈ 2–4 g/s" como="Scanner, motor caliente, sin consumos" nota="Según motor; compará con otro igual" />
+  <Medicion punto="Soplado pedido vs real" esperado="Diferencia de menos de 0,1–0,2 bar en régimen estable" como="Scanner a plena carga, en subida" nota="Soplado típico a plena carga: 0,6–1,5 bar según motor" />
+  <Medicion punto="Juego axial del eje del turbo" esperado="Casi nulo (centésimas de mm, según fabricante)" como="A mano o con comparador, motor frío" nota="Radial: un poco es normal; nunca roce con la carcasa" />
+  <Medicion punto="Contrapresión de escape" esperado="Menos de 0,1 bar a 2.500 rpm" como="Manómetro en el agujero de la sonda de adelante" nota="Más de 0,2 bar: catalizador, silenciador o DPF tapado" />
+  <Medicion punto="Sonda lambda de atrás (catalizador sano)" esperado="Estable cerca de 0,6–0,7 V" como="Scanner u osciloscopio, motor caliente en lazo cerrado" nota="Si copia a la de adelante: catalizador agotado (P0420)" />
+</Mediciones>
+
+<Herramientas ids={["scanner", "vacuometro", "maquina-humo", "bomba-vacio", "termometro-ir", "reloj-comparador", "osciloscopio", "tester", "estetoscopio", "juego-llaves", "caballetes", "epp"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Le falta fuerza, P0299, silbido al acelerar | Manguera del intercooler floja o rota, intercooler perforado | Inspección; presurizar la admisión; soplado pedido vs real |
+| Tironea y corta a plena carga, P0234 | Wastegate o paletas trabadas cerradas, electroválvula pegada | Scanner: soplado real pasándose; mover el actuador a mano |
+| Humo azul y consumo de aceite (turbo) | Retorno de aceite del turbo tapado, presión en el cárter, filtro de aire tapado, turbo gastado | Revisar retorno y respiradero; aceite a la salida del compresor; juego del eje |
+| Silbido metálico fuerte o "sirena" | Rueda del turbo rozando, cojinetes gastados | Juego del eje, marcas de roce |
+| Ralentí inestable, se apaga al frenar | Mariposa sucia, pérdida de vacío | Mirar el borde de la mariposa; vacuómetro; trims positivos en ralentí |
+| Modo de emergencia, no pasa de 1.500 rpm | Mariposa electrónica o pedal (señales que no coinciden) | Scanner: P2135, P2101; comparar APP1/APP2 y TPS1/TPS2 |
+| Pierde fuerza arriba, se calienta, olor a podrido | Catalizador tapado o derretido | Vacuómetro a 2.500 rpm, contrapresión, temperatura entrada/salida |
+| P0420 | Catalizador agotado (o sonda de atrás vieja, pérdida en el escape) | Sonda de atrás copiando a la de adelante; revisar pérdidas |
+| Tic-tac en frío que se va al calentar | Fisura en el múltiple o junta de escape | Mirar con el motor frío; hollín alrededor de la junta |
+
+<Mendoza>
+
+- **El turbo compensa la altura.** Un atmosférico pierde alrededor de **1 % cada 100 m**: frente al nivel del mar, en el Gran Mendoza ya le falta un 7–9 %, en Uspallata un 19 % y en Las Cuevas alrededor de un tercio. Un turbo, como la ECU pide presión **absoluta**, sigue entregando casi el 100 % hasta que el turbo llega a su límite de vueltas; en Las Cuevas suele perder sólo un 5–10 %. Por eso las turbodiesel andan tan bien en la cordillera.
+- **Ojo con el MAP y la altura** al diagnosticar: un MAP de 81 kPa con el motor parado es perfecto en Uspallata y sospechoso en Buenos Aires.
+- **Tierra y zonda:** el filtro de aire se tapa mucho más rápido que lo que dice el manual. Si andás por ripio (Ruta 52, Villavicencio, caminos de finca), miralo cada 5.000 km. Un filtro roto en un turbo es una lija directo al compresor.
+- **Piedras del ripio:** golpean el intercooler (en las pickups suele estar adelante y abajo) y el catalizador. Un panal fisurado suena a sonajero.
+- **RTO:** en la revisión técnica se miden los gases (CO y HC en naftero, opacidad en diesel). Un catalizador agotado o un turbo que tira aceite son rechazo seguro.
+- **Muchos autos con GNC:** la sonda y el catalizador trabajan igual con gas, pero un equipo mal regulado (siempre rico o siempre pobre) los mata. Mirá los trims y la sonda también andando a gas.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. La potencia está limitada por la **masa de aire** que entra: ṁ = ρ · V<sub>H</sub> · n/2 · η<sub>v</sub>. Con la altura baja ρ y el atmosférico pierde ~1 % cada 100 m.
+2. La **mariposa electrónica** tiene señales duplicadas (pedal y TPS); si no coinciden, modo de emergencia. Después de limpiarla, adaptación.
+3. El **turbo** usa la energía del escape para comprimir aire. Gira a cientos de miles de rpm sobre aceite: cambio en término, nada de acelerar en frío y dejarlo regular después de exigirlo.
+4. **Presión absoluta vs soplado:** la ECU pide presión absoluta; en altura el turbo gira más rápido para lograrla, hasta su límite.
+5. La **wastegate** (o la geometría variable) frena al turbo; la ECU la maneja con PWM. Soplado pedido vs real es el dato clave del scanner (P0299 falta, P0234 sobra).
+6. Comprimir calienta: el **intercooler** baja el aire de ~140 °C a ~55 °C y mete un 20–25 % más de aire.
+7. El **catalizador de tres vías** sólo convierte bien en la ventana de λ ≈ 1 y por encima de 250–300 °C. Lo matan las fallas de encendido, el aceite y los golpes.
+8. **P0420** sale de comparar las sondas: con catalizador sano la de atrás queda quieta (~0,6–0,7 V); agotado, copia a la de adelante.
+
+</PuntosClave>
