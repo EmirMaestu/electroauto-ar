@@ -1,0 +1,267 @@
+Un 207 llega con el testigo prendido, no pasa de 3.000 rpm y el pedal "no responde". En otro taller le dijeron al dueño que **"es la computadora"** y le pasaron un presupuesto enorme. Con el scanner se ve otra cosa: código **P2138**, correlación de las pistas del pedal. Una ficha sulfatada en el sensor del pedal hacía que las dos pistas contaran historias distintas. La ECU estaba haciendo exactamente lo que tenía que hacer: como no podía saber cuál de las dos mentía, **se protegió** y dejó el auto en modo de emergencia.
+
+La ECU es, de lejos, de lo que menos falla en un auto. Lo que pasa es que casi nadie entiende **cómo piensa**: qué hace con cada sensor, cuándo le cree y cuándo no, qué aprende, qué guarda en memoria y por qué a veces "se pone rara" después de cambiar una pieza o desconectar la batería. Esta lección es eso: la lógica de la ECU, explicada para que puedas diagnosticar con ella y no contra ella. Y al final, qué significa **reprogramar** una ECU.
+
+Para el hardware y lo básico, mirá [ECU: la computadora del auto](/aprender/electricidad/p1l1); para cómo se comunica con otros módulos, [Redes CAN](/aprender/electricidad/p1l2).
+
+<Libro pag="pág. 796–807 · 870–877" />
+
+## Entradas, procesamiento y salidas
+
+Toda ECU de motor hace lo mismo, cientos de veces por segundo: **lee, calcula y ordena**.
+
+| Entradas | Procesamiento | Salidas |
+|---|---|---|
+| CKP y CMP (rpm, posición, fase) | Microcontrolador de 32 bits, cientos de MHz | Inyectores (lado bajo, o alta tensión en directa) |
+| MAF y/o MAP + IAT (aire) | Programa + **calibración** (mapas) en memoria flash | Bobinas (o señales de 5 V a bobinas con driver) |
+| TPS, pedal (lo que pide el conductor) | Memoria para adaptaciones y códigos | Mariposa motorizada (puente H) |
+| ECT, sondas lambda, detonación | Tareas sincronizadas con el cigüeñal (cada combustión) y con el reloj (cada 10 ms, 100 ms…) | Relé de bomba, relé principal, electroventilador |
+| Batería, freno, embrague, pedido de aire acondicionado | Diagnóstico permanente de todo lo anterior | Canister, VVT, EGR, calentadores de sonda, wastegate |
+| Datos por CAN: velocidad, ABS/ESP, caja, tablero, inmovilizador | | Datos por CAN: rpm, temperatura, testigos, torque |
+
+Las salidas usan distintos **drivers**: de **lado bajo** (la ECU da masa: inyectores, relés, la mayoría de las electroválvulas), de **lado alto** (la ECU da positivo: algunos calentadores y bombas), **puentes H** (para mover un motor eléctrico en los dos sentidos, como la mariposa) y salidas **PWM** para controlar "cuánto" (ventilador, electroválvulas proporcionales, calentador de sonda).
+
+<Electronica title="La ECU se queda prendida después de que apagás">
+
+Muchas ECU manejan su propio **relé principal**. Al sacar la llave no se apagan enseguida: siguen unos segundos (o minutos) guardando adaptaciones en memoria, probando la mariposa, terminando pruebas de diagnóstico y manteniendo el electroventilador si hace falta. Por eso **no conviene desconectar la batería apenas apagás el motor**: esperá a que se apague el relé (un "clac" bajo el capot, o un par de minutos).
+
+</Electronica>
+
+### Las ECU modernas piensan en torque
+
+En los sistemas actuales, el pedal no "abre la mariposa": **pide torque**. La ECU junta todos los pedidos (el conductor, el ralentí, el aire acondicionado que va a entrar, el ESP que quiere bajar potencia porque patina una rueda, la caja automática que quiere un instante menos de torque para cambiar, el control de crucero) y decide **cuánto torque entregar**. Después reparte ese objetivo entre los "caminos" que tiene: **aire** (mariposa, turbo; lento pero eficiente), **chispa** (retrasar el avance baja el torque al instante pero gasta más) e **inyección** (cortar cilindros). Por eso en un auto moderno ves el avance moverse aunque tengas el pie quieto: la ECU está ajustando torque fino, por ejemplo para que el ralentí no caiga cuando entra el compresor.
+
+## Los mapas: tablas de rpm por carga
+
+La parte "pensante" de la ECU tiene dos capas:
+
+- El **programa**: las reglas (cómo se calcula la inyección, cómo se detecta una falla). Es igual para muchos autos.
+- La **calibración**: miles de números que adaptan ese programa a **ese** motor. Constantes (cilindrada, caudal de los inyectores), **curvas** (una corrección según la temperatura) y **mapas** (tablas de dos entradas). Una ECU moderna tiene decenas de miles de esos datos.
+
+Un mapa típico tiene en un eje las **rpm** y en el otro la **carga** (presión del múltiple, o aire por ciclo). Hay mapas de inyección (o de eficiencia volumétrica), de avance, de lambda objetivo, de tiempo de carga de la bobina, de presión de turbo y muchos más. Los números salen del **banco de pruebas** del fabricante, donde se ensaya el motor punto por punto buscando el mejor compromiso entre potencia, consumo, emisiones y detonación.
+
+<MapaInyeccion />
+
+Entre celda y celda, la ECU **interpola**: calcula un valor intermedio en proporción a qué tan cerca está de cada celda. Así no hay escalones aunque la tabla tenga sólo 12 columnas.
+
+<Formula name="Interpolación lineal (en un eje)" vars={{ "v": "valor buscado", "x": "punto de funcionamiento (por ejemplo, rpm)", "x₁, x₂": "ejes de las dos celdas vecinas", "v₁, v₂": "valores de esas celdas" }}>
+  v = v<sub>1</sub> + (v<sub>2</sub> − v<sub>1</sub>) · (x − x<sub>1</sub>) / (x<sub>2</sub> − x<sub>1</sub>)
+</Formula>
+
+<Ejemplo title="La ECU busca el tiempo de inyección a 2.750 rpm y 45 kPa">
+Las cuatro celdas vecinas del mapa de la animación:
+
+| | 2.500 rpm | 3.000 rpm |
+|---|---|---|
+| **50 kPa** | 6,0 ms | 6,2 ms |
+| **40 kPa** | 5,0 ms | 5,1 ms |
+
+Primero interpola en rpm (2.750 está justo en el medio, factor 0,5):
+
+<Calc>A 40 kPa: 5,0 + (5,1 − 5,0) × 0,5 = 5,05 ms · A 50 kPa: 6,0 + (6,2 − 6,0) × 0,5 = 6,1 ms</Calc>
+
+Después en carga (45 kPa, también en el medio):
+
+<Calc>5,05 + (6,1 − 5,05) × 0,5 = 5,58 ms</Calc>
+
+Resultado: <Res>≈ 5,6 ms de tiempo base</Res>, al que después se le suman todas las correcciones. Esto se llama interpolación **bilineal** y la ECU la hace para cada mapa, en cada combustión.
+</Ejemplo>
+
+## Lazo abierto y lazo cerrado
+
+La ECU tiene dos formas de manejar la mezcla:
+
+- **Lazo abierto:** usa sus mapas y correcciones "a ciegas", sin mirar el resultado. Es lo que hace en el **arranque**, mientras el motor y la sonda están **fríos**, a **plena carga** (busca λ 0,85–0,9 a propósito), en el **corte por desaceleración**, cuando necesita **proteger componentes** (escape o turbo muy calientes) y cuando hay una **falla** en la sonda.
+- **Lazo cerrado:** con el motor caliente y en ralentí o carga parcial, mira la sonda lambda y corrige con el STFT, mientras el LTFT aprende. Es donde pasa la mayor parte del tiempo y lo viste funcionar en la animación de la [lección de inyección](/aprender/gestion-nafta/inyeccion).
+
+El scanner muestra el **estado del sistema de combustible** con mensajes estándar: lazo abierto por temperatura insuficiente, lazo cerrado usando la sonda, lazo abierto por carga o por corte en desaceleración, lazo abierto por falla del sistema, o lazo cerrado con una falla en la realimentación. Si un auto caliente nunca pasa a lazo cerrado, buscá por qué: ECT que lee frío (termostato abierto, sensor corrido), sonda sin calentar (calentador cortado, **P0135**) o una sonda muerta.
+
+## Correcciones
+
+Encima del valor del mapa, la ECU aplica correcciones (casi siempre como curvas o tablas chicas):
+
+- **Temperatura del motor (ECT):** enriquecimiento en frío, ralentí más alto, más avance en frío.
+- **Temperatura del aire (IAT):** densidad del aire (en motores con MAP) y **retraso del avance** con aire caliente, para alejarse de la detonación.
+- **Tensión de batería:** tiempo muerto de los inyectores y tiempo de carga de las bobinas.
+- **Presión barométrica:** con un sensor propio o leyendo el MAP al poner contacto y a fondo. Corrige la mezcla, el turbo y algunos diagnósticos que dependen de la presión.
+- **Purga del canister:** cuando abre la electroválvula entran vapores de nafta del tanque; la ECU estima esa nafta y la descuenta de los inyectores.
+- **Cargas:** aire acondicionado, alternador (en muchos autos la ECU maneja la tensión de carga), dirección eléctrica: suben el ralentí o el torque antes de que caiga el régimen.
+
+## Adaptaciones: lo que la ECU aprende
+
+Ningún motor es igual a otro y todos cambian con los kilómetros. Por eso la ECU **aprende** y guarda en memoria valores que corrigen su calibración:
+
+- **Trims de mezcla (LTFT)**, a veces separados por zona: ralentí, carga parcial, carga alta.
+- **Ralentí:** cuánta apertura de mariposa (o de la válvula de ralentí) necesita para sostener las rpm. Con la mariposa sucia necesita abrir más, y lo aprende.
+- **Topes de la mariposa motorizada:** dónde está el cerrado real.
+- **Detonación por cilindro:** cuánto retraso necesita cada uno en promedio.
+- **Error de la rueda fónica:** pequeñas diferencias de mecanizado entre dientes, para que la detección de fallas de encendido no se confunda.
+- **Distribución variable:** la posición real de los árboles respecto del cigüeñal.
+
+<EnElTaller title="Por qué hay que hacer 'aprendizaje' al cambiar piezas">
+
+Si cambiás o limpiás algo que la ECU había aprendido, su memoria queda **desactualizada**:
+
+- **Limpiaste la mariposa:** la ECU sigue abriendo de más (lo que había aprendido para la mariposa sucia) → **ralentí alto** o que sube y baja. Hay que hacer el aprendizaje de mariposa/ralentí con el scanner o con el procedimiento del fabricante.
+- **Cambiaste inyectores, MAF o sonda:** el LTFT viejo sigue corrigiendo un problema que ya no existe → borrá adaptaciones de mezcla.
+- **Desconectaste la batería:** en muchos autos se pierden las adaptaciones; los primeros minutos el ralentí puede estar inestable hasta que vuelve a aprender. Un **ciclo de manejo** tranquilo (ralentí, ciudad, ruta) lo acomoda.
+- **Cambiaste la ECU:** hay que adaptarla al inmovilizador y, muchas veces, codificarla con el número de chasis y el equipamiento. Una ECU usada de otro auto no arranca "enchufar y listo".
+
+</EnElTaller>
+
+## Plausibilidad: cómo se da cuenta de que un sensor miente
+
+La ECU no confía ciegamente. Tiene varias capas de chequeo para cada señal:
+
+1. **Rango eléctrico.** ¿La tensión está dentro de lo posible? Afuera de la ventana (por ejemplo, menos de 0,2 V o más de 4,8 V), sólo puede ser un cable cortado o un corto: código de **circuito bajo/alto**.
+2. **Gradiente.** ¿Cambió más rápido de lo físicamente posible? El refrigerante no puede pasar de 85 a 20 °C en una décima de segundo: eso es un falso contacto.
+3. **Coherencia con otros sensores.** El MAP tiene que acompañar a la mariposa y a las rpm; el MAF tiene que coincidir con el aire que la ECU estima con la mariposa; las dos pistas del pedal tienen que contar lo mismo; el CMP tiene que estar donde corresponde respecto del CKP; después de una noche, ECT e IAT tienen que coincidir.
+4. **Señal "clavada".** ¿Se movió cuando tenía que moverse? Un ECT que no sube después de 15 minutos de marcha (**P0116/P0128**), una sonda que no conmuta (**P0134**).
+
+Cuando detecta una mentira, la ECU deja de usar ese sensor y pasa a un **valor de reemplazo** o a un **modelo**:
+
+| Si falla… | La ECU usa… | Lo que notás |
+|---|---|---|
+| ECT | Un valor fijo (~80 °C) o un modelo según el tiempo de marcha | Arranque difícil en frío, electroventilador siempre prendido |
+| IAT | Un valor fijo (20–40 °C) | Casi nada, algo de consumo |
+| MAP o MAF | Aire calculado con la mariposa y las rpm | Responde distinto, potencia limitada, consumo |
+| Sonda lambda | Lazo abierto con mapas | Consumo y emisiones un poco más altos |
+| Sensor de detonación | Avance retrasado fijo | Sin fuerza, consume más |
+| Una pista del pedal o del TPS | La otra pista, con potencia limitada | Respuesta lenta, testigo prendido |
+| Las dos pistas no coinciden | Ninguna: ignora el pedal | Ralentí acelerado, el auto casi no acelera |
+| CKP | No hay reemplazo posible | El motor se para y no arranca |
+
+Ese funcionamiento con valores de reemplazo y límites es el <Term t="Modo de emergencia">modo de emergencia</Term> (limp mode): el auto anda lo justo para llegar al taller sin romperse.
+
+<EcuPlausibilidad />
+
+<Ojo title="Una falla memorizada no siempre se va sola">
+
+Muchas fallas de seguridad (pedal, mariposa) quedan **trabadas** hasta el próximo **ciclo de llave** aunque la causa haya desaparecido: el auto sigue en emergencia hasta que apagás y volvés a arrancar. Si el problema era un falso contacto, el cliente te va a decir "se arregló solo cuando lo apagué". No lo está: hay una ficha floja esperando.
+
+</Ojo>
+
+## Ciclo de manejo, monitores y la luz de check
+
+En los autos con OBD-II/EOBD, la ECU no sólo controla el motor: **se autoexamina** para asegurar que las emisiones no se disparen. Esas pruebas se llaman **monitores**:
+
+- **Continuos:** fallas de encendido, sistema de combustible (los trims), componentes eléctricos (rangos y plausibilidades). Corren todo el tiempo.
+- **No continuos:** catalizador, sondas lambda, calentadores de sonda, sistema evaporativo (pérdidas en el tanque y el canister), EGR, aire secundario. Sólo corren cuando se dan ciertas condiciones: motor caliente, velocidad estable, nivel de nafta, temperatura ambiente…
+
+El conjunto de condiciones para que corran todos es el **ciclo de manejo**: arranque en frío, ralentí, aceleraciones suaves, crucero estable a 60–90 km/h unos minutos, desaceleraciones con el pie levantado. El scanner muestra el estado de cada monitor como **listo** o **no listo** (*readiness*).
+
+<Electronica title="Cuándo se prende la luz de check (MIL)">
+
+- Cuando un monitor detecta una falla por primera vez, la ECU guarda un **código pendiente**. Muchas veces la luz todavía no se prende.
+- Si la falla se repite en el **siguiente ciclo de manejo**, el código pasa a **confirmado** y la **luz se prende fija** (lógica de dos viajes).
+- Si las fallas de encendido son tan fuertes que pueden dañar el catalizador, la luz **parpadea** desde el primer momento.
+- Si la falla no aparece durante **tres ciclos seguidos**, la luz se apaga sola, pero el código queda en la memoria unos 40 ciclos de calentamiento.
+- Al guardar un código, la ECU saca una **foto**: el **cuadro congelado** (freeze frame), con rpm, carga, ECT, velocidad, trims, estado del lazo… en el instante de la falla. Es oro: te dice en qué condición reproducirla.
+- **Borrar códigos** pone todos los monitores en **no listo**. Cualquier equipo que lea OBD se da cuenta de que se borraron hace poco: borrar antes de una inspección no esconde nada.
+
+</Electronica>
+
+## Inmovilizador
+
+La llave tiene un **transponder**: un chip sin batería que se alimenta por inducción desde una **antena** (una bobinita alrededor del tambor de arranque o en el botón de encendido). Al poner contacto, el módulo inmovilizador (en el tablero, en el módulo de carrocería o en la propia ECU) le manda un desafío al chip, el chip responde con un código cifrado, y si es correcto, el módulo **autoriza a la ECU** por CAN o por una línea serie.
+
+Sin autorización, la ECU **no inyecta** (o arranca uno o dos segundos y se apaga) y parpadea el testigo de la llave o del inmovilizador. Fallas típicas: llave con el chip dañado (se cayó, se mojó), antena cortada, batería baja que corta la comunicación en el arranque, ECU cambiada sin adaptar. Las llaves nuevas se programan con scanner y, en general, con el código **PIN** del vehículo.
+
+## Reprogramar una ECU: qué se cambia y qué riesgos tiene
+
+El software de una ECU se puede **reescribir**. Lo hacen los fabricantes para corregir errores o mejorar funciones (actualizaciones oficiales, a veces por campañas de servicio), y lo hacen los preparadores para cambiar el comportamiento del motor: el famoso **chiptuning** o "reprogramación".
+
+En términos generales, el proceso es:
+
+1. **Lectura.** Se lee la memoria de la ECU por el conector OBD (usando el modo de programación de la ECU) o en banco, abriéndola.
+2. **Respaldo.** Se guarda el archivo original. Siempre. Es el camino de vuelta.
+3. **Edición de la calibración.** Se identifican los mapas y se modifican sus valores: lambda objetivo a plena carga, avance, presión de turbo, limitadores de torque, respuesta del pedal, corte de vueltas.
+4. **Suma de control.** La ECU verifica la integridad de su memoria con sumas de control (checksums): si no se corrigen, no arranca.
+5. **Escritura** con la batería sostenida por una **fuente regulada** (si la tensión cae en medio de la escritura, la ECU puede quedar inutilizable).
+6. **Verificación con registros (datalog):** retardo por detonación por cilindro, lambda real con sonda de banda ancha, temperatura de escape, presión de turbo. Idealmente, en banco de potencia.
+
+¿Qué se gana? En un **atmosférico**, poco (unos pocos por ciento: el aire que entra es el que es). En un **turbo**, mucho más, porque se puede pedir más presión… y ahí empiezan los riesgos:
+
+- **Detonación:** más avance o más presión acercan el motor al límite. Si la calibración no deja margen para la nafta que realmente vas a cargar, el control de detonación vive retrasando o, peor, no llega.
+- **Mezcla pobre a fondo:** quitar la "nafta de protección" sube la temperatura de pistones, válvulas y turbina. Es la forma clásica de agujerear un pistón.
+- **Turbo fuera de régimen**, embrague y caja por encima del torque para el que se diseñaron, inyectores al límite de ciclo de trabajo.
+- **Garantía y confiabilidad.** Y un archivo mal hecho puede dejar la ECU sin arrancar.
+
+<Peligro title="Lo que no se toca">
+
+Desactivar sistemas de **emisiones** (catalizador, sonda posterior, EGR, filtro de partículas, monitores) o de **seguridad** (inmovilizador, airbag, ABS/ESP) es **ilegal**, contamina, puede hacerte rebotar en la revisión técnica y deja el auto sin las protecciones para las que fue diseñado. En este curso no se enseña cómo hacerlo. Una reprogramación seria trabaja dentro de esos límites.
+
+</Peligro>
+
+## Estrategia de diagnóstico con scanner
+
+El error más caro es leer un código y cambiar la pieza que nombra. Un código dice **qué circuito o qué condición** encontró la ECU fuera de lo normal, no qué pieza está rota. Método:
+
+<Pasos>
+1. **Escuchá y reproducí.** ¿En frío o en caliente? ¿Con carga, con lluvia, después de cargar nafta? Si podés, manejalo vos.
+2. **Leé códigos sin borrarlos.** Anotá todos (también los pendientes) y el **cuadro congelado** de cada uno.
+3. **Datos en vivo primero.** Con el motor caliente, compará cada dato con lo esperable: ECT, IAT, MAP/MAF, TPS, rpm, sondas, trims, avance, retardo por detonación, tensión de batería. Muchas veces el dato raro aparece antes que el código.
+4. **Interpretá.** ¿Es un código de circuito (cable, ficha, sensor), de rango (sensor que miente o condición real) o de funcionamiento? ¿Hay códigos que son **consecuencia** de otros? (P0171 suele traer P0300: la mezcla pobre provoca fallas de encendido.)
+5. **Confirmá midiendo.** En el componente y en su cableado: alimentación, masa, señal, con tester, osciloscopio o manómetro. Ahí sale la pieza culpable.
+6. **Reparar la causa,** no el síntoma. Si se quemó un driver de la ECU, primero encontrá el actuador en corto que lo quemó.
+7. **Verificá.** Borrá, hacé el ciclo de manejo, revisá que los monitores queden listos y que no vuelva el código.
+</Pasos>
+
+| Dato en vivo (motor caliente, ralentí) | Valor esperable |
+|---|---|
+| ECT | 85–105 °C según el auto |
+| IAT | Cerca de la temperatura ambiente (más con calor bajo el capot) |
+| MAP | 30–40 kPa (algo menos en altura) |
+| MAF | 2–4 g/s (1.4 a 2.0) |
+| Ancho de pulso | 2–4 ms |
+| Avance | 5–15° APMS, oscilando un poco |
+| STFT + LTFT | Dentro de ±10 % |
+| Sonda anterior (angosta) | 0,1 ↔ 0,9 V conmutando |
+| Sonda posterior | Estable, 0,5–0,8 V |
+| Tensión de batería | 13,8–14,7 V |
+| Estado del lazo | Cerrado |
+
+Más método en [Estrategia de diagnóstico profesional](/aprender/electricidad/p2l2) y [Diagnóstico con scanner](/aprender/electricidad/p1l3). Para practicar con casos reales, la sección [Casos de falla](/casos).
+
+<Mediciones title="Antes de decir 'es la computadora'">
+  <Medicion punto="Alimentaciones de la ECU" esperado="Igual a la batería (12,4–14,7 V)" como="Tester entre cada pin de alimentación y el negativo de batería, con contacto (y con el relé principal activado)" nota="Una caída de más de 0,5 V es una conexión con resistencia." />
+  <Medicion punto="Masas de la ECU" esperado="Menos de 0,1–0,2 V de caída" como="Tester entre cada pin de masa y el negativo de batería, motor en marcha y con carga" nota="Masas flojas dan fallas erráticas en varios sistemas a la vez." />
+  <Medicion punto="Referencia de 5 V" esperado="4,9 a 5,1 V" como="En las fichas de los sensores, por atrás" nota="Si cae, desenchufá sensores de a uno." />
+  <Medicion punto="Red CAN" esperado="≈ 60 Ω entre CAN-H y CAN-L" como="Batería desconectada, tester en el conector OBD (pines 6 y 14)" nota="120 Ω: falta una resistencia terminal; casi 0: corto." />
+  <Medicion punto="Actuadores" esperado="Resistencia dentro de especificación" como="Antes de enchufar una ECU nueva, medí inyectores, bobinas y relés" nota="Un actuador en corto quema el driver de la ECU nueva." />
+</Mediciones>
+
+<Herramientas ids={["scanner", "osciloscopio", "tester", "fuente", "probador-bateria"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Testigo y auto que no acelera, ralentí acelerado | Modo de emergencia por pedal o mariposa | P2135/P2138; señales de las dos pistas con osciloscopio |
+| Ralentí alto después de limpiar la mariposa | Falta el aprendizaje | Hacer la adaptación con el scanner |
+| Ralentí inestable después de cambiar la batería | Adaptaciones perdidas | Se normaliza con un ciclo de manejo o con el aprendizaje |
+| Arranca 1 segundo y se apaga, testigo de llave parpadeando | Inmovilizador | Estado del inmovilizador en el scanner; probar otra llave |
+| Fallas raras en varios sistemas a la vez | Alimentación o masa de la ECU, batería | Caídas de tensión en alimentaciones y masas |
+| La luz se prende, se apaga sola y vuelve | Falla intermitente que confirma en dos viajes | Códigos pendientes + cuadro congelado |
+| ECU "quemada" una y otra vez | Actuador en corto que destruye el driver | Medir la resistencia de los actuadores de esa salida |
+| Detona y perdió confiabilidad después de una reprogramación | Calibración sin margen | Retardo por detonación y lambda en datalog; volver al original |
+
+<Mendoza>
+
+- **Presión barométrica.** La ECU corrige la mezcla y el turbo por la altura. Si el MAP o el sensor barométrico leen mal (por ejemplo, un MAP que en Mendoza marca 100 kPa con contacto), la corrección se arruina y aparecen trims raros o falta de potencia.
+- **Turbo y altura.** Para lograr la misma presión absoluta en el múltiple con aire menos denso, el turbo tiene que girar más rápido. Las calibraciones de fábrica lo limitan; una reprogramación agresiva hecha "para nivel del mar" puede llevar el turbo al límite subiendo al Cristo Redentor.
+- **Revisión técnica (RTO).** Un auto con la luz de check prendida o con gases fuera de norma tiene problemas en la RTO. Reparar la causa es el único camino; borrar códigos justo antes deja los monitores en "no listo".
+- **GNC.** La centralita de gas **emula** a los inyectores de nafta (la ECU original sigue "viendo" inyectores conectados para no guardar P0201–P0204) y lee el pulso de nafta para calcular el gas. Por eso un problema del equipo de GNC puede aparecer como trims raros en la ECU de nafta, y al revés. Más en la [sección GNC](/gnc).
+
+</Mendoza>
+
+<PuntosClave>
+1. La ECU **lee, calcula y ordena** en cada combustión. Sus salidas son drivers de lado bajo, lado alto, puentes H y PWM.
+2. Las ECU modernas trabajan **en torque**: juntan pedidos (conductor, ralentí, ESP, caja) y deciden aire, chispa e inyección.
+3. El comportamiento del motor está en la **calibración**: mapas de rpm × carga entre cuyas celdas la ECU **interpola**, más curvas de corrección (ECT, IAT, batería, barométrica).
+4. **Lazo abierto** en arranque, frío, plena carga, corte y fallas; **lazo cerrado** con la sonda en ralentí y carga parcial.
+5. La ECU **aprende** (trims, ralentí, mariposa, detonación, rueda fónica): al cambiar o limpiar piezas hay que hacer el **aprendizaje**.
+6. Detecta mentiras por **rango**, **gradiente**, **coherencia entre sensores** y señales **clavadas**; usa **valores de reemplazo** y entra en **modo de emergencia**.
+7. **Monitores**, códigos pendientes y confirmados (dos viajes), luz que parpadea y **cuadro congelado**: la ECU te deja pistas; borrar códigos las borra.
+8. **Reprogramar** es modificar la calibración (con respaldo, checksums y verificación por datalog). Tocar emisiones o seguridad es ilegal y peligroso. Diagnóstico: **datos en vivo → códigos → medición**.
+</PuntosClave>

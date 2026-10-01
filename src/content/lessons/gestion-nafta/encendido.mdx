@@ -1,0 +1,254 @@
+Un Palio que en el centro anda perfecto, pero subiendo la cuesta de Villavicencio cargado, en cuarta y con el pie a fondo, empieza a **sacudirse**. En ralentí no le encontrás nada: le sacás la bobina del cilindro 2, la apoyás contra el block y la chispa salta lindísima. Sin embargo el scanner dice **P0302**. ¿Cómo puede ser?
+
+Porque saltar en el aire no es lo mismo que saltar adentro del cilindro. Con el motor a fondo, la mezcla comprimida es mucho más densa y para atravesarla hace falta **el doble o el triple de tensión** que en ralentí. Una bobina con la aislación fisurada llega justo en vacío y se queda corta con carga: la chispa se escapa por la fisura en lugar de saltar en la bujía. Entender esto (cuánta tensión hace falta, de dónde sale y cómo se ve) es la diferencia entre adivinar y diagnosticar.
+
+Esta lección va de la física de la chispa a la bobina, los sistemas de encendido, la bujía, el avance y la detonación, siempre con lo que se mide en el taller. Un repaso corto está en [Sistema de encendido](/aprender/electricidad/a2l1).
+
+<Libro pag="pág. 850–869" />
+
+## Por qué hace falta alta tensión
+
+El aire, y la mezcla de aire y nafta, es **aislante**. Para que salte una chispa entre los electrodos de la bujía hay que aplicar tanta tensión que el gas se **ioniza**: los electrones arrancan otros electrones en cadena y se forma un canal conductor, el plasma. Esa tensión mínima es la **tensión de ruptura** (o de encendido).
+
+Para gases a estas presiones, la tensión de ruptura crece casi en proporción con la **densidad** del gas y con la **distancia** entre electrodos. En aire a presión atmosférica, con 1 mm de luz, ronda los 3 kV.
+
+<Formula name="Tensión de ruptura (regla aproximada)" vars={{ "V": "tensión de ruptura [kV]", "ρ/ρ₀": "densidad del gas en la cámara respecto del aire de afuera", "d": "luz de la bujía [mm]", "3 kV/mm": "rigidez del aire a presión atmosférica" }}>
+  V ≈ 3 kV/mm · (ρ / ρ<sub>0</sub>) · d
+</Formula>
+
+<Ejemplo title="¿Cuánta tensión pide un 1.6 en ralentí y a fondo?">
+Relación de compresión 10,5:1. Cuando salta la chispa (unos 15° antes del PMS), el pistón ya achicó el volumen unas **8,7 veces** respecto del PMI. La densidad en la cámara es la del múltiple multiplicada por esa relación. Luz de bujía 0,9 mm.
+
+<Calc>Ralentí (MAP 35 kPa ≈ 0,35 de la atmosférica): ρ/ρ₀ = 0,35 × 8,7 = 3,0 → V ≈ 3 × 3,0 × 0,9 = 8 kV</Calc>
+<Calc>A fondo (MAP ≈ 1): ρ/ρ₀ = 1 × 8,7 = 8,7 → V ≈ 3 × 8,7 × 0,9 = 23 kV</Calc>
+
+Resultado: <Res>≈ 8 kV en ralentí y ≈ 23 kV a fondo</Res>. Casi el triple. Por eso una falla de encendido "con carga" no se ve en ralentí, por eso una bujía gastada (luz más grande) empieza a fallar subiendo cuestas, y por eso los motores turbo usan luces más chicas. Un sistema sano ofrece **30–40 kV disponibles**: la diferencia con lo que se necesita es la **reserva**.
+</Ejemplo>
+
+Además de tensión hace falta **energía**. En una mezcla ideal, quieta y estequiométrica, alcanzaría con 0,2 mJ; en un motor real, con turbulencia y mezcla imperfecta, los sistemas entregan entre **30 y 100 mJ** por chispa para que el núcleo de llama no se apague antes de crecer.
+
+## La bobina: un transformador que guarda energía
+
+La bobina tiene dos arrollamientos sobre un núcleo de chapas de hierro:
+
+- **Primario:** pocas vueltas (100–200) de alambre grueso. Resistencia de **0,4 a 2 Ω**.
+- **Secundario:** muchísimas vueltas (10.000–20.000) de alambre finísimo. Resistencia de **5 a 15 kΩ** (varía mucho según el tipo).
+
+No trabaja como el transformador de un cargador, que transforma alterna en alterna. Funciona en dos tiempos:
+
+1. **Carga (dwell).** La ECU da masa al primario y circula corriente. Como es una inductancia, la corriente no sube de golpe sino en rampa, y el núcleo va juntando energía magnética.
+2. **Corte.** La ECU abre el circuito de golpe. El campo se desarma en microsegundos y ese cambio brutal de flujo induce tensión en los dos arrollamientos: unos cientos de volts en el primario y, multiplicado por la relación de vueltas, **miles de volts en el secundario**. La tensión sube hasta que salta la chispa.
+
+<Formula name="Energía guardada en la bobina" vars={{ "E": "energía [J] (×1000 para mJ)", "L": "inductancia del primario [H], típicamente 2–5 mH", "I": "corriente de primario en el momento del corte [A]" }}>
+  E = ½ · L · I²
+</Formula>
+
+<Formula name="Rampa de corriente durante la carga" vars={{ "i(t)": "corriente a los t segundos de empezar la carga [A]", "V": "tensión de batería [V]", "R": "resistencia del primario + cableado + driver [Ω]", "L/R": "constante de tiempo [s]" }}>
+  i(t) = (V / R) · (1 − e<sup>−t·R/L</sup>)
+</Formula>
+
+<Ejemplo title="¿Cuánto tiempo de carga necesita una bobina?">
+Bobina con L = 3 mH y R = 1 Ω (con cableado), batería en 14 V. Queremos cortar con 8 A.
+
+<Calc>Constante de tiempo: L/R = 3 ms · Corriente final: 14 / 1 = 14 A</Calc>
+<Calc>8 = 14 × (1 − e^(−t/3)) → e^(−t/3) = 0,43 → t = 3 × 0,85 = 2,5 ms</Calc>
+<Calc>Energía: ½ × 0,003 × 8² = 0,096 J = 96 mJ</Calc>
+
+Resultado: <Res>≈ 2,5 ms de carga para 8 A y ~96 mJ</Res>. Con la batería en 11 V la corriente final baja a 11 A y el mismo corte necesita ~3,9 ms: por eso **la ECU alarga el tiempo de carga cuando baja la tensión** (lo hace con una tabla). Fijate también que la carga se mide en **milisegundos**, no en grados: a 6.000 rpm, 2,5 ms son 90° de cigüeñal.
+</Ejemplo>
+
+<Bobina />
+
+Lo que muestra la animación es exactamente lo que se ve en un osciloscopio real. Leé la onda del **secundario** de izquierda a derecha:
+
+- **Inicio de la carga:** una pequeña oscilación cuando la ECU da masa.
+- **Línea de ruptura:** el pico vertical. Su **altura** es la tensión que hizo falta para que salte la chispa.
+- **Línea de quemado:** la meseta de 1–2 kV que dura 1–2 ms. Es la chispa encendida. Su **largo** dice cuánta energía quedó para la combustión; su **altura y forma**, cómo es el camino de la corriente.
+- **Oscilaciones finales:** la energía que sobró rebota entre la bobina y su capacidad. Tres o más oscilaciones claras indican una bobina sana; si casi no hay, sospechá de **espiras en corto**.
+
+| Lo que ves | Qué significa | Causas típicas |
+|---|---|---|
+| Ruptura alta (más de ~15–20 kV en ralentí) | Cuesta más saltar | Bujía gastada o muy abierta, cable o capuchón cortado, mezcla pobre |
+| Ruptura baja (menos de ~5 kV) | Salta demasiado fácil | Bujía sucia o empastada, fuga a masa, compresión baja en ese cilindro |
+| Quemado corto y alto | Mucha resistencia en el camino | Cable de bujía o resistencia de la bujía alterados, mezcla pobre |
+| Quemado largo y bajo | Camino demasiado fácil | Bujía con carbón, fisura a masa |
+| Quemado subiendo inclinado | La mezcla cuesta mantenerla encendida | Mezcla pobre, inyector tapado en ese cilindro |
+| Sin oscilaciones al final | Bobina débil | Espiras en corto en el secundario |
+
+## Sistemas de encendido
+
+<Comparar>
+  <Lado title="Con distribuidor">
+
+Una sola bobina y un **distribuidor** con un rotor que reparte la alta tensión a cada cable de bujía. Primero con platinos, después con un módulo electrónico o con la ECU. Con una sola bobina para 4 cilindros, a 6.000 rpm hay una chispa cada 5 ms: casi no queda tiempo de carga. Tapa y rotor se gastan y juntan humedad.
+
+  </Lado>
+  <Lado title="DIS de chispa perdida">
+
+Una bobina doble por cada par de cilindros que suben juntos (1-4 y 2-3), **sin distribuidor**. Cada punta del secundario va a una bujía: saltan las dos a la vez, en serie. Una está en compresión (necesita la tensión alta) y la otra en escape (necesita 1–2 kV): esa es la "chispa perdida". Una de las dos bujías salta con polaridad invertida y gasta más el electrodo de masa.
+
+  </Lado>
+</Comparar>
+
+**COP (bobina sobre bujía)** es lo más común hoy: una bobina por cilindro, montada directamente sobre la bujía (tipo "lápiz") o en un bloque (cassette) que cubre todas. Sin cables de alta, cada bobina tiene todo el ciclo para cargar y la ECU controla el encendido de cada cilindro por separado.
+
+¿Dónde está el **driver** (el transistor de potencia, un IGBT)?
+
+- **Bobinas de 2 cables:** el driver está **en la ECU**. Un cable es 12 V; el otro, el comando por masa. Ahí vas a medir el primario con 300–400 V de pico.
+- **Bobinas de 3 o 4 cables:** el driver está **adentro de la bobina**. Llegan 12 V, masa y una **señal lógica de 0–5 V** de la ECU (el pulso dura lo que el tiempo de carga). A veces un cuarto cable devuelve a la ECU una confirmación de chispa.
+
+<Ojo title="No pruebes una bobina con driver como si fuera de dos cables">
+
+En una bobina de 3–4 cables, **nunca** pongas 12 V en el pin de señal ni le des masa "a mano" para ver si chispea: rompés el driver interno. Medí 12 V y masa con contacto, y con el osciloscopio fijate que llegue la señal de 5 V dando arranque. La resistencia del secundario, en estas, en general no se puede medir.
+
+</Ojo>
+
+## La bujía
+
+Una bujía es un **aislador cerámico** (alúmina) con un **electrodo central** adentro, metido en un **cuerpo roscado** que lleva el **electrodo de masa**. Casi todas las modernas tienen una **resistencia interna** de 1–5 kΩ para no generar interferencias en la radio y en la electrónica.
+
+### Grado térmico
+
+La punta del aislador tiene que trabajar entre **unos 450 y 850 °C**. Por debajo, el hollín no se quema y la bujía se ensucia hasta que la chispa se fuga por el carbón. Por encima, la punta se pone incandescente y enciende la mezcla antes de tiempo (**preencendido**).
+
+El **grado térmico** dice qué tan rápido la bujía pasa el calor de la punta a la tapa de cilindros:
+
+- **Bujía caliente:** aislador largo, el calor tiene un camino largo; se mantiene caliente. Para motores que trabajan fríos o con mucho ralentí.
+- **Bujía fría:** aislador corto, disipa rápido. Para motores exigidos, turbo o competición.
+
+Usá **el grado que pide el fabricante**. Ojo con los números: en NGK, un número más alto es una bujía más **fría**; en Bosch, un número más alto es más **caliente**. No los compares entre marcas sin una tabla de equivalencias.
+
+### Luz, materiales y torque
+
+- **Luz:** típicamente **0,7 a 1,1 mm** (manda el manual). Se mide con **galga de alambre**, no con una galga plana (el electrodo de masa se gasta cóncavo y la plana mide de menos).
+- **Níquel:** duran ~20.000–40.000 km. **Platino e iridio:** electrodo central finito (necesita menos tensión) y vida de 60.000–100.000 km o más. Vienen calibradas: **no les doblés el electrodo central** ni metas la galga a la fuerza entre los electrodos finos.
+- **Torque:** las de asiento plano con arandela, en tapas de aluminio, suelen ir a **20–30 N·m** (14 mm); las de asiento cónico, menos. Sin torquímetro, una nueva con arandela se aprieta a mano y después ~½ a ⅔ de vuelta. Nada de grasa antiengrane salvo que lo indique el fabricante: cambia el torque real.
+
+### Leer las bujías
+
+La punta de la bujía es una foto de cómo quema ese cilindro:
+
+| Aspecto | Qué indica | Causas posibles |
+|---|---|---|
+| Aislador gris claro a marrón claro ("habano"), electrodos parejos | Normal | — |
+| Negra, seca, con hollín aterciopelado | Mezcla rica o chispa débil | Mucho ralentí y trayectos cortos, filtro de aire tapado, inyector que gotea, grado muy frío |
+| Negra y húmeda, brillosa, con aceite | Entra aceite | Aros, retenes de válvula, respiradero (PCV), turbo |
+| Mojada de nafta | Ese cilindro no está encendiendo | Bobina, cable o bujía sin chispa |
+| Blanca, con ampollas o puntitos metálicos, electrodos comidos | Sobretemperatura | Mezcla pobre, avance de más, grado muy caliente, detonación, falla de refrigeración |
+| Aislador quebrado | Golpe de detonación o mal montaje | Detonación fuerte, golpe con la herramienta |
+| Depósitos rojizos o anaranjados | Aditivos metálicos en la nafta | Combustible con aditivos |
+
+## Avance de encendido
+
+La mezcla no explota: **se quema** con un frente de llama que tarda unos **2 milisegundos** en recorrer la cámara. Para que la presión máxima llegue en el mejor momento, **unos 10–15° después del PMS** (cuando la biela ya tiene palanca: lo viste en [Pistón, biela y cigüeñal](/aprender/motor/tren-alternativo)), la chispa tiene que saltar **antes** del PMS. Esos grados son el <Term t="Avance de encendido">avance</Term>.
+
+<Formula name="Grados que gira el cigüeñal en un tiempo dado" vars={{ "θ": "ángulo [°]", "n": "régimen [rpm]", "t": "tiempo [s]", "6": "porque 1 rpm = 6 °/s" }}>
+  θ = 6 · n · t
+</Formula>
+
+<Ejemplo title="Por qué hace falta más avance a más vueltas">
+Si la combustión tardara siempre 2 ms:
+
+<Calc>1.000 rpm: θ = 6 × 1.000 × 0,002 = 12° · 3.000 rpm: 36° · 6.000 rpm: 72°</Calc>
+
+En la realidad, a más vueltas hay más turbulencia y la llama corre más rápido, así que la combustión no ocupa 72° sino 50–60°. Igual crece: <Res>a más rpm, más grados de combustión y más avance necesario</Res>. Con poca carga pasa lo mismo: la mezcla está menos densa, tiene más gases residuales y quema más lento.
+</Ejemplo>
+
+El avance depende de:
+
+- **rpm:** más vueltas, más avance.
+- **Carga:** menos carga (mariposa poco abierta), más avance; a fondo, menos (más riesgo de detonación).
+- **Temperatura:** motor frío admite más; aire de admisión muy caliente o motor recalentado, menos.
+- **Mezcla:** pobre quema más lento y pide más avance.
+- **Octanaje:** cuánto aguanta la nafta sin detonar.
+
+Valores típicos: **5–15° APMS en ralentí** y **25–40° en carga parcial y altas vueltas**. A fondo y bajas vueltas, el límite lo pone la detonación.
+
+<AvanceEncendido />
+
+### Detonación y control de detonación
+
+La <Term t="Detonación">detonación</Term> pasa **después** de la chispa: mientras el frente de llama avanza, la mezcla que todavía no quemó (en las esquinas de la cámara) se comprime y se calienta tanto que **explota sola**, de golpe. Choca con el frente de llama y genera ondas de presión de 5 a 10 kHz que golpean las paredes: es el **cascabeleo** o "pistoneo" que se oye al acelerar en un cambio largo. Una detonación fuerte y sostenida come los bordes del pistón, rompe los aros y quema la junta de tapa.
+
+La favorecen: nafta de menos octanaje, avance de más, mezcla pobre, motor o aire de admisión muy calientes, carbonilla en la cámara (sube la compresión real) y mucha carga a pocas vueltas.
+
+<Electronica>
+
+El **sensor de detonación** escucha el block en una ventana de tiempo después de cada chispa. Si detecta detonación en un cilindro, la ECU **retrasa el avance de ese cilindro** 2–3° de golpe y después lo vuelve a adelantar de a 0,5–1° mientras no detecte más. Así cada cilindro trabaja en el límite, con el máximo rendimiento posible para la nafta que tiene. En el scanner, muchas ECU muestran el **retardo por detonación** de cada cilindro: si uno solo retrasa siempre, buscá ahí (carbonilla, inyector, refrigeración). Si el sensor o su cable fallan (**P0325–P0334**), la ECU retrasa todo de forma fija: el auto anda pero sin fuerza.
+
+</Electronica>
+
+<Peligro title="Preencendido: el que rompe pistones en segundos">
+
+El **preencendido** es otra cosa: la mezcla se enciende **antes** de la chispa, por un punto incandescente (bujía de grado muy caliente, carbón al rojo, un borde filoso). La presión sube mientras el pistón todavía sube, con picos enormes. Como no lo causa la chispa, **la ECU no lo puede corregir retrasando**. Puede agujerear un pistón en pocos segundos a fondo. En motores turbo modernos de inyección directa existe una variante a bajas vueltas y mucha carga (LSPI) que se combate con aceites de especificación específica: usá el aceite que pide el fabricante.
+
+</Peligro>
+
+## En el taller
+
+<Pasos>
+1. **Scanner primero.** Códigos y **contadores de fallas de encendido por cilindro**. Si un cilindro acumula fallas, ya sabés dónde mirar.
+2. **Intercambio.** Cambiá la bobina (o la bujía) de ese cilindro con la de otro. Si la falla "se muda", es la pieza; si se queda, buscá inyector, compresión o cableado.
+3. **Probador de chispa regulable.** En lugar de la bujía, regulado para exigir 20–25 kV (o lo que indique el probador). Desenchufá el inyector de ese cilindro para no lavarlo con nafta. Una bobina débil salta en el aire pero no con el probador exigente.
+4. **Resistencias.** Primario 0,4–2 Ω; secundario 5–15 kΩ (en bobinas de 2 cables o con distribuidor). Cables de bujía: compará entre sí; suelen tener unos pocos kΩ (los de carbón, más por metro).
+5. **Osciloscopio en el primario.** Punta atenuadora x10 o x20 en el comando (picos de 300–400 V) y pinza de corriente: tiempo de carga, corriente al corte (6–8 A), pico.
+6. **Osciloscopio en el secundario.** Pinza capacitiva sobre el cable o sonda tipo paleta sobre la bobina COP: ruptura, quemado, oscilaciones. Comparar cilindros entre sí es lo más útil.
+7. **Bujías.** Con el motor **frío**: soplá los pozos antes de sacarlas, mirá cada punta, medí la luz, poné las nuevas a mano las primeras vueltas (no cruzar la rosca en aluminio) y apretá con torquímetro.
+8. **Fugas de alta.** En la oscuridad, con el motor en marcha, un rocío de agua sobre bobinas y cables: las fugas se ven como chispitas azules.
+</Pasos>
+
+<Peligro title="Alta tensión">
+
+El secundario entrega **30.000–40.000 V**. La descarga no suele ser mortal por la poca energía, pero el sacudón hace que retires la mano de golpe hacia el ventilador o la correa. Personas con marcapasos: lejos del encendido. Nunca sostengas un cable de bujía con la mano dando arranque, y **no hagas girar el motor con una bobina sin camino para la chispa** (desconectada en el aire): la tensión busca salida por adentro, perfora la aislación y puede romper el driver.
+
+</Peligro>
+
+<Electronica title="Cómo detecta la ECU una falla de encendido">
+
+Cada combustión le da un empujón al cigüeñal. Con el **CKP**, la ECU mide el tiempo que tarda cada tramo de rueda fónica correspondiente a cada cilindro: si en el tramo del cilindro 3 el cigüeñal **se frena** en vez de acelerar, ese cilindro no quemó. Cuenta fallas cada 200 y cada 1.000 vueltas. Si son tantas que pueden **derretir el catalizador** (la nafta sin quemar se quema adentro de él), la luz de check **parpadea** y algunas ECU cortan el inyector de ese cilindro. Si sólo empeoran las emisiones, la luz se prende fija después de dos ciclos de manejo. En caminos de ripio muy malos, la ECU usa las ruedas del ABS para no confundir pozos con fallas. Códigos: **P0300** (aleatoria o múltiple), **P0301–P0304** (cilindro 1 a 4), **P0351–P0354** (circuito primario de la bobina A a D: el driver no detecta corriente o no vuelve la confirmación), **P0325** (sensor de detonación).
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Primario de bobina" esperado="0,4 a 2 Ω" como="Tester en Ω entre los pines del primario, desenchufado" nota="En bobinas con driver interno (3–4 cables) no se mide así." />
+  <Medicion punto="Secundario de bobina" esperado="5 a 15 kΩ (varía mucho)" como="Tester en kΩ entre la salida de alta y el pin del primario o masa, según el tipo" nota="Comparar con una bobina igual sana es más útil que el número." />
+  <Medicion punto="Corriente de primario" esperado="6 a 8 A al corte, rampa limpia" como="Pinza de corriente + osciloscopio en el cable de 12 V o de comando" nota="Rampa muy empinada: espiras en corto en el primario." />
+  <Medicion punto="Tensión de ruptura (secundario)" esperado="8 a 15 kV en ralentí, parecida entre cilindros" como="Pinza capacitiva u sonda COP con el osciloscopio" nota="Un cilindro mucho más alto: bujía gastada o cable abierto." />
+  <Medicion punto="Línea de quemado" esperado="1 a 2 kV durante 1 a 2 ms" como="Osciloscopio en el secundario" nota="Corta y alta: resistencia de más. Inclinada hacia arriba: mezcla pobre." />
+  <Medicion punto="Luz de bujía" esperado="0,7 a 1,1 mm (según manual)" como="Galga de alambre" nota="Iridio y platino vienen calibradas: no las fuerces." />
+  <Medicion punto="Avance en ralentí" esperado="5 a 15° APMS (oscila un poco)" como="Scanner, motor caliente" nota="La ECU mueve el avance para estabilizar el ralentí: que baile unos grados es normal." />
+</Mediciones>
+
+<Herramientas ids={["probador-chispa", "osciloscopio", "pinza-capacitiva", "pinza-amperometrica", "tester", "scanner", "extractor-bujias", "torquimetro", "galgas"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Se sacude con carga, en ralentí anda bien | Bobina o capuchón fisurado, bujía gastada | Contadores de falla con carga; probador de chispa exigente; intercambio |
+| Falla con humedad o después de lavar el motor | Fuga de alta por capuchones o cables | Rocío de agua en la oscuridad |
+| Falla siempre en el mismo cilindro, la bobina no la "muda" | Inyector, compresión, bujía | Intercambiar bujía; prueba de compresión; balance de inyectores |
+| Cascabeleo al acelerar en cambio largo | Detonación: nafta, carbonilla, temperatura, sensor | Retardo por detonación en el scanner; nafta correcta |
+| Auto flojo y gastador, sin fallas de encendido | Sensor de detonación cortado (retraso fijo) o avance bajo por IAT alto | P0325; avance comparado con lo normal |
+| Luz de check que parpadea | Fallas de encendido que dañan el catalizador | Contadores por cilindro; no seguir exigiendo el motor |
+| P0351–P0354 | Circuito de comando de bobina | Señal de la ECU con osciloscopio; 12 V y masa de la bobina |
+
+<Mendoza>
+
+- **Altura y octanaje.** En altura entra menos aire: la presión de compresión real es más baja, la tensión de ruptura baja un poco y la **tendencia a detonar también**. El control de detonación puede permitir algo más de avance. Eso **no** es excusa para cargar una nafta de menor octanaje que la que pide el fabricante: la ECU está calibrada para ella, y en verano con 38 °C, con el aire de admisión caliente o cuando bajás a la llanura, el margen se termina.
+- **Calor y zonda.** Con el IAT alto la ECU retrasa el encendido para cuidarse: el auto "anda más flojo" en las tardes de enero. Es normal.
+- **Tierra en los pozos de las bujías.** Antes de sacar una bujía, **soplá** el pozo con aire: si cae tierra al cilindro, raya cilindros y aros.
+- **GNC.** El gas necesita **más tensión de encendido** que la nafta y quema más lento. Los autos con GNC suelen pedir bujías con luz algo más chica (según el instalador o el fabricante) y las bobinas y capuchones trabajan más exigidos: una bobina "justa" en nafta falla primero en gas. En instalaciones con **variador de avance** (modifica la señal que ve la ECU para adelantar el encendido en gas), un variador roto puede dejar el auto sin arrancar **también en nafta**: es una de las primeras cosas para revisar en un auto con GNC que no arranca. Más en la [sección GNC](/gnc).
+
+</Mendoza>
+
+<PuntosClave>
+1. La tensión de ruptura crece con la **densidad** del gas y la **luz**: ~8 kV en ralentí, ~20–25 kV a fondo. Por eso las fallas de encendido aparecen con carga.
+2. La bobina **guarda energía** durante el tiempo de carga (½·L·I², 30–100 mJ) y la libera al **cortar** el primario: cientos de volts en el primario, miles en el secundario.
+3. El tiempo de carga se cuenta en **milisegundos** y la ECU lo alarga si baja la batería. Los drivers limitan la corriente a ~6–8 A.
+4. En el secundario: **ruptura** (cuánto costó saltar), **quemado** (1–2 kV, 1–2 ms: la chispa) y **oscilaciones** (salud de la bobina).
+5. Sistemas: distribuidor, **DIS de chispa perdida** (bobina doble para 1-4 y 2-3) y **COP** (una por bujía). El driver puede estar en la ECU (2 cables) o en la bobina (3–4 cables, señal de 5 V).
+6. Bujía: grado térmico para trabajar entre ~450 y 850 °C, luz según manual, **torque** con torquímetro y lectura por color.
+7. El **avance** busca el pico de presión 10–15° después del PMS; crece con las rpm y con poca carga, y lo limita la **detonación**, que la ECU combate retrasando cilindro por cilindro.
+8. La ECU detecta fallas de encendido por las **aceleraciones del cigüeñal**; luz que parpadea = riesgo para el catalizador.
+</PuntosClave>
