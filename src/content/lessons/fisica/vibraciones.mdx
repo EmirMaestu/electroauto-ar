@@ -1,0 +1,294 @@
+Vas por el Acceso Este a 100 km/h y el volante empieza a temblar. Subís a 130 y… se calma. Bajás a 80 y desaparece. No es que la rueda "se acomode" a ciertas velocidades: es **resonancia**, y entenderla te ahorra cambiar piezas a ciegas.
+
+Lo mismo pasa con el auto que después de un lomo de burro sigue subiendo y bajando como un bote, con el espejo que tiembla sólo a 2.500 rpm, o con la palanca de cambios que zumba en ralentí. Todas son vibraciones, y todas se diagnostican con tres preguntas: **¿a qué frecuencia vibra? ¿qué la empuja? ¿qué la frena?**
+
+<Libro pag="pág. 56–61" />
+
+## Qué es una vibración
+
+Una vibración es un movimiento que **se repite**: algo va, vuelve y vuelve a ir. Un pistón, una rueda que gira, la carrocería sobre los resortes, la aguja del cuentavueltas en un motor que falla. Para describirla alcanzan tres números:
+
+- **Período (T)**: cuánto tarda en hacer una oscilación completa. Se mide en segundos.
+- **Frecuencia (f)**: cuántas oscilaciones hace en un segundo. Se mide en **hertz (Hz)**. 1 Hz = una vez por segundo.
+- **Amplitud**: cuánto se aleja del punto de reposo. En la carrocería son centímetros; en un motor, décimas de milímetro.
+
+Período y frecuencia son la misma información dada vuelta: si algo oscila 4 veces por segundo, cada oscilación dura un cuarto de segundo.
+
+<Formula name="Frecuencia, período y velocidad angular" vars={{ "f": "frecuencia [Hz = 1/s]", "T": "período [s]", "ω": "velocidad angular [rad/s]", "n": "vueltas por minuto [rpm]" }}>
+  f = 1 / T  ·  ω = 2π · f  ·  f = n / 60
+</Formula>
+
+<Ejemplo title="¿A qué frecuencia 'late' un motor en ralentí?">
+Un motor de 4 cilindros y 4 tiempos en ralentí, a 800 rpm.
+
+El cigüeñal gira 800 / 60 = 13,3 vueltas por segundo:
+
+<Calc>f(cigüeñal) = 800 / 60 = 13,3 Hz</Calc>
+
+En un 4 cilindros hay **dos explosiones por vuelta** (cuatro explosiones cada dos vueltas). Cada explosión es un "empujón", así que el motor empuja a:
+
+<Calc>f(explosiones) = 2 × 13,3 = 26,7 Hz</Calc>
+
+Resultado: <Res>el motor sacude la carrocería unas 27 veces por segundo</Res>. Esa es la frecuencia que tienen que filtrar los soportes de motor. A 3.000 rpm sube a 100 Hz.
+</Ejemplo>
+
+<Dato title="Grados de vibración: los 'órdenes'">
+En el taller se habla de **órdenes**. El *1er orden del motor* vibra una vez por vuelta de cigüeñal (un desbalance, una polea torcida). El *2do orden* vibra dos veces por vuelta: en un 4 cilindros es la vibración natural del motor y la frecuencia de las explosiones. Con las ruedas es igual: el *1er orden de rueda* es una vez por vuelta de rueda (desbalance, cubierta deformada). Pensar en órdenes es la llave del diagnóstico, como vas a ver al final.
+</Dato>
+
+## El sistema masa-resorte: cada cosa tiene su frecuencia
+
+Colgá un peso de un resorte, tirá hacia abajo y soltá. Sube, baja, sube, baja… siempre al mismo ritmo, aunque lo tires más o menos. Ese ritmo propio es la **frecuencia natural (f₀)**, y no depende de cuánto lo empujaste sino de **dos cosas**: qué tan duro es el resorte y cuánto pesa la masa.
+
+- Resorte más duro → oscila **más rápido** (f₀ sube).
+- Más masa → oscila **más lento** (f₀ baja).
+
+<Formula name="Frecuencia natural de un sistema masa-resorte" vars={{ "f₀": "frecuencia natural [Hz]", "c": "rigidez del resorte [N/m] (cuánta fuerza hace falta para comprimirlo 1 m)", "m": "masa que oscila [kg]" }}>
+  f₀ = 1/2π · √(c / m)
+</Formula>
+
+Un auto tiene **dos sistemas masa-resorte apilados**:
+
+1. **La carrocería sobre los resortes** (la "masa suspendida"). Oscila lento, entre **1 y 1,5 Hz**. Los ingenieros la ponen ahí a propósito: es un ritmo parecido al de caminar, y el cuerpo humano lo tolera bien. Lo que más nos molesta son las vibraciones verticales de 4 a 8 Hz.
+2. **La rueda sobre la cubierta** (la "masa no suspendida": rueda, freno, mangueta, parte de los brazos). La cubierta es un resorte durísimo y la masa es chica, así que oscila rápido: **10 a 16 Hz**. Es la vibración que aparece cuando una rueda está desbalanceada.
+
+<Ejemplo title="Frecuencia natural de un cuarto de auto">
+Un auto de 1.400 kg: a cada rueda le tocan unos 350 kg de carrocería. El resorte tiene una rigidez de 25 N/mm (hay que hacer 25 N para comprimirlo un milímetro), o sea 25.000 N/m.
+
+<Calc>√(c / m) = √(25.000 / 350) = √71,4 = 8,45 rad/s</Calc>
+<Calc>f₀ = 8,45 / (2 × 3,14) = 1,35 Hz</Calc>
+
+Resultado: <Res>f₀ ≈ 1,35 Hz → la carrocería sube y baja unas 1,3 veces por segundo</Res>.
+
+Ahora cargá el auto: 100 kg más sobre esa rueda (gente y valijas). m = 450 kg:
+
+<Calc>f₀ = 1/2π · √(25.000 / 450) = 1,19 Hz</Calc>
+
+El auto cargado "flota" más lento. Por eso una camioneta vacía rebota seca y cargada anda más suave: los resortes están pensados para la carga.
+</Ejemplo>
+
+<Analogia>
+Es como una hamaca de plaza. Cada hamaca tiene su ritmo según el largo de las cadenas, y no hay forma de apurarla. Si querés que suba alto, la empujás **justo a ese ritmo**. Si la empujás a otro ritmo, peleás contra ella y no llega a ningún lado. Guardá esta imagen: es exactamente la resonancia.
+</Analogia>
+
+## El amortiguamiento: convertir el rebote en calor
+
+Un resorte solo **no pierde energía**: lo que guarda al comprimirse lo devuelve al estirarse. Si el auto tuviera sólo resortes, después de cada pozo seguiría rebotando un buen rato. Para frenar ese rebote hace falta algo que **se coma la energía**. Eso es el amortiguamiento, y en el auto lo hace el **amortiguador**.
+
+Por dentro, un amortiguador es un pistón con agujeritos calibrados y válvulas de láminas, moviéndose dentro de un tubo con aceite. Cuando la rueda sube o baja, el aceite tiene que pasar a presión por esos agujeros. Esa fricción del aceite **convierte el movimiento en calor**. Por eso un amortiguador que trabajó mucho en un camino de ripio está caliente al tacto.
+
+Una característica importante: el amortiguador frena según la **velocidad** con que se mueve, no según cuánto se comprime. Quieto no hace fuerza; moviéndose rápido hace mucha. Por eso si lo apretás despacio con la mano parece blando, y si lo querés mover rápido se pone duro.
+
+<Formula name="Grado de amortiguamiento" vars={{ "D": "grado de amortiguamiento (sin unidad)", "b": "constante del amortiguador [N·s/m] (fuerza que hace por cada m/s de velocidad)", "c": "rigidez del resorte [N/m]", "m": "masa [kg]" }}>
+  D = b / (2 · √(c · m))
+</Formula>
+
+Según el valor de D, el sistema se porta de tres maneras:
+
+<Comparar>
+  <Lado title="D menor que 1 · subamortiguado" color="var(--warn)">
+
+  Oscila y cada rebote es más chico que el anterior. **Así trabaja la suspensión de un auto**, con D entre 0,2 y 0,4. Un amortiguador gastado baja D a 0,1 o menos: el auto rebota tres o cuatro veces.
+
+  </Lado>
+  <Lado title="D = 1 · crítico" color="var(--ok)">
+
+  Vuelve al reposo lo más rápido posible **sin pasarse**. Es lo que se busca en la aguja de un instrumento o en un cierrapuertas.
+
+  </Lado>
+  <Lado title="D mayor que 1 · sobreamortiguado" color="var(--bad)">
+
+  Vuelve sin oscilar pero **lento**, como una puerta con un freno muy duro. En un auto se sentiría cada imperfección del camino como un golpe seco.
+
+  </Lado>
+</Comparar>
+
+¿Por qué el auto no usa D = 1, si es "lo ideal"? Porque un amortiguador muy duro transmite cada golpe del camino directo a la carrocería. Con D ≈ 0,3 el auto hace un pequeño rebote después del pozo, pero vos sentís mucho menos el impacto. Es un compromiso entre **confort** (amortiguador blando) y **control** (amortiguador duro, la rueda no se despega del piso). Los autos deportivos andan más cerca de 0,4–0,5.
+
+<ResorteMasa />
+
+<Ejemplo title="¿Cuánta fuerza hace el amortiguador?">
+Seguimos con el cuarto de auto: m = 350 kg, c = 25.000 N/m. Queremos D = 0,3.
+
+<Calc>b = 2 · D · √(c · m) = 2 × 0,3 × √(25.000 × 350) = 0,6 × 2.958 = 1.775 N·s/m</Calc>
+
+Si la rueda sube a 0,5 m/s respecto de la carrocería (un pozo a velocidad de ciudad):
+
+<Calc>F = b · v = 1.775 × 0,5 = 887 N</Calc>
+
+Resultado: <Res>≈ 890 N, como tener 90 kg colgados del amortiguador mientras se mueve</Res>. En la realidad la curva no es recta (las válvulas se abren más a alta velocidad) y la extensión suele ser más dura que la compresión, pero el orden de magnitud es ese.
+</Ejemplo>
+
+### Contar rebotes: el decremento
+
+Hay un truco para estimar D sin instrumentos: mirar cuánto se achica cada rebote. Cada oscilación completa, la amplitud se multiplica por un factor fijo que depende sólo de D:
+
+- Con **D = 0,3** queda el **14 %** de la oscilación anterior: después del primer rebote, prácticamente se terminó.
+- Con **D = 0,1** queda el **53 %**: rebota tres o cuatro veces antes de quedarse quieto.
+
+Esa es la base física de la prueba de "empujar el auto hacia abajo y soltar".
+
+## Vibraciones forzadas y resonancia
+
+Hasta ahora el sistema oscilaba solo después de un golpe. Pero muchas veces hay algo que **lo empuja todo el tiempo**: una rueda desbalanceada, las explosiones del motor, un cardán torcido. Eso es una **vibración forzada**, y tiene dos reglas:
+
+1. El sistema vibra a la frecuencia **del que empuja**, no a la suya.
+2. **Cuánto** vibra depende de qué tan cerca está esa frecuencia de la frecuencia natural.
+
+Cuando la frecuencia de excitación coincide con la natural, cada empujón llega justo cuando la masa ya iba en esa dirección: la energía se acumula vuelta a vuelta. Es la hamaca empujada en el momento exacto. Eso es la <Term t="Resonancia">resonancia</Term>, y lo único que la limita es el amortiguamiento.
+
+<Formula name="Factor de amplificación (excitación por fuerza)" vars={{ "V": "cuántas veces se agranda la vibración respecto de la fuerza aplicada en estático", "η": "relación de frecuencias f / f₀", "D": "grado de amortiguamiento" }}>
+  V = 1 / √((1 − η²)² + (2·D·η)²)  →  en resonancia (η = 1): V = 1 / (2D)
+</Formula>
+
+La consecuencia es brutal: con D = 0,1 la vibración en resonancia es **5 veces** mayor que lejos de ella. Con D = 0,05, **10 veces**. Por eso un amortiguador gastado no sólo hace rebotar al auto: también deja que cualquier desbalance chico se convierta en un temblor grande.
+
+<Resonancia />
+
+<Ejemplo title="La rueda que vibra a 110 km/h">
+Una cubierta 195/60 R15 mide unos 0,62 m de diámetro. A 110 km/h (30,6 m/s), ¿cuántas vueltas por segundo da?
+
+<Calc>f = v / (π · d) = 30,6 / (3,14 × 0,62) = 15,7 Hz</Calc>
+
+Justo en la zona de la frecuencia natural de la rueda sobre su suspensión (10–16 Hz). Ahora, ¿cuánta fuerza hace un desbalance de 25 gramos en el borde de la llanta (r = 0,19 m)?
+
+<Calc>ω = 2π × 15,7 = 98,6 rad/s</Calc>
+<Calc>F = m · r · ω² = 0,025 × 0,19 × 98,6² = 46 N</Calc>
+
+Resultado: <Res>≈ 46 N girando 15,7 veces por segundo</Res>. Parece poco (unos 4,7 kg), pero empujando justo a la frecuencia natural se amplifica varias veces y llega al volante. Fijate que la fuerza crece con **el cuadrado** de la velocidad: a 55 km/h es la cuarta parte.
+</Ejemplo>
+
+### Resonancias que vas a ver en el auto
+
+- **Volante que tiembla en una franja de velocidad** (típico 90–120 km/h): rueda delantera desbalanceada, cubierta deformada o llanta torcida. Si el temblor se siente en el asiento y no en el volante, sospechá de las traseras.
+- **Espejo, guantera o una chapa que vibran a ciertas rpm**: la frecuencia del motor coincide con la frecuencia natural de esa pieza. Muchas veces es una chapa protectora de escape floja: tiene su frecuencia natural y "canta" sólo en una franja de rpm.
+- **Palanca de cambios o pedales que vibran en ralentí**: soporte de motor vencido. El soporte deja de filtrar y el motor sacude la carrocería.
+- **Zumbido grave en la cabina a velocidad constante** (en camionetas con cardán): cardán desbalanceado, cruceta con juego o el apoyo central gastado.
+- **Vibración sólo al frenar**: discos alabeados. No es resonancia pura, pero es una vibración forzada a la frecuencia de la rueda.
+
+## Cómo se combate una vibración
+
+Los ingenieros tienen cuatro armas, y en el auto vas a encontrar las cuatro.
+
+**1. Sacar la causa (balancear).** Si no hay fuerza, no hay vibración. Por eso se balancean las ruedas, el cigüeñal tiene contrapesos y muchos motores 4 cilindros grandes llevan **árboles de balanceo**: dos ejes con contrapesos que giran al doble de vueltas del cigüeñal y cancelan la vibración de 2do orden.
+
+**2. Aislar.** Si ponés algo blando entre la fuente y la carrocería, la vibración pasa menos… pero **sólo si la frecuencia de excitación está bien por encima de la frecuencia natural del soporte**. La regla es que la excitación tiene que ser más de **1,4 veces** (√2) la frecuencia natural; por debajo de eso, el soporte elástico **amplifica** en vez de aislar. Los soportes de motor tienen una f₀ de unos 8–12 Hz, bien por debajo de los 27 Hz de las explosiones en ralentí. Cuando la goma se endurece o se rompe, esa f₀ cambia y el motor empieza a "pasar" a la cabina.
+
+**3. Amortiguar.** Meterle algo que transforme la energía en calor: los amortiguadores, los soportes hidráulicos (tienen líquido adentro que frena los sacudones grandes) y las placas bituminosas pegadas en el piso y las puertas.
+
+**4. Absorber con otra masa.** Se le agrega al sistema una masita con su propio resorte, sintonizada a la frecuencia problemática: cuando la pieza quiere vibrar, la masita vibra en contra y le roba la energía. Así funciona el **dámper** (o polea amortiguadora) del cigüeñal.
+
+### El dámper del cigüeñal
+
+Cada explosión le da un tirón al cigüeñal y lo **retuerce** un poquito: el extremo de la distribución y el del volante no giran exactamente juntos. Esa torsión tiene su propia frecuencia natural (cientos de Hz) y, a ciertas rpm, las explosiones la excitan. Sin control, el cigüeñal se fatiga y se puede llegar a partir.
+
+El dámper es un **anillo pesado pegado con goma** a la polea. El anillo y la goma forman un sistema masa-resorte sintonizado: absorbe esa vibración torsional y la convierte en calor dentro de la goma. Por eso parece una polea común pero pesa bastante más.
+
+<Ojo>
+La goma del dámper envejece. Si se agrieta o se despega, el anillo exterior **se corre** respecto del cubo: la marca de puesta a punto de la polea deja de coincidir, puede aparecer un ruido o un desgaste raro de la correa y, en el peor caso, se larga el anillo con el motor andando. Si ves la goma resquebrajada o la marca desplazada, se cambia el dámper.
+</Ojo>
+
+### El volante bimasa
+
+En lugar de un volante macizo, el **volante bimasa** tiene dos discos unidos por resortes curvos largos. El del lado del motor recibe los tirones de las explosiones; el del lado de la caja gira mucho más parejo. Es un aislador de vibraciones torsionales: su frecuencia natural está puesta **muy por debajo del ralentí**, así que en marcha normal siempre trabaja en la zona donde aísla.
+
+¿Cuándo pasa por su resonancia? Sólo al arrancar y al apagar el motor, por eso un bimasa gastado se delata con un **golpe o traqueteo al arrancar o al apagar**. También sufre si manejás "ahogando" el motor (5ta marcha a 1.000 rpm subiendo una cuesta): ahí las explosiones son pocas, fuertes y lentas, cerca de la zona peligrosa.
+
+## Diagnosticar una vibración por la frecuencia
+
+Acá está lo más útil de toda la lección. Una vibración **siempre está atada a algo que gira**, y hay sólo tres familias:
+
+- **Depende de la velocidad del auto (km/h)**: ruedas, cubiertas, llantas, frenos, semiejes, cardán, rulemanes de rueda.
+- **Depende de las rpm del motor**: motor, volante, embrague, accesorios (alternador, compresor del aire), soportes, escape.
+- **Depende de la carga** (aparece al acelerar fuerte y se va al soltar): soportes de motor, homocinéticas, semiejes.
+
+<Pasos>
+1. **Anotá cuándo aparece.** Probá el auto en ruta y registrá velocidad, rpm y marcha en el momento en que más vibra. Fijate si se siente en el volante, en el asiento o en el piso, y si se oye (zumbido) o sólo se siente (temblor).
+2. **Cambiá de marcha a la misma velocidad.** Si a 110 km/h vibra igual en 4ta y en 5ta (las rpm cambian, la velocidad no), está atada a la velocidad: ruedas o transmisión.
+3. **Dejá rodar en punto muerto.** A la velocidad del problema, poné punto muerto y dejá caer el motor a ralentí. Si la vibración sigue, no es el motor. Si desaparece, es motor o algo que depende de la carga.
+4. **Parado, acelerá en punto muerto.** Llevá el motor a las rpm donde vibraba. Si aparece, es del motor o de sus accesorios.
+5. **Probá frenando y acelerando.** Si aparece sólo al frenar, discos. Si aparece sólo al acelerar y se va al soltar, soportes o homocinéticas.
+6. **Calculá la frecuencia.** Con la velocidad y el diámetro de la cubierta sacás el orden de rueda; con las rpm, el orden de motor. Si alguien mide la frecuencia de la vibración, la comparás y sabés cuál es.
+</Pasos>
+
+<Ejemplo title="¿Rueda o motor? Comparando frecuencias">
+Un auto con cubiertas de 0,62 m vibra a 110 km/h en 5ta, a 3.300 rpm.
+
+<Calc>Rueda: f = 30,6 / (3,14 × 0,62) = 15,7 Hz</Calc>
+<Calc>Cardán (gira antes del diferencial, relación 3,9:1) → 15,7 × 3,9 = 61 Hz</Calc>
+<Calc>Motor 1er orden: 3.300 / 60 = 55 Hz · explosiones (4 cil.): 110 Hz</Calc>
+
+Resultado: <Res>un temblor lento (unos 15 Hz, se siente pero no se oye) apunta a ruedas; un zumbido de 50–110 Hz apunta a motor, cardán o escape</Res>. Algunas apps de celular que miden vibración con el acelerómetro del teléfono, apoyado en el piso o en el asiento, te dan esa frecuencia: sirven como orientación.
+</Ejemplo>
+
+<EnElTaller>
+
+**Prueba de amortiguadores a mano.** Con el auto en el piso, empujá con fuerza la esquina hacia abajo varias veces, siguiendo su ritmo, y soltá cuando esté abajo. Un amortiguador sano deja que suba, se pase apenas y quede: **un rebote y listo**. Si sube y baja dos o tres veces, D está bajo. Es una prueba grosera: un amortiguador a medio gastar la pasa igual.
+
+**Inspección visual.** Vástago "sudado" con una película fina de aceite puede ser normal; aceite chorreado por el cuerpo, no. Fijate también el **fuelle guardapolvo** y el **tope de goma**: si el fuelle está roto, la tierra raya el vástago y se van los retenes.
+
+**Otras señales de amortiguador gastado:** el auto "flota" en las ondulaciones de la ruta, la trompa se hunde mucho al frenar, la cola se planta al acelerar, y aparece desgaste "en serrucho" o en copas en la cubierta (manchas gastadas alternadas). Con amortiguadores flojos, el ABS y el control de estabilidad trabajan más, porque la rueda se despega del piso.
+
+**Siempre de a pares por eje.** Un amortiguador nuevo y uno viejo en el mismo eje tienen D distinto y el auto se va a portar distinto en cada lado.
+
+**Balanceo de ruedas.** Cada vez que se cambia o se desarma una cubierta, cuando aparece vibración y, como rutina, en cada rotación. La balanceadora mide el desbalance en dos planos (cara interna y externa de la llanta) y te dice cuántos gramos poner y dónde.
+
+**Dámper y bimasa.** El dámper se revisa a ojo (goma, marca de referencia). El bimasa se diagnostica por ruido al arrancar y apagar, y en el taller midiendo el juego angular entre las dos masas según el procedimiento del fabricante.
+
+</EnElTaller>
+
+<Electronica>
+
+La electrónica del auto **vive** de medir vibraciones:
+
+- **Sensor de detonación**: es un acelerómetro piezoeléctrico atornillado al block. "Escucha" las vibraciones del motor y la ECU filtra la frecuencia típica del pistoneo (varios kHz). Cuando la detecta, atrasa el encendido. Un sensor flojo o con el torque mal dado manda señal débil y la ECU puede guardar un código como **P0325–P0334**.
+- **Detección de fallo de encendido**: la ECU mira, con el sensor de cigüeñal (<Term t="CKP" />), cuánto se acelera el cigüeñal después de cada explosión. Si un cilindro no explota, el cigüeñal "se frena" un instante en ese tramo: es una vibración torsional que la ECU detecta y guarda como **P0300–P0304**. Por eso un camino muy roto (que sacude la transmisión) puede confundirla, y muchas ECU usan las señales del ABS para desactivar el monitoreo en ripio.
+- **Suspensión pilotada**: algunos autos tienen amortiguadores con una válvula electromagnética, o con un fluido magnetorreológico, que la unidad de control ajusta en milisegundos según los acelerómetros de la carrocería. Es decir: **cambian D en tiempo real**.
+- **Soportes de motor activos**: algunos tienen una válvula (por vacío o por solenoide) que la ECU cambia según las rpm, para que el soporte sea blando en ralentí y firme en marcha.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Rebote del amortiguador (prueba manual)" esperado="Un rebote y se detiene" como="Empujar la esquina del auto hacia abajo y soltar" nota="Dos o más rebotes: amortiguador con poco amortiguamiento. Comparar siempre izquierda contra derecha." />
+  <Medicion punto="Banco de suspensión (RTO / alineadoras)" esperado="Porcentaje de adherencia parecido en ambos lados del eje" como="El banco hace vibrar cada rueda y mide cuánta fuerza mantiene la cubierta contra el piso" nota="El criterio de aprobación lo fija cada planta; una diferencia grande entre lados del mismo eje es señal de revisar." />
+  <Medicion punto="Desbalance residual después de balancear" esperado="0 a unos 5 g por plano" como="Balanceadora, con la llanta limpia por dentro y bien centrada" nota="Si después de balancear sigue vibrando, medir la deformación de la cubierta y de la llanta (alabeo radial y lateral)." />
+  <Medicion punto="Alabeo lateral del disco de freno" esperado="Típico menos de 0,05 mm (según fabricante)" como="Reloj comparador con base magnética, girando el disco a mano con las tuercas de rueda colocadas" nota="Vibración sólo al frenar con alabeo alto: rectificar o cambiar discos." />
+  <Medicion punto="Marca del dámper" esperado="Anillo exterior y cubo alineados, goma sin grietas" como="Inspección visual con el motor apagado" nota="Marca corrida: el anillo patinó sobre la goma. Cambiar." />
+</Mediciones>
+
+<Herramientas ids={["caballetes", "torquimetro", "estetoscopio", "scanner", "calibre"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Volante tiembla entre 90 y 120 km/h y después se calma | Rueda delantera desbalanceada (resonancia de la rueda) | Balancear; si persiste, medir alabeo de cubierta y llanta |
+| Vibración en el asiento a velocidad de ruta | Ruedas traseras desbalanceadas o cubierta deformada | Rotar ruedas adelante/atrás: si la vibración pasa al volante, es esa rueda |
+| Vibración sólo al frenar | Discos alabeados | Reloj comparador en el disco |
+| Auto que flota y rebota después de cada lomo | Amortiguadores gastados (D bajo) | Prueba de rebote, banco de suspensión |
+| Palanca y pedales vibran en ralentí, golpe al poner primera | Soporte de motor roto o vencido | Mirar el soporte con el motor andando mientras alguien pone D y R con freno pisado |
+| Golpe o traqueteo al arrancar y al apagar | Volante bimasa gastado | Escuchar en arranque/apagado; medir juego del bimasa |
+| Zumbido de cabina a una velocidad fija (camioneta) | Cardán desbalanceado, cruceta o apoyo central | Ver juego en crucetas y estado del apoyo; balancear cardán |
+| Chapita que "canta" sólo en una franja de rpm | Protector térmico o soporte de escape flojo en resonancia | Con el motor a esas rpm, apoyar la mano en la chapa: si para, es ella |
+
+<Mendoza>
+
+**Ripio y pozos.** Los caminos de tierra y ripio de Mendoza castigan amortiguadores, bujes y topes. Si andás seguido por ripio (Valle de Uco, caminos a fincas, Alta Montaña), revisá los amortiguadores antes de lo que diga el manual.
+
+**Barro en la llanta.** Después de un camino de tierra mojada o de un día de zonda con tierra, se pega barro en la cara interna de la llanta. Se seca, pesa y **desbalancea la rueda**: aparece el temblor a 100 km/h. Antes de ir a balancear, lavá bien las llantas por dentro.
+
+**Pesas perdidas.** Las pesas de clavar se pueden soltar con golpes de piedra en el ripio. Si la vibración apareció de un día para el otro después de un camino feo, mirá si a alguna llanta le falta una pesa (queda la marca limpia donde estaba).
+
+**Viajes cargados a Chile.** Con el auto lleno de gente y valijas, la frecuencia natural baja y la suspensión trabaja más cerca de los topes. En las curvas y los pozos de la Ruta 7, un amortiguador gastado se nota mucho más cargado que vacío.
+
+</Mendoza>
+
+<PuntosClave>
+1. Toda vibración se describe con **frecuencia** (Hz), **período** y **amplitud**. Para pasar de rpm a Hz: dividir por 60.
+2. Un sistema masa-resorte tiene una **frecuencia natural** f₀ = 1/2π·√(c/m): más rígido, más rápido; más pesado, más lento. La carrocería anda en 1–1,5 Hz; la rueda en 10–16 Hz.
+3. El **amortiguador** convierte el movimiento en calor. Los autos usan D ≈ 0,2–0,4; un amortiguador gastado baja D y el auto rebota.
+4. **Resonancia**: cuando la excitación coincide con f₀, la vibración se multiplica por 1/(2D). Sin amortiguamiento, se dispara.
+5. Para combatir vibraciones: **balancear**, **aislar** (soportes con f₀ bien por debajo de la excitación), **amortiguar** y **absorber** (dámper del cigüeñal, bimasa).
+6. Diagnóstico: preguntate si la vibración depende de la **velocidad**, de las **rpm** o de la **carga**. Cambiar de marcha y dejar rodar en punto muerto lo separa en minutos.
+7. La ECU mide vibraciones todo el tiempo: el **sensor de detonación** y la **detección de fallo de encendido** por el CKP son, en el fondo, análisis de vibraciones.
+</PuntosClave>

@@ -1,0 +1,386 @@
+Un motor de auto es, antes que nada, una **máquina de calor**: quema nafta o gasoil, calienta un gas, y ese gas empuja un pistón. Y es una máquina bastante ineficiente: de cada 10 litros que cargás, unos 6 o 7 se van en calor por el radiador y por el escape. No es un defecto de fabricación: es una ley de la naturaleza, y entenderla te explica por qué existe el radiador, por qué el diesel no tiene bujías, por qué hay intercooler y por qué un motor recalentado en la subida a Uspallata puede terminar con la junta de tapa quemada.
+
+<Libro pag="pág. 82–97" />
+
+## Temperatura y calor no son lo mismo
+
+Todo está hecho de partículas que se mueven sin parar. La **temperatura** mide qué tan rápido se mueven, en promedio: es la "agitación". El **calor** es **energía que pasa** de un cuerpo a otro porque tienen distinta temperatura, siempre del más caliente al más frío.
+
+Un ejemplo para separarlos: una taza de agua hirviendo está a 100 °C; una bañera llena a 40 °C está más fría, pero tiene **muchísimo más calor guardado** (hay mucha más agua). Si te volcás la taza en la mano te quemás; si te metés en la bañera, no. La temperatura dice "cuánto quema"; el calor, "cuánta energía hay".
+
+### Escalas: Celsius y Kelvin
+
+En el taller usás grados **Celsius** (°C). En las fórmulas de gases y de rendimiento hay que usar **kelvin** (K), que arrancan del **cero absoluto** (−273,15 °C, donde las partículas se quedarían quietas):
+
+<Formula name="Pasar de Celsius a Kelvin" vars={{ "T": "temperatura absoluta [K]", "t": "temperatura [°C]" }}>
+  T = t + 273,15
+</Formula>
+
+Un error típico es meter °C en una fórmula de gases: 20 °C no es "la mitad" de 40 °C. En kelvin son 293 K y 313 K: apenas un 7 % de diferencia.
+
+### Cuánto calor hace falta: el calor específico
+
+Calentar 1 kg de algo 1 grado cuesta distinta energía según el material. Eso es el **calor específico** (c). El agua tiene uno de los más altos que existen: por eso es tan buena para refrigerar.
+
+| Material | c [kJ/(kg·K)] |
+|---|---|
+| Agua | 4,19 |
+| Refrigerante (50 % anticongelante) | ≈ 3,5 |
+| Aceite de motor | ≈ 2,0 |
+| Aire | ≈ 1,0 |
+| Aluminio | 0,90 |
+| Hierro y acero | ≈ 0,46–0,50 |
+
+<Formula name="Calor para cambiar la temperatura" vars={{ "Q": "calor [kJ]", "m": "masa [kg]", "c": "calor específico [kJ/(kg·K)]", "ΔT": "cambio de temperatura [K o °C, es lo mismo]" }}>
+  Q = m · c · ΔT
+</Formula>
+
+<Dato title="Hervir se lleva muchísima energía">
+Para **evaporar** 1 kg de agua que ya está a 100 °C hacen falta 2.257 kJ: más de cinco veces lo que costó calentarla de 0 a 100 °C. Por eso el vapor quema tanto (al condensarse sobre la piel devuelve toda esa energía) y por eso un motor que hierve pierde refrigerante en forma de vapor muy rápido.
+</Dato>
+
+## Dilatación: todo crece con el calor
+
+Cuando un material se calienta, sus partículas se mueven más y ocupan más lugar: **se dilata**. Un metal se estira un poquito por cada grado. Ese "poquito" es el **coeficiente de dilatación** (α), y en un motor, donde las piezas trabajan con holguras de centésimas de milímetro, manda.
+
+<Formula name="Dilatación lineal" vars={{ "ΔL": "cuánto crece [mm]", "α": "coeficiente de dilatación [1/K]: acero ≈ 12·10⁻⁶, fundición ≈ 10–11·10⁻⁶, aluminio ≈ 23·10⁻⁶", "L₀": "medida inicial [mm]", "ΔT": "aumento de temperatura [K]" }}>
+  ΔL = α · L₀ · ΔT
+</Formula>
+
+<Ejemplo title="Pistón de aluminio en un cilindro de fundición">
+Diámetro 80 mm. En marcha, la falda del pistón puede estar a unos 200 °C (+180 °C respecto del montaje) y la pared del cilindro a unos 100 °C (+80 °C).
+
+<Calc>Pistón (aluminio): ΔD = 23·10⁻⁶ × 80 × 180 = 0,33 mm</Calc>
+<Calc>Cilindro (fundición): ΔD = 11·10⁻⁶ × 80 × 80 = 0,07 mm</Calc>
+
+Resultado: <Res>el pistón crece unos 0,26 mm más que el cilindro</Res>. Si se armara "justo" en frío, en caliente se agarrotaría. Por eso el pistón se fabrica con una holgura de montaje, levemente **ovalado y cónico** (más chico arriba, donde está más caliente) y muchas veces con insertos de acero que frenan su dilatación. También por eso un pistón con desgaste "cacarea" en frío y se calla al calentar, y por eso **no se acelera a fondo con el motor frío**.
+</Ejemplo>
+
+La dilatación aparece en todos lados en el taller:
+
+- **Luz de válvulas.** El vástago de la válvula se estira al calentarse. Por eso se deja una luz en frío (típico 0,15–0,25 mm en admisión y 0,25–0,35 mm en escape, siempre según fabricante; el escape lleva más porque se calienta más). Con poca luz, en caliente la válvula **no llega a cerrar**, se escapan los gases y se quema. Con mucha luz, hace "tic" y abre menos. Los botadores hidráulicos compensan solos.
+- **Luz entre puntas de aros.** El aro necesita una separación entre sus puntas (del orden de algunas décimas de milímetro) para no trabarse al dilatarse. Se mide con galgas, con el aro metido en el cilindro.
+- **Montajes en caliente.** La corona dentada del volante, algunos rulemanes y engranajes se calientan para montarlos: se dilatan, entran, y al enfriarse quedan apretados para siempre.
+- **El refrigerante también se dilata** (varios por ciento entre frío y caliente). Para eso está el **depósito de expansión**, con sus marcas MIN y MAX: el nivel se mira **en frío**.
+
+<Peligro>
+**Nunca le tires agua fría a un motor recalentado ni a un disco de freno al rojo.** La superficie se contrae de golpe mientras el interior sigue dilatado: aparecen tensiones enormes que fisuran tapas de cilindros, blocks y discos. Y **nunca abras la tapa del radiador o del depósito en caliente**: el refrigerante está a presión y por encima de 100 °C; al bajar la presión hierve de golpe y sale como vapor y líquido hirviendo.
+</Peligro>
+
+## Los gases: presión, volumen y temperatura
+
+En un gas, las partículas vuelan libres y chocan contra las paredes. La **presión** es el resultado de todos esos choques. Si las partículas van más rápido (más temperatura) o están más apretadas (menos volumen), los choques son más fuertes o más seguidos y la presión sube. Todo eso lo resume una fórmula:
+
+<Formula name="Ecuación del gas ideal" vars={{ "p": "presión absoluta [Pa]", "V": "volumen [m³]", "m": "masa de gas [kg]", "R": "constante del gas (aire: 287 J/(kg·K))", "T": "temperatura absoluta [K]" }}>
+  p · V = m · R · T
+</Formula>
+
+Tres consecuencias que ves todos los días:
+
+**1. Las cubiertas suben de presión al andar.** El aire de adentro se calienta y, como el volumen casi no cambia, la presión sube. Por eso la presión **se mide en frío**.
+
+<Ejemplo title="Cubierta fría y caliente">
+Inflás a 2,2 bar a 20 °C. Después de un rato de ruta, el aire de la cubierta está a 50 °C. Hay que trabajar con presión **absoluta** (sumar la atmosférica, ≈ 1 bar) y temperatura en **kelvin**:
+
+<Calc>p₂ = p₁ · T₂ / T₁ = 3,2 bar × 323 K / 293 K = 3,53 bar absolutos</Calc>
+<Calc>En el manómetro: 3,53 − 1 = 2,53 bar</Calc>
+
+Resultado: <Res>≈ 2,5 bar en caliente</Res>. Si en la estación de servicio "le sacás" para dejarla en 2,2 bar, cuando se enfríe va a quedar baja.
+</Ejemplo>
+
+**2. El aire caliente o de altura tiene menos oxígeno por litro.** De la misma fórmula sale la densidad: ρ = p / (R · T). Menos presión (altura) o más temperatura (verano) → menos kilos de aire en cada cilindro → menos nafta que se puede quemar → menos potencia.
+
+<Ejemplo title="Densidad del aire en Mendoza un día de verano">
+Nivel del mar a 15 °C: 101.325 Pa y 288 K.
+
+<Calc>ρ = 101.325 / (287 × 288) = 1,225 kg/m³</Calc>
+
+Gran Mendoza (≈ 925 hPa) a 30 °C:
+
+<Calc>ρ = 92.500 / (287 × 303) = 1,064 kg/m³</Calc>
+
+Resultado: <Res>un 13 % menos de aire en cada cilindro</Res>. Un motor atmosférico pierde más o menos esa proporción de potencia. El turbo compensa buena parte, porque comprime el aire antes de que entre.
+</Ejemplo>
+
+**3. Comprimir aire lo calienta.** Si apretás un gas rápido, el trabajo que hacés queda adentro como energía: la temperatura sube. Si lo hacés lento, ese calor tiene tiempo de irse por las paredes. En un motor, la compresión dura milésimas de segundo: es casi **adiabática** (sin intercambio de calor).
+
+<Formula name="Compresión adiabática" vars={{ "T₁, p₁": "temperatura [K] y presión al empezar", "T₂, p₂": "al final de la compresión", "ε": "relación de compresión (V₁/V₂)", "κ": "exponente adiabático (aire: 1,4)" }}>
+  T₂ = T₁ · ε^(κ−1)  ·  p₂ = p₁ · ε^κ
+</Formula>
+
+<Ejemplo title="¿Por qué el diesel no necesita bujía?">
+Diesel con ε = 18, aire que entra a 20 °C (293 K) y 1 bar:
+
+<Calc>T₂ = 293 × 18^0,4 = 293 × 3,18 = 931 K = 658 °C</Calc>
+<Calc>p₂ = 1 × 18^1,4 = 57 bar</Calc>
+
+En un motor real se escapa algo de calor hacia las paredes (se usa un exponente de ≈ 1,35 en vez de 1,4) y queda en unos **530 °C y 50 bar**. El gasoil se enciende solo a partir de unos 250 °C: inyectado en ese aire, arde en milésimas de segundo.
+
+Resultado: <Res>el aire comprimido está a más de 500 °C: el diesel enciende por compresión</Res>. Un naftero con ε = 10 llega a unos 400 °C: ahí la nafta no tiene que encenderse sola (sería **detonación**), por eso usa bujía y relaciones de compresión más bajas.
+</Ejemplo>
+
+<GasIdeal />
+
+<Dato title="Por qué el compresómetro marca menos que la cuenta">
+Con el burro de arranque el motor gira a 200–300 rpm: la compresión es lenta, se escapa calor y un poco de aire por los aros, y la válvula de admisión cierra algo después del PMI. Por eso un diesel sano marca 25–35 bar y un naftero 10–14 bar, no los 50 o 22 bar de la teoría. Lo que importa es la **diferencia entre cilindros** (máximo 10–15 %).
+</Dato>
+
+### Turbo e intercooler
+
+El compresor del turbo hace exactamente lo mismo que el pistón: comprime aire, y el aire se calienta. Pero aire caliente es aire menos denso (y una mezcla más propensa a detonar). Por eso, después del turbo, el aire pasa por un **intercooler**: un radiador que lo enfría antes de entrar al motor.
+
+<Ejemplo title="Cuánto gana un intercooler">
+Turbo soplando 1 bar (relación de presiones 2:1), aire de entrada a 30 °C (303 K). Ideal:
+
+<Calc>T₂ = 303 × 2^0,286 = 369 K = 96 °C</Calc>
+
+Un compresor real tiene un rendimiento del 70 % aprox., así que calienta más: ≈ 124 °C (397 K). Si el intercooler lo baja a 50 °C (323 K), a la misma presión:
+
+<Calc>Ganancia de densidad = 397 / 323 = 1,23</Calc>
+
+Resultado: <Res>≈ 23 % más aire en cada cilindro</Res>, y además un aire más frío que aleja la detonación. Una manguera de intercooler floja o pinchada se lleva todo eso.
+</Ejemplo>
+
+## Primer principio: la energía no se crea
+
+La energía no aparece de la nada ni desaparece: **sólo cambia de forma**. Toda la energía química de la nafta que se quema termina en algún lado: una parte empuja el auto y el resto se va como calor.
+
+<Formula name="Primer principio de la termodinámica" vars={{ "Q": "calor que recibe el gas", "ΔU": "aumento de su energía interna (se calienta)", "W": "trabajo que hace el gas (empuja el pistón)" }}>
+  Q = ΔU + W
+</Formula>
+
+En un motor naftero a plena carga, el reparto típico es más o menos así:
+
+- **≈ 30 %** sale como trabajo útil por el cigüeñal (un diesel moderno, 35–42 %).
+- **≈ 30 %** se va al **refrigerante y al aceite** (incluido el calor del rozamiento interno).
+- **≈ 35 %** se va por el **escape**, con gases a cientos de grados.
+- El resto se irradia desde el block y el escape.
+
+<Ejemplo title="¿Cuánto calor tira un radiador en ruta?">
+Un auto que gasta 7 litros cada 100 km, a 100 km/h, consume 7 litros por hora. La nafta tiene unos 32 MJ por litro:
+
+<Calc>Potencia de la nafta = 7 × 32 MJ / 3.600 s = 62 kW</Calc>
+<Calc>Al refrigerante (≈ 30 %) = 0,30 × 62 = 19 kW</Calc>
+
+Resultado: <Res>el radiador tiene que tirar unos 19 kW</Res>: como **diez estufas eléctricas de 2.000 W** prendidas todo el tiempo. Subiendo una cuesta con el auto cargado, bastante más. Por eso un radiador tapado a la mitad alcanza para recalentar.
+</Ejemplo>
+
+## Segundo principio: por qué el motor tira dos tercios como calor
+
+El calor fluye **solo** del caliente al frío, nunca al revés. Y para sacar trabajo del calor hace falta esa diferencia: un lado caliente (la combustión) y un lado frío (el aire de afuera). Una parte del calor **siempre** tiene que terminar en el lado frío; es imposible convertirlo todo en trabajo.
+
+<Analogia>
+Pensá en una rueda de agua de molino. El agua cae desde arriba, mueve la rueda y sale por abajo. La rueda saca energía de la **diferencia de altura**, pero el agua no puede desaparecer: tiene que irse por abajo. Con el calor pasa igual: el gas caliente empuja el pistón, pero después tiene que salir por el escape todavía caliente. Cuanto más "alto" el salto (más temperatura arriba, menos abajo), más aprovechás.
+</Analogia>
+
+El límite teórico absoluto lo da el **rendimiento de Carnot**: η = 1 − T(frío) / T(caliente), en kelvin. Con una combustión a 2.500 K y el ambiente a 300 K daría 88 %. Pero un motor real no puede usar ese salto entero: la compresión está limitada, la combustión no es instantánea, se escapa calor por las paredes, hay rozamiento y hay que gastar trabajo para cargar y descargar el cilindro. Por eso termina en 30–40 %.
+
+## El ciclo Otto ideal
+
+Para entender qué limita el rendimiento de un naftero, los ingenieros usan un modelo simplificado: el **ciclo Otto ideal**. Supone que en el cilindro hay sólo aire, que la compresión y la expansión son adiabáticas y que la combustión ocurre **de golpe**, con el pistón quieto en el <Term t="PMS" />. Se dibuja en un diagrama **presión-volumen** (p-V):
+
+1. **Admisión (0→1)**: el pistón baja y entra mezcla a presión atmosférica.
+2. **Compresión (1→2)**: el pistón sube y comprime: la presión y la temperatura suben.
+3. **Combustión (2→3)**: salta la chispa; la presión se dispara a volumen constante.
+4. **Expansión (3→4)**: los gases empujan al pistón hacia abajo. Acá se gana el trabajo.
+5. **Escape (4→1→0)**: se abre la válvula, la presión cae y el pistón empuja los gases afuera.
+
+En un diagrama p-V, **el área encerrada por la curva es el trabajo** que hace el gas en cada ciclo. Todo lo que sea "inflar" esa área con la misma nafta es ganar rendimiento.
+
+<CicloOtto />
+
+<Formula name="Rendimiento del ciclo Otto ideal" vars={{ "η": "rendimiento teórico", "ε": "relación de compresión", "κ": "exponente adiabático (aire: 1,4)" }}>
+  η = 1 − 1 / ε^(κ−1)
+</Formula>
+
+<Ejemplo title="¿Cuánto se gana subiendo la compresión de 10 a 12?">
+<Calc>ε = 10: η = 1 − 1 / 10^0,4 = 1 − 1 / 2,512 = 0,602 → 60,2 %</Calc>
+<Calc>ε = 12: η = 1 − 1 / 12^0,4 = 1 − 1 / 2,702 = 0,630 → 63,0 %</Calc>
+
+Resultado: <Res>de 60,2 % a 63,0 %: casi 5 % menos de nafta para el mismo trabajo</Res>. En un motor real los números absolutos son la mitad (30–38 %), pero la tendencia es la misma. Por eso los motores modernos suben la compresión todo lo que la nafta les permite.
+</Ejemplo>
+
+¿Y por qué no ε = 18 en un naftero? Porque la mezcla de nafta y aire comprimida y caliente **se enciende sola** antes de que llegue la chispa: es la <Term t="Detonación">detonación</Term> (pistoneo), que rompe pistones. El límite lo ponen el octanaje de la nafta, la forma de la cámara y el control electrónico del avance. Con inyección directa y sensor de detonación, los nafteros actuales andan en 10 a 13:1. Algunos motores (ciclos **Atkinson/Miller**, típicos de los híbridos) cierran la admisión tarde para que la compresión efectiva sea menor que la expansión: sacrifican potencia para ganar rendimiento.
+
+## El ciclo Diesel
+
+En el diesel el cilindro comprime **sólo aire**, así que no hay mezcla que pueda detonar: la compresión puede ser de 15 a 20:1. El gasoil se inyecta al final de la compresión y se va quemando **mientras el pistón ya baja**, así que en el modelo ideal el calor entra a **presión constante** (no a volumen constante como en el Otto).
+
+<Formula name="Rendimiento del ciclo Diesel ideal" vars={{ "ε": "relación de compresión", "φ": "relación de corte: cuántas veces crece el volumen mientras dura la inyección", "κ": "1,4" }}>
+  η = 1 − (1 / ε^(κ−1)) · (φ^κ − 1) / (κ · (φ − 1))
+</Formula>
+
+<Ejemplo title="Diesel ε = 18 contra naftero ε = 10">
+Diesel con ε = 18 y φ = 2:
+
+<Calc>1 / 18^0,4 = 1 / 3,18 = 0,315</Calc>
+<Calc>(2^1,4 − 1) / (1,4 × 1) = (2,64 − 1) / 1,4 = 1,17</Calc>
+<Calc>η = 1 − 0,315 × 1,17 = 0,632 → 63,2 %</Calc>
+
+Resultado: <Res>63 % contra 60 % del naftero con ε = 10</Res>. A igual compresión el Otto rinde más, pero el diesel puede comprimir mucho más: por eso, en la práctica, gasta menos.
+</Ejemplo>
+
+<Comparar>
+  <Lado title="Otto (nafta)" color="var(--c-fuel)">
+
+  - Comprime mezcla aire-nafta.
+  - ε ≈ 9 a 13:1 (limitado por la detonación).
+  - Enciende con **bujía**.
+  - La potencia se regula con la **mariposa** (cantidad de mezcla).
+  - Rendimiento real ≈ 30–38 %.
+
+  </Lado>
+  <Lado title="Diesel (gasoil)" color="var(--c-exhaust)">
+
+  - Comprime **sólo aire**.
+  - ε ≈ 15 a 20:1.
+  - Enciende **por compresión**: el aire caliente prende el gasoil.
+  - La potencia se regula con la **cantidad de gasoil** inyectado (sin mariposa).
+  - Rendimiento real ≈ 35–42 % en autos y camionetas.
+
+  </Lado>
+</Comparar>
+
+Los motores reales no son ni Otto ni Diesel puros: la combustión siempre tarda un poco. Los diesel modernos de common rail, con varias inyecciones por ciclo, están en el medio (los libros lo llaman **ciclo mixto** o de Seiliger). Para ver todo esto en un motor de verdad, seguí con [el motor de 4 tiempos](/aprender/motor/cuatro-tiempos).
+
+## Cómo viaja el calor: conducción, convección y radiación
+
+Todo el calor que el motor no convierte en trabajo hay que sacarlo de algún modo. Hay tres caminos, y el sistema de refrigeración usa los tres.
+
+**Conducción**: el calor pasa a través de un material sólido, de partícula en partícula. Del interior de la cámara a la pared del cilindro, de la pared al refrigerante, del tubo del radiador a sus aletas.
+
+<Formula name="Conducción" vars={{ "Q̇": "calor por segundo [W]", "λ": "conductividad térmica [W/(m·K)]", "A": "área [m²]", "ΔT": "diferencia de temperatura [K]", "s": "espesor [m]" }}>
+  Q̇ = λ · A · ΔT / s
+</Formula>
+
+| Material | λ [W/(m·K)] |
+|---|---|
+| Cobre | ≈ 380 |
+| Aluminio | ≈ 200–230 |
+| Fundición de hierro | ≈ 50 |
+| Acero | ≈ 45 |
+| Sarro (incrustaciones calcáreas) | ≈ 1–2 |
+| Agua | 0,6 |
+| Aire quieto | 0,026 |
+
+Mirá el sarro: conduce unas **30 a 50 veces peor** que la fundición. Una capa de 1 mm de sarro en las camisas de agua aísla como 3 a 5 centímetros de hierro. Por eso el circuito se llena con refrigerante preparado con agua desmineralizada, no con agua de la canilla.
+
+**Convección**: un fluido (agua, aire) que se mueve se lleva el calor de una superficie. Cuanto más rápido se mueve, más se lleva.
+
+<Formula name="Convección" vars={{ "Q̇": "calor por segundo [W]", "α": "coeficiente de convección [W/(m²·K)]: aire quieto 5–25; aire con ventilador o en marcha 25–250; agua circulando 500–10.000", "A": "área [m²]", "ΔT": "diferencia de temperatura [K]" }}>
+  Q̇ = α · A · ΔT
+</Formula>
+
+Fijate la diferencia: el agua saca el calor **decenas de veces mejor** que el aire. Por eso el radiador del lado del agua es un tubito, y del lado del aire necesita **aletas**: muchísima área para compensar. Y por eso el electroventilador y la velocidad del auto son tan importantes: más velocidad del aire, más α.
+
+**Radiación**: todo cuerpo caliente emite ondas infrarrojas, sin necesidad de aire. Crece con la **cuarta potencia** de la temperatura absoluta: a baja temperatura casi no importa, pero en un disco de freno al rojo o un catalizador es enorme.
+
+<Formula name="Radiación" vars={{ "Q̇": "calor por segundo [W]", "ε": "emisividad (0 a 1: superficie brillante baja, oscura y opaca alta)", "σ": "5,67·10⁻⁸ W/(m²·K⁴)", "T₁, T₂": "temperaturas absolutas del cuerpo y del entorno [K]" }}>
+  Q̇ = ε · σ · A · (T₁⁴ − T₂⁴)
+</Formula>
+
+<Ejemplo title="Disco de freno a 300 °C y a 600 °C">
+Con el entorno a 27 °C (300 K):
+
+<Calc>300 °C → 573⁴ − 300⁴ = 1,08·10¹¹ − 0,08·10¹¹ = 1,00·10¹¹</Calc>
+<Calc>600 °C → 873⁴ − 300⁴ = 5,81·10¹¹ − 0,08·10¹¹ = 5,73·10¹¹</Calc>
+
+Resultado: <Res>al doble de temperatura en °C, el disco irradia 5,7 veces más calor</Res>. Aun así, un disco no se enfría lo bastante rápido si lo hacés trabajar sin parar: en una bajada larga, la temperatura sigue subiendo hasta que la pastilla pierde agarre o el líquido de frenos hierve.
+</Ejemplo>
+
+### Dónde lo ves en el auto
+
+- **Radiador**: conducción a través de los tubos y las aletas, convección al aire. El termostato decide cuánto refrigerante pasa por él y el electroventilador asegura el aire cuando vas despacio.
+- **Intercooler**: lo mismo, pero enfriando el aire que sale del turbo.
+- **Frenos**: frenar es convertir la energía del movimiento en calor en discos y pastillas. Los discos ventilados tienen canales internos para aumentar la convección. Un auto de 1.400 kg que frena de 100 km/h a 0 mete unos 540 kJ de calor en los frenos: alcanza para calentar los discos delanteros decenas de grados en pocos segundos.
+- **Escape y catalizador**: trabajan a 400–800 °C. Las **chapas protectoras** brillantes reflejan la radiación para que no recaliente el piso, los cables o el tanque.
+
+<Peligro>
+**No estaciones sobre pasto seco** después de andar: el catalizador y el escape pueden estar a varios cientos de grados y prender el pasto por radiación y contacto. Y no toques el escape, el turbo ni los discos después de usar el auto: queman aunque no se vean al rojo.
+</Peligro>
+
+## El aire acondicionado: una bomba de calor
+
+El segundo principio dice que el calor no pasa **solo** del frío al caliente. Pero sí se lo puede **obligar**, gastando energía. Eso hace el aire acondicionado: saca calor del habitáculo (frío) y lo tira afuera (caliente), usando el trabajo del compresor.
+
+1. El **compresor** comprime el gas refrigerante: se calienta mucho (igual que el aire en el diesel).
+2. En el **condensador** (adelante del radiador), ese gas caliente le pasa calor al aire de afuera y se condensa en líquido.
+3. Pasa por una **válvula de expansión**, donde baja de golpe la presión.
+4. En el **evaporador** (adentro del tablero), el líquido a baja presión se evapora y para eso **absorbe calor** del aire de la cabina. Sale aire frío por las rejillas.
+
+Es la misma máquina que una heladera. Los autos eléctricos la usan también al revés, como **bomba de calor**, para calefaccionar gastando mucho menos que una resistencia eléctrica.
+
+## Hervir en altura: la tapa del radiador
+
+El agua hierve a 100 °C sólo a nivel del mar. Con menos presión encima, las partículas escapan del líquido con menos energía: **hierve antes**. Por cada 300 m de altura, el punto de ebullición baja más o menos 1 °C. Y un motor trabaja con el refrigerante a 90–105 °C: a la altura de Las Cuevas, sin tapa, **el agua sola herviría a temperatura normal de trabajo**.
+
+La solución es **presurizar** el circuito: la tapa del radiador (o del depósito) tiene una válvula que no deja salir nada hasta que la presión interna supera la de afuera en 1,0 a 1,5 bar. Con esa presión extra, el refrigerante hierve recién arriba de 120 °C. El anticongelante suma unos grados más.
+
+<TermoEbullicion />
+
+<Mendoza>
+
+**La subida a Alta Montaña** junta todo lo que vimos: menos presión atmosférica (el refrigerante hierve antes), menos densidad del aire (el radiador enfría peor y el motor rinde menos), y una cuesta larga con el auto cargado (más calor que sacar). Con una tapa que no sella, refrigerante diluido con agua o un radiador sucio, es el lugar clásico para recalentar.
+
+**La bajada** es el problema opuesto: los frenos. En las bajadas largas de la Ruta 7 usá **freno motor** (una marcha baja) y frená fuerte y corto, no apoyado todo el tiempo. El líquido de frenos absorbe humedad con los años y hierve antes: un DOT 4 nuevo hierve arriba de 230 °C, pero con agua absorbida puede bajar a unos 155 °C. Si hierve, se forman burbujas de vapor en las cañerías y **el pedal se va al piso**.
+
+**Verano de 35–40 °C y zonda.** El aire caliente enfría peor el radiador y el condensador del aire acondicionado, y la tierra del zonda tapa las aletas. Lavalos de atrás hacia adelante con agua a baja presión.
+
+**Invierno en altura.** Con heladas fuertes, el refrigerante tiene que proteger bajo cero: el anticongelante no es sólo para el verano.
+
+</Mendoza>
+
+<EnElTaller>
+
+**Termostato.** Abre a 82–95 °C según el motor. Si queda trabado **abierto**, el motor tarda mucho en calentar, consume más y la calefacción tira tibio. Si queda trabado **cerrado**, recalienta en minutos. Se prueba en una olla con agua y termómetro, o mirando con el scanner cuánto tarda en llegar a temperatura.
+
+**Purgar el aire.** Después de cambiar refrigerante, el aire que queda atrapado forma bolsones de vapor que no conducen el calor: puntos calientes y recalentamiento. Usá los tornillos de purga y el procedimiento del fabricante.
+
+**Refrigerante, no agua.** Concentrado de anticongelante con agua desmineralizada (o el premezclado), en la proporción que indique el fabricante. Protege contra el congelamiento, sube el punto de ebullición y tiene inhibidores que evitan la corrosión y el sarro.
+
+**El termómetro infrarrojo.** Mide la radiación de una superficie para saber su temperatura sin tocarla. Sirve para ver si el radiador calienta parejo (una zona fría es un sector tapado), si el termostato abrió (la manguera superior se calienta de golpe) o si un cilindro no trabaja (su tubo del múltiple de escape queda más frío que los demás). Ojo: en superficies brillantes mide mal (baja emisividad); apuntá a una zona opaca o pintada.
+
+</EnElTaller>
+
+<Electronica>
+
+- **Sensor de temperatura del refrigerante (<Term t="ECT" />)**: es un termistor <Term t="NTC" />: su resistencia **baja** cuando sube la temperatura (≈ 2–3 kΩ a 20 °C, ≈ 200–300 Ω a 90 °C). Con ese dato la ECU enriquece la mezcla en frío, sube el ralentí, maneja el electroventilador (enciende entre 92 y 105 °C, según el auto) y el indicador del tablero.
+- **Sensor de temperatura del aire (<Term t="IAT" />)**: con la temperatura del aire, la ECU calcula su densidad (el gas ideal en acción) para saber cuánto combustible inyectar.
+- **Termostatos electrónicos**: algunos motores tienen un termostato con una resistencia calefactora que la ECU usa para abrirlo antes cuando hay mucha carga.
+- **Códigos típicos**: **P0115–P0119** (circuito del sensor de temperatura del refrigerante), **P0128** (el motor no llega a la temperatura del termostato: termostato abierto), **P0217** (sobretemperatura).
+- **Detonación**: como la compresión calienta la mezcla, un motor caliente, con aire de admisión caliente o con nafta de bajo octanaje tiene más riesgo de detonar. El sensor de detonación lo detecta y la ECU atrasa el encendido: el motor anda, pero rinde menos.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Temperatura del motor en marcha" esperado="≈ 85–105 °C estable" como="Scanner, dato de temperatura del refrigerante (ECT), motor caliente" nota="Si oscila mucho o no pasa de 75–80 °C: termostato. Si sigue subiendo con el electroventilador andando: radiador, bomba o junta." />
+  <Medicion punto="Sensor ECT (NTC)" esperado="≈ 2–3 kΩ a 20 °C · ≈ 200–300 Ω a 90 °C" como="Tester en ohms entre los pines del sensor, desconectado" nota="Compararlo con un termómetro: si la resistencia no coincide con la temperatura real, la ECU calcula mal la mezcla." />
+  <Medicion punto="Presión del circuito de refrigeración" esperado="Que aguante la presión de la tapa (1,0–1,5 bar) unos 10–15 min" como="Probador de presión en el depósito, motor frío" nota="Si baja sin pérdidas visibles: sospechar junta de tapa (confirmar con el probador de CO₂)." />
+  <Medicion punto="Concentración de anticongelante" esperado="Protección de unos −20 a −37 °C según la mezcla" como="Refractómetro con una gota del depósito" nota="Si protege poco, el punto de ebullición también es bajo." />
+  <Medicion punto="Agua en el líquido de frenos" esperado="Menos de 2–3 %" como="Probador de líquido de frenos en el depósito" nota="Más de eso: cambiar el líquido, sobre todo si vas a la montaña." />
+</Mediciones>
+
+<Herramientas ids={["bomba-presion-refri", "probador-co2", "refractometro", "probador-liquido-frenos", "scanner", "tester"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Recalienta en cuestas o en el tránsito | Radiador sucio o tapado, electroventilador que no arranca, poco refrigerante, tapa que no sella | Termómetro infrarrojo sobre el radiador; ver si arranca el electro; prueba de presión |
+| Pierde refrigerante sin manchas en el piso, burbujas en el depósito | Junta de tapa quemada (gases de combustión entran al circuito) | Probador de CO₂ en el refrigerante; humo blanco por el escape |
+| Tarda mucho en calentar, calefacción tibia, P0128 | Termostato trabado abierto | Scanner: tiempo de calentamiento; manguera superior tibia desde el arranque |
+| La aguja sube y baja sin motivo | Aire en el circuito o sensor ECT con falso contacto | Purgar; medir el sensor y su ficha |
+| Pedal largo o que se va al piso en la bajada | Líquido de frenos hervido (viejo, con agua) | Probador de líquido; dejar enfriar: si el pedal vuelve, era vapor |
+| El aire acondicionado no enfría en verano con el auto parado | Condensador sucio o electroventilador que no anda con el aire | Ver si arranca el electro al prender el aire; limpiar el condensador |
+| Pistoneo subiendo con carga | Aire de admisión muy caliente, nafta de bajo octanaje, carbonilla | Scanner: retardo por detonación e IAT |
+
+<PuntosClave>
+1. **Temperatura** es agitación; **calor** es energía que pasa del caliente al frío. En fórmulas de gases, siempre **kelvin** y presión **absoluta**.
+2. Todo se **dilata** con el calor: por eso existen la luz de válvulas, la holgura de los pistones, la luz de puntas de los aros y el depósito de expansión.
+3. **p · V = m · R · T**: las cubiertas suben de presión al andar, el aire caliente y de altura rinde menos, y **comprimir calienta**.
+4. Con ε = 18 el aire llega a más de 500 °C: así enciende el **diesel**. El turbo también calienta el aire: para eso está el **intercooler**.
+5. La energía no se crea (**primer principio**) y no se puede convertir todo el calor en trabajo (**segundo principio**): un motor real aprovecha 30–40 %; el resto va al refrigerante y al escape.
+6. Ciclo Otto ideal: **η = 1 − 1/ε^(κ−1)**. Más compresión, más rendimiento, hasta que aparece la detonación. El diesel comprime sólo aire y puede ir mucho más alto.
+7. El calor viaja por **conducción** (el sarro aísla), **convección** (por eso el radiador tiene aletas y electroventilador) y **radiación** (crece con T⁴: discos y catalizador).
+8. En altura el refrigerante hierve antes: la **tapa presurizada** y el **anticongelante** son los que evitan que el motor hierva subiendo la cordillera.
+</PuntosClave>

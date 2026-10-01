@@ -1,0 +1,304 @@
+Pinchaste una goma volviendo de Potrerillos. Sacás la llave cruz, la calzás en el primer bulón, empujás… y nada. Hacés fuerza con las dos manos y sigue sin moverse. Alguien en la banquina te dice "agarrala más de la punta" y, de repente, el bulón cede. No te volviste más fuerte: cambiaste **la palanca**.
+
+Esa es la física de esta lección: cómo una fuerza chica, bien aplicada, mueve cosas que con la mano no podrías. Es lo que hace una llave, el pedal de freno, la palanca de cambios, la rosca de un tornillo y, sobre todo, lo que pasa adentro del motor: la biela empuja el cigüeñal y lo hace girar. Si entendés fuerza, torque y potencia, entendés la mitad de lo que dice una ficha técnica.
+
+<Libro pag="pág. 42–46" />
+
+## Fuerza, masa y peso: tres cosas distintas
+
+En la calle se mezclan, pero en el taller conviene separarlas:
+
+- **Masa** es cuánta "materia" tiene algo. Se mide en **kilogramos (kg)** y no cambia: un Gol pesa lo mismo en Mendoza que en la Luna en cuanto a masa.
+- **Fuerza** es cualquier empujón o tirón. Se mide en **newton (N)**. Un newton es poquito: más o menos lo que hace una manzana chica apoyada en tu mano.
+- **Peso** es la fuerza con la que la Tierra tira de una masa hacia abajo. Por eso el peso se mide en newton, no en kilos.
+
+<Formula name="Peso" vars={{ "G": "peso [N]", "m": "masa [kg]", "g": "aceleración de la gravedad ≈ 9,81 m/s²" }}>
+  G = m · g
+</Formula>
+
+Un auto de 1.200 kg pesa 1.200 × 9,81 ≈ **11.800 N** (11,8 kN). En el taller todavía se escucha "kilogramo fuerza" (kgf): es el peso de 1 kg, o sea **1 kgf ≈ 9,81 N ≈ 10 N**. Para hacer cuentas rápidas de cabeza, "un kilo de fuerza son unos 10 newton" alcanza y sobra.
+
+<Analogia>
+La masa es "cuánto auto hay". El peso es "con cuánta fuerza ese auto aprieta el piso". Si lo subís a la balanza de una RTO te dice kilos porque la balanza ya hizo la cuenta al revés: midió fuerza y la dividió por 9,81.
+</Analogia>
+
+### La segunda ley de Newton
+
+Para cambiar la velocidad de algo (arrancar, frenar o doblar) hace falta una fuerza. Cuanta más masa, más fuerza para lograr la misma aceleración:
+
+<Formula name="Segunda ley de Newton" vars={{ "F": "fuerza [N]", "m": "masa [kg]", "a": "aceleración [m/s²]" }}>
+  F = m · a
+</Formula>
+
+<Ejemplo title="¿Cuánta fuerza hace falta para frenar un auto?">
+Un auto de 1.200 kg va a 100 km/h y frena hasta parar en 40 m. Primero pasamos la velocidad a metros por segundo (se divide por 3,6):
+
+<Calc>v = 100 / 3,6 = 27,8 m/s</Calc>
+
+La desaceleración, si es pareja, sale de a = v² / (2·d):
+
+<Calc>a = 27,8² / (2 × 40) = 772 / 80 ≈ 9,6 m/s²</Calc>
+
+Y la fuerza total que tienen que hacer las cuatro cubiertas contra el asfalto:
+
+<Calc>F = 1.200 kg × 9,6 m/s² ≈ 11.600 N</Calc>
+
+Resultado: <Res>≈ 11,6 kN, casi el peso del auto entero</Res>. Esa fuerza sale del rozamiento entre cubierta y asfalto (lo vemos en [Rozamiento](/aprender/fisica/rozamiento)) y la genera el sistema de frenos multiplicando la fuerza de tu pie (lo vemos en [Presión y Pascal](/aprender/fisica/hidrostatica)).
+</Ejemplo>
+
+## Torque: la fuerza que hace girar
+
+Cuando una fuerza quiere hacer **girar** algo alrededor de un eje, lo que importa no es sólo cuánta fuerza hacés, sino **a qué distancia del eje** la hacés. Esa combinación se llama **<Term t="Torque">torque</Term>** (o momento, o par).
+
+<Formula name="Torque" vars={{ "T": "torque [N·m]", "F": "fuerza [N]", "d": "brazo: distancia perpendicular desde el eje hasta la línea de la fuerza [m]" }}>
+  T = F · d
+</Formula>
+
+La palabra clave es **perpendicular**. Si empujás la llave en diagonal, una parte de tu fuerza tira "a lo largo" de la llave y no hace girar nada. Por eso, para aflojar, tenés que empujar a 90° del mango.
+
+Jugá con esta animación: cambiá el largo de la llave, la fuerza y el ángulo, y fijate cuándo cede el bulón.
+
+<Palanca />
+
+<Ejemplo title="Llave corta contra llave larga">
+Un bulón de rueda apretado a 110 N·m (valor típico; el tuyo dice el manual). ¿Cuánta fuerza hace falta con cada llave, empujando a 90°?
+
+<Calc>Llave de 20 cm: F = 110 / 0,20 = 550 N  (como colgarte 56 kg)
+Llave cruz de 40 cm: F = 110 / 0,40 = 275 N  (28 kg)
+Caño de 60 cm: F = 110 / 0,60 = 183 N  (19 kg)</Calc>
+
+Resultado: <Res>duplicar el largo de la llave reduce a la mitad la fuerza</Res>. Y un bulón que lleva años sin tocarse puede pedir bastante más que su torque de apriete original.
+</Ejemplo>
+
+<Ojo title="El caño de prolongación">
+Un caño en el mango sirve para **aflojar** un bulón pegado, con cuidado: el mismo truco que te ayuda a vos multiplica la fuerza sobre el bulón, y uno oxidado se puede cortar. **Nunca** uses caño para **apretar**: no tenés idea de cuánto torque estás dando y vas a estirar el bulón o deformar la llanta. Para apretar se usa torquímetro.
+</Ojo>
+
+### El torquímetro
+
+Es una llave que mide (o limita) el torque. Los más comunes en el taller son los "de click": regulás el valor en la escala del mango y, cuando llegás, la llave hace click y cede un poquito. Ahí parás.
+
+- Agarralo **del mango**, en la marca, y tirá parejo, sin tirones. Si lo agarrás más cerca de la cabeza estás cambiando el brazo y el torque real no es el de la escala.
+- Al guardarlo, **bajalo al mínimo** de la escala: el resorte interno guardado comprimido pierde calibración.
+- No lo uses para aflojar ni como barreta.
+- Unidades: N·m es lo normal. Algunos manuales viejos dicen kgf·m (1 kgf·m ≈ 9,81 N·m) y los norteamericanos lbf·ft (1 lbf·ft ≈ 1,36 N·m). 90 N·m son unos 9,2 kgf·m o 66 lbf·ft.
+
+<Dato title="Si le ponés un adaptador, cambia el brazo">
+Una "pata de gallo" o un adaptador que alarga la cabeza del torquímetro en línea con el mango cambia el largo efectivo. Si el torquímetro mide L desde el mango hasta el cuadrante y el adaptador agrega E, el valor que tenés que poner en la escala es T × L / (L + E). Con L = 40 cm, E = 5 cm y 50 N·m deseados: 50 × 40 / 45 ≈ 44 N·m en la escala. Si el adaptador queda a 90° del mango, el brazo no cambia y no hace falta corregir.
+</Dato>
+
+## Palancas: tres formas de ganar (o perder) fuerza
+
+Una palanca es una barra que gira sobre un punto de apoyo (el **fulcro**). Tiene un brazo donde hacés fuerza y otro donde está la carga. Como los dos torques se tienen que equilibrar:
+
+<Formula name="Ley de la palanca" vars={{ "F₁": "fuerza que hacés [N]", "d₁": "brazo de tu fuerza [m]", "F₂": "fuerza sobre la carga [N]", "d₂": "brazo de la carga [m]" }}>
+  F₁ · d₁ = F₂ · d₂
+</Formula>
+
+La **ventaja mecánica** es d₁ / d₂: cuántas veces se multiplica tu fuerza. El precio es siempre el mismo: **lo que ganás en fuerza lo perdés en recorrido**. Si la palanca multiplica por 4 la fuerza, el lado de la carga se mueve 4 veces menos. Es la misma energía, repartida distinto (en realidad un poco menos, porque siempre se pierde algo en rozamiento).
+
+Según dónde esté el apoyo, hay tres "géneros" de palanca. Las tres están en tu auto:
+
+| Género | Dónde está el apoyo | ¿Multiplica fuerza? | Ejemplo en el auto |
+|---|---|---|---|
+| **1er género** | En el medio, entre fuerza y carga | Depende de los brazos | **Palanca de cambios** (la rótula está en el medio); **balancín de válvulas** clásico (pivotea en el eje de balancines, la leva o el botador empujan de un lado, la válvula del otro); tenaza |
+| **2do género** | En una punta; la carga entre el apoyo y tu fuerza | Siempre multiplica | **Pedal de freno y de embrague**: pivote arriba, tu pie abajo y la varilla que empuja la bomba en el medio, cerca del pivote |
+| **3er género** | En una punta; tu fuerza entre el apoyo y la carga | Nunca multiplica: gana recorrido y velocidad | **Parrilla de suspensión** con el resorte montado en el medio; **balancín de rodillo** (finger) con el pivote hidráulico en una punta, la leva en el medio y la válvula en la otra punta |
+
+<Ejemplo title="La palanca del pedal de freno">
+En un pedal típico, del pivote a la pastilla de goma hay unos 28 cm y del pivote a donde se engancha la varilla de la bomba unos 7 cm. Si pisás con 150 N:
+
+<Calc>Ventaja mecánica = 28 / 7 = 4
+Fuerza sobre la varilla = 150 N × 4 = 600 N</Calc>
+
+Resultado: <Res>el pedal ya multiplica ×4 antes del servofreno</Res>. Y si la varilla se mueve 2 cm, tu pie recorre 8 cm.
+</Ejemplo>
+
+<Dato title="Por qué un resorte de suspensión es más duro de lo que parece">
+En una parrilla de 3er género, si el resorte está a la mitad del brazo, tiene que hacer **el doble** de fuerza que la que carga la rueda, pero se comprime la mitad. Por eso, cuando comparás resortes o amortiguadores entre modelos, no alcanza con mirar la pieza: importa dónde está montada (lo que se llama "relación de palanca" de la suspensión).
+</Dato>
+
+## La cuña y la rosca: palancas escondidas
+
+La **cuña** es un plano inclinado que se mete entre dos cosas. Con una fuerza chica que la empuja a lo largo, genera fuerzas grandes hacia los costados. Cuanto más fina, más multiplica… y más tenés que empujarla para abrir un poquito. El mismo trato que la palanca.
+
+<Formula name="Cuña sin rozamiento" vars={{ "Fₙ": "fuerza normal sobre cada cara [N]", "F": "fuerza que empuja la cuña [N]", "γ": "ángulo de la cuña (entre las dos caras)" }}>
+  Fₙ = F / (2 · sen(γ/2))
+</Formula>
+
+Con rozamiento, la cuenta cambia: Fₙ = F / (2 · (sen(γ/2) + μ · cos(γ/2))), donde μ es el coeficiente de rozamiento. Y aparece algo muy útil: si la cuña es suficientemente fina, **se queda trabada sola** aunque dejes de empujar. Eso se llama **autobloqueo**, y es por lo que se clavan los conos de una rótula, de un extremo de dirección o de un volante en su eje.
+
+Una **rosca** es una cuña enrollada en un cilindro. Si "desenrollás" una vuelta del filete de un bulón M12×1,5, te queda una rampa de unos 35 mm de largo que sube apenas 1,5 mm: una cuña de 2,5°. Por eso un torque que hacés con la mano se convierte en **toneladas** de fuerza a lo largo del tornillo.
+
+<Cuna />
+
+<Ejemplo title="¿Con cuánta fuerza aprieta un bulón de rueda?">
+Para estimar la fuerza que genera un tornillo (la **precarga**) se usa una fórmula de taller que mete todo el rozamiento en un solo coeficiente K (≈ 0,2 para rosca seca de acero, ≈ 0,14–0,16 lubricada):
+
+<Calc>F ≈ T / (K · d)
+F ≈ 110 N·m / (0,2 × 0,012 m) ≈ 45.800 N</Calc>
+
+Resultado: <Res>≈ 46 kN, como colgar 4,7 toneladas de cada bulón</Res>. Y fijate el reparto: de cada 100 % del torque que hacés, aproximadamente la mitad se pierde en rozamiento bajo la cabeza, un 40 % en el rozamiento de los filetes y **sólo un 10 %** termina estirando el tornillo. Por eso cualquier cosa que cambie el rozamiento (óxido, grasa, rosca sucia) cambia mucho la precarga real.
+</Ejemplo>
+
+<Ojo title="Aceite o grasa en las roscas">
+Si el manual da el torque "en seco" y vos engrasás la rosca, con el mismo torque la precarga puede subir un 30–40 %: estirás el bulón de más. Al revés, una rosca oxidada o con tierra te hace llegar al click del torquímetro con poca precarga real. Regla: **limpiá las roscas y respetá la condición que pide el fabricante** (seca, aceitada o con algún producto específico).
+</Ojo>
+
+Lo que pasa adentro del tornillo cuando lo estirás (y por qué algunos no se pueden reutilizar) lo vemos en [Resistencia de materiales](/aprender/fisica/resistencia-materiales).
+
+## Movimiento rectilíneo y movimiento rotativo
+
+En el auto conviven dos tipos de movimiento: el **rectilíneo** (el pistón sube y baja, el auto avanza) y el **rotativo** (el cigüeñal, las ruedas, el alternador). Cada magnitud de uno tiene su "gemela" en el otro:
+
+| Rectilíneo | Rotativo |
+|---|---|
+| Distancia s [m] | Ángulo φ [rad] (una vuelta = 2π rad = 360°) |
+| Velocidad v [m/s] | Velocidad angular ω [rad/s] o vueltas por minuto n [rpm] |
+| Aceleración a [m/s²] | Aceleración angular α [rad/s²] |
+| Masa m [kg] | Momento de inercia J [kg·m²] |
+| Fuerza F [N] | Torque T [N·m] |
+| Potencia P = F · v | Potencia P = T · ω |
+
+### Pasar de rpm a radianes por segundo
+
+El tacómetro dice rpm, pero las fórmulas usan rad/s. Como cada vuelta son 2π radianes y cada minuto son 60 segundos:
+
+<Formula name="Velocidad angular" vars={{ "ω": "velocidad angular [rad/s]", "n": "vueltas por minuto [rpm]" }}>
+  ω = 2π · n / 60 ≈ n / 9,55
+</Formula>
+
+Y si querés saber a qué velocidad va un punto del borde de algo que gira (la banda de rodamiento de una cubierta, el borde de un disco de freno, una correa sobre la polea):
+
+<Formula name="Velocidad periférica" vars={{ "v": "velocidad del borde [m/s]", "ω": "velocidad angular [rad/s]", "r": "radio [m]" }}>
+  v = ω · r
+</Formula>
+
+<Ejemplo title="¿A cuántas vueltas gira una rueda a 100 km/h?">
+Una cubierta 185/65 R15 tiene un radio dinámico de unos 0,30 m.
+
+<Calc>v = 100 / 3,6 = 27,8 m/s
+ω = v / r = 27,8 / 0,30 = 92,6 rad/s
+n = ω × 9,55 ≈ 885 rpm</Calc>
+
+Resultado: <Res>≈ 885 vueltas por minuto, casi 15 por segundo</Res>. Con ese dato y la relación de la caja y del diferencial, se puede calcular a cuántas rpm va el motor en quinta a 100 km/h.
+</Ejemplo>
+
+### La biela: de empuje a giro
+
+El motor es la máquina que convierte un movimiento en el otro. La explosión empuja el pistón en línea recta; la biela transmite ese empuje al muñón del cigüeñal, que está desplazado del eje, y ese desplazamiento es la palanca que genera el torque. Mirá cómo cambia el brazo efectivo durante la vuelta:
+
+<Biela />
+
+Fijate dos cosas que salen directo de lo que vimos:
+
+1. **En el PMS y en el PMI el brazo de palanca es cero.** La biela empuja derecho contra el eje y no hace girar nada. Por eso la chispa se adelanta para que la presión máxima llegue unos 10–15° después del PMS, cuando ya hay palanca.
+2. **El pistón no va a velocidad constante.** Frena hasta cero en cada punto muerto y acelera en el medio. Esas aceleraciones enormes (miles de veces la gravedad a altas vueltas) son las que tironean de la biela y de los bulones de biela miles de veces por minuto.
+
+La velocidad **media** del pistón es un número que usan los fabricantes para saber cuánto "aguanta" un motor:
+
+<Formula name="Velocidad media del pistón" vars={{ "vₘ": "velocidad media [m/s]", "s": "carrera [m]", "n": "rpm" }}>
+  vₘ = 2 · s · n / 60
+</Formula>
+
+Con 80 mm de carrera a 6.000 rpm: vₘ = 2 × 0,08 × 6.000 / 60 = **16 m/s**. Los motores de calle andan entre 15 y 20 m/s en el corte; arriba de eso el desgaste y los esfuerzos crecen muy rápido.
+
+## Torque, rpm y potencia: lo que dice la ficha técnica
+
+La **<Term t="Potencia">potencia</Term>** es cuánto trabajo hacés por segundo. En algo que gira, es el torque multiplicado por la velocidad angular:
+
+<Formula name="Potencia en un eje" vars={{ "P": "potencia [W]", "T": "torque [N·m]", "ω": "velocidad angular [rad/s]", "n": "rpm", "P[kW]": "potencia en kilowatt" }}>
+  P = T · ω  →  P[kW] = T · n / 9.549
+</Formula>
+
+Y para pasar a caballos: **1 CV ≈ 0,7355 kW** (1 kW ≈ 1,36 CV).
+
+<Ejemplo title="Potencia de un 1.6 a 4.000 rpm">
+Un motor 1.6 nafta da 150 N·m a 4.000 rpm.
+
+<Calc>P = 150 × 4.000 / 9.549 ≈ 62,8 kW
+62,8 kW × 1,36 ≈ 85 CV</Calc>
+
+Resultado: <Res>≈ 63 kW, unos 85 CV</Res>. Si a 6.000 rpm el torque cayó a 135 N·m, la potencia igual sube: 135 × 6.000 / 9.549 ≈ 85 kW (115 CV). Por eso **la potencia máxima siempre aparece a más vueltas que el torque máximo**: el torque baja, pero las vueltas suben más rápido.
+</Ejemplo>
+
+<Comparar>
+  <Lado title="Torque">
+  Es la "fuerza de giro". Es lo que sentís cuando el auto empuja desde abajo, al salir de un semáforo o subiendo una cuesta en un cambio largo. Un diesel turbo tiene mucho torque a pocas vueltas.
+  </Lado>
+  <Lado title="Potencia">
+  Es torque × velocidad. Define cuánto podés acelerar a alta velocidad y cuál es la velocidad máxima. Un motor chico de altas vueltas puede tener buena potencia con poco torque.
+  </Lado>
+</Comparar>
+
+### Del motor a la rueda
+
+La caja y el diferencial son palancas giratorias: multiplican el torque y dividen las vueltas en la misma proporción (menos el rendimiento, que se pierde en rozamiento). La fuerza con la que la cubierta empuja el piso sale de dividir el torque en la rueda por su radio.
+
+<Ejemplo title="Fuerza de empuje en primera">
+Motor 150 N·m, primera 3,45:1, diferencial 4,1:1, rendimiento 90 %, radio de rueda 0,30 m.
+
+<Calc>T rueda = 150 × 3,45 × 4,1 × 0,9 ≈ 1.910 N·m (repartido entre las dos ruedas motrices)
+F empuje = 1.910 / 0,30 ≈ 6.370 N</Calc>
+
+Resultado: <Res>≈ 6,4 kN, que en un auto de 1.200 kg dan unos 5,3 m/s² de aceleración (si las cubiertas no patinan)</Res>.
+</Ejemplo>
+
+<EnElTaller>
+
+- **Ruedas siempre con torquímetro y en cruz.** Primero arrimás todos los bulones a mano, después das el torque final en cruz (o en estrella si son 5). La pistola neumática sirve para sacar; si la usás para apretar, mínimo con un limitador de torque y repasá con torquímetro.
+- **Llantas de aleación: reapretá a los 50–100 km.** El asiento se asienta y la precarga puede bajar.
+- **Bujías en tapas de aluminio:** el torque es bajo (suele estar entre 20 y 30 N·m según la bujía y el asiento; mirá el dato). Un exceso barre la rosca de la tapa y el arreglo es caro.
+- **Nunca te pares ni saltes sobre la llave** para aflojar: si cede de golpe o se zafa, te lastimás. Mejor una llave más larga y fuerza pareja.
+- **Errores típicos:** agarrar el torquímetro de cualquier lado, usarlo para aflojar, dejarlo guardado cargado, apretar sobre roscas sucias y "un cuartito más por las dudas".
+
+</EnElTaller>
+
+<Electronica>
+
+La física de la rotación también la usa la ECU:
+
+- El **sensor de cigüeñal (<Term t="CKP" />)** no sólo mide rpm: mide el tiempo entre diente y diente de la rueda fónica. Con eso calcula la **aceleración angular** después de cada explosión. Si un cilindro no empuja, el cigüeñal "frena" un poquito en esa parte de la vuelta y la ECU lo detecta como **falla de encendido** (códigos P0300 a P0304 en un 4 cilindros). Es pura segunda ley de Newton, en versión rotativa.
+- Las ECU modernas trabajan "por torque": calculan cuánto torque está dando el motor y cuánto pide el conductor con el acelerador electrónico. En el scanner suele aparecer como **carga calculada (%)** y, en algunos autos, como torque real y deseado.
+- La **dirección eléctrica** mide tu esfuerzo con un sensor de torque: adentro de la columna hay una barrita que se retuerce un poquito cuando girás el volante, y un sensor mide ese giro. Con eso la ECU decide cuánto ayudar con el motor eléctrico.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Torque de bulones de rueda" esperado="Suele estar entre 90 y 140 N·m según fabricante" como="Torquímetro de click, en cruz, con el auto apoyado en el piso" nota="Si un bulón no llega al click o gira de más, la rosca está dañada: cambiá bulón o espárrago" />
+  <Medicion punto="Calibración casera del torquímetro" esperado="Click al valor calculado ± 4 %" como="Mango horizontal, cabeza fija en una morsa con un tubo, colgás un peso conocido a una distancia conocida: 10 kg a 0,5 m = 9,81 × 10 × 0,5 ≈ 49 N·m" nota="Si hace click mucho antes o mucho después, mandalo a calibrar" />
+  <Medicion punto="Bujías (asiento plano con arandela)" esperado="Suele estar entre 20 y 30 N·m (motor frío)" como="Torquímetro chico o de rango bajo, con la rosca limpia" nota="Las de asiento cónico llevan menos torque; mirá el dato de la bujía" />
+</Mediciones>
+
+<Herramientas ids={["torquimetro", "juego-llaves", "caballetes", "epp"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Vibración en el volante al frenar después de cambiar una rueda | Disco deformado por apriete desparejo con pistola | Medir alabeo del disco con comparador; reapretar en cruz con torquímetro |
+| Bulón de rueda cortado al aflojar | Sobretorque anterior o corrosión, y caño de prolongación | Revisá los demás bulones: si uno se estiró, los otros también pueden estar dañados |
+| Rueda floja o ruido metálico a los pocos km | Falta de torque o asiento sucio (barro, óxido) en la llanta | Marcá los bulones con una raya y revisá si se movieron a los 50 km |
+| Bujía que "no termina de apretar" | Rosca de la tapa barrida | Si gira sin llegar al torque, hay que reparar la rosca (inserto tipo helicoil) |
+| Pedal de freno que se siente "largo" con pivote flojo | Buje del pivote del pedal gastado (la palanca pierde precisión) | Mover el pedal con la mano: no debe tener juego lateral |
+
+<Mendoza>
+
+Cambiar una rueda en la ruta es parte de la vida mendocina: Ruta 40 con ripio, Ruta 7 hacia Uspallata. Llevá una **llave cruz** (o una llave de rueda larga) en lugar de la llavecita que viene de fábrica: con el doble de largo, hacés la mitad de fuerza, y con los bulones calientes y con tierra vas a agradecerlo. Calzá bien el auto y nunca te metas abajo con el crique solo.
+
+Y una cuenta de motor: un motor atmosférico pierde aproximadamente un 1 % de torque y de potencia cada 100 m de altura, porque entra menos aire. En el Gran Mendoza (≈ 750 m) ya andás con un 7–8 % menos que a nivel del mar; en Uspallata (≈ 1.900 m), con casi un 20 % menos. Los motores turbo compensan buena parte.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. **Masa** (kg) no es **peso** (N): el peso es m · g, y 1 kgf ≈ 9,81 N ≈ 10 N.
+2. **F = m · a**: frenar un auto de 1.200 kg de 100 km/h en 40 m pide casi 12 kN de fuerza en las cubiertas.
+3. **Torque = fuerza × brazo perpendicular**. Duplicar el largo de la llave reduce a la mitad la fuerza; empujar en diagonal la desperdicia.
+4. Las **palancas** (y la caja de cambios) multiplican fuerza o torque, pero lo pagás en recorrido o en vueltas.
+5. La **rosca es una cuña enrollada**: 110 N·m en un M12 generan unos 46 kN de precarga, pero el 90 % del torque se va en rozamiento. Por eso importan la limpieza y la lubricación de la rosca.
+6. **ω = 2π · n / 60** pasa rpm a rad/s; la velocidad del borde de algo que gira es v = ω · r.
+7. **P = T · ω** (o P[kW] = T · n / 9.549): la potencia máxima aparece a más vueltas que el torque máximo.
+8. La biela tiene brazo de palanca cero en los puntos muertos: por eso el encendido se adelanta para que la presión máxima llegue después del PMS.
+
+</PuntosClave>

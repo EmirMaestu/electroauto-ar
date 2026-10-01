@@ -1,0 +1,234 @@
+Un motor es, antes que nada, una **bomba de aire**. Para quemar un litro de nafta necesita casi 10.000 litros de aire, y ese aire tiene que pasar por el filtro, el caudalímetro, la mariposa y el múltiple sin perder presión en el camino. Al mismo tiempo, el aceite tiene que llegar a cada metal en segundos aunque esté frío y espeso, y el refrigerante tiene que recorrer el radiador lo bastante rápido como para sacar el calor.
+
+Todo eso es **mecánica de fluidos**: cómo se mueven el aire, la nafta, el aceite y el agua por los conductos del auto. Con tres o cuatro ideas (caudal, viscosidad, Bernoulli y pérdida de carga) vas a entender por qué un filtro de aire tapado "ahoga" el motor, cómo chupa nafta un carburador sin bomba, por qué el aceite frío es el peor enemigo de los metales y por qué un auto a carburador anda mal en Uspallata.
+
+<Libro pag="pág. 53–55" />
+
+## Caudal: cuánto fluido pasa por segundo
+
+El **caudal** es el volumen de fluido que atraviesa una sección por unidad de tiempo. Si un fluido avanza a una velocidad v por un conducto de sección A, en un segundo pasa un "cilindro" de fluido de largo v:
+
+<Formula name="Caudal" vars={{ "Q": "caudal volumétrico [m³/s; 1 m³/s = 1.000 L/s]", "A": "sección del conducto [m²]", "v": "velocidad media del fluido [m/s]", "ṁ": "caudal másico [kg/s]", "ρ": "densidad [kg/m³]" }}>
+  Q = A · v      ṁ = ρ · Q
+</Formula>
+
+Para el aire del motor importa más el **caudal másico** (kilos o gramos por segundo) que el volumétrico, porque lo que se quema es masa: el sensor **<Term t="MAF" />** mide justamente gramos de aire por segundo.
+
+<Ejemplo title="¿Cuánto aire chupa un 1.6?">
+Un motor 4 tiempos llena sus cilindros una vez cada dos vueltas. Un 1.6 a 3.000 rpm, con un llenado del 85 % (rendimiento volumétrico):
+
+<Calc>Q = 1,6 L × (3.000 / 2) / 60 s × 0,85 ≈ 34 L/s = 0,034 m³/s
+ṁ = ρ × Q = 1,14 kg/m³ (aire en Mendoza) × 0,034 ≈ 0,039 kg/s ≈ 39 g/s</Calc>
+
+Resultado: <Res>≈ 34 litros de aire por segundo, unos 39 g/s</Res>. En ralentí, el mismo motor chupa apenas unos 2 a 4 g/s. Eso es lo que vas a ver en el scanner en el dato del caudalímetro.
+</Ejemplo>
+
+### Continuidad: lo que entra, sale
+
+En un conducto sin pérdidas ni derivaciones, el caudal es el mismo en cualquier sección. Si la sección se achica, el fluido **tiene que ir más rápido**:
+
+<Formula name="Ecuación de continuidad" vars={{ "A₁, v₁": "sección y velocidad en un punto", "A₂, v₂": "sección y velocidad en otro punto" }}>
+  A₁ · v₁ = A₂ · v₂
+</Formula>
+
+Es lo que hacés cuando tapás la manguera con el dedo para que el agua llegue más lejos. Para líquidos se cumple siempre; para el aire, mientras la velocidad no sea muy alta (menos de unos 100 m/s), también se puede usar con buena aproximación.
+
+<Ejemplo title="Velocidad del aire en la mariposa">
+Un cuerpo de mariposa de Ø 50 mm con la mariposa a fondo y los 34 L/s del ejemplo anterior:
+
+<Calc>A = π/4 × 0,05² = 0,00196 m²
+v = Q / A = 0,034 / 0,00196 ≈ 17 m/s</Calc>
+
+Resultado: <Res>≈ 17 m/s (unos 62 km/h)</Res>. Con la mariposa casi cerrada en ralentí, el aire pasa por una rendija de pocos milímetros cuadrados a velocidades altísimas: por eso una toma de aire falsa o una fuga de vacío **silban**.
+</Ejemplo>
+
+## Viscosidad: qué tan "espeso" es un fluido
+
+La **<Term t="Viscosidad">viscosidad</Term>** es el rozamiento interno de un fluido: cuánto se resiste a que una capa deslice sobre otra. La miel es muy viscosa; el agua, poco; el aire, casi nada (pero algo tiene).
+
+Hay dos formas de expresarla:
+
+<Formula name="Viscosidad dinámica y cinemática" vars={{ "η": "viscosidad dinámica (eta) [Pa·s]", "ν": "viscosidad cinemática (nu) [m²/s; en la práctica mm²/s = cSt]", "ρ": "densidad [kg/m³]" }}>
+  ν = η / ρ
+</Formula>
+
+Las fichas técnicas de los aceites dan la **cinemática** en **mm²/s** (también llamados centistokes, cSt) a 40 °C y a 100 °C.
+
+### La viscosidad del aceite cambia muchísimo con la temperatura
+
+Este es el punto clave. Un aceite de motor se pone **decenas de veces más espeso** en frío. Valores aproximados para un 10W-40:
+
+| Temperatura | Viscosidad cinemática aproximada | Cómo se comporta |
+|---|---|---|
+| −20 °C | varios miles de mm²/s | Casi una pasta: tarda en llegar a la parte de arriba del motor |
+| 0 °C | ≈ 1.000 mm²/s | Espeso; la presión de aceite sube mucho al arrancar |
+| 20 °C | ≈ 250 mm²/s | Como un aceite de cocina muy espeso |
+| 40 °C | ≈ 100 mm²/s | Valor de referencia de la ficha |
+| 100 °C | ≈ 14 mm²/s | Temperatura de trabajo: fluye fácil |
+
+Por eso los aceites se clasifican con **dos números** (norma SAE):
+
+- El que tiene la **W** (de *winter*, invierno) indica cómo se comporta en frío: **0W, 5W, 10W, 15W, 20W**. Cuanto **más bajo**, más fluido en frío y más rápido llega a todos lados en el arranque.
+- El segundo número (20, 30, 40, 50) indica la viscosidad a **100 °C**, la de trabajo. Más alto, más espeso en caliente.
+
+Un 5W-30 no es "más finito" que un 10W-30 en caliente: es igual de espeso en caliente, pero mejor en frío. Los aceites **multigrado** lo logran con aditivos (polímeros) que se "estiran" con el calor y compensan parte del afinamiento.
+
+<Ojo title="No 'engrueses' el aceite por las dudas">
+Poner un aceite más espeso que el indicado no protege más: en el arranque en frío tarda más en llegar, y en motores modernos con botadores hidráulicos, variadores de levas (que funcionan con presión de aceite) y conductos finos, puede traer ruidos y fallas. **Usá la viscosidad y la norma que pide el manual.**
+</Ojo>
+
+## Laminar o turbulento: el número de Reynolds
+
+Un fluido puede moverse de dos maneras muy distintas:
+
+- **Laminar**: en capas ordenadas que se deslizan una sobre otra. En un caño, la del centro va más rápido y la que toca la pared está quieta: el perfil de velocidades es una parábola.
+- **Turbulento**: con remolinos que mezclan todo. El perfil se aplana y la resistencia es mayor, pero la **mezcla y la transferencia de calor son muchísimo mejores**.
+
+Cuál de los dos ocurre lo decide un número sin unidades:
+
+<Formula name="Número de Reynolds" vars={{ "Re": "número de Reynolds", "v": "velocidad media [m/s]", "D": "diámetro del conducto [m]", "ν": "viscosidad cinemática [m²/s]" }}>
+  Re = v · D / ν
+</Formula>
+
+Por debajo de **Re ≈ 2.300** el flujo en un caño es laminar; por encima de **≈ 4.000**, turbulento; en el medio, una zona de transición inestable.
+
+<Reynolds />
+
+<Ejemplo title="¿Cómo fluye el aceite en una galería y el refrigerante en una manguera?">
+Aceite caliente (ν ≈ 14 mm²/s = 14 × 10⁻⁶ m²/s) en una galería de 8 mm a 2 m/s:
+
+<Calc>Re = 2 × 0,008 / 0,000014 ≈ 1.140  → laminar</Calc>
+
+Refrigerante a 90 °C (ν ≈ 0,6 × 10⁻⁶ m²/s) en una manguera de 32 mm a 1,5 m/s:
+
+<Calc>Re = 1,5 × 0,032 / 0,0000006 ≈ 80.000  → turbulento</Calc>
+
+Resultado: <Res>el aceite fluye en capas; el refrigerante, revuelto</Res>. Y está bien que así sea: en el radiador y en las camisas del block la turbulencia arranca el calor de las paredes mucho mejor. Adentro del cilindro también se busca turbulencia a propósito (la forma de los conductos de admisión y del pistón genera remolinos): mezcla mejor el aire con la nafta y la llama se propaga más rápido.
+</Ejemplo>
+
+## Bernoulli: velocidad y presión se reparten la energía
+
+En un fluido que se mueve sin rozamiento, la energía total por unidad de volumen se mantiene constante a lo largo de su recorrido. Esa energía tiene tres partes:
+
+<Formula name="Ecuación de Bernoulli" vars={{ "p": "presión estática [Pa]", "½ · ρ · v²": "presión dinámica: la energía de la velocidad [Pa]", "ρ · g · h": "presión por altura [Pa]" }}>
+  p + ½ · ρ · v² + ρ · g · h = constante
+</Formula>
+
+En un conducto horizontal, el término de altura no cambia, y queda la idea central: **donde el fluido va más rápido, la presión baja**. No es que "la velocidad chupe": para acelerar, el fluido necesita energía, y la toma de su presión.
+
+### El efecto Venturi
+
+Si combinás continuidad y Bernoulli en un tubo con un estrechamiento (un **Venturi**): en la parte angosta el fluido se acelera y la presión cae. La caída de presión es:
+
+<Formula name="Caída de presión en un Venturi" vars={{ "Δp": "caída de presión entre la entrada y la garganta [Pa]", "ρ": "densidad [kg/m³]", "v₁": "velocidad en la entrada [m/s]", "v₂": "velocidad en la garganta [m/s]" }}>
+  Δp = ½ · ρ · (v₂² − v₁²)
+</Formula>
+
+Fijate que va con el **cuadrado** de la velocidad: el doble de caudal, cuatro veces más depresión.
+
+<Venturi />
+
+<Ejemplo title="Depresión en el difusor de un carburador">
+Carburador con un difusor (Venturi) de Ø 28 mm, a 34 L/s de aire, en Mendoza (ρ ≈ 1,14 kg/m³). El aire entra desde la atmósfera prácticamente quieto.
+
+<Calc>A₂ = π/4 × 0,028² = 0,000616 m²
+v₂ = 0,034 / 0,000616 ≈ 55 m/s
+Δp = ½ × 1,14 × 55² ≈ 1.720 Pa ≈ 17 mbar</Calc>
+
+Resultado: <Res>≈ 17 mbar de depresión, unos 175 mm de columna de agua</Res>. Parece poco, pero alcanza de sobra para levantar la nafta unos milímetros desde la cuba hasta el pico del surtidor y pulverizarla en el chorro de aire.
+</Ejemplo>
+
+### Dónde aparece Bernoulli en el auto
+
+- **Carburador**: la depresión del difusor chupa nafta de la cuba (a presión atmosférica) a través del **chicler**, que es un orificio calibrado. Como la depresión crece con el caudal de aire, la nafta acompaña. A ralentí la depresión del difusor es casi nula, por eso existe un **circuito de ralentí** aparte que toma nafta de la zona que queda debajo de la mariposa, donde sí hay mucho vacío. Y el **cebador** (choke) cierra la entrada de aire para aumentar la depresión y enriquecer el arranque en frío.
+- **Altura**: con aire menos denso, el carburador entrega casi la misma nafta pero entra menos masa de aire. La mezcla se **enriquece** (probalo en la animación). La inyección electrónica lo corrige midiendo la masa de aire o la presión.
+- **Caudalímetro (MAF)**: la carcasa y la rejilla están diseñadas para que el aire llegue parejo al elemento de medición. Una rejilla rota, un filtro mal colocado o una manguera deformada antes del sensor cambian el perfil de velocidades y la lectura.
+- **Aerodinámica**: el aire que pasa rápido por debajo del auto (entre el piso del auto y la calle, que forman un Venturi) baja la presión y "aspira" el auto contra el piso: es el **efecto suelo** de los autos de carrera, y la función de los **difusores** traseros.
+- **Taller**: los purgadores de frenos por vacío que funcionan con aire comprimido y las pistolas pulverizadoras usan un Venturi para generar depresión.
+
+## Pérdida de carga: lo que se pierde en el camino
+
+En la vida real los fluidos rozan contra las paredes y se arremolinan en codos, filtros y válvulas. Esa energía se pierde (se va en calor) y aparece como una **caída de presión** que no se recupera:
+
+<Formula name="Pérdida de carga" vars={{ "Δp": "pérdida de presión [Pa]", "ζ": "coeficiente de pérdida del elemento (zeta): codo, filtro, válvula…", "λ": "coeficiente de rozamiento del conducto", "L, D": "largo y diámetro del conducto [m]", "½ · ρ · v²": "presión dinámica" }}>
+  Δp = (ζ + λ · L / D) · ½ · ρ · v²
+</Formula>
+
+Lo importante para el taller: **la pérdida crece con el cuadrado de la velocidad** (o sea, del caudal). Una restricción que no se nota en ralentí puede ser enorme a fondo.
+
+<Ejemplo title="Filtro de aire tapado">
+Un filtro limpio pierde unos 2,5 kPa (25 mbar) a plena carga. Tapado de tierra, puede perder 8 kPa. En Mendoza (≈ 92,5 kPa de presión atmosférica):
+
+<Calc>Presión en la admisión a fondo, filtro limpio:  92,5 − 2,5 = 90 kPa
+Presión en la admisión a fondo, filtro tapado:  92,5 − 8 = 84,5 kPa
+Aire que entra: 84,5 / 90 ≈ 0,94  → ≈ 6 % menos</Calc>
+
+Resultado: <Res>≈ 6 % menos de potencia a fondo, encima de lo que ya se pierde por la altura</Res>. Y como la pérdida va con el caudal al cuadrado, a media carga casi ni se nota: el síntoma típico es "al auto le falta arriba".
+</Ejemplo>
+
+Otros casos del mismo fenómeno:
+
+- **Catalizador tapado o escape aplastado**: el motor no puede sacar los gases; pierde potencia arriba y hasta se calienta.
+- **Manguera de refrigerante doblada o colapsada**: el caudal cae y el motor recalienta, sobre todo en cuestas.
+- **Filtro de nafta tapado**: la presión de nafta cae cuando el motor pide mucho caudal (a fondo), y la mezcla se empobrece.
+- **Filtro de aceite**: tiene una **válvula de derivación (bypass)** que abre si el filtro está tapado o el aceite muy frío, para que llegue aceite (sin filtrar) igual. Mejor aceite sucio que nada de aceite.
+
+<EnElTaller>
+
+- **Filtro de aire**: revisalo en cada service y cambialo según uso. Sopletealo desde adentro hacia afuera sólo como solución de emergencia: el papel se daña. Verificá que la tapa cierre bien: aire sin filtrar es tierra adentro de los cilindros (y desgaste de aros).
+- **Tomas de aire falsas**: entre el caudalímetro y la mariposa (o en cualquier manguera de vacío), el aire que entra no se mide y la mezcla queda pobre. Buscalas con humo o rociando limpiacarburador con el motor en marcha (con cuidado, lejos del escape caliente): si cambian las vueltas, encontraste la fuga.
+- **Aceite**: viscosidad y norma del manual. En climas fríos o arranques muy fríos, el primer número (W) bajo hace la diferencia.
+- **Mangueras**: que no queden dobladas al montarlas; las de refrigerante con el resorte interno donde corresponde (en las de succión del radiador, que se aplastarían por la depresión).
+
+</EnElTaller>
+
+<Electronica>
+
+- El **caudalímetro (MAF)** de película caliente mantiene un elemento a una temperatura fija por encima del aire; cuanto más aire pasa, más corriente necesita para no enfriarse. La ECU lo traduce a g/s. En el scanner, el dato tiene que subir parejo con las vueltas y la carga.
+- El **MAP** a fondo tiene que quedar **cerca de la presión atmosférica** (unos pocos kPa por debajo). Si a fondo queda bastante más abajo, hay una restricción en la admisión (filtro tapado, mariposa que no abre del todo, conducto aplastado).
+- Una **toma de aire falsa** hace que la mezcla quede pobre: la ECU la corrige agregando nafta y lo vas a ver en los **trims de combustible** (más de +10 % en ralentí que baja al acelerar es muy típico de fuga de vacío). Si no le alcanza, guarda **P0171 / P0174** (mezcla pobre).
+- La ECU corrige la **altura** sola: el MAP (o un sensor barométrico) le dice cuánta presión hay, y con eso ajusta inyección y avance.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Caudalímetro (MAF) en ralentí, motor caliente" esperado="Suele estar entre 2 y 4 g/s en un 1.6 (según fabricante)" como="Scanner, dato en vivo" nota="Muy bajo con buena marcha: MAF sucio o toma de aire falsa después del sensor" />
+  <Medicion punto="MAP a fondo (prueba en ruta, 3ª, 3.000–4.000 rpm)" esperado="Pocos kPa por debajo de la presión atmosférica del lugar" como="Scanner, grabando la aceleración" nota="Mucho más bajo: restricción de admisión (filtro, mariposa, conducto)" />
+  <Medicion punto="Vacío sostenido a 2.500 rpm" esperado="Estable, igual o algo mayor que en ralentí" como="Vacuómetro en el múltiple, 2.500 rpm durante 1–2 minutos" nota="Si el vacío baja lentamente mientras sostenés las vueltas: escape o catalizador tapado" />
+  <Medicion punto="Presión de aceite (caliente)" esperado="Ralentí ≥ 0,5–1 bar; 2.000–3.000 rpm ≈ 2–4 bar" como="Manómetro en el lugar del bulbo de presión" nota="Baja en caliente: aceite muy fino o degradado, desgaste de metales o bomba" />
+</Mediciones>
+
+<Herramientas ids={["scanner", "vacuometro", "manometro-nafta"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Le falta potencia arriba, anda bien abajo | Filtro de aire tapado, catalizador o escape restringido | MAP a fondo; vacío sostenido a 2.500 rpm; contrapresión de escape |
+| Ralentí inestable, silbido, trims muy positivos | Toma de aire falsa (manguera de vacío, junta de múltiple, servo) | Humo o limpiacarburador; trims que bajan al acelerar |
+| Auto a carburador "ahogado" en altura, humo negro | La mezcla se enriquece con la altura | Bujías negras; mejora al bajar. Se corrige con chicleres más chicos |
+| Recalienta en cuestas largas | Manguera colapsada, radiador tapado por dentro, bomba de agua | Temperatura de entrada y salida del radiador; apretar la manguera inferior en caliente |
+| Luz de aceite que parpadea en ralentí caliente | Presión baja: aceite muy fino o gastado, desgaste interno | Manómetro mecánico; cambiar aceite y filtro y volver a medir |
+| Le falta nafta a fondo (tironea) | Filtro de nafta tapado o bomba débil | Manómetro de nafta a plena carga: la presión cae |
+
+<Mendoza>
+
+- **Tierra, zonda y ripio**: el filtro de aire se tapa mucho más rápido que en otras regiones. Si andás por caminos de tierra o fincas, revisalo cada 5.000 km y cambialo bastante antes que lo que dice el plan de mantenimiento "normal". Un filtro tapado, sumado a la altura, se come una buena parte de la potencia.
+- **Altura y carburadores**: un auto a carburador regulado a nivel del mar anda rico en Mendoza y bastante más rico en Uspallata o el Cristo Redentor (humo negro, bujías sucias). Los que viven arriba suelen usar chicleres más chicos. La inyección electrónica lo compensa sola.
+- **Frío de Alta Montaña**: con −10 °C a la mañana en Uspallata o Penitentes, un aceite con W bajo (0W o 5W) llega mucho antes a los metales en el arranque.
+- **El aire es menos denso en altura**: a igual caudal volumétrico, el caudalímetro marca menos gramos por segundo y el motor da menos potencia. Un motor atmosférico pierde aproximadamente un 1 % cada 100 m; el turbo compensa buena parte.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. **Caudal = sección × velocidad** (Q = A · v); para el motor importa la masa (ṁ = ρ · Q), que es lo que mide el MAF en g/s.
+2. **Continuidad**: si la sección se achica, el fluido acelera (A₁ · v₁ = A₂ · v₂).
+3. La **viscosidad** del aceite cambia decenas de veces con la temperatura. En "10W-40", el 10W es el comportamiento en frío y el 40 la viscosidad a 100 °C.
+4. **Reynolds** (Re = v · D / ν) decide si el flujo es laminar (menos de ≈ 2.300) o turbulento (más de ≈ 4.000). La turbulencia transmite mejor el calor y mezcla mejor el aire con la nafta.
+5. **Bernoulli**: donde el fluido va más rápido, la presión baja. En un **Venturi**, Δp = ½ · ρ · (v₂² − v₁²), y crece con el cuadrado del caudal.
+6. El **carburador** usa la depresión del difusor para chupar nafta; con la altura la mezcla se enriquece. La inyección lo corrige midiendo el aire.
+7. La **pérdida de carga** crece con el cuadrado del caudal: un filtro tapado o un catalizador obstruido se notan sobre todo a fondo y arriba.
+8. En el scanner: **MAP a fondo ≈ presión atmosférica**; si queda muy abajo, hay una restricción en la admisión.
+
+</PuntosClave>
