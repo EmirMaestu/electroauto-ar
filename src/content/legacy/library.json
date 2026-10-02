@@ -1,0 +1,335 @@
+{
+ "herramientas": [
+  {
+   "nombre": "Multímetro / Tester",
+   "icon": "🔢",
+   "uso": "La herramienta nº1. Mide tensión (V), resistencia (Ω), continuidad y según el modelo corriente, frecuencia y temperatura.",
+   "tips": [
+    "Tensión: en PARALELO (puntas sobre el componente, sin cortar nada).",
+    "Resistencia/continuidad: SIEMPRE con el circuito sin alimentación.",
+    "Para diagnóstico fino, usá la función de caída de tensión (mV) con el circuito trabajando.",
+    "Elegí uno con buena impedancia de entrada (10 MΩ) para no cargar señales de la ECU."
+   ]
+  },
+  {
+   "nombre": "Pinza amperométrica",
+   "icon": "🪝",
+   "uso": "Mide corriente SIN cortar el cable (abraza el conductor). Ideal para medir consumos, parásitos y corriente de carga.",
+   "tips": [
+    "Para mA (consumos parásitos) necesitás una pinza sensible (corriente continua / DC).",
+    "Abrazá UN solo cable; si tomás ida y vuelta la lectura se cancela.",
+    "Excelente para ver cuánto entrega el alternador o cuánto pide el burro."
+   ]
+  },
+  {
+   "nombre": "Lámpara de prueba",
+   "icon": "💡",
+   "uso": "Simple y poderosa: una lámpara con punta y pinza de cocodrilo. Muestra presencia de tensión o sirve para buscar cortos.",
+   "tips": [
+    "Para ver pulsos de inyector usá una de LED (no carga el circuito).",
+    "Puesta en lugar de un fusible, te ayuda a encontrar cortos sin quemar fusibles.",
+    "No abuses de la lámpara incandescente en circuitos de ECU: puede cargar de más la señal."
+   ]
+  },
+  {
+   "nombre": "Osciloscopio automotriz",
+   "icon": "📈",
+   "uso": "Muestra la señal en el tiempo. Imprescindible para CKP/CMP, inyectores, sonda lambda, encendido y CAN.",
+   "tips": [
+    "Vertical = tensión, horizontal = tiempo, trigger = disparo para estabilizar.",
+    "Detecta glitches e intermitencias que el scanner no captura.",
+    "Aprendé las formas de onda 'sanas' para reconocer las falladas."
+   ]
+  },
+  {
+   "nombre": "Scanner OBD2",
+   "icon": "💻",
+   "uso": "Lee y borra códigos (DTC), muestra datos en vivo, congelado y permite actuaciones. Ventana hacia las ECU.",
+   "tips": [
+    "Conector OBD2 (16 pines) suele estar bajo el volante.",
+    "Leé TODOS los módulos, no solo motor.",
+    "Datos en vivo > códigos: el código orienta, los datos confirman.",
+    "Para funciones de marca a veces necesitás software específico."
+   ]
+  },
+  {
+   "nombre": "Fuente de alimentación regulada",
+   "icon": "🔋",
+   "uso": "Entrega tensión estable y regulable. Útil para probar componentes en banco y mantener la tensión durante programaciones.",
+   "tips": [
+    "Para programar módulos conviene una fuente/mantenedor que sostenga ~13,5 V estables.",
+    "Sirve para alimentar bobinas de relés, motores y sensores en banco.",
+    "Cuidá la polaridad y la corriente máxima."
+   ]
+  }
+ ],
+ "sensores": [
+  {
+   "nombre": "ECT (temp. refrigerante) - NTC",
+   "frio": "≈2.000–3.000 Ω a 20°C",
+   "caliente": "≈200–300 Ω a 90°C",
+   "senal": "0,5–4,5 V según temp.",
+   "nota": "NTC: más calor, menos ohms. -40°C en scanner = cable cortado."
+  },
+  {
+   "nombre": "IAT (temp. de aire) - NTC",
+   "frio": "≈2.000–3.000 Ω a 20°C",
+   "caliente": "≈300–400 Ω a 70°C",
+   "senal": "0,5–4,5 V",
+   "nota": "Mismo principio que la ECT."
+  },
+  {
+   "nombre": "TPS (posición mariposa)",
+   "frio": "—",
+   "caliente": "—",
+   "senal": "≈0,5 V cerrada → ≈4,5 V abierta",
+   "nota": "Debe subir suave, sin saltos."
+  },
+  {
+   "nombre": "MAP (presión múltiple)",
+   "frio": "—",
+   "caliente": "—",
+   "senal": "≈1 V en ralentí (alto vacío) → ~4,5 V a plena carga",
+   "nota": "Comparar con presión barométrica con contacto y motor parado."
+  },
+  {
+   "nombre": "CKP inductivo (cigüeñal)",
+   "frio": "≈400–1.000 Ω (bobinado)",
+   "caliente": "similar",
+   "senal": "CA que crece con RPM (osciloscopio)",
+   "nota": "Onda senoidal con diente de referencia."
+  },
+  {
+   "nombre": "CKP/CMP Hall",
+   "frio": "—",
+   "caliente": "—",
+   "senal": "Onda cuadrada 0–5 V",
+   "nota": "Recibe alimentación; salida digital nítida."
+  },
+  {
+   "nombre": "Sonda lambda (banda angosta)",
+   "frio": "—",
+   "caliente": "—",
+   "senal": "0,1–0,9 V oscilando",
+   "nota": "Debe cruzar rápido los 0,45 V. Lenta = sonda vaga."
+  },
+  {
+   "nombre": "MAF (caudalímetro)",
+   "frio": "—",
+   "caliente": "—",
+   "senal": "≈1 V ralentí → 4–5 V acelerando (o frecuencia)",
+   "nota": "Comparar g/s con la cilindrada esperada."
+  },
+  {
+   "nombre": "Sensor de knock",
+   "frio": "—",
+   "caliente": "—",
+   "senal": "Pequeña CA al golpear cerca",
+   "nota": "Piezoeléctrico; respeta el par de apriete al montar."
+  }
+ ],
+ "formulas": [
+  {
+   "nombre": "Ley de Ohm",
+   "f": "V = I × R",
+   "desc": "Tensión = corriente × resistencia. Despejes: I = V/R ; R = V/I."
+  },
+  {
+   "nombre": "Potencia eléctrica",
+   "f": "P = V × I",
+   "desc": "También P = V²/R = I²×R. Explica el calentamiento por mala conexión."
+  },
+  {
+   "nombre": "Resistencia en serie",
+   "f": "Rt = R1 + R2 + R3…",
+   "desc": "Misma corriente, tensiones se suman."
+  },
+  {
+   "nombre": "Resistencia en paralelo",
+   "f": "1/Rt = 1/R1 + 1/R2…",
+   "desc": "Misma tensión, corrientes se suman. Rt baja."
+  },
+  {
+   "nombre": "Corriente de una carga",
+   "f": "I = P / V",
+   "desc": "Ej.: lámpara 55 W a 12 V → 4,6 A."
+  },
+  {
+   "nombre": "Caída de tensión admisible",
+   "f": "ΔV < 0,2–0,5 V",
+   "desc": "En conexiones/masas con corriente. Más = mal contacto."
+  },
+  {
+   "nombre": "Resistencia red CAN",
+   "f": "Rcan ≈ 60 Ω",
+   "desc": "Dos terminadoras de 120 Ω en paralelo (red sin alimentar)."
+  }
+ ],
+ "fusibles": {
+  "colores": [
+   {
+    "color": "Rosa/marrón",
+    "amp": "3–4 A"
+   },
+   {
+    "color": "Rojo",
+    "amp": "10 A"
+   },
+   {
+    "color": "Azul",
+    "amp": "15 A"
+   },
+   {
+    "color": "Amarillo",
+    "amp": "20 A"
+   },
+   {
+    "color": "Blanco/transparente",
+    "amp": "25 A"
+   },
+   {
+    "color": "Verde",
+    "amp": "30 A"
+   },
+   {
+    "color": "Naranja",
+    "amp": "40 A"
+   }
+  ],
+  "abreviaturas": [
+   {
+    "sigla": "INY / EFI",
+    "sig": "Inyección electrónica (ECU, inyectores)"
+   },
+   {
+    "sigla": "ENC / IGN",
+    "sig": "Encendido"
+   },
+   {
+    "sigla": "B.NAFTA / FP",
+    "sig": "Bomba de nafta (fuel pump)"
+   },
+   {
+    "sigla": "VENT / FAN",
+    "sig": "Electroventilador del radiador"
+   },
+   {
+    "sigla": "LUC / LIGHT",
+    "sig": "Luces (posición, bajas, altas)"
+   },
+   {
+    "sigla": "STOP",
+    "sig": "Luces de freno"
+   },
+   {
+    "sigla": "L.VIDRIOS / P.WIN",
+    "sig": "Levantavidrios"
+   },
+   {
+    "sigla": "LIMP / WIPER",
+    "sig": "Limpiaparabrisas"
+   },
+   {
+    "sigla": "ABS",
+    "sig": "Sistema antibloqueo de frenos"
+   },
+   {
+    "sigla": "A/C / CLIMA",
+    "sig": "Aire acondicionado / climatizador"
+   },
+   {
+    "sigla": "RADIO / AUDIO",
+    "sig": "Estéreo"
+   },
+   {
+    "sigla": "ECU/ECM",
+    "sig": "Alimentación de la computadora"
+   },
+   {
+    "sigla": "AIRBAG / SRS",
+    "sig": "Bolsas de aire"
+   }
+  ]
+ },
+ "procedimientos": [
+  {
+   "nombre": "Prueba de caída de tensión (la más importante)",
+   "pasos": [
+    "Tester en mV, en modo continua.",
+    "El circuito debe estar TRABAJANDO (con corriente circulando).",
+    "Medí entre los dos extremos de la conexión/cable que querés evaluar.",
+    "Resultado: <0,2 V conexión buena; >0,5 V hay resistencia indeseada ahí."
+   ]
+  },
+  {
+   "nombre": "Medir consumo parásito",
+   "pasos": [
+    "Cargá bien la batería.",
+    "Cerrá todo y esperá a que los módulos se duerman (10–40 min).",
+    "Pinza DC sensible en el cable de masa (o tester en serie con cuidado).",
+    "Normal: 30–50 mA. Más de ~80 mA, investigá sacando fusibles de a uno."
+   ]
+  },
+  {
+   "nombre": "Probar un relé",
+   "pasos": [
+    "Medí la bobina (85–86) en ohms: ~60–120 Ω, ni abierto ni en corto.",
+    "Alimentá 85 y 86 con 12 V y masa: debe escucharse el 'clic'.",
+    "Con el clic, debe haber continuidad entre 30 y 87.",
+    "Alternativa rápida: intercambiarlo por uno gemelo del mismo auto."
+   ]
+  },
+  {
+   "nombre": "Diagnóstico de red CAN",
+   "pasos": [
+    "Contacto OFF: resistencia entre pines 6 y 14 del OBD ≈ 60 Ω.",
+    "120 Ω = falta terminadora/red partida; ∞ = abierto; <50 = corto.",
+    "Contacto ON: CAN-H y CAN-L ≈ 2,5 V en reposo.",
+    "Osciloscopio: dos ondas espejadas = red sana."
+   ]
+  },
+  {
+   "nombre": "Buscar un cortocircuito sin quemar fusibles",
+   "pasos": [
+    "Poné una lámpara de prueba en lugar del fusible que salta.",
+    "Si hay corto, la lámpara queda encendida fija.",
+    "Movés el mazo por tramos; cuando cambia el brillo, ahí está el roce.",
+    "Inspeccioná zonas móviles (puertas, baúl, capot)."
+   ]
+  }
+ ],
+ "guias": [
+  {
+   "t": "Valores de batería",
+   "c": "Reposo: 12,7 V (100%), 12,3 V (50%). Cargando: 13,8–14,7 V. Arranque en frío: no menos de 9,6 V."
+  },
+  {
+   "t": "Tensión de sistema sana",
+   "c": "Motor en marcha con consumos: no debe caer de ~13,2 V. Ripple AC < 50 mV."
+  },
+  {
+   "t": "Presión de nafta",
+   "c": "3,0–3,8 bar típicos. Baja = arranque difícil, tirones, falta de potencia."
+  },
+  {
+   "t": "Trims de combustible",
+   "c": "STFT+LTFT cerca de 0. +15% pobre (aire falso/poca nafta), -15% rica (inyectores/presión)."
+  },
+  {
+   "t": "Antes de condenar una ECU",
+   "c": "Verificá alimentaciones, masas, 5 V de referencia y descartá cortos en actuadores."
+  },
+  {
+   "t": "Regla de oro de masas",
+   "c": "Si un consumo afecta a otro, sospechá masa compartida. Medí caída con carga (<0,2 V)."
+  },
+  {
+   "t": "Misfire",
+   "c": "P0300 aleatorio / P030X cilindro X. Intercambiá bobina/bujía y mirá si el fallo se muda."
+  },
+  {
+   "t": "Seguridad",
+   "c": "Cuidado con airbag (SRS) y alta tensión de encendido/HID. Desconectá batería para trabajos pesados."
+  }
+ ]
+}

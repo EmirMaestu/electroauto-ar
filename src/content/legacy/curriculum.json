@@ -1,0 +1,230 @@
+[
+ {
+  "level": "inicial",
+  "levelName": "Nivel Inicial",
+  "color": "inicial",
+  "intro": "Arrancás de cero. Acá entendés qué es la electricidad, cómo se mide y cómo leer un circuito básico del auto. Sin esto, todo lo demás se hace cuesta arriba.",
+  "modules": [
+   {
+    "id": "i1",
+    "title": "Fundamentos eléctricos",
+    "icon": "⚡",
+    "lessons": [
+     {
+      "id": "i1l1",
+      "title": "Corriente, tensión, resistencia y potencia",
+      "minutes": 12,
+      "quizId": "q_i1l1",
+      "html": "\n<p>En un auto todo lo eléctrico se explica con cuatro magnitudes. Si las tenés claras, el 80% del diagnóstico ya lo entendés.</p>\n\n<h2>Tensión (Voltaje)</h2>\n<p>Es la <b>presión eléctrica</b>, la diferencia de potencial que empuja a los electrones. Se mide en <b>volts (V)</b>. En el auto la referencia es la batería: nominal <b>12 V</b>, aunque con el motor en marcha y el alternador cargando vas a leer entre <b>13,8 y 14,7 V</b>.</p>\n<div class=\"callout dato\"><b>Analogía del taller</b>La tensión es como la presión del agua en una manguera. Más presión, más fuerza para mover el agua… pero si no abrís la canilla (no hay circuito cerrado) no circula nada.</div>\n\n<h2>Corriente (Amperaje)</h2>\n<p>Es la <b>cantidad de electrones que circulan</b> por segundo. Se mide en <b>amperes (A)</b>. Un burro de arranque puede pedir 150–300 A; una lámpara de posición, menos de 1 A.</p>\n\n<h2>Resistencia</h2>\n<p>Es la <b>oposición al paso de la corriente</b>. Se mide en <b>ohms (Ω)</b>. Todo conductor, conexión, lámpara o bobinado tiene resistencia. Una masa floja o un cable sulfatado <i>aumenta</i> la resistencia donde no debería y ahí aparecen los problemas.</p>\n\n<h2>Potencia</h2>\n<p>Es el <b>trabajo eléctrico por unidad de tiempo</b>, lo que realmente \"consume\" un componente. Se mide en <b>watts (W)</b>. Una lámpara de luz baja H4 trae normalmente <b>55 W</b>; la luz alta, <b>60 W</b>.</p>\n\n<table class=\"tbl\">\n<tr><th>Magnitud</th><th>Símbolo</th><th>Unidad</th><th>Se mide con</th></tr>\n<tr><td>Tensión</td><td>V</td><td>Volt (V)</td><td>Tester en modo voltímetro (en paralelo)</td></tr>\n<tr><td>Corriente</td><td>I</td><td>Ampere (A)</td><td>Pinza amperométrica o tester en serie</td></tr>\n<tr><td>Resistencia</td><td>R</td><td>Ohm (Ω)</td><td>Tester en modo óhmetro (sin tensión)</td></tr>\n<tr><td>Potencia</td><td>P</td><td>Watt (W)</td><td>Se calcula: P = V × I</td></tr>\n</table>\n\n<div class=\"callout warn\"><b>Ojo con esto</b>La resistencia <u>siempre</u> se mide con el circuito SIN alimentación. Si medís ohms con tensión presente, el dato es inválido y podés dañar el tester.</div>\n"
+     },
+     {
+      "id": "i1l2",
+      "title": "Ley de Ohm: la fórmula que más vas a usar",
+      "minutes": 10,
+      "quizId": "q_i1l2",
+      "html": "\n<p>La Ley de Ohm relaciona las tres magnitudes básicas. La vas a usar todos los días, aunque no te des cuenta.</p>\n<h2>La fórmula</h2>\n<p style=\"font-size:1.4rem;text-align:center\"><b>V = I × R</b></p>\n<p>De ahí salen las otras dos: <code>I = V / R</code> y <code>R = V / I</code>. Usá el triángulo para despejar: tapás lo que buscás y leés la operación.</p>\n<div class=\"vmount\" data-visual=\"ohmTriangle\"></div>\n\n<h2>Calculadora interactiva</h2>\n<p>Movés los valores y ves cómo cambia todo. Probá: si baja la resistencia (un cable en corto), la corriente se dispara.</p>\n<div class=\"vmount\" data-visual=\"ohmCalc\"></div>\n\n<div class=\"callout tip\"><b>Para qué sirve en el taller</b>Sabés que una lámpara de 21 W (stop) a 12 V consume <code>I = P/V = 21/12 ≈ 1,75 A</code>. Si medís mucho más, hay un corto. Si medís 0, está cortada o no le llega masa/positivo.</div>\n\n<h2>Potencia con Ohm</h2>\n<p>Combinando: <code>P = V × I = V²/R = I² × R</code>. Esto explica por qué un cable con alta resistencia (mala conexión) <b>se calienta</b>: disipa potencia en forma de calor (I²×R).</p>\n"
+     },
+     {
+      "id": "i1l3",
+      "title": "El circuito eléctrico y la masa (chasis)",
+      "minutes": 11,
+      "quizId": "q_i1l3",
+      "html": "\n<p>Para que circule corriente necesitás un <b>circuito cerrado</b>: una fuente (batería), un conductor de ida (positivo), una carga (lámpara, motor, etc.) y un retorno. En el auto el retorno casi siempre es la <b>masa</b>: el propio chasis y bloque del motor.</p>\n\n<div class=\"vmount\" data-visual=\"circuitFlow\"></div>\n\n<h2>¿Por qué se usa el chasis como masa?</h2>\n<p>El auto usa <b>masa a chasis</b> para ahorrar cable: en vez de tirar dos cables a cada consumo, el negativo de la batería se conecta a la carrocería y al bloque, y cada componente \"descarga\" ahí cerca. Por eso la mitad de las fallas eléctricas raras son <b>problemas de masa</b>.</p>\n\n<ul>\n<li><b>Positivo (+):</b> generalmente cables de colores, viene de batería / llave / fusiblera.</li>\n<li><b>Negativo (–) / masa:</b> normalmente cable negro o marrón que va al chasis.</li>\n<li><b>Malla / cinta de masa:</b> la trenza gruesa que une motor con carrocería. Si se corta o sulfata, aparecen fallas fantasma.</li>\n</ul>\n\n<div class=\"callout warn\"><b>Síntoma clásico de mala masa</b>Las luces titilan o se ponen mortecinas cuando prendés otro consumo, o el burro gira lento aunque la batería esté buena. Antes de cambiar nada, revisá y limpiá masas.</div>\n\n<h2>Tres estados de un circuito</h2>\n<table class=\"tbl\">\n<tr><th>Estado</th><th>Qué pasa</th><th>Cómo lo ves con el tester</th></tr>\n<tr><td>Cerrado (OK)</td><td>Circula corriente, la carga funciona</td><td>Continuidad sí; cae la tensión sobre la carga</td></tr>\n<tr><td>Abierto</td><td>Cable cortado o conector flojo, no circula</td><td>Sin continuidad; tensión de un lado, 0 del otro</td></tr>\n<tr><td>Cortocircuito</td><td>El positivo toca masa antes de la carga</td><td>Corriente altísima; vuela el fusible</td></tr>\n</table>\n"
+     }
+    ]
+   },
+   {
+    "id": "i2",
+    "title": "Componentes básicos del auto",
+    "icon": "🔌",
+    "lessons": [
+     {
+      "id": "i2l1",
+      "title": "Fusibles: qué son y para qué sirve cada uno",
+      "minutes": 13,
+      "quizId": "q_i2l1",
+      "html": "\n<p>El fusible es el <b>eslabón débil a propósito</b>. Es un elemento que se corta cuando la corriente supera su valor, para proteger el cableado (no al componente). Si un cable hace corto, el fusible vuela <i>antes</i> de que se queme el mazo o se prenda fuego algo.</p>\n\n<div class=\"vmount\" data-visual=\"fuse\"></div>\n\n<h2>Tipos que vas a ver en talleres argentinos</h2>\n<ul>\n<li><b>Fusible de uña (tipo cuchilla / \"blade\"):</b> el más común. Mini, estándar (ATO) y maxi.</li>\n<li><b>Color = amperaje:</b> es un código estándar muy útil para identificar de un vistazo.</li>\n<li><b>Fusibles MIDI / MEGA / fusible principal:</b> los grandes, cerca de la batería, protegen líneas gruesas (alternador, caja de fusibles general).</li>\n</ul>\n\n<table class=\"tbl\">\n<tr><th>Color</th><th>Amperaje</th><th>Uso típico</th></tr>\n<tr><td>Marrón claro/rosa</td><td>3–4 A</td><td>Memorias, módulos</td></tr>\n<tr><td>Rojo</td><td>10 A</td><td>Posición, tablero, ECU señales</td></tr>\n<tr><td>Azul</td><td>15 A</td><td>Luces bajas, encendido</td></tr>\n<tr><td>Amarillo</td><td>20 A</td><td>Limpiaparabrisas, levantavidrios</td></tr>\n<tr><td>Transparente/blanco</td><td>25 A</td><td>Soplador, bomba de nafta</td></tr>\n<tr><td>Verde</td><td>30 A</td><td>Ventilador electro, ABS</td></tr>\n</table>\n\n<div class=\"callout dato\"><b>¿Para qué sirve cada fusible?</b>Cada auto trae un <b>diagrama de la caja de fusibles</b> (en la tapa de la fusiblera o en el manual). Ahí dice qué protege cada uno: \"INY\" inyección, \"ABS\", \"VENT\" electroventilador, \"LUCES\", \"ENC\" encendido, etc. En la sección Biblioteca tenés una guía de las abreviaturas más comunes.</div>\n\n<div class=\"callout warn\"><b>Regla de oro</b>Nunca pongas un fusible de mayor amperaje \"para que no salte más\". Si salta, hay una falla. Poner uno más grande puede quemar el cableado o causar un incendio.</div>\n\n<h2>Cómo se prueba un fusible</h2>\n<ol>\n<li>A simple vista: muchos tienen el alambre interno visible; si está cortado, listo.</li>\n<li>Con tester en continuidad (fuera del circuito): debe pitar / marcar ~0 Ω.</li>\n<li><b>Mejor método (en el auto, con contacto dado):</b> tester en volts, una punta a masa. Tocá los dos testigos del fusible por arriba. Si hay 12 V de un lado y 0 del otro, está cortado.</li>\n</ol>\n"
+     },
+     {
+      "id": "i2l2",
+      "title": "Relés (relays): el interruptor que maneja la ECU",
+      "minutes": 12,
+      "quizId": "q_i2l2",
+      "html": "\n<p>El relé es un <b>interruptor electromagnético</b>. Permite que una corriente chica (la del comando: llave, ECU, módulo) maneje una corriente grande (la del consumo: faros, bomba, electro). Así protegés los comandos y usás cables finos donde manda y gruesos donde consume.</p>\n\n<div class=\"vmount\" data-visual=\"relay\"></div>\n\n<h2>Los pines (numeración estándar 30/85/86/87)</h2>\n<table class=\"tbl\">\n<tr><th>Pin</th><th>Función</th></tr>\n<tr><td><b>85</b></td><td>Bobina (un extremo)</td></tr>\n<tr><td><b>86</b></td><td>Bobina (otro extremo). Entre 85 y 86 va el comando.</td></tr>\n<tr><td><b>30</b></td><td>Entrada de corriente (común). Suele venir con positivo directo de batería.</td></tr>\n<tr><td><b>87</b></td><td>Salida hacia el consumo (cuando el relé \"pega\").</td></tr>\n<tr><td><b>87a</b></td><td>Salida en reposo (relé de 5 pines, normalmente cerrado).</td></tr>\n</table>\n\n<h2>Cómo funciona</h2>\n<p>Cuando aplicás tensión a la bobina (85–86), se genera un campo magnético que <b>atrae un contacto</b> y une 30 con 87. Sentís un \"clic\". Al sacar la alimentación, un resorte lo devuelve a reposo.</p>\n\n<div class=\"callout tip\"><b>Prueba rápida de un relé</b>1) Medí la bobina (85–86) en ohms: debe dar algo así como 60–120 Ω, no abierto ni en corto. 2) Alimentá 85 y 86 con 12 V y masa: tenés que escuchar el clic. 3) Con el clic, debe haber continuidad entre 30 y 87. Otra opción: intercambiarlo por uno gemelo del mismo auto (electro, bocina) para descartar.</div>\n\n<div class=\"callout warn\"><b>Diodo de protección</b>Muchos relés traen un diodo o resistencia en paralelo a la bobina para absorber el pico de tensión al desconectar (autoinducción). Si reemplazás, respetá si tiene diodo, sobre todo si lo maneja una ECU: ese pico puede dañar el transistor de salida del módulo.</div>\n"
+     },
+     {
+      "id": "i2l3",
+      "title": "La batería: corazón del sistema",
+      "minutes": 12,
+      "quizId": "q_i2l3",
+      "html": "\n<p>La batería de arranque es de <b>plomo-ácido</b>. Su trabajo principal es <b>dar el golpe de corriente</b> para el arranque y estabilizar la tensión. Con el motor en marcha, quien alimenta todo es el alternador; la batería pasa a \"respaldo\".</p>\n\n<h2>Datos que tenés que saber leer</h2>\n<ul>\n<li><b>Tensión nominal:</b> 12 V (6 celdas de ~2,1 V).</li>\n<li><b>Capacidad (Ah):</b> p. ej. 12×65, 12×75. Indica cuánta corriente entrega en el tiempo.</li>\n<li><b>CCA / Arranque en frío (A):</b> qué tan fuerte arranca en frío. Importante en el sur del país.</li>\n</ul>\n\n<table class=\"tbl\">\n<tr><th>Tensión en reposo</th><th>Estado de carga</th></tr>\n<tr><td>12,7 – 12,8 V</td><td>100% cargada</td></tr>\n<tr><td>12,5 V</td><td>~75%</td></tr>\n<tr><td>12,3 V</td><td>~50%</td></tr>\n<tr><td>12,1 V</td><td>~25% (sulfatándose)</td></tr>\n<tr><td>&lt; 12,0 V</td><td>Descargada — recargá y revisá</td></tr>\n</table>\n\n<div class=\"callout warn\"><b>Medición correcta</b>Para medir tensión de reposo, la batería debe estar <b>sin cargar ni descargar</b> idealmente 1–2 horas. Recién apagada o recién cargada el valor es engañoso (tensión de superficie). Prendé un par de segundos las luces altas para sacar la superficie y después medí.</div>\n\n<div class=\"callout tip\"><b>Prueba bajo carga (arranque)</b>Con el tester en la batería, hacé arrancar. La tensión cae mientras gira el burro: si baja de <b>9,6 V</b> en frío, la batería está floja o muy descargada. Si cae a 5–7 V y el burro apenas gira, sospechá batería sulfatada o bornes flojos.</div>\n\n<p>Las fallas más comunes: bornes sulfatados (esa pelusa blanca/verde), nivel bajo de electrolito en las de mantenimiento, y sulfatación de placas por descargas profundas repetidas.</p>\n"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "level": "intermedio",
+  "levelName": "Nivel Intermedio",
+  "color": "intermedio",
+  "intro": "Ya entendés lo básico. Ahora vas a los circuitos serie/paralelo, el sistema de carga y arranque, y aprendés a leer diagramas eléctricos como los que vienen en los manuales de taller.",
+  "modules": [
+   {
+    "id": "m1",
+    "title": "Circuitos y mediciones",
+    "icon": "📐",
+    "lessons": [
+     {
+      "id": "m1l1",
+      "title": "Circuitos en serie y en paralelo",
+      "minutes": 14,
+      "quizId": "q_m1l1",
+      "html": "\n<p>Saber distinguir serie de paralelo te cambia el diagnóstico, porque la corriente y la tensión se reparten distinto.</p>\n\n<h2>En serie</h2>\n<p>Los componentes van uno detrás de otro, un solo camino. <b>La misma corriente</b> pasa por todos, y <b>las tensiones se suman</b>.</p>\n<ul><li>R total = R1 + R2 + R3…</li><li>Si se corta uno, se corta todo (como las luces de arbolito viejas).</li></ul>\n<div class=\"vmount\" data-visual=\"seriesCircuit\"></div>\n\n<h2>En paralelo</h2>\n<p>Cada componente tiene su propio camino entre los mismos dos puntos. <b>Todos reciben la misma tensión</b>, y <b>las corrientes se suman</b>.</p>\n<ul><li>1/Rt = 1/R1 + 1/R2…  (la resistencia total baja).</li><li>Si se corta uno, los demás siguen. Así está casi todo el auto: cada consumo en paralelo a 12 V.</li></ul>\n<div class=\"vmount\" data-visual=\"parallelCircuit\"></div>\n\n<div class=\"callout dato\"><b>Por qué importa</b>Las cargas del auto están en paralelo: por eso podés prender las luces sin que se apague la radio. Pero por eso también, cuantos más consumos prendés, más corriente total pedís a la batería/alternador.</div>\n\n<div class=\"callout tip\"><b>Caída de tensión: el truco profesional</b>En un circuito en serie, un mal contacto (resistencia indeseada) \"se roba\" tensión. Si medís entre los dos lados de una conexión que debería ser perfecta y leés más de <b>0,2–0,5 V</b> con corriente circulando, ahí tenés el problema (borne, masa o conector con resistencia).</div>\n"
+     },
+     {
+      "id": "m1l2",
+      "title": "Interpretación de diagramas eléctricos",
+      "minutes": 15,
+      "quizId": "q_m1l2",
+      "html": "\n<p>El diagrama eléctrico (esquema) es el mapa del sistema. Sin leerlo, diagnosticar electrónica es adivinar. Cada marca y cada manual de taller (Autodata, manuales de fábrica, etc.) usa una simbología parecida.</p>\n\n<div class=\"vmount\" data-visual=\"symbols\"></div>\n\n<h2>Qué información trae</h2>\n<ul>\n<li><b>Símbolos</b> de cada componente (lámpara, relé, motor, fusible, masa, conector).</li>\n<li><b>Colores de cable</b> y a veces su sección (mm²). En muchos esquemas el color va abreviado.</li>\n<li><b>Números de pin</b> de conectores y de la ECU.</li>\n<li><b>Puntos de masa</b> identificados (G101, M1, etc.).</li>\n<li><b>Números de circuito / corriente</b> que te ayudan a seguir el cable entre páginas.</li>\n</ul>\n\n<h2>Cómo leerlo (de arriba a abajo)</h2>\n<p>La convención general: <b>arriba el positivo</b> (batería, fusibles), <b>abajo la masa</b>. La corriente \"baja\" desde el + atravesando la carga hasta la masa. Seguí siempre ese recorrido: positivo → fusible → comando/relé → carga → masa.</p>\n\n<div class=\"callout tip\"><b>Método para no perderte</b>1) Ubicá el componente que falla. 2) Identificá de dónde saca el positivo y por dónde va la masa. 3) Marcá los puntos donde podés pinchar con el tester. 4) Dividí el circuito al medio y medí: así sabés si el problema está antes o después (búsqueda binaria).</div>\n\n<table class=\"tbl\">\n<tr><th>Abreviatura color (ES)</th><th>Cable</th></tr>\n<tr><td>Ne / N</td><td>Negro (masa)</td></tr>\n<tr><td>R / Ro</td><td>Rojo (positivo directo)</td></tr>\n<tr><td>Az</td><td>Azul</td></tr>\n<tr><td>Ve</td><td>Verde</td></tr>\n<tr><td>Am</td><td>Amarillo</td></tr>\n<tr><td>Bl</td><td>Blanco</td></tr>\n<tr><td>Ma</td><td>Marrón (a veces masa)</td></tr>\n</table>\n<p class=\"muted\">Nota: cada fabricante varía. Siempre confiá en el diagrama del modelo concreto, no en la \"costumbre\".</p>\n"
+     }
+    ]
+   },
+   {
+    "id": "m2",
+    "title": "Sistema de carga y arranque",
+    "icon": "🔋",
+    "lessons": [
+     {
+      "id": "m2l1",
+      "title": "Alternador y sistema de carga",
+      "minutes": 14,
+      "quizId": "q_m2l1",
+      "html": "\n<p>El alternador transforma el movimiento del motor en electricidad. Recarga la batería y alimenta todos los consumos con el auto andando.</p>\n\n<div class=\"vmount\" data-visual=\"alternator\"></div>\n\n<h2>Partes principales</h2>\n<ul>\n<li><b>Rotor (inductor):</b> bobina que crea el campo magnético, recibe corriente por las escobillas y anillos rozantes.</li>\n<li><b>Estator (inducido):</b> tres bobinados donde se genera la corriente alterna trifásica.</li>\n<li><b>Puente rectificador (diodos):</b> convierte la alterna en continua (lo que usa el auto).</li>\n<li><b>Regulador de tensión:</b> mantiene la salida en ~14 V sin importar las vueltas. Hoy muchos son controlados por la ECU (alternador inteligente).</li>\n</ul>\n\n<h2>Valores que tenés que conocer</h2>\n<table class=\"tbl\">\n<tr><th>Medición</th><th>Valor esperado</th></tr>\n<tr><td>Batería en reposo (motor apagado)</td><td>12,5 – 12,7 V</td></tr>\n<tr><td>Motor en marcha, ralentí, sin consumos</td><td>13,8 – 14,7 V</td></tr>\n<tr><td>Con luces + soplador + luneta prendidos</td><td>No debería caer de ~13,2 V</td></tr>\n<tr><td>Rizado de alterna (ripple) en bornes</td><td>&lt; 50 mV CA (más = diodo dañado)</td></tr>\n</table>\n\n<div class=\"callout warn\"><b>Testigo de carga prendido</b>La luz de batería en el tablero se enciende cuando no hay diferencia correcta entre el alternador y la línea de excitación. Puede ser: correa floja/cortada, escobillas gastadas, regulador, diodos, o el cable de excitación (borne D+/L) interrumpido.</div>\n\n<div class=\"callout tip\"><b>Prueba de ripple con tester</b>Poné el tester en <b>VAC (alterna)</b> sobre los bornes con el motor en marcha. Deberías leer milivolts. Si leés 0,5 V o más de alterna, hay <b>diodos del puente rectificador en mal estado</b>: el alternador \"ensucia\" la línea y puede dar fallas raras de electrónica.</div>\n"
+     },
+     {
+      "id": "m2l2",
+      "title": "Motor de arranque (burro de arranque)",
+      "minutes": 12,
+      "quizId": "q_m2l2",
+      "html": "\n<p>El motor de arranque —en el taller, \"el burro\"— hace girar el motor de combustión hasta que arranca solo. Pide muchísima corriente (150–300 A), por eso necesita cables gruesos y buenas masas.</p>\n\n<div class=\"vmount\" data-visual=\"starter\"></div>\n\n<h2>Cómo funciona</h2>\n<ol>\n<li>Girás la llave a ARRANQUE (o apretás el botón). Llega un positivo de mando al <b>solenoide (automático/Bendix)</b>.</li>\n<li>El solenoide hace dos cosas: empuja el piñón para engranar con la corona del volante, y cierra un contacto grueso que manda toda la corriente de batería al motor del burro.</li>\n<li>El motor gira, arranca el auto, soltás la llave y el piñón se retrae.</li>\n</ol>\n\n<h2>Diagnóstico típico</h2>\n<table class=\"tbl\">\n<tr><th>Síntoma</th><th>Sospecha principal</th></tr>\n<tr><td>Click seco y no gira</td><td>Solenoide pega pero no hay corriente: batería floja, masa, cables, o carbones del burro gastados</td></tr>\n<tr><td>Gira muy lento</td><td>Batería baja, bornes/masa con resistencia, o burro consumido</td></tr>\n<tr><td>No hace nada (ni click)</td><td>Falta el positivo de mando: llave, fusible, relé de arranque, neutral/embrague (inhibidor)</td></tr>\n<tr><td>Gira pero no engrana (chirría)</td><td>Bendix/piñón o corona dañados</td></tr>\n</table>\n\n<div class=\"callout tip\"><b>Prueba de caída de tensión en el arranque</b>Es la prueba pro. Con el tester en mV: medí entre el borne + de batería y el borne + del burro mientras arranca. Y entre el negativo de batería y el cuerpo del burro (masa). Cada lado no debería caer más de <b>0,3–0,5 V</b>. Si cae mucho, el problema está en los cables/masa, no en el burro.</div>\n"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "level": "avanzado",
+  "levelName": "Nivel Avanzado",
+  "color": "avanzado",
+  "intro": "Entramos en electrónica: sensores, actuadores, inyección, encendido e iluminación moderna. Acá empezás a pensar como diagnosticador, no solo como cambiador de piezas.",
+  "modules": [
+   {
+    "id": "a1",
+    "title": "Electrónica del motor",
+    "icon": "🧠",
+    "lessons": [
+     {
+      "id": "a1l1",
+      "title": "Sensores: los sentidos del motor",
+      "minutes": 16,
+      "quizId": "q_a1l1",
+      "html": "\n<p>Los sensores convierten una magnitud física (temperatura, posición, presión, oxígeno) en una <b>señal eléctrica</b> que la ECU entiende. Si un sensor miente, la ECU calcula mal y el motor anda mal.</p>\n\n<h2>Los que más vas a tocar</h2>\n<table class=\"tbl\">\n<tr><th>Sensor</th><th>Qué mide</th><th>Tipo de señal</th></tr>\n<tr><td><b>CKP</b> (cigüeñal)</td><td>Posición/RPM del cigüeñal</td><td>Inductivo (CA) o Hall (onda cuadrada)</td></tr>\n<tr><td><b>CMP</b> (árbol de levas)</td><td>Fase / posición de levas</td><td>Generalmente Hall</td></tr>\n<tr><td><b>MAP</b></td><td>Presión en el múltiple (carga)</td><td>Analógica 0–5 V</td></tr>\n<tr><td><b>MAF</b> (caudalímetro)</td><td>Masa de aire que entra</td><td>Analógica o frecuencia</td></tr>\n<tr><td><b>ECT/IAT</b></td><td>Temp. de motor / de aire</td><td>NTC (resistencia variable)</td></tr>\n<tr><td><b>TPS</b></td><td>Posición de mariposa</td><td>Analógica 0,5–4,5 V</td></tr>\n<tr><td><b>Sonda lambda / O2</b></td><td>Oxígeno en el escape</td><td>0,1–0,9 V (oscilante) o banda ancha</td></tr>\n<tr><td><b>Detonación (knock)</b></td><td>Vibración por picado</td><td>Piezoeléctrico (CA)</td></tr>\n</table>\n\n<h2>Los tres tipos de funcionamiento</h2>\n<ul>\n<li><b>NTC (termistores ECT/IAT):</b> a más temperatura, <b>menos</b> resistencia. Frío ≈ 2–3 kΩ, caliente ≈ 200–300 Ω.</li>\n<li><b>Potenciómetros (TPS):</b> entregan una tensión proporcional a la posición. Debe subir suave, sin saltos.</li>\n<li><b>Generadores de señal (CKP inductivo, knock, lambda):</b> generan su propia tensión.</li>\n</ul>\n\n<div class=\"callout tip\"><b>Cómo se prueba un sensor</b>1) Valor estático con óhmetro (NTC, inductivo). 2) Alimentación: la mayoría de los analógicos reciben <b>5 V de referencia</b> y masa de la ECU; verificá que lleguen. 3) Señal en vivo: con scanner (datos en directo) o con osciloscopio para ver la forma de onda real. La sección Biblioteca trae valores típicos.</div>\n\n<div class=\"callout warn\"><b>No condenes el sensor primero</b>Muchísimas \"fallas de sensor\" son en realidad de cableado: masa de la ECU, 5 V de referencia perdidos, conector sulfatado o cable cortado. Medí alimentación y señal antes de comprar el repuesto.</div>\n"
+     },
+     {
+      "id": "a1l2",
+      "title": "Actuadores: inyectores, bobinas y motores paso a paso",
+      "minutes": 14,
+      "quizId": "q_a1l2",
+      "html": "\n<p>Si los sensores son los sentidos, los actuadores son los músculos: la ECU les ordena hacer algo. La ECU casi siempre los maneja <b>por masa</b> (les da el positivo permanente y la ECU \"abre y cierra\" el negativo).</p>\n\n<h2>Inyectores</h2>\n<p>Son electroválvulas. La ECU los alimenta con positivo y los acciona dando masa por pulsos. El tiempo que están abiertos es el <b>ancho de pulso (ms)</b>: más pulso, más nafta.</p>\n<ul><li>Resistencia típica inyector nafta (alta impedancia): <b>12–16 Ω</b>.</li><li>Se controlan: resistencia, alimentación, señal de pulso (osciloscopio/lámpara LED), y prueba de estanqueidad/caudal en banco.</li></ul>\n\n<h2>Bobinas de encendido</h2>\n<p>Elevan los 12 V a miles de volts para la chispa. Pueden ser bobina única con distribuidor (autos viejos), tipo \"lápiz\"/COP (una por cilindro) o doble chispa (DIS).</p>\n\n<h2>Motor paso a paso / IAC (ralentí)</h2>\n<p>Controla el aire en ralentí (en autos sin mariposa electrónica). La ECU lo mueve en pasos para mantener las RPM. Su suciedad causa ralentí inestable o motor que se apaga al soltar el acelerador.</p>\n\n<div class=\"callout dato\"><b>Control por masa (lado bajo)</b>La mayoría de los actuadores tienen 12 V permanente y la ECU \"los prende\" poniéndolos a masa. Por eso, si medís el inyector con lámpara de prueba contra positivo, ves los destellos del pulso. Saber esto te ahorra horas: el positivo casi nunca falla, el problema suele estar en la línea de control o en la masa de la ECU.</div>\n"
+     },
+     {
+      "id": "a1l3",
+      "title": "Sistema de inyección electrónica",
+      "minutes": 15,
+      "quizId": "q_a1l3",
+      "html": "\n<p>La inyección electrónica dosifica la nafta exacta para cada condición. La ECU lee los sensores, calcula y comanda inyectores y encendido. El objetivo: la mezcla ideal (~14,7:1 aire/nafta) según la situación.</p>\n\n<div class=\"vmount\" data-visual=\"injection\"></div>\n\n<h2>Lazo abierto vs. lazo cerrado</h2>\n<ul>\n<li><b>Lazo abierto:</b> motor frío o a full carga. La ECU usa mapas predefinidos, ignora la sonda lambda.</li>\n<li><b>Lazo cerrado:</b> motor caliente, marcha normal. La ECU <b>corrige en tiempo real</b> según la sonda lambda para mantener la mezcla ideal. Acá entran los \"ajustes de combustible\" (fuel trims).</li>\n</ul>\n\n<div class=\"callout tip\"><b>Trims de combustible (clave en diagnóstico)</b>El <b>STFT</b> (corrección a corto plazo) y <b>LTFT</b> (a largo plazo) te dicen cuánto está compensando la ECU. Si están muy positivos (+15% o más), el motor está pidiendo más nafta: probable entrada de aire falso, baja presión de nafta o MAF subestimando. Muy negativos: inyectores goteando, presión alta o MAP/MAF sobreestimando. Esto se lee con scanner.</div>\n\n<h2>Componentes del sistema de combustible</h2>\n<p>Bomba de nafta (en el tanque), filtro, regulador de presión, riel/flauta e inyectores. Presión típica: <b>3,0–3,8 bar</b> según sistema (con o sin retorno). Verificala con manómetro: presión baja = arranque difícil, tirones, falta de potencia.</p>\n"
+     }
+    ]
+   },
+   {
+    "id": "a2",
+    "title": "Encendido e iluminación",
+    "icon": "💡",
+    "lessons": [
+     {
+      "id": "a2l1",
+      "title": "Sistema de encendido",
+      "minutes": 13,
+      "quizId": "q_a2l1",
+      "html": "\n<p>El encendido genera la chispa que prende la mezcla en el cilindro, en el momento justo (avance de encendido). En nafta es vital; un encendido flojo da fallos de explosión (misfire), tironeo y mayor consumo.</p>\n\n<h2>Evolución de los sistemas</h2>\n<ul>\n<li><b>Con distribuidor:</b> una bobina y el distribuidor reparte la chispa con cables de bujía. (Autos más viejos.)</li>\n<li><b>DIS (doble chispa):</b> bobinas que disparan dos bujías a la vez (una útil, una en escape).</li>\n<li><b>COP (Coil On Plug):</b> una bobina por bujía, sin cables. Lo más actual.</li>\n</ul>\n\n<h2>La bujía</h2>\n<p>Es donde salta la chispa. Su estado \"lee\" cómo anda el motor: color habano claro = OK; negra y seca = mezcla rica o encendido flojo; húmeda de nafta = no enciende; aceitosa = entra aceite; blanca/erosionada = recalentada. Respetá el <b>grado térmico y la separación de electrodos</b> que pide el fabricante.</p>\n\n<div class=\"callout warn\"><b>Misfire (fallo de encendido)</b>El scanner lo reporta como P0300 (aleatorio) o P030X (cilindro X). Causas: bujía, bobina, cable, inyector, baja compresión o entrada de aire. Método: intercambiá bobina/bujía de cilindro y mirá si el fallo \"se muda\". Si se muda, era esa pieza.</div>\n\n<div class=\"callout tip\"><b>Osciloscopio en encendido</b>La forma de onda de encendido (primario y secundario) muestra la línea de chispa: su altura y duración delatan bujías gastadas, mezcla pobre o problemas de bobina. Es de lo más potente que podés hacer con un osciloscopio automotriz.</div>\n"
+     },
+     {
+      "id": "a2l2",
+      "title": "Sistema de iluminación",
+      "minutes": 12,
+      "quizId": "q_a2l2",
+      "html": "\n<p>La iluminación parece simple pero concentra muchísimas fallas de masa y de relés. Conviene dominarla porque es de lo que más entra al taller.</p>\n\n<div class=\"vmount\" data-visual=\"lighting\"></div>\n\n<h2>Circuito típico de faros</h2>\n<p>Positivo de batería → fusible → relé (comandado por la llave de luces) → lámpara → masa. El relé existe para no pasar toda la corriente de los faros por la llave del volante.</p>\n\n<h2>Tecnologías</h2>\n<ul>\n<li><b>Halógenas (H1, H4, H7):</b> las clásicas. Económicas. El H4 combina baja y alta en una lámpara.</li>\n<li><b>Xenón / HID:</b> usan un balasto que genera alta tensión. Cuidado: peligroso, alta tensión.</li>\n<li><b>LED:</b> bajo consumo, pero sensibles a la electrónica; a veces necesitan resistencias o módulos para no dar \"lámpara quemada\" falso.</li>\n</ul>\n\n<div class=\"callout tip\"><b>Diagnóstico de una luz que no prende</b>1) ¿Una sola o varias? Si es una sola lámpara, casi seguro es la lámpara o su masa. Si son varias del mismo grupo, mirá fusible/relé/comando. 2) Tester en la lámpara: ¿llega positivo? ¿llega masa? Si llegan ambos y no prende, es la lámpara. Si falta uno, seguí ese lado hacia atrás.</div>\n\n<div class=\"callout warn\"><b>Las dos del mismo lado fallan</b>Si se apagan juntas las luces de un lado (posición + giro + stop), sospechá la <b>masa común</b> de ese sector, no las lámparas. Es el error nº1 del principiante: cambiar lámparas cuando el problema es una masa.</div>\n"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "level": "profesional",
+  "levelName": "Nivel Profesional",
+  "color": "profesional",
+  "intro": "El nivel del diagnosticador. Redes de comunicación, uso de scanner y osciloscopio, estrategia de diagnóstico y resolución de fallas intermitentes y de comunicación.",
+  "modules": [
+   {
+    "id": "p1",
+    "title": "Redes y diagnóstico electrónico",
+    "icon": "🛰️",
+    "lessons": [
+     {
+      "id": "p1l1",
+      "title": "ECU: la computadora del auto",
+      "minutes": 13,
+      "quizId": "q_p1l1",
+      "html": "\n<p>La ECU (Unidad de Control Electrónico) es la computadora que gobierna el motor (a veces se la llama ECM/UCE). Recibe sensores, procesa con sus mapas y comanda actuadores. El auto moderno tiene <b>varias</b> ECU: motor, ABS, airbag, confort/BCM, tablero, caja automática, etc.</p>\n\n<h2>Qué necesita una ECU para vivir</h2>\n<ul>\n<li><b>Alimentaciones:</b> positivo permanente (memoria), positivo por contacto, y a veces por relé principal.</li>\n<li><b>Masas:</b> varias, y bien firmes. Una masa de ECU floja da fallas erráticas terribles.</li>\n<li><b>Referencia de 5 V</b> que reparte a los sensores.</li>\n<li><b>Líneas de comunicación</b> (CAN, K-line) para hablar con el scanner y otras ECU.</li>\n</ul>\n\n<div class=\"callout warn\"><b>Antes de \"es la computadora\"</b>La ECU es de lo que MENOS falla. Antes de condenarla, verificá: sus alimentaciones, sus masas, los 5 V de referencia, y descartá cortos en los actuadores que pudieron dañar una salida. Cambiar una ECU sin esto suele terminar en otra ECU quemada.</div>\n\n<div class=\"callout dato\"><b>Códigos de falla (DTC)</b>La ECU guarda códigos cuando algo sale de rango. Formato OBD2: una letra (P powertrain, B carrocería, C chasis, U red) + 4 dígitos. Ej.: <code>P0171</code> mezcla pobre banco 1. Un DTC te orienta, <b>no</b> te dice la pieza a cambiar: indica el circuito o síntoma a investigar.</div>\n"
+     },
+     {
+      "id": "p1l2",
+      "title": "Redes CAN y comunicación entre módulos",
+      "minutes": 16,
+      "quizId": "q_p1l2",
+      "html": "\n<p>Las ECU se hablan entre sí por redes. La más usada es <b>CAN bus</b> (Controller Area Network). En vez de cientos de cables, dos cables transmiten todos los datos compartidos (RPM, velocidad, temperatura, etc.).</p>\n\n<div class=\"vmount\" data-visual=\"canbus\"></div>\n\n<h2>Cómo es CAN</h2>\n<ul>\n<li>Dos cables trenzados: <b>CAN-H</b> y <b>CAN-L</b>. Van trenzados para rechazar interferencias.</li>\n<li>Dos resistencias terminadoras de <b>120 Ω</b> en los extremos. En paralelo, entre CAN-H y CAN-L medís <b>~60 Ω</b> (red sin alimentar).</li>\n<li>En reposo ambos están en ~2,5 V. Al transmitir, CAN-H sube (~3,5 V) y CAN-L baja (~1,5 V): se separan.</li>\n</ul>\n\n<div class=\"callout tip\"><b>Las 3 pruebas de oro de CAN</b>1) <b>Resistencia:</b> contacto cortado, medí entre CAN-H y CAN-L en el conector OBD (pines 6 y 14). Debe dar ~60 Ω. 120 Ω = falta una terminadora o red partida; infinito = red abierta; muy bajo = corto. 2) <b>Tensión:</b> contacto dado, ambos cerca de 2,5 V oscilando. 3) <b>Osciloscopio:</b> las dos ondas espejadas son la prueba definitiva.</div>\n\n<div class=\"callout warn\"><b>Falla de comunicación (códigos U)</b>Códigos U (ej. <code>U0100</code> \"pérdida de comunicación con ECM\") indican un módulo que no contesta o la red caída. Causas: un módulo que \"tira abajo\" el bus, cable CAN cortado o en corto, mala alimentación de un módulo, o agua en un conector. Un solo módulo en corto puede dejar mudo a todo el bus.</div>\n\n<p>Otras redes que podés cruzar: <b>LIN</b> (más lenta, un solo cable, para confort), <b>CAN-FD</b> y <b>FlexRay</b> (más rápidas, autos premium).</p>\n"
+     },
+     {
+      "id": "p1l3",
+      "title": "Diagnóstico electrónico con scanner",
+      "minutes": 14,
+      "quizId": "q_p1l3",
+      "html": "\n<p>El scanner es tu ventana a las ECU. Pero es una herramienta de información, no un adivino: te muestra códigos y datos, vos interpretás.</p>\n\n<h2>Funciones que tenés que dominar</h2>\n<ul>\n<li><b>Leer/borrar DTC:</b> en todos los módulos, no solo motor.</li>\n<li><b>Datos en vivo (PIDs):</b> ver sensores en tiempo real. Acá está el 70% del diagnóstico fino.</li>\n<li><b>Congelado (freeze frame):</b> condiciones en el momento de la falla.</li>\n<li><b>Actuaciones / pruebas activas:</b> mandar a accionar un inyector, electro, bomba, para probar.</li>\n<li><b>Adaptaciones / reseteos:</b> mariposa, service, etc.</li>\n</ul>\n\n<div class=\"callout tip\"><b>Método de datos en vivo</b>No mires un dato aislado: comparalo con lo que debería ser y con otros. Ejemplo motor en ralentí caliente: ECT ~85–95°C, RPM ~750–850, MAP ~25–35 kPa, TPS ~0,5 V, STFT/LTFT cerca de 0. Si la ECT marca –40°C, no es que esté frío: el sensor o su cable están cortados (valor de \"fuga a frío\").</div>\n\n<div class=\"callout dato\"><b>OBD2 y el conector</b>Desde fines de los 90 los autos traen el conector <b>OBD2</b> de 16 pines (DLC), normalmente bajo el volante. Da acceso estandarizado a emisiones. Pin 16 = positivo, 4 y 5 = masas, 6 y 14 = CAN-H/L. Aun así, para todo lo que no sea emisiones suele hacer falta software específico de la marca.</div>\n"
+     }
+    ]
+   },
+   {
+    "id": "p2",
+    "title": "Osciloscopio y estrategia",
+    "icon": "📈",
+    "lessons": [
+     {
+      "id": "p2l1",
+      "title": "Osciloscopio automotriz",
+      "minutes": 15,
+      "quizId": "q_p2l1",
+      "html": "\n<p>El osciloscopio muestra cómo cambia una señal <b>en el tiempo</b>. Donde el tester te da un número, el osciloscopio te muestra la \"película\". Es la única forma de ver fallas rápidas, glitches y formas de onda.</p>\n\n<div class=\"vmount\" data-visual=\"scope\"></div>\n\n<h2>Conceptos base</h2>\n<ul>\n<li><b>Eje vertical:</b> tensión (volts/división).</li>\n<li><b>Eje horizontal:</b> tiempo (ms/división).</li>\n<li><b>Trigger (disparo):</b> estabiliza la imagen / captura el evento.</li>\n</ul>\n\n<h2>Qué señales mirás seguido</h2>\n<table class=\"tbl\">\n<tr><th>Señal</th><th>Qué buscás</th></tr>\n<tr><td>CKP inductivo</td><td>Onda senoidal limpia; un diente faltante marca el PMS. Amplitud cae si el sensor o la rueda fónica fallan.</td></tr>\n<tr><td>CKP/CMP Hall</td><td>Onda cuadrada nítida 0–5 V, sin redondeos ni caídas.</td></tr>\n<tr><td>Inyector</td><td>Pulso con el pico de inducción al cerrar (la \"joroba\"). Ancho = tiempo de inyección.</td></tr>\n<tr><td>Sonda lambda</td><td>Oscilación 0,1–0,9 V; debe cruzar rápido. Lenta = sonda vaga.</td></tr>\n<tr><td>CAN</td><td>Dos ondas espejadas, niveles correctos, sin ruido.</td></tr>\n</table>\n\n<div class=\"callout tip\"><b>Por qué te saca de apuros</b>Una falla intermitente que el scanner no llega a capturar (porque promedia), el osciloscopio sí la ve: un microcorte en la señal del CKP de 1 ms aparece como un escalón en la pantalla. Para fallas de \"se apaga y vuelve\", es la mejor herramienta.</div>\n"
+     },
+     {
+      "id": "p2l2",
+      "title": "Estrategia de diagnóstico profesional",
+      "minutes": 14,
+      "quizId": "q_p2l2",
+      "html": "\n<p>La diferencia entre un buen diagnosticador y un cambiapiezas no es el equipo: es el <b>método</b>. Un proceso ordenado te ahorra plata, repuestos y tiempo.</p>\n\n<h2>Los 6 pasos</h2>\n<ol>\n<li><b>Verificá la falla.</b> Reproducila vos mismo. No diagnostiques de oídas.</li>\n<li><b>Recopilá información.</b> Leé TODOS los códigos (todos los módulos), freeze frame, historial, datos en vivo. Preguntá al cliente: ¿cuándo pasa? ¿en frío/caliente? ¿mojado?</li>\n<li><b>Consultá el diagrama y datos técnicos.</b> Cómo es el circuito, qué valores son normales.</li>\n<li><b>Probá lógicamente.</b> Empezá por lo más probable y barato. Usá búsqueda binaria: dividí el circuito y medí al medio.</li>\n<li><b>Repará.</b> Atacá la causa raíz, no el síntoma.</li>\n<li><b>Verificá la reparación.</b> Borrá códigos, probá en las mismas condiciones en que fallaba. Que no vuelva.</li>\n</ol>\n\n<div class=\"callout warn\"><b>Fallas intermitentes</b>Son las más difíciles. Trucos: movés el mazo con el motor andando (wiggle test) buscando que falle; calentás/enfriás con secador o aire comprimido invertido (frío); mojás conectores sospechosos; dejás el scanner grabando o el osciloscopio en modo captura. La mayoría son <b>conexiones</b>: pines flojos, masas, soldaduras frías.</div>\n\n<div class=\"callout tip\"><b>La caída de tensión, siempre</b>El 60% de las fallas eléctricas reales son resistencias indeseadas (mala masa, conector sulfatado, borne flojo). La prueba de caída de tensión con corriente circulando las encuentra todas, y muchas no dan código. Memorizá: medir resistencia no alcanza, hay que medir <b>con carga</b>.</div>\n"
+     }
+    ]
+   }
+  ]
+ }
+]

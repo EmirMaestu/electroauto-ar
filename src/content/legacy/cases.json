@@ -1,0 +1,494 @@
+[
+ {
+  "id": "c01",
+  "titulo": "El auto no arranca: gira el burro pero no prende",
+  "categoria": "Arranque",
+  "dificultad": "Media",
+  "sintomas": [
+   "El motor de arranque gira normal",
+   "El motor no enciende / no toma",
+   "A veces huele a nafta, a veces no"
+  ],
+  "causas": [
+   "Falta de chispa (encendido)",
+   "Falta de combustible (bomba, relé, presión)",
+   "Sin señal de CKP a la ECU",
+   "Inmovilizador que no reconoce la llave",
+   "Fusible/relé de inyección o bomba cortado"
+  ],
+  "procedimiento": [
+   "Definí si falta CHISPA o NAFTA. Es lo primero que separa el problema en dos.",
+   "Chispa: sacá una bujía, conectala a la bobina/cable, apoyala a masa y hacé girar. ¿Salta chispa azul?",
+   "Nafta: al dar contacto, ¿se escucha cebar la bomba 2-3 segundos? Medí presión de riel con manómetro.",
+   "Escaneá: leé códigos y mirá si aparecen RPM en datos en vivo MIENTRAS gira el burro (confirma señal de CKP).",
+   "Verificá testigo de inmovilizador en el tablero (llave con candado parpadeando)."
+  ],
+  "mediciones": [
+   {
+    "punto": "Presión de riel de nafta",
+    "esperado": "3,0–3,8 bar (según sistema). 0 o muy baja = bomba/relé/filtro"
+   },
+   {
+    "punto": "RPM en scanner mientras gira el burro",
+    "esperado": "Debe mostrar RPM (>200). Si marca 0, falla CKP o su cableado"
+   },
+   {
+    "punto": "Chispa en bujía a masa",
+    "esperado": "Chispa azul fuerte. Sin chispa = bobina/CKP/alimentación de encendido"
+   },
+   {
+    "punto": "Alimentación de bomba (conector)",
+    "esperado": "12 V al cebar. Si no llega: relé/fusible/comando ECU"
+   }
+  ],
+  "solucion": "En este caso típico, el scanner mostraba 0 RPM al girar el burro: el sensor CKP había perdido señal por un conector flojo/sulfatado. Al limpiar y asegurar el conector del CKP volvió la señal, apareció la chispa y el pulso de inyección, y el auto arrancó. Lección: sin señal de CKP no hay ni chispa ni inyección, porque la ECU no sabe que el motor gira."
+ },
+ {
+  "id": "c02",
+  "titulo": "No hace nada al girar la llave (ni click)",
+  "categoria": "Arranque",
+  "dificultad": "Baja",
+  "sintomas": [
+   "Giro la llave a arranque y no pasa nada",
+   "No se escucha ningún click",
+   "El tablero puede prender o no"
+  ],
+  "causas": [
+   "Batería totalmente descargada",
+   "Borne flojo/sulfatado",
+   "Falta el positivo de mando al burro",
+   "Inhibidor de neutral / pedal de embrague",
+   "Relé o fusible de arranque",
+   "Llave de contacto"
+  ],
+  "procedimiento": [
+   "Mirá si prende el tablero y las luces. Si nada prende, sospechá batería o bornes.",
+   "Probá las luces altas: si están mortecinas o no prenden, batería/masa.",
+   "Si el tablero prende bien pero no da arranque: falta el positivo de mando al solenoide.",
+   "En automáticos, probá en P y en N. En manuales, pisá a fondo el embrague (muchos tienen inhibidor).",
+   "Buscá y probá el relé de arranque; revisá fusible correspondiente."
+  ],
+  "mediciones": [
+   {
+    "punto": "Tensión de batería en reposo",
+    "esperado": "≥12,4 V. Menos = descargada, recargá y reevaluá"
+   },
+   {
+    "punto": "Caída en bornes (mover y medir)",
+    "esperado": "Conexión firme, sin sulfato. 0 V de caída entre borne y poste"
+   },
+   {
+    "punto": "Positivo de mando en el solenoide al arrancar",
+    "esperado": "≈12 V al girar la llave. Si no llega: llave/relé/inhibidor"
+   },
+   {
+    "punto": "Continuidad del inhibidor de neutral",
+    "esperado": "Cierra en P/N (auto) o embrague pisado (manual)"
+   }
+  ],
+  "solucion": "Frecuente: borne negativo sulfatado y flojo. El tablero prendía débil y no daba arranque. Se limpiaron y ajustaron ambos bornes; volvió a arrancar normal. Cuando 'no hace nada', siempre empezá por batería y bornes antes de tocar el burro."
+ },
+ {
+  "id": "c03",
+  "titulo": "Batería que se descarga sola (consumo parásito)",
+  "categoria": "Consumos",
+  "dificultad": "Alta",
+  "sintomas": [
+   "Después de unos días sin usar el auto, batería agotada",
+   "Batería nueva pero se descarga igual",
+   "A veces queda algo prendido sin notarse"
+  ],
+  "causas": [
+   "Consumo parásito por un módulo que no se duerme",
+   "Luz de baúl/guantera siempre prendida",
+   "Equipo de música/alarma mal instalada",
+   "Relé pegado",
+   "Diodo del alternador en fuga"
+  ],
+  "procedimiento": [
+   "Cargá bien la batería y confirmá que esté sana (si no, el diagnóstico se contamina).",
+   "Apagá todo, cerrá puertas (engañá los sensores de puerta si hace falta) y esperá a que los módulos se 'duerman' (10–40 min).",
+   "Medí el consumo parásito: pinza amperométrica en el cable de masa, o tester en serie con el negativo (con cuidado de no abrir el circuito y resetear módulos).",
+   "Si el consumo es alto, andá sacando fusibles de a uno mirando cuál hace caer la corriente.",
+   "Identificado el circuito, buscá el componente: módulo, accesorio agregado, luz que no apaga."
+  ],
+  "mediciones": [
+   {
+    "punto": "Consumo parásito con todo dormido",
+    "esperado": "30–50 mA es normal. Más de ~80–100 mA hay que investigar"
+   },
+   {
+    "punto": "Corriente al sacar el fusible culpable",
+    "esperado": "Cae bruscamente al valor normal: ese circuito es el responsable"
+   },
+   {
+    "punto": "Ripple AC del alternador",
+    "esperado": "<50 mV. Alto = diodo en fuga descargando la batería"
+   }
+  ],
+  "solucion": "Caso común en Argentina con estéreos/alarmas agregadas: un equipo de música quedaba alimentado con positivo permanente y no entraba en reposo, drenando ~300 mA. Se corrigió la instalación (positivo conmutado correcto). Regla: medí siempre con los módulos dormidos, porque recién abierto el auto el consumo es alto y normal."
+ },
+ {
+  "id": "c04",
+  "titulo": "Alternador no carga (testigo de batería encendido)",
+  "categoria": "Carga",
+  "dificultad": "Media",
+  "sintomas": [
+   "Luz de batería prendida en el tablero",
+   "Con el tiempo el auto se va apagando",
+   "Tensión de batería baja con motor en marcha"
+  ],
+  "causas": [
+   "Correa floja o cortada",
+   "Escobillas (carbones) gastadas",
+   "Regulador de tensión fallado",
+   "Diodos del puente rectificador",
+   "Cable de excitación (D+/L) interrumpido",
+   "Fusible del sistema de carga"
+  ],
+  "procedimiento": [
+   "Con el motor en marcha, medí tensión en bornes de batería.",
+   "Revisá la correa: tensión y estado (vidriada, cuarteada).",
+   "Verificá el cable de excitación/testigo: sin él, muchos alternadores no arrancan a cargar.",
+   "Medí ripple AC para descartar diodos.",
+   "Si carga intermitente o con ruido, sospechá escobillas o regulador."
+  ],
+  "mediciones": [
+   {
+    "punto": "Tensión en bornes, motor en marcha",
+    "esperado": "13,8–14,7 V. Si queda en ~12 V, no carga"
+   },
+   {
+    "punto": "Tensión con consumos prendidos",
+    "esperado": "No debería caer de ~13,2 V"
+   },
+   {
+    "punto": "Ripple AC",
+    "esperado": "<50 mV. Alto = diodos dañados"
+   },
+   {
+    "punto": "Cable de excitación D+/L con contacto",
+    "esperado": "Debe recibir señal/positivo. Cortado = no excita"
+   }
+  ],
+  "solucion": "En este caso medía 12,1 V con el motor andando y el testigo encendido: las escobillas estaban en el límite y el regulador no excitaba bien. Se reemplazó el conjunto regulador-escobillas y volvió a 14,3 V. Antes de cambiar el alternador completo, descartá correa y cable de excitación: a veces es solo eso."
+ },
+ {
+  "id": "c05",
+  "titulo": "Fusible que se quema repetidamente",
+  "categoria": "Cortocircuitos",
+  "dificultad": "Alta",
+  "sintomas": [
+   "Cambio el fusible y vuelve a saltar",
+   "A veces salta enseguida, a veces al mover algo",
+   "El circuito afectado queda muerto"
+  ],
+  "causas": [
+   "Cortocircuito a masa en el cableado (cable pelado contra chasis)",
+   "Componente en corto (motor, lámpara, actuador)",
+   "Conector mojado/sulfatado",
+   "Cable aplastado en una zona móvil (puertas, baúl)"
+  ],
+  "procedimiento": [
+   "Identificá QUÉ protege el fusible (diagrama de la fusiblera) para saber qué circuito revisar.",
+   "Desconectá las cargas de ese circuito de a una y probá: si deja de saltar al sacar una, esa es.",
+   "Para hallar el corto en el cable sin quemar fusibles: usá una lámpara de prueba (o un disyuntor) en lugar del fusible. Si hay corto, la lámpara queda encendida.",
+   "Movés el mazo por tramos mirando la lámpara: cuando cambia su brillo, ahí está el roce.",
+   "Inspeccioná zonas móviles (bisagras de puertas, baúl, capot) donde el cable se pela."
+  ],
+  "mediciones": [
+   {
+    "punto": "Lámpara de prueba en lugar del fusible",
+    "esperado": "Apagada = sin corto. Encendida fija = hay corto a masa"
+   },
+   {
+    "punto": "Continuidad cable a masa (carga desconectada)",
+    "esperado": "Debe ser infinito. Si pita/baja = corto a chasis"
+   },
+   {
+    "punto": "Resistencia del componente sospechoso",
+    "esperado": "Según el componente; muy baja/0 = en corto"
+   }
+  ],
+  "solucion": "Clásico de puerta: el cable del levantavidrios se pelaba en el fuelle de goma entre puerta y columna al abrir/cerrar, tocando masa de forma intermitente. Se reparó y aisló el tramo, y se protegió con corrugado. Truco clave: poné una lámpara en lugar del fusible para no quemar decenas mientras buscás."
+ },
+ {
+  "id": "c06",
+  "titulo": "Una luz no funciona / luces que fallan",
+  "categoria": "Iluminación",
+  "dificultad": "Baja",
+  "sintomas": [
+   "Un faro o una luz no prende",
+   "A veces titila",
+   "El testigo de lámpara puede aparecer"
+  ],
+  "causas": [
+   "Lámpara quemada",
+   "Mala masa de la lámpara o del sector",
+   "Fusible o relé (si fallan varias)",
+   "Portalámpara sulfatado",
+   "Comando / llave de luces"
+  ],
+  "procedimiento": [
+   "Definí si es UNA sola o varias. Una sola → lámpara o su masa. Varias del grupo → fusible/relé/comando.",
+   "En el portalámpara, con tester: ¿llega positivo? ¿llega masa?",
+   "Si llegan los dos y no prende, es la lámpara.",
+   "Si falta el positivo, seguí hacia atrás (fusible, relé, comando). Si falta la masa, revisá el punto de masa del sector.",
+   "Revisá el estado del portalámpara (verdín, contactos quemados)."
+  ],
+  "mediciones": [
+   {
+    "punto": "Positivo en el portalámpara (luz encendida)",
+    "esperado": "≈12 V. Si no, problema aguas arriba"
+   },
+   {
+    "punto": "Masa en el portalámpara",
+    "esperado": "Continuidad a chasis (~0 Ω). Si no, masa abierta"
+   },
+   {
+    "punto": "Resistencia del filamento",
+    "esperado": "Baja (algunos Ω). Infinito = filamento cortado"
+   }
+  ],
+  "solucion": "En el caso, las dos luces traseras de un lado fallaban juntas: era la masa común del conjunto, oxidada en el punto de chasis del baúl. Se limpió y se aseguró la masa, y volvieron todas. No cambies lámparas en serie: si fallan varias juntas, pensá en la masa."
+ },
+ {
+  "id": "c07",
+  "titulo": "Sensor de temperatura (ECT) defectuoso",
+  "categoria": "Sensores",
+  "dificultad": "Media",
+  "sintomas": [
+   "Arranque difícil en frío o en caliente",
+   "Electroventilador que no para o no arranca",
+   "Consumo elevado de nafta",
+   "Aguja de temperatura loca o testigo encendido"
+  ],
+  "causas": [
+   "Sensor ECT (NTC) fuera de rango",
+   "Cable cortado (lee -40°C) o en corto (lee muy caliente)",
+   "Conector sulfatado",
+   "Masa de señal de la ECU"
+  ],
+  "procedimiento": [
+   "Con scanner, leé la temperatura en datos en vivo y comparala con la real del motor.",
+   "Valores absurdos (-40°C con motor caliente, o 140°C en frío) delatan circuito abierto o en corto.",
+   "Medí la resistencia del sensor (NTC) en frío y caliente, y comparala con la tabla.",
+   "Verificá la señal/alimentación en el conector del sensor."
+  ],
+  "mediciones": [
+   {
+    "punto": "Resistencia ECT en frío (~20°C)",
+    "esperado": "≈2.000–3.000 Ω (típico NTC)"
+   },
+   {
+    "punto": "Resistencia ECT caliente (~90°C)",
+    "esperado": "≈200–300 Ω"
+   },
+   {
+    "punto": "Lectura en scanner vs. real",
+    "esperado": "Deben coincidir. -40°C = cable cortado"
+   }
+  ],
+  "solucion": "El scanner marcaba -40°C con el motor caliente: cable de señal cortado en el conector del sensor. La ECU, creyendo el motor helado, enriquecía la mezcla (alto consumo, marcha irregular). Se reparó el cable y el valor volvió a lo normal. Recordá: NTC = más calor, menos ohms."
+ },
+ {
+  "id": "c08",
+  "titulo": "Falla de comunicación CAN (no comunica con scanner)",
+  "categoria": "Redes",
+  "dificultad": "Alta",
+  "sintomas": [
+   "El scanner no se conecta o ve módulos",
+   "Varios testigos encendidos a la vez (ABS, airbag, motor)",
+   "Tablero con comportamiento raro",
+   "Códigos U (U0100, U0155, etc.)"
+  ],
+  "causas": [
+   "Cable CAN-H o CAN-L cortado o en corto",
+   "Un módulo en corto que tira abajo todo el bus",
+   "Falta de alimentación/masa de un módulo",
+   "Agua en un conector",
+   "Resistencia terminadora dañada"
+  ],
+  "procedimiento": [
+   "Con contacto cortado, medí resistencia entre pines 6 y 14 del conector OBD.",
+   "Si no da ~60 Ω, el bus tiene problema (abierto, corto, o terminadora).",
+   "Con contacto dado, medí tensión de CAN-H y CAN-L respecto a masa.",
+   "Si sospechás un módulo en corto: desconectá módulos de a uno y mirá si la red 'revive'.",
+   "Confirmá con osciloscopio: las dos ondas deben verse espejadas."
+  ],
+  "mediciones": [
+   {
+    "punto": "Resistencia CAN-H/CAN-L (pines 6-14), contacto OFF",
+    "esperado": "~60 Ω. 120 Ω = una terminadora/red partida; ∞ = abierto; <50 = corto"
+   },
+   {
+    "punto": "Tensión CAN-H a masa (contacto ON)",
+    "esperado": "~2,5 V en reposo, subiendo al transmitir"
+   },
+   {
+    "punto": "Tensión CAN-L a masa (contacto ON)",
+    "esperado": "~2,5 V en reposo, bajando al transmitir"
+   }
+  ],
+  "solucion": "En el caso medía ~120 Ω (en lugar de 60): el bus estaba partido por un conector con agua que cortaba CAN-L. Un módulo quedaba aislado y generaba códigos U en los demás. Se secó y reparó el conector, volvió a 60 Ω y el scanner comunicó con todos. Empezá SIEMPRE por la resistencia de 60 Ω: es rápida y dice muchísimo."
+ },
+ {
+  "id": "c09",
+  "titulo": "Problema de masa: fallas eléctricas 'fantasma'",
+  "categoria": "Masas",
+  "dificultad": "Alta",
+  "sintomas": [
+   "Al frenar se mueve el cuentavueltas o titilan luces",
+   "Síntomas raros que cambian al prender otros consumos",
+   "Componentes que funcionan a medias",
+   "Corrientes que 'buscan' otro camino"
+  ],
+  "causas": [
+   "Punto de masa principal flojo/oxidado",
+   "Cinta/malla de masa motor-carrocería cortada",
+   "Masa de un módulo o sensor con resistencia",
+   "Corrosión en puntos de chasis"
+  ],
+  "procedimiento": [
+   "Identificá los síntomas cruzados: cuando un consumo afecta a otro, casi siempre es masa compartida.",
+   "Hacé la prueba de caída de tensión en la masa CON el consumo funcionando.",
+   "Medí entre el negativo de la carga y el negativo de batería: debería ser casi 0 V.",
+   "Revisá visualmente y al tacto los puntos de masa (calor = resistencia).",
+   "Verificá la malla de masa entre motor y carrocería."
+  ],
+  "mediciones": [
+   {
+    "punto": "Caída de tensión en masa (con carga)",
+    "esperado": "<0,2 V. Más = masa con resistencia"
+   },
+   {
+    "punto": "Resistencia del punto de masa a batería",
+    "esperado": "~0 Ω. Valores altos = mal contacto"
+   },
+   {
+    "punto": "Malla de masa motor-carrocería",
+    "esperado": "Continuidad firme; sin corrosión"
+   }
+  ],
+  "solucion": "Caso típico: la malla de masa del motor estaba sulfatada. La corriente de arranque/consumos buscaba retorno por cables de señal, generando síntomas dispersos (cuentavueltas que saltaba al frenar). Se reemplazó la malla de masa y desaparecieron todas las rarezas. Las mejores 'reparaciones de electrónica' muchas veces son limpiar y asegurar masas."
+ },
+ {
+  "id": "c10",
+  "titulo": "Falla intermitente: el auto se apaga y vuelve a arrancar",
+  "categoria": "Intermitentes",
+  "dificultad": "Alta",
+  "sintomas": [
+   "El motor se corta de golpe andando y al rato arranca",
+   "No siempre deja código",
+   "Pasa más con calor, con baches o al doblar"
+  ],
+  "causas": [
+   "CKP que falla por temperatura",
+   "Conector/soldadura fría en ECU o relé principal",
+   "Masa intermitente",
+   "Relé de bomba/encendido",
+   "Cableado rozando que corta al moverse"
+  ],
+  "procedimiento": [
+   "Dejá el scanner grabando datos en vivo (RPM, alimentaciones) para capturar el momento del corte.",
+   "Mejor aún: osciloscopio en la señal del CKP para ver microcortes.",
+   "Wiggle test: con el motor andando, movés mazos y conectores buscando provocar el corte.",
+   "Si pasa con calor, calentá la zona sospechosa (CKP, ECU) con secador y reproducí.",
+   "Revisá relés (golpecito suave andando) y masas."
+  ],
+  "mediciones": [
+   {
+    "punto": "Señal de CKP en osciloscopio",
+    "esperado": "Onda estable. Cortes/caídas = sensor o cableado"
+   },
+   {
+    "punto": "Alimentación de ECU al momento del corte",
+    "esperado": "Estable. Caídas = relé principal/conector"
+   },
+   {
+    "punto": "Caída de masa con vibración (wiggle)",
+    "esperado": "Estable. Saltos = masa intermitente"
+   }
+  ],
+  "solucion": "En el caso, el corte aparecía con motor caliente: el sensor CKP fallaba por temperatura (dilataba y perdía señal). Con osciloscopio se vio el corte de la onda al calentarlo con secador. Se reemplazó el CKP y no volvió a apagarse. Las intermitentes se ganan con paciencia, grabando datos y provocando la falla."
+ },
+ {
+  "id": "c11",
+  "titulo": "Levantavidrios / accesorio que funciona lento o no funciona",
+  "categoria": "Consumos",
+  "dificultad": "Baja",
+  "sintomas": [
+   "El vidrio sube muy lento o se traba",
+   "El motor del accesorio 'gime' sin moverse",
+   "A veces funciona, a veces no"
+  ],
+  "causas": [
+   "Caída de tensión por conector/masa con resistencia",
+   "Motor consumido (mucha corriente)",
+   "Interruptor desgastado",
+   "Guías del vidrio duras (mecánico) que sobrecargan"
+  ],
+  "procedimiento": [
+   "Confirmá si es eléctrico o mecánico: ¿el motor hace fuerza? ¿está duro el riel?",
+   "Medí tensión en el motor mientras opera: si llega poca, hay caída en el camino.",
+   "Hacé caída de tensión en positivo y en masa del circuito con el motor trabajando.",
+   "Medí el consumo con pinza: un motor consumido pide de más."
+  ],
+  "mediciones": [
+   {
+    "punto": "Tensión en el motor operando",
+    "esperado": "Cercana a la de batería. Mucho menos = caída en cableado/masa"
+   },
+   {
+    "punto": "Caída en masa del circuito (con carga)",
+    "esperado": "<0,3 V"
+   },
+   {
+    "punto": "Consumo del motor (pinza)",
+    "esperado": "Dentro de lo normal; muy alto = motor/mecánica dura"
+   }
+  ],
+  "solucion": "En el caso el levantavidrios subía lento: el conector de la puerta tenía pines sulfatados que generaban caída de tensión, y al motor le llegaban 9 V en vez de 12. Se limpiaron los pines y volvió a la velocidad normal. Síntoma de 'lento' casi siempre = caída de tensión, no necesariamente el motor."
+ },
+ {
+  "id": "c12",
+  "titulo": "Marcha irregular y consumo alto (mezcla pobre/rica)",
+  "categoria": "Inyección",
+  "dificultad": "Alta",
+  "sintomas": [
+   "Ralentí inestable, tironeos",
+   "Consumo de nafta elevado",
+   "Testigo de motor (check) encendido",
+   "Códigos P0171 (pobre) o P0172 (rica)"
+  ],
+  "causas": [
+   "Entrada de aire falso (mangueras, juntas)",
+   "Presión de nafta baja o alta",
+   "MAF/MAP mal calibrado",
+   "Inyectores sucios o goteando",
+   "Sonda lambda vaga"
+  ],
+  "procedimiento": [
+   "Leé los trims de combustible (STFT/LTFT) en el scanner.",
+   "Trims muy positivos = pobre (falta nafta o entra aire); muy negativos = rica.",
+   "Si es pobre, buscá entradas de aire falso (spray controlado de limpiador alrededor de juntas: cambian las RPM).",
+   "Medí presión de nafta con manómetro.",
+   "Mirá la sonda lambda en vivo y su velocidad de oscilación."
+  ],
+  "mediciones": [
+   {
+    "punto": "STFT + LTFT (sumados)",
+    "esperado": "Cerca de 0 (±10%). +15% o más = pobre; -15% = rica"
+   },
+   {
+    "punto": "Presión de nafta",
+    "esperado": "3,0–3,8 bar según sistema"
+   },
+   {
+    "punto": "Sonda lambda en vivo",
+    "esperado": "Oscila 0,1–0,9 V cruzando rápido"
+   }
+  ],
+  "solucion": "En el caso, LTFT estaba en +22% (mezcla pobre): una manguera de vacío cuarteada metía aire falso. Con limpiador se confirmó (subían las RPM al rociar la zona). Se cambió la manguera y los trims volvieron cerca de 0. Los trims son tu mejor amigo para fallas de mezcla."
+ }
+]

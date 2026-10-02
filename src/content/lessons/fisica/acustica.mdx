@@ -1,0 +1,266 @@
+Un mecánico con años de oficio levanta el capot, escucha diez segundos y te dice: "eso es un botador", "eso es la bomba de agua", "eso es biela, no lo andes más". No es magia. Es física del sonido más mucha práctica, y la parte de física la podés aprender hoy.
+
+El auto **habla todo el tiempo**: cada pieza que gira, golpea o roza hace un ruido con un ritmo y un tono propios. Si sabés qué es el sonido, cómo se mide y qué determina su tono, vas a poder separar un ruido normal de uno que avisa que algo se está por romper.
+
+<Libro pag="pág. 62–69" />
+
+## Qué es el sonido
+
+El sonido es una **onda de presión**. Algo vibra (un pistón, una chapa, la membrana de un parlante) y empuja el aire que tiene al lado. Ese aire se comprime y empuja al de más allá, que a su vez empuja al siguiente. Lo que viaja no es el aire: es **la compresión**. Cada partícula de aire se mueve apenas un poquito y vuelve a su lugar, como la gente en una "ola" de cancha.
+
+Detrás de cada compresión viene una **rarefacción** (una zona con un poquito menos de presión). Cuando esa seguidilla de compresiones y rarefacciones llega a tu oído, empuja y tira del tímpano, y el cerebro lo interpreta como sonido.
+
+<OndaSonora />
+
+Como el sonido necesita algo que empujar, **viaja mejor por los materiales rígidos**:
+
+- En el aire, unos **343 m/s** (a 20 °C).
+- En el agua, unos 1.480 m/s.
+- En el acero, más de **5.000 m/s**.
+
+Por eso el estetoscopio de mecánico funciona tan bien: apoyás la punta en el block y el sonido viaja por el metal directo a tu oído, sin perderse en el aire ni mezclarse con el resto del ruido del motor.
+
+<Formula name="Velocidad, frecuencia y longitud de onda" vars={{ "c": "velocidad del sonido [m/s] (343 m/s en aire a 20 °C)", "λ": "longitud de onda: distancia entre dos compresiones [m]", "f": "frecuencia [Hz]" }}>
+  c = λ · f
+</Formula>
+
+<Ejemplo title="¿Qué tan 'largo' es el ruido del escape?">
+Un motor de 4 cilindros a 3.000 rpm tiene 100 explosiones por segundo (dos por vuelta, 50 vueltas por segundo). El escape "late" a 100 Hz:
+
+<Calc>λ = c / f = 343 / 100 = 3,4 m</Calc>
+
+El silbido de un turbo puede estar en 8.000 Hz:
+
+<Calc>λ = 343 / 8.000 = 0,043 m = 4,3 cm</Calc>
+
+Resultado: <Res>el retumbo del escape tiene ondas de más de 3 metros; el silbido del turbo, de 4 centímetros</Res>. Esto explica algo que vas a notar siempre: los ruidos **graves** atraviesan paredes, puertas y alfombras sin problema (la onda es más grande que el obstáculo), mientras que los **agudos** se frenan con cualquier espuma o burlete.
+</Ejemplo>
+
+<Dato title="La velocidad del sonido depende de la temperatura">
+En aire, c ≈ 331 · √(T / 273 K). En el escape, con gases a 400–600 °C, el sonido viaja a 500–600 m/s. Los que diseñan silenciadores y múltiples de escape tienen que hacer las cuentas con el gas caliente, no con aire a 20 °C.
+</Dato>
+
+## Frecuencia y tono
+
+La **frecuencia** es cuántas compresiones por segundo llegan a tu oído. Para el oído, frecuencia es **tono**:
+
+- **Graves**: frecuencias bajas, menos de unos 200 Hz. El retumbo del escape, el zumbido de un cardán, el "bombo" de la cabina a cierta velocidad.
+- **Medios**: entre 200 y 2.000 Hz. La mayor parte del ruido del motor, un rulemán que ronronea, la voz humana.
+- **Agudos**: más de 2.000 Hz. Una correa que chilla, el silbido de un turbo o de una pérdida de vacío, el chirrido de una pastilla gastada.
+
+Un oído joven escucha de unos **20 Hz a 20.000 Hz**, y es más sensible entre 2.000 y 5.000 Hz. Con la edad, y sobre todo **con el ruido acumulado**, se pierden primero los agudos. Un mecánico que nunca usó protección muchas veces ya no escucha el silbido de una pérdida de vacío que un aprendiz oye enseguida.
+
+### El ritmo también es información
+
+Además del tono, muchos ruidos tienen un **ritmo**: golpes que se repiten. Ese ritmo te dice qué pieza es, porque cada una gira a una velocidad distinta:
+
+- **Cigüeñal, bielas, bancada**: una vez por vuelta del motor. A 800 rpm, 13 golpes por segundo.
+- **Árbol de levas, botadores, válvulas**: una vez cada **dos** vueltas del motor (el árbol gira a la mitad). A 800 rpm, unos 7 "tic" por segundo para cada botador.
+- **Ruedas, rulemanes de rueda, homocinéticas**: según la **velocidad del auto**, sin importar las rpm.
+- **Alternador, bomba de agua, tensor**: según las rpm, pero más rápido que el cigüeñal (sus poleas son más chicas).
+
+Un sonido real casi nunca es una sola frecuencia: es una mezcla de una frecuencia base y sus múltiplos (los **armónicos**). Esa mezcla es el **timbre**: lo que hace que un diesel "suene a diesel" aunque esté a las mismas rpm que un naftero.
+
+## Decibeles: cómo se mide el ruido
+
+El oído es un instrumento extraordinario. Escucha desde una variación de presión de **0,00002 Pa** (20 micropascales) hasta más de **20 Pa** sin romperse: un rango de un millón a uno. Con una escala común, el ruido de una oficina y el de una amoladora estarían en números imposibles de comparar. Por eso se usa una escala **logarítmica**: el **decibel** (dB).
+
+<Formula name="Nivel de presión sonora" vars={{ "Lp": "nivel de presión sonora [dB]", "p": "presión sonora eficaz [Pa]", "p₀": "presión de referencia: 20 µPa (el umbral de audición)" }}>
+  L<sub>p</sub> = 20 · log₁₀(p / p₀)
+</Formula>
+
+No hace falta que hagas logaritmos todos los días. Alcanza con tres reglas que salen de esa fórmula:
+
+1. **+3 dB = el doble de potencia sonora.** Dos amoladoras iguales hacen 3 dB más que una, no el doble de decibeles.
+2. **+6 dB = el doble de presión.** Y como la potencia se reparte en un área que crece con el cuadrado de la distancia, **cada vez que duplicás la distancia a la fuente, bajan 6 dB** (al aire libre).
+3. **+10 dB = diez veces la potencia**, y el oído lo percibe como **"el doble de fuerte"**. De 80 a 90 dB no es "un poquito más": es diez veces más energía entrando a tu oído.
+
+<Decibeles />
+
+<Ejemplo title="Dos amoladoras y una llave de impacto">
+Dos amoladoras de 100 dB cada una, trabajando juntas a la misma distancia:
+
+<Calc>L = 100 + 10 · log₁₀(2) = 100 + 3 = 103 dB</Calc>
+
+Una llave de impacto hace 105 dB a 1 m. ¿Cuánto llega a alguien que está a 4 m?
+
+<Calc>4 m = dos veces el doble de distancia → 105 − 6 − 6 = 93 dB</Calc>
+
+Resultado: <Res>103 dB con las dos amoladoras; 93 dB a 4 m de la llave de impacto</Res>. Las dos cosas superan los 85 dB: el que trabaja al lado también necesita protección, no sólo el que tiene la máquina en la mano.
+</Ejemplo>
+
+### Sumar fuentes distintas
+
+Cuando dos fuentes tienen niveles distintos, la más fuerte manda. Esta tabla sirve para sumar de cabeza:
+
+| Diferencia entre las dos fuentes | Sumale a la más fuerte |
+|---|---|
+| 0 dB (iguales) | +3 dB |
+| 2 dB | +2 dB |
+| 4 dB | +1,5 dB |
+| 6 dB | +1 dB |
+| 10 dB o más | casi nada (+0,4 dB) |
+
+Consecuencia práctica: si el escape hace 90 dB y una chapa suelta hace 80 dB, arreglar la chapa casi no cambia el nivel medido… pero sí cambia **lo que molesta**, porque la chapa suele tener un tono distinto que se distingue enseguida.
+
+### dB(A): el decibel del oído
+
+El oído no escucha igual todas las frecuencias: es sordo para los graves muy bajos y muy sensible a los medios-agudos. Los sonómetros aplican un filtro llamado **ponderación A** que imita esa sensibilidad, y el resultado se escribe **dB(A)**. Todas las normas de ruido (homologación de autos, ruido dentro del habitáculo, ruido en el trabajo) se expresan en dB(A).
+
+## Cómo llega el ruido a la cabina
+
+El ruido que escuchás adentro del auto viaja por dos caminos:
+
+- **Ruido aéreo**: el sonido viaja por el aire y entra por donde puede: burletes, pasarruedas, vidrios, el agujero de un pasacables. Se combate con **sellado** (burletes sanos, tapones de goma en su lugar) y con **material absorbente** (alfombras, fieltros, espumas).
+- **Ruido estructural** (o "por cuerpo sólido"): la vibración viaja por piezas rígidas (soportes de motor, bujes, la carrocería) y alguna chapa grande la convierte en sonido, como la membrana de un parlante. Se combate **aislando** (gomas, soportes) y **amortiguando** las chapas (placas bituminosas pegadas en el piso y las puertas). Es el mismo tema de la lección de [vibraciones](/aprender/fisica/vibraciones).
+
+Según la velocidad, manda una fuente distinta:
+
+1. **A baja velocidad y acelerando**: el **motor** y el **escape**.
+2. **Entre unos 50 y 100 km/h**: el **ruido de rodadura** de las cubiertas. El dibujo de la banda "bombea" aire al aplastarse contra el piso y la cubierta vibra. Depende de la cubierta, la presión de inflado y el piso (el hormigón con estrías suena mucho más que el asfalto liso).
+3. **Arriba de 100–130 km/h**: el **ruido aerodinámico**. Crece muy rápido con la velocidad: viento en los espejos, en los burletes, en las barras de techo.
+
+<Ojo title="La cubierta que se hace pasar por rulemán">
+Una cubierta con desgaste irregular (en serrucho o en copas, típico de amortiguadores gastados o mala alineación) hace un **ronroneo** que crece con la velocidad, idéntico al de un rulemán de rueda. Antes de cambiar un rulemán, pasá la mano por la banda de rodamiento: si sentís escalones, el ruido puede ser de la cubierta. Rotar las ruedas y ver si el ruido "se muda" lo confirma.
+</Ojo>
+
+## El silenciador
+
+Cada vez que se abre una válvula de escape, sale del cilindro gas a varios bar de presión: un **golpe de presión**. A 3.000 rpm, en un 4 cilindros, son 100 golpes por segundo. Sin nada que los frene, un motor de calle haría bastante más de 100 dB a la salida del caño. El trabajo del escape es bajar eso a un nivel tolerable sin frenar demasiado el paso de los gases.
+
+Se usan tres principios, muchas veces todos juntos en la misma lata:
+
+**1. Reflexión (cámaras).** Cuando el caño se ensancha de golpe en una cámara, la onda de presión "no encuentra" la misma pared que antes y **parte de ella rebota hacia atrás**. Lo que sigue se reparte en un volumen grande, rebota entre las paredes y sale estirado y más débil. Los silenciadores de reflexión tienen varias cámaras, tabiques y tubos que van y vuelven. Funcionan bien para los **graves**.
+
+**2. Interferencia.** Si una parte del sonido recorre un camino más largo que la otra y se vuelven a juntar, puede pasar que la compresión de una llegue justo con la rarefacción de la otra: **se cancelan**. Pasa cuando la diferencia de recorrido es media longitud de onda. Los **resonadores** (cámaras cerradas conectadas al caño por un tubito, o tubos laterales de largo justo) trabajan así para "matar" una frecuencia molesta, como el bombo de la cabina a cierta velocidad.
+
+**3. Absorción (fibra).** El gas pasa por un **tubo perforado** rodeado de lana mineral o fibra. La onda de presión entra por los agujeritos, hace vibrar las fibras y esa vibración se convierte en calor. Funciona muy bien para los **agudos**.
+
+<Silenciador />
+
+<Formula name="Cancelación por interferencia" vars={{ "Δl": "diferencia de recorrido entre los dos caminos [m]", "λ": "longitud de onda que se cancela [m]", "f": "frecuencia que se cancela [Hz]", "c": "velocidad del sonido en el gas [m/s]" }}>
+  Δl = λ / 2  →  f = c / (2 · Δl)
+</Formula>
+
+<Ejemplo title="¿Qué frecuencia cancela un tubo 50 cm más largo?">
+En un escape con gas a unos 350 °C (623 K), la velocidad del sonido es:
+
+<Calc>c = 331 × √(623 / 273) = 331 × 1,51 = 500 m/s</Calc>
+
+Si un camino es 0,5 m más largo que el otro:
+
+<Calc>f = c / (2 · Δl) = 500 / (2 × 0,5) = 500 Hz</Calc>
+
+Resultado: <Res>se cancela alrededor de 500 Hz</Res> (y también 1.500, 2.500 Hz…, donde la diferencia es 1,5 λ, 2,5 λ). Con el motor frío, el gas está más frío, el sonido va más lento y la frecuencia cancelada baja: por eso algunos escapes suenan distinto en frío.
+</Ejemplo>
+
+Un escape de serie suele tener un **silenciador intermedio** (o resonador) y un **silenciador final**. El catalizador también aporta algo: su panal de cerámica frena parte del ruido.
+
+<Ojo title="El mito del escape libre">
+Sacar el silenciador casi no da potencia en un motor de serie: el motor, la sonda lambda y la gestión están calibrados para el escape original. Lo que sí cambia: muchísimo más ruido (te cansa en ruta y molesta a todos), puede alterar las lecturas de la sonda si queda una entrada de aire, y te puede traer problemas en la RTO y con las ordenanzas de ruido.
+</Ojo>
+
+## Diagnóstico por el ruido
+
+Antes de levantar una herramienta, contestá cuatro preguntas sobre el ruido:
+
+1. **¿Cuándo aparece?** En frío o en caliente; en ralentí, acelerando, con carga (subiendo), soltando el acelerador, al doblar, al frenar, al pasar pozos.
+2. **¿De qué depende?** De las rpm (aunque el auto esté parado) o de la velocidad (aunque pongas punto muerto).
+3. **¿Dónde está?** Arriba del motor (tapa de válvulas), abajo (cárter), adelante (correas y poleas), en una rueda, debajo del auto.
+4. **¿Cómo es?** Tono (grave, agudo), tipo (golpe, tic, zumbido, chillido, silbido, siseo) y ritmo.
+
+| Ruido | Cuándo y cómo | Causa probable | Cómo confirmarlo |
+|---|---|---|---|
+| **Golpe de biela**: golpe metálico seco, grave, abajo del motor | Aumenta con carga y rpm; a veces se nota más al soltar el acelerador | Metal de biela gastado o con juego (poca presión de aceite) | Anular cilindro por cilindro: el golpe cambia o desaparece al anular el que tiene la biela mala. Medir presión de aceite |
+| **Botador**: tic-tic rápido y liviano arriba del motor | Al arrancar en frío y se va al calentar, o permanente | Botador hidráulico que no se llena (aceite viejo, bajo o de viscosidad equivocada) o luz de válvulas grande | Estetoscopio sobre la tapa de válvulas: ubicar el tic. El ritmo es la mitad del cigüeñal |
+| **Pistoneo (detonación)**: repiqueteo metálico, "bolitas en una lata" | Acelerando con carga a bajas rpm, subiendo una cuesta | Nafta de bajo octanaje, carbonilla, recalentamiento, avance excesivo | Scanner: corrección del sensor de detonación (retardo). Probar con nafta de más octanaje |
+| **Correa que chilla**: chillido agudo en el frente | Al arrancar en frío, al girar la dirección, al prender el aire o con mucho consumo eléctrico | Correa vidriada, tensión baja, polea desalineada o tensor vencido | Rociar un poco de agua en la cara de la correa: si el ruido **empeora**, falta tensión; si **desaparece** un momento, es desalineación |
+| **Rulemán de rueda**: zumbido o ronroneo que crece con la velocidad | Cambia al doblar: aumenta cuando se carga ese lado | Rulemán gastado | Doblando a la izquierda se carga el lado derecho. Auto levantado: girar la rueda a mano y sentir aspereza; buscar juego |
+| **Pastilla con testigo**: chillido metálico agudo | Al frenar suave o andando, cambia al pisar el freno | La chapita testigo toca el disco: pastilla al límite | Medir el espesor de la pastilla |
+| **Silbido de vacío**: siseo continuo | En ralentí, cambia al acelerar | Manguera de vacío rota, junta de múltiple, servofreno | Scanner: trims positivos (mezcla pobre). Prueba de humo |
+| **Turbo que silba**: silbido tipo sirena que sube con la presión | Al acelerar con carga | Silbido leve: normal. Fuerte y con soplido: pérdida en mangueras o intercooler. Aullido metálico: eje con juego | Revisar abrazaderas y mangueras. Juego del eje con el motor apagado y frío. Humo azul o aceite en la admisión |
+| **Tac-tac-tac al doblar acelerando** | Doblando cerrado y acelerando | Homocinética externa gastada | Revisar fuelles: si está roto y sin grasa, casi seguro es eso |
+| **Golpe sordo debajo del auto en pozos** | Al pasar pozos y lomos | Bujes, bieletas de barra estabilizadora, topes, soporte del escape | Auto en el piso, mover piezas con barreta; mirar bujes |
+| **Escape que tronó de golpe** | Siempre, más acelerando | Caño o silenciador roto, junta de múltiple | Con el motor en marcha, tapar un instante la salida (con un trapo y guante): el soplido sale por la rotura |
+
+### Usar bien el estetoscopio
+
+El estetoscopio de mecánico es una varilla metálica con un auricular. Se apoya la punta en la pieza y se escucha el sonido que viaja por el metal.
+
+<Pasos>
+1. **Primero escuchá todo sin estetoscopio.** Ubicá la zona: arriba, abajo, adelante, en qué lado.
+2. **Compará.** Apoyá la punta en el mismo punto de piezas iguales: inyector 1, 2, 3, 4; o rulemán del alternador, de la bomba de agua y del tensor. El que suena distinto es el sospechoso. Los inyectores **tienen** que hacer un tic parejo; el que no suena, no está trabajando.
+3. **Acercate a la fuente.** El ruido es más fuerte cuanto más cerca está la punta del origen. Movete de a poco.
+4. **Cambiá la condición.** Acelerá, prendé el aire, girá la dirección: si el ruido cambia con una de esas cosas, ya sabés qué sistema es.
+</Pasos>
+
+<Peligro>
+Con el motor en marcha, la manguera del estetoscopio, tu pelo, la ropa y las manos **lejos de correas, poleas y del electroventilador**, que puede arrancar solo aunque el motor esté en ralentí. No uses guantes de tela cerca de piezas que giran.
+</Peligro>
+
+<EnElTaller>
+
+**Grabá el ruido.** Un video con el celular, con el tablero a la vista (rpm y velocidad), vale oro: lo podés escuchar varias veces, mostrárselo a alguien con más experiencia y comparar antes y después de la reparación. Hay apps que muestran el espectro (las frecuencias) del sonido: sirven para ver si el pico se mueve con las rpm o con la velocidad.
+
+**Frío o caliente.** Muchos ruidos cambian con la temperatura: el botador hidráulico suena en frío y se calla en caliente; un pistón con mucha holgura "cacarea" en frío y se calma al dilatarse; una correa chilla en las mañanas frías.
+
+**Anular cilindros.** Para golpes del motor de abajo, anulá un cilindro por vez (desconectando el inyector, o con la prueba de balance de cilindros del scanner si la tiene). Si el golpe cambia al anular uno, el problema está en ese cilindro.
+
+**No confundas tic de inyector con botador.** Los inyectores de nafta hacen un tic normal y parejo. Con el estetoscopio sobre cada inyector vs sobre la tapa de válvulas, se separan enseguida.
+
+</EnElTaller>
+
+<Electronica>
+
+- **El sensor de detonación es un micrófono.** Es un acelerómetro piezoeléctrico atornillado al block. La ECU lo "escucha" en una ventana de tiempo justo después de cada chispa y filtra la frecuencia del pistoneo (entre unos 5 y 10 kHz, según el diámetro del cilindro). Si la encuentra, atrasa el encendido en ese cilindro. En el scanner aparece como "retardo por detonación" por cilindro. Códigos típicos: **P0325 a P0334** (circuito del sensor).
+- **Sensores de estacionamiento**: emiten pulsos de **ultrasonido** (unos 40–50 kHz, inaudibles) y miden cuánto tarda el eco: distancia = c · t / 2. Un sensor sucio, con barro o pintado de más da falsas alarmas o no detecta.
+- **Cancelación activa de ruido**: algunos autos usan micrófonos en el techo y los parlantes del equipo de audio para emitir un sonido "al revés" del bombo del motor y cancelarlo por interferencia. Otros hacen lo contrario: generan sonido de motor por los parlantes para que suene más deportivo.
+- **Autos eléctricos e híbridos**: como casi no hacen ruido a baja velocidad, muchos países les exigen un sistema que emita sonido hacia afuera (para peatones) a baja velocidad.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Sensor de estacionamiento" esperado="Cada sensor hace un tic-tic suave" como="Contacto puesto, reversa colocada (freno de mano puesto). Acercar el oído o apoyar el dedo en cada sensor" nota="El que no hace tic, no emite: revisar ficha, cable o sensor. La distancia se calcula con el tiempo del eco: 1 m de distancia = unos 5,8 ms de ida y vuelta." />
+  <Medicion punto="Distancia del ultrasonido" esperado="d = 343 · t / 2" como="Cuenta para entender el principio: eco de 5,8 ms → 343 × 0,0058 / 2 ≈ 1,0 m" />
+  <Medicion punto="Retardo por detonación (scanner)" esperado="0° o casi 0° en marcha normal; algo de retardo con carga fuerte" como="Datos en vivo, por cilindro si la ECU lo informa, en prueba de ruta con carga" nota="Retardo alto y permanente en todos: nafta, carbonilla, temperatura. En uno solo: ese cilindro o un sensor mal ajustado." />
+  <Medicion punto="Nivel de ruido del escape" esperado="Según el valor de homologación del modelo" como="Sonómetro en dB(A), a 0,5 m de la salida y a 45°, con el motor a un régimen fijo según el procedimiento de la norma" nota="Medí siempre en el mismo lugar y con el mismo método para poder comparar." />
+</Mediciones>
+
+<Herramientas ids={["estetoscopio", "scanner", "epp", "tester"]} />
+
+## Protección auditiva en el taller
+
+La pérdida de audición por ruido **no duele, no se nota de un día para el otro y no tiene arreglo**. Las células del oído que se dañan no se regeneran. Primero se pierden los agudos (justo los que necesitás para escuchar un silbido de vacío o un rulemán), después aparece el zumbido permanente (acúfeno) y recién después notás que "no escuchás bien".
+
+La regla que usan la normativa argentina de higiene y seguridad y la mayoría de las normas internacionales: **85 dB(A) durante 8 horas** como máximo, y **la mitad del tiempo por cada 3 dB más**. A 100 dB (una amoladora), el límite es de unos 15 minutos por día.
+
+<Peligro title="Cuándo ponerte protección">
+
+- Amoladora, llave de impacto, martillo sobre chapa, sopleteado con aire comprimido, compresor cerca: **siempre**.
+- Probar un escape libre o acelerar un motor con el capot abierto mucho rato: **siempre**.
+- **Tapones de espuma**: se enrollan finitos, se meten tirando la oreja hacia arriba y atrás, y se sostienen unos segundos mientras se expanden. Mal puestos protegen muy poco.
+- **Orejeras**: rápidas de poner y sacar, ideales para trabajos cortos y repetidos.
+- Para ruidos muy fuertes y largos: tapones **y** orejeras.
+
+</Peligro>
+
+<Mendoza>
+
+**Ripio y piedras.** En los caminos de ripio, cada piedra que golpea el piso se transmite como ruido estructural. Un protector de cárter flojo, un escape con el soporte de goma roto o un protector térmico suelto empiezan a golpear y a vibrar enseguida. Si apareció un ruido nuevo después de un viaje por ripio, mirá primero todo lo que va abajo del auto.
+
+**Tierra y zonda.** El polvo fino que se mete en los frenos después de un día de zonda o de un camino de tierra provoca chirridos en las pastillas. Un sopleteado del freno (con barbijo y anteojos: el polvo de freno no se respira) suele resolverlo.
+
+**Calor de verano.** Con 35–40 °C, las correas se resecan y se vidrian más rápido, y los burletes de goma se endurecen: aumentan los chillidos de correa y el ruido de viento en ruta.
+
+</Mendoza>
+
+<PuntosClave>
+1. El sonido es una **onda de presión**: viaja la compresión, no el aire. Va a 343 m/s en aire y a más de 5.000 m/s en acero (por eso el estetoscopio funciona).
+2. **Frecuencia = tono**. Los graves tienen ondas de metros y atraviesan todo; los agudos se frenan con cualquier espuma.
+3. El **ritmo** de un ruido delata la pieza: cigüeñal (una vez por vuelta), árbol de levas y botadores (mitad), ruedas (según km/h).
+4. **Decibeles**: +3 dB es el doble de potencia, +10 dB suena el doble de fuerte, duplicar la distancia baja 6 dB. Las normas usan **dB(A)**.
+5. El ruido llega a la cabina por **aire** (burletes, sellado) y por **estructura** (soportes, chapas).
+6. El silenciador combina **reflexión** (cámaras, para graves), **interferencia** (resonadores) y **absorción** (fibra, para agudos).
+7. Para diagnosticar: cuándo aparece, de qué depende (rpm o velocidad), dónde está y cómo suena. Compará siempre con el estetoscopio.
+8. Más de **85 dB(A)** de forma sostenida daña el oído para siempre: usá protección con amoladora, llave de impacto y motor acelerado.
+</PuntosClave>

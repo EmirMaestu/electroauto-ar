@@ -1,0 +1,237 @@
+El rozamiento es la fuerza más "de doble cara" del auto. Es la que te deja frenar, doblar, arrancar y pasar el torque del motor por el embrague. Y es también la que gasta los aros, los metales, las pastillas, las cubiertas, la que se come una parte de la nafta y la que hace chillar la correa una mañana fría de julio.
+
+Si algún día frenaste fuerte en el ripio de la Ruta 40 y sentiste que el auto "seguía de largo", o bajaste del Cristo Redentor y el pedal se puso largo y el freno no frenaba como antes, ya conocés los límites del rozamiento. En esta lección vas a ver de dónde sale, cómo se calcula y por qué un sistema como el ABS, que **suelta** el freno, termina frenando mejor.
+
+<Libro pag="pág. 49–51" />
+
+## De dónde sale el rozamiento
+
+Mirá cualquier superficie metálica "lisa" con un microscopio y vas a ver montañas y valles. Cuando apoyás una pieza sobre otra, en realidad se tocan sólo las puntas de esas montañitas. Ahí la presión es enorme, el material se deforma y hasta se "pega" un poquito (adhesión). Para hacer deslizar una pieza sobre la otra tenés que romper esos contactos y arrastrar las rugosidades: eso es el **rozamiento**.
+
+La ley práctica, que funciona muy bien para metales y materiales duros, es sorprendentemente simple:
+
+<Formula name="Ley de Coulomb del rozamiento" vars={{ "F_R": "fuerza de rozamiento [N]", "μ": "coeficiente de rozamiento (mu), sin unidad", "N": "fuerza normal: la que aprieta una superficie contra la otra [N]" }}>
+  F_R = μ · N
+</Formula>
+
+Tres cosas que se desprenden de esa fórmula y que no son nada obvias:
+
+1. El rozamiento depende de **cuánto aprietes** una superficie contra la otra (N), no del peso en sí. Una pastilla de freno roza más porque el pistón la aprieta más, aunque la pastilla pese lo mismo.
+2. Para materiales duros, **casi no depende del área de contacto**. Un bloque de acero roza lo mismo apoyado de canto que de plano: con más área, la presión en cada punto es menor y se compensa. (Las cubiertas son la gran excepción, porque la goma es blanda y se "engancha" en las rugosidades del asfalto.)
+3. **μ no es una propiedad de un material, sino de un par**: acero contra acero, pastilla contra disco, goma contra asfalto mojado. Y cambia con la temperatura, la velocidad, la suciedad y cualquier cosa que haya en el medio (agua, aceite, polvo).
+
+## Estático y dinámico: el "tirón" de arranque
+
+Empujá un mueble pesado. Al principio no se mueve; empujás más, más… y de golpe arranca. Y una vez que se mueve, **necesitás menos fuerza** para mantenerlo andando. Eso es porque hay dos coeficientes:
+
+- **μ estático (μs)**: el máximo que aguanta antes de empezar a deslizar. Mientras el objeto está quieto, el rozamiento **no vale siempre μs · N**: vale exactamente lo que estás empujando, hasta ese tope.
+- **μ dinámico o de deslizamiento (μk)**: el que actúa una vez que desliza. Casi siempre es **menor** que el estático.
+
+Mirá el gráfico de abajo mientras el bloque está quieto y cuando arranca. Probá con distintos pares de materiales:
+
+<Rozamiento />
+
+### Valores de referencia
+
+Son valores orientativos: en la realidad varían bastante con la temperatura, la limpieza y el estado de las superficies.
+
+| Par de materiales | μ estático | μ dinámico | Comentario |
+|---|---|---|---|
+| Acero / acero, seco | 0,15–0,20 | 0,10–0,15 | Por eso un bulón seco "agarra" |
+| Acero / acero, lubricado | ≈ 0,10 | 0,05–0,10 | Con película de aceite completa, mucho menos (ver lubricación) |
+| Fundición / fundición, seco | 0,18–0,25 | 0,15–0,20 | Block y tapa |
+| Pastilla de freno / disco | — | 0,35–0,50 | Se diseña para que se mantenga parejo con la temperatura… hasta cierto punto |
+| Forro de embrague / volante | — | 0,25–0,40 | Con aceite cae a la mitad: el embrague patina |
+| Cubierta / asfalto seco | 0,8–1,0 (pico) | 0,6–0,75 (bloqueada) | Cubierta en buen estado |
+| Cubierta / asfalto mojado | 0,5–0,8 | 0,4–0,6 | Mucho peor con dibujo gastado |
+| Cubierta / ripio suelto | 0,4–0,6 | 0,4–0,6 | Depende muchísimo del ripio |
+| Cubierta / nieve | 0,2–0,3 | 0,15–0,2 | Con cubiertas o cadenas para nieve, bastante más |
+| Cubierta / hielo | 0,05–0,15 | 0,05–0,1 | Casi nada: hielo con una película de agua es lo peor |
+
+<Ejemplo title="Distancia mínima de frenado según el piso">
+La fuerza máxima de frenado es μ · m · g, así que la desaceleración máxima es μ · g. La distancia para frenar de una velocidad v hasta cero (sin contar el tiempo de reacción) es:
+
+<Calc>d = v² / (2 · μ · g)     con v = 100 km/h = 27,8 m/s</Calc>
+
+<Calc>Asfalto seco (μ ≈ 0,9):    d = 772 / (2 × 0,9 × 9,81) ≈ 44 m
+Asfalto mojado (μ ≈ 0,5):  d ≈ 79 m
+Ripio (μ ≈ 0,5):           d ≈ 79 m
+Hielo (μ ≈ 0,1):           d ≈ 393 m</Calc>
+
+Resultado: <Res>en hielo necesitás casi 9 veces más distancia que en seco</Res>. Y a todo eso sumale lo que recorrés mientras reaccionás: con 1 segundo de reacción, a 100 km/h son otros 28 m antes de tocar el freno. Fijate que la masa del auto **no aparece** en la fórmula: un auto más pesado necesita más fuerza para frenar, pero también aprieta más las cubiertas contra el piso.
+</Ejemplo>
+
+## Cubiertas y ABS: por qué una rueda bloqueada frena menos
+
+Con las cubiertas la cosa se pone interesante. Cuando frenás, la rueda gira un poquito más lento de lo que debería para la velocidad del auto: la goma se estira y "resbala" levemente sobre el asfalto. Esa diferencia se llama **patinamiento** (o deslizamiento):
+
+<Formula name="Patinamiento al frenar" vars={{ "s": "patinamiento [%]", "v": "velocidad del auto [m/s]", "ω · r": "velocidad de la banda de rodamiento [m/s]" }}>
+  s = (v − ω · r) / v · 100
+</Formula>
+
+0 % es una rueda que rueda libre; 100 % es una rueda **bloqueada** que se arrastra. Y el agarre de la cubierta **no es máximo con la rueda bloqueada**: sube hasta un pico, más o menos entre **10 y 20 % de patinamiento**, y después cae. Una rueda bloqueada frena menos que una que todavía gira un poco. Y peor: con la rueda bloqueada, la cubierta **pierde casi todo el agarre lateral**, así que el auto no dobla aunque gires el volante.
+
+Pasá a la vista "Cubierta y ABS" de la animación de arriba y compará "Frenada sin ABS" con "Con ABS".
+
+El **ABS** hace exactamente eso: mide la velocidad de cada rueda y, cuando una empieza a frenarse más rápido que el auto (señal de que se va a bloquear), le **baja la presión** de freno, la deja recuperar y le vuelve a dar presión. Lo hace varias veces por segundo (es el "tableteo" que sentís en el pedal) para mantener cada rueda cerca del pico de la curva.
+
+<Ojo title="En ripio y nieve suelta, el ABS puede alargar la frenada">
+En piso suelto, una rueda bloqueada empuja una cuña de piedras o nieve delante de la cubierta, y eso frena un poco más. El ABS evita esa cuña y la frenada puede ser algo más larga. Pero te deja **seguir manejando el auto**, que es lo que de verdad te salva en una curva de ripio. Algunas camionetas tienen un modo todoterreno que cambia la estrategia del ABS para estos pisos.
+</Ojo>
+
+## Rozamiento de rodadura
+
+Cuando algo **rueda** en lugar de deslizar, la resistencia es muchísimo menor, pero no es cero. Tanto la rueda como el piso se deforman en el contacto: la parte de adelante de la huella se comprime y la de atrás se descomprime, pero la goma no devuelve toda la energía (se calienta). El resultado es una fuerza que frena:
+
+<Formula name="Resistencia a la rodadura" vars={{ "F_Ro": "resistencia a la rodadura [N]", "μ_R": "coeficiente de rodadura", "N": "carga sobre la rueda [N]" }}>
+  F_Ro = μ_R · N
+</Formula>
+
+| Caso | μ_R aproximado |
+|---|---|
+| Rodamiento de bolillas | ≈ 0,001–0,002 |
+| Rueda de tren sobre riel | ≈ 0,002 |
+| Cubierta de auto en asfalto | ≈ 0,010–0,015 |
+| Cubierta en ripio o tierra | ≈ 0,02–0,05 |
+| Cubierta muy desinflada | sube mucho (y se calienta) |
+
+Las cosas grandes y duras ruedan más fácil que las chicas y blandas: por eso los rodamientos (bolillas de acero templado sobre pistas de acero) casi no ofrecen resistencia, y una cubierta desinflada se come combustible.
+
+<Ejemplo title="¿Cuánta potencia se lleva la rodadura a 100 km/h?">
+Auto de 1.200 kg (peso ≈ 11.800 N), μ_R = 0,012.
+
+<Calc>F = 0,012 × 11.800 ≈ 142 N
+P = F × v = 142 N × 27,8 m/s ≈ 3.900 W ≈ 3,9 kW</Calc>
+
+Resultado: <Res>unos 4 kW (5 CV) sólo para hacer rodar las cubiertas</Res>. Con las cubiertas 20 % desinfladas, μ_R puede subir un 10–15 %: parece poco, pero son litros de nafta al año y una cubierta que se recalienta y se gasta en los hombros.
+</Ejemplo>
+
+## Rozamiento de correas: la fórmula de Euler
+
+Una correa no engrana con la polea: la mueve **sólo por rozamiento**. Lo que se descubre al hacer la cuenta es que el agarre no crece "un poco" con el ángulo que la correa abraza la polea, sino **exponencialmente**:
+
+<Formula name="Fórmula de Euler (cuerdas y correas)" vars={{ "F₁": "fuerza en el ramal tenso [N]", "F₂": "fuerza en el ramal flojo [N]", "μ": "coeficiente de rozamiento correa/polea", "β": "ángulo abrazado [rad] (180° = π rad)" }}>
+  F₁ ≤ F₂ · e<sup>μ·β</sup>
+</Formula>
+
+La fuerza útil que la correa le pasa a la polea es la diferencia F₁ − F₂. Con un μ de 0,3 y media vuelta abrazada (β = π), e<sup>μβ</sup> ≈ 2,6: el lado tenso puede tirar 2,6 veces más que el flojo. Con una vuelta entera, 6,6 veces. Es el mismo principio que usa un marinero para frenar un barco enroscando la soga en un poste.
+
+Tres consecuencias directas para el taller:
+
+- **Tensión**: si el ramal flojo no tiene tensión (F₂ ≈ 0), no se transmite nada. Para eso está el tensor.
+- **Ángulo abrazado**: por eso las correas de accesorios hacen zigzag con poleas locas: para que cada polea quede más "abrazada".
+- **μ**: una correa **poly-V** (la de canales) agarra casi 3 veces más que una plana del mismo material, porque los canales en V trabajan como una cuña: aprietan los flancos con más fuerza que la tensión de la correa (lo viste en la [cuña de Fuerzas y palancas](/aprender/fisica/fuerzas-palanca)). Agua, aceite, refrigerante o una superficie cristalizada bajan μ y la correa patina.
+
+<FisCorrea />
+
+<Analogia>
+El chillido de la correa es rozamiento dinámico: la correa se adelanta y la polea se queda atrás, se "pega" y se "despega" cientos de veces por segundo, como la goma de una zapatilla en un piso de gimnasio. Cuanto más rápido es ese pega-despega, más agudo el ruido.
+</Analogia>
+
+## El rozamiento como enemigo: desgaste, calor y lubricación
+
+Cada vez que algo desliza, se pierde energía en calor y se arranca material. En el motor, el rozamiento interno (aros contra cilindro, metales, árbol de levas, bomba de aceite) se lleva una parte importante de la potencia, sobre todo a carga parcial.
+
+La solución es **separar las superficies** con un fluido. Según cuánto las separe, hay tres situaciones:
+
+- **Lubricación límite**: casi no hay película; los metales se tocan. Pasa en el **arranque en frío**, antes de que llegue la presión de aceite, y en las zonas de cambio de dirección (los aros en el PMS). Ahí se produce la mayor parte del desgaste. Por eso en el aceite hay aditivos antidesgaste que forman una capa protectora sobre el metal.
+- **Lubricación mixta**: la película es parcial. Velocidades bajas o cargas muy altas.
+- **Lubricación hidrodinámica**: el eje, al girar, arrastra el aceite y forma una cuña de presión que lo **levanta**. Los metales de bancada y de biela trabajan así: el cigüeñal "flota" sobre unas centésimas de milímetro de aceite y el rozamiento cae a μ ≈ 0,001–0,005. Mientras esa película exista, el desgaste es prácticamente cero.
+
+De esto sale por qué importan tanto la **viscosidad** correcta del aceite (la vemos en [Flujo, Bernoulli y Venturi](/aprender/fisica/flujo)) y la **presión de aceite**: sin presión no hay película, y sin película los metales se funden en segundos.
+
+## El rozamiento como aliado: frenos, embrague y uniones
+
+### Frenos: convertir movimiento en calor
+
+Frenar es transformar la energía de movimiento del auto en **calor** en los discos y las pastillas. Esa energía es:
+
+<Formula name="Energía cinética" vars={{ "E": "energía [J]", "m": "masa [kg]", "v": "velocidad [m/s]" }}>
+  E = ½ · m · v²
+</Formula>
+
+Un auto de 1.200 kg a 100 km/h tiene ½ × 1.200 × 27,8² ≈ **463.000 J** (463 kJ). Una frenada a fondo mete todo eso, en unos 3 segundos, en cuatro discos. Con una sola frenada los discos delanteros suben fácil 100 °C; con frenadas repetidas en una bajada, pueden pasar los 500 °C. Y ahí aparece el problema: por encima de cierta temperatura, el **μ de las pastillas cae** (eso se llama **fading**): pisás igual y el auto frena menos.
+
+### Embrague: torque por rozamiento
+
+El embrague es un disco apretado por un resorte (la placa) entre el volante y la placa de presión. El torque máximo que puede pasar sin patinar es:
+
+<Formula name="Torque de un embrague" vars={{ "T": "torque máximo transmisible [N·m]", "μ": "coeficiente de rozamiento del forro", "F": "fuerza de la placa (resorte de diafragma) [N]", "rₘ": "radio medio del forro [m]", "z": "número de caras de fricción (2 en un disco simple)" }}>
+  T = μ · F · rₘ · z
+</Formula>
+
+<Ejemplo title="¿Por qué patina un embrague con aceite?">
+Placa de 4.000 N, forro con μ = 0,30, radio medio 0,09 m, dos caras:
+
+<Calc>T = 0,30 × 4.000 × 0,09 × 2 = 216 N·m</Calc>
+
+El motor da 150 N·m, así que hay un margen de 1,4. Si un retén de cigüeñal pierde y el forro se empapa de aceite, μ puede caer a 0,15:
+
+<Calc>T = 0,15 × 4.000 × 0,09 × 2 = 108 N·m   (menos que los 150 del motor)</Calc>
+
+Resultado: <Res>el embrague patina: suben las vueltas y el auto no acelera</Res>. Lo mismo pasa con un forro gastado (la placa aprieta menos) o cristalizado (μ más bajo).
+</Ejemplo>
+
+### Uniones por rozamiento
+
+Una sorpresa: **la rueda no está sostenida por los bulones trabajando al corte**. Está sostenida por el **rozamiento** entre la llanta y la maza, que los bulones aprietan con toneladas de precarga. Con 5 bulones de 46 kN y un μ de 0,15–0,2 entre llanta y maza, la unión aguanta decenas de kN de fuerza tangencial antes de que algo se mueva. Si los bulones pierden precarga, la llanta empieza a moverse sobre la maza y los bulones pasan a trabajar al corte y a fatiga: así se cortan. Por eso las superficies de apoyo tienen que estar **limpias, sin óxido, pintura ni grasa**.
+
+<EnElTaller>
+
+- **Pastillas nuevas:** necesitan un **asentamiento**: varias frenadas suaves y progresivas (sin llegar a parar) para que el material se transfiera de manera pareja al disco. Si las "estrenás" con una frenada a fondo, se cristalizan y quedan ruidosas.
+- **Discos:** nunca los toques con dedos engrasados. Limpialos con limpiador de frenos (no con nafta ni gasoil). Si cambiás pastillas sobre discos rayados o con escalón, el contacto es mínimo hasta que se asientan.
+- **Grasa en el lugar justo:** las guías de la pinza y el respaldo metálico de las pastillas llevan grasa específica para frenos (de alta temperatura). Jamás en la cara de fricción ni en el disco.
+- **Correas:** tensión según manual, poleas alineadas y limpias. Si chilla, **no le pongas "spray para correas"**: tapa el síntoma y la correa se cristaliza antes. Buscá la causa (tensor débil, polea trabada, pérdida de aceite o refrigerante).
+- **Cubiertas:** presión en frío, según la placa del parante de la puerta o el manual. Rotación cada 10.000 km aproximadamente.
+
+</EnElTaller>
+
+<Electronica>
+
+- El **ABS** tiene un sensor de velocidad en cada rueda (inductivo o activo, tipo Hall/magnetorresistivo) que lee un anillo dentado o magnético. Con las cuatro velocidades, la unidad calcula el patinamiento de cada rueda y abre o cierra válvulas para bajar, mantener o subir la presión en cada pinza.
+- El mismo sistema hace de **control de tracción** (frena la rueda que patina al acelerar y le pide a la ECU de motor que baje el torque) y de **ESP** (frena ruedas individuales para corregir un trompo o un subviraje).
+- En el **scanner**, en el módulo de ABS, podés ver las **velocidades de las cuatro ruedas** en vivo. Con el auto andando derecho tienen que dar casi iguales: si una marca 0 o salta, sospechá del sensor, su ficha, el cableado o un anillo fónico roto u oxidado. Cuando hay una falla, se enciende el testigo de ABS y el auto **frena igual, pero sin ABS**.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Espesor de pastillas" esperado="Cambiarlas con 2–3 mm de material (según fabricante)" como="A la vista o con calibre, del lado interno también (suele gastarse más)" nota="Desgaste muy desparejo entre interna y externa: guías de la pinza trabadas" />
+  <Medicion punto="Espesor del disco" esperado="Mayor que el mínimo grabado en el disco (MIN TH)" como="Micrómetro en 4 a 8 puntos" nota="Diferencias de más de ≈ 0,01–0,02 mm entre puntos producen vibración en el pedal" />
+  <Medicion punto="Profundidad de dibujo de la cubierta" esperado="Por encima del testigo de desgaste (1,6 mm); ideal más de 3 mm para piso mojado" como="Profundímetro o calibre en varias ranuras" nota="Gastada en el centro: exceso de presión; en los hombros: falta de presión" />
+  <Medicion punto="Tensión de la correa" esperado="Según manual (deflexión en mm o frecuencia en Hz)" como="Tensiómetro de correas o un medidor de frecuencia en el tramo más largo" nota="Con tensor automático, verificá que la marca del tensor quede dentro de la ventana" />
+</Mediciones>
+
+<Herramientas ids={["calibre", "micrometro", "torquimetro", "caballetes"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| El freno "se va" en una bajada larga | Fading de pastillas por temperatura (o líquido de frenos hervido) | Discos azulados, pastillas cristalizadas; probar el líquido de frenos |
+| Chillido agudo al frenar | Pastillas cristalizadas, sin chapa antirruido o testigo de desgaste tocando el disco | Revisar pastillas y disco; el testigo metálico chilla a propósito |
+| Correa que chilla en frío o al prender las luces | Tensión baja, correa cristalizada o tensor débil | Medir tensión; mirar los flancos de la correa (brillosos = cristalizada) |
+| Embrague que patina (suben las vueltas, no acelera) | Forro gastado o contaminado con aceite | Prueba en 4ª o 5ª a bajas vueltas acelerando a fondo: si suben las rpm sin que suba la velocidad, patina |
+| El auto se va para un lado al frenar | Pinza trabada o pastilla contaminada de un lado | Temperatura de las ruedas después de andar; revisar guías y pistón |
+| Testigo de ABS encendido | Sensor de rueda, ficha, anillo fónico o módulo | Scanner: código y velocidades de rueda en vivo |
+
+<Mendoza>
+
+- **Bajadas de la Ruta 7 (Uspallata–Potrerillos–Mendoza o desde Las Cuevas):** usá **freno motor** (un cambio más bajo) y frená de a ratos, firme, en lugar de ir "apoyado" todo el tiempo. Así los discos se enfrían entre frenada y frenada y no llegás al fading. Si el líquido de frenos es viejo, además puede hervir (eso lo vemos en [Presión y Pascal](/aprender/fisica/hidrostatica)).
+- **Ripio (Ruta 40, caminos de finca, Villavicencio):** μ bajo y cambiante. Velocidad menor, distancias más largas, y frená con el auto derecho antes de la curva.
+- **Zonda y tierra:** una capa de polvo sobre el asfalto baja bastante el agarre, y la primera lluvia después de un período seco deja el asfalto especialmente resbaladizo (polvo, goma y aceite mezclados con agua).
+- **Alta Montaña en invierno:** hielo y nieve, μ de 0,05 a 0,3. Cadenas cuando lo exigen, y nada de maniobras bruscas: con μ tan bajo, cualquier frenada fuerte es una patinada.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. **F_R = μ · N**: el rozamiento depende de cuánto apretás las superficies y del par de materiales (μ), casi no del área (salvo en las cubiertas).
+2. El rozamiento **estático** copia la fuerza que aplicás hasta un tope (μs · N); una vez que desliza, el **dinámico** es menor.
+3. La distancia de frenado mínima es **v² / (2 · μ · g)**: con hielo es casi 9 veces la de asfalto seco, y no depende de la masa del auto.
+4. La cubierta agarra más con un **10–20 % de patinamiento** que bloqueada; bloqueada además **no dobla**. El ABS mantiene cada rueda cerca del pico.
+5. La **rodadura** es mucho menor que el deslizamiento, pero una cubierta desinflada la aumenta y gasta combustible.
+6. **Correas: F₁ ≤ F₂ · e<sup>μβ</sup>**. Tensión, ángulo abrazado y μ deciden si patina y chilla.
+7. Como enemigo, el rozamiento se combate **separando superficies**: los metales flotan sobre aceite (lubricación hidrodinámica); el peor momento es el arranque en frío.
+8. Como aliado: frenos (energía → calor, cuidado con el fading), embrague (T = μ · F · rₘ · z) y uniones atornilladas, que trabajan **por rozamiento**, no por corte.
+
+</PuntosClave>

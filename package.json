@@ -1,0 +1,33 @@
+{
+  "name": "electroauto-ar",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Fierros — mecánica automotriz de cero a eléctricos, explicada como en el taller.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@mdx-js/react": "^3.1.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router": "^7.18.4"
+  },
+  "devDependencies": {
+    "@mdx-js/rollup": "^3.1.1",
+    "@types/mdx": "^2.0.14",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "remark-gfm": "^4.0.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.6"
+  },
+  "engines": { "node": ">=20" }
+}

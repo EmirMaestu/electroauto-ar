@@ -1,0 +1,1596 @@
+[
+ {
+  "id": "luces",
+  "name": "Circuito de luces (faro con relé)",
+  "desc": "Batería → fusible → relé → lámpara → masa. Practicá tensión, continuidad y caída de tensión.",
+  "viewBox": "0 0 760 380",
+  "comps": "\n    <rect x=\"48\" y=\"150\" width=\"54\" height=\"120\" rx=\"8\" class=\"cmp-fill\"/>\n    <line x1=\"62\" y1=\"178\" x2=\"62\" y2=\"200\" class=\"cmp-line\"/><line x1=\"52\" y1=\"189\" x2=\"72\" y2=\"189\" class=\"cmp-line\"/>\n    <line x1=\"88\" y1=\"220\" x2=\"88\" y2=\"242\" class=\"cmp-line\"/><line x1=\"80\" y1=\"231\" x2=\"96\" y2=\"231\" class=\"cmp-line\"/>\n    <text x=\"75\" y=\"290\" text-anchor=\"middle\" class=\"cmp-label\">BATERÍA 12 V</text>\n    <rect x=\"190\" y=\"92\" width=\"84\" height=\"36\" rx=\"8\" class=\"cmp-box\"/>\n    <path d=\"M205,110 q15,-16 26,0 q15,16 26,0\" fill=\"none\" class=\"cmp-accent\"/>\n    <text x=\"232\" y=\"80\" text-anchor=\"middle\" class=\"cmp-label\">FUSIBLE 15 A</text>\n    <rect x=\"360\" y=\"86\" width=\"120\" height=\"48\" rx=\"8\" class=\"cmp-box\"/>\n    <text x=\"420\" y=\"115\" text-anchor=\"middle\" class=\"cmp-label-b\">RELÉ</text>\n    <text x=\"420\" y=\"74\" text-anchor=\"middle\" class=\"cmp-label\">comando llave → bobina</text>\n    <circle cx=\"640\" cy=\"190\" r=\"30\" class=\"cmp-lamp\"/>\n    <path d=\"M620,170 L660,210 M660,170 L620,210\" class=\"cmp-line\"/>\n    <text x=\"640\" y=\"148\" text-anchor=\"middle\" class=\"cmp-label\">FARO</text>\n    <line x1=\"360\" y1=\"300\" x2=\"360\" y2=\"318\" class=\"cmp-line\"/>\n    <line x1=\"338\" y1=\"318\" x2=\"382\" y2=\"318\" class=\"cmp-line\"/>\n    <line x1=\"345\" y1=\"326\" x2=\"375\" y2=\"326\" class=\"cmp-line\"/>\n    <line x1=\"352\" y1=\"334\" x2=\"368\" y2=\"334\" class=\"cmp-line\"/>",
+  "wires": [
+   [
+    [
+     75,
+     110
+    ],
+    [
+     640,
+     110
+    ]
+   ],
+   [
+    [
+     640,
+     110
+    ],
+    [
+     640,
+     160
+    ]
+   ],
+   [
+    [
+     640,
+     220
+    ],
+    [
+     640,
+     300
+    ]
+   ],
+   [
+    [
+     640,
+     300
+    ],
+    [
+     75,
+     300
+    ]
+   ],
+   [
+    [
+     75,
+     300
+    ],
+    [
+     75,
+     270
+    ]
+   ],
+   [
+    [
+     75,
+     150
+    ],
+    [
+     75,
+     110
+    ]
+   ]
+  ],
+  "flowPath": "M75,110 L640,110 L640,300 L75,300 Z",
+  "nodes": [
+   {
+    "id": "BATP",
+    "label": "Batería +",
+    "x": 75,
+    "y": 110,
+    "lp": "left"
+   },
+   {
+    "id": "FIN",
+    "label": "Entrada fusible",
+    "x": 190,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "FOUT",
+    "label": "Salida fusible",
+    "x": 274,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "R30",
+    "label": "Relé 30 (entrada)",
+    "x": 360,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "R87",
+    "label": "Relé 87 (salida)",
+    "x": 480,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "LP",
+    "label": "Lámpara +",
+    "x": 640,
+    "y": 140,
+    "lp": "right"
+   },
+   {
+    "id": "LN",
+    "label": "Lámpara − (masa)",
+    "x": 640,
+    "y": 255,
+    "lp": "right"
+   },
+   {
+    "id": "GND",
+    "label": "Masa chasis",
+    "x": 360,
+    "y": 300,
+    "lp": "bottom"
+   },
+   {
+    "id": "BATN",
+    "label": "Batería −",
+    "x": 75,
+    "y": 300,
+    "lp": "bottom"
+   }
+  ],
+  "scenarios": [
+   {
+    "id": "ok",
+    "name": "Funcionando OK",
+    "hint": "Recorré el circuito midiendo tensión punto por punto: vas a ver ~12 V hasta la lámpara y la caída sobre ella.",
+    "current": 4.1,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.4,
+     "R30": 12.4,
+     "R87": 12.3,
+     "LP": 12.2,
+     "LN": 0.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "R30",
+      0.01
+     ],
+     [
+      "R30",
+      "R87",
+      0.03
+     ],
+     [
+      "R87",
+      "LP",
+      0.02
+     ],
+     [
+      "LP",
+      "LN",
+      3
+     ],
+     [
+      "LN",
+      "GND",
+      0.02
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "diag": "Todo en orden: la lámpara recibe ~12 V y cae sobre ella. La masa cae casi 0 V."
+   },
+   {
+    "id": "lamp",
+    "name": "La luz no prende (falla oculta)",
+    "hint": "Llega tensión a la lámpara pero no enciende. Medí tensión en Lámpara + y después la resistencia de la lámpara (modo Ω).",
+    "current": 0,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.5,
+     "R30": 12.5,
+     "R87": 12.5,
+     "LP": 12.5,
+     "LN": 0,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "R30",
+      0.01
+     ],
+     [
+      "R30",
+      "R87",
+      0.03
+     ],
+     [
+      "R87",
+      "LP",
+      0.02
+     ],
+     [
+      "LN",
+      "GND",
+      0.02
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "lamp_open",
+    "diag": "FILAMENTO CORTADO. Hay 12,5 V en Lámpara + (no circula corriente, por eso no hay caída), pero la resistencia de la lámpara da OL (infinito): está quemada."
+   },
+   {
+    "id": "fuse",
+    "name": "La luz no prende (falla oculta)",
+    "hint": "Medí tensión antes y después del fusible. ¿Dónde se pierde la tensión?",
+    "current": 0,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 0,
+     "R30": 0,
+     "R87": 0,
+     "LP": 0,
+     "LN": 0,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FOUT",
+      "R30",
+      0.01
+     ],
+     [
+      "R30",
+      "R87",
+      0.03
+     ],
+     [
+      "R87",
+      "LP",
+      0.02
+     ],
+     [
+      "LP",
+      "LN",
+      3
+     ],
+     [
+      "LN",
+      "GND",
+      0.02
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "fuse_open",
+    "diag": "FUSIBLE QUEMADO. Hay 12,5 V en la entrada del fusible y 0 V en la salida: el fusible está abierto (cortado)."
+   },
+   {
+    "id": "ground",
+    "name": "La luz prende muy débil",
+    "hint": "La lámpara alumbra poco. Hacé la prueba de caída de tensión en la masa (Lámpara − a Masa chasis) con la luz encendida.",
+    "current": 1.8,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.4,
+     "FOUT": 12.4,
+     "R30": 12.4,
+     "R87": 12.3,
+     "LP": 12.2,
+     "LN": 7.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "R30",
+      0.01
+     ],
+     [
+      "R30",
+      "R87",
+      0.03
+     ],
+     [
+      "R87",
+      "LP",
+      0.02
+     ],
+     [
+      "LP",
+      "LN",
+      3
+     ],
+     [
+      "LN",
+      "GND",
+      4
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "bad_ground",
+    "diag": "MALA MASA. La caída de tensión entre Lámpara − y Masa chasis es enorme (~7 V cuando debería ser <0,2 V). La masa con resistencia se 'roba' tensión y la lámpara queda débil."
+   },
+   {
+    "id": "short",
+    "name": "El fusible se quema al instante",
+    "hint": "Cambiás el fusible y vuela. Con el circuito SIN tensión, medí resistencia (Ω) entre Lámpara + y Masa chasis.",
+    "current": 0,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 0,
+     "R30": 0,
+     "R87": 0,
+     "LP": 0,
+     "LN": 0,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FOUT",
+      "R30",
+      0.01
+     ],
+     [
+      "R30",
+      "R87",
+      0.03
+     ],
+     [
+      "R87",
+      "LP",
+      0.02
+     ],
+     [
+      "LP",
+      "GND",
+      0.2
+     ],
+     [
+      "LP",
+      "LN",
+      3
+     ],
+     [
+      "LN",
+      "GND",
+      0.02
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "short_ground",
+    "diag": "CORTOCIRCUITO A MASA. El cable de Lámpara + roza el chasis: midiendo resistencia entre Lámpara + y Masa da casi 0 Ω. Por eso el fusible vuela apenas das contacto."
+   }
+  ]
+ },
+ {
+  "id": "arranque",
+  "name": "Circuito de arranque (burro)",
+  "desc": "Batería → mando de llave → solenoide → motor de arranque → masa. Practicá caída de tensión en bornes.",
+  "viewBox": "0 0 760 380",
+  "comps": "\n    <rect x=\"44\" y=\"150\" width=\"54\" height=\"120\" rx=\"8\" class=\"cmp-fill\"/>\n    <line x1=\"58\" y1=\"178\" x2=\"58\" y2=\"200\" class=\"cmp-line\"/><line x1=\"48\" y1=\"189\" x2=\"68\" y2=\"189\" class=\"cmp-line\"/>\n    <line x1=\"84\" y1=\"220\" x2=\"84\" y2=\"242\" class=\"cmp-line\"/><line x1=\"76\" y1=\"231\" x2=\"92\" y2=\"231\" class=\"cmp-line\"/>\n    <text x=\"71\" y=\"290\" text-anchor=\"middle\" class=\"cmp-label\">BATERÍA 12 V</text>\n    <rect x=\"350\" y=\"88\" width=\"100\" height=\"44\" rx=\"8\" class=\"cmp-box\"/>\n    <text x=\"400\" y=\"115\" text-anchor=\"middle\" class=\"cmp-label-b\">SOLENOIDE</text>\n    <circle cx=\"600\" cy=\"185\" r=\"34\" class=\"cmp-motor\"/>\n    <text x=\"600\" y=\"191\" text-anchor=\"middle\" class=\"cmp-label-b\">M</text>\n    <text x=\"600\" y=\"140\" text-anchor=\"middle\" class=\"cmp-label\">BURRO (arranque)</text>\n    <line x1=\"300\" y1=\"305\" x2=\"300\" y2=\"323\" class=\"cmp-line\"/>\n    <line x1=\"278\" y1=\"323\" x2=\"322\" y2=\"323\" class=\"cmp-line\"/>\n    <line x1=\"285\" y1=\"331\" x2=\"315\" y2=\"331\" class=\"cmp-line\"/>\n    <line x1=\"292\" y1=\"339\" x2=\"308\" y2=\"339\" class=\"cmp-line\"/>",
+  "wires": [
+   [
+    [
+     71,
+     110
+    ],
+    [
+     510,
+     110
+    ]
+   ],
+   [
+    [
+     300,
+     55
+    ],
+    [
+     300,
+     90
+    ]
+   ],
+   [
+    [
+     510,
+     110
+    ],
+    [
+     600,
+     110
+    ],
+    [
+     600,
+     151
+    ]
+   ],
+   [
+    [
+     600,
+     219
+    ],
+    [
+     600,
+     305
+    ]
+   ],
+   [
+    [
+     600,
+     305
+    ],
+    [
+     71,
+     305
+    ]
+   ],
+   [
+    [
+     71,
+     305
+    ],
+    [
+     71,
+     270
+    ]
+   ],
+   [
+    [
+     71,
+     150
+    ],
+    [
+     71,
+     110
+    ]
+   ]
+  ],
+  "flowPath": "M71,110 L600,110 L600,305 L71,305 Z",
+  "nodes": [
+   {
+    "id": "BATP",
+    "label": "Batería +",
+    "x": 71,
+    "y": 110,
+    "lp": "left"
+   },
+   {
+    "id": "CMD",
+    "label": "Positivo de mando (llave)",
+    "x": 300,
+    "y": 55,
+    "lp": "top"
+   },
+   {
+    "id": "SOL",
+    "label": "Solenoide (salida)",
+    "x": 400,
+    "y": 110,
+    "lp": "bottom"
+   },
+   {
+    "id": "STB",
+    "label": "Borne grueso del burro",
+    "x": 510,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "SBODY",
+    "label": "Cuerpo del burro (masa)",
+    "x": 600,
+    "y": 255,
+    "lp": "right"
+   },
+   {
+    "id": "GND",
+    "label": "Masa motor/chasis",
+    "x": 300,
+    "y": 305,
+    "lp": "bottom"
+   },
+   {
+    "id": "BATN",
+    "label": "Batería −",
+    "x": 71,
+    "y": 305,
+    "lp": "bottom"
+   }
+  ],
+  "scenarios": [
+   {
+    "id": "ok",
+    "name": "Arranca normal",
+    "hint": "Medí caída de tensión entre Batería + y Borne del burro mientras arranca (debe ser <0,3 V).",
+    "current": 180,
+    "pot": {
+     "BATP": 12,
+     "CMD": 11.9,
+     "SOL": 11.8,
+     "STB": 11.7,
+     "SBODY": 0.2,
+     "GND": 0.1,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "CMD",
+      0.01
+     ],
+     [
+      "CMD",
+      "SOL",
+      0.02
+     ],
+     [
+      "SOL",
+      "STB",
+      0.03
+     ],
+     [
+      "STB",
+      "SBODY",
+      0.06
+     ],
+     [
+      "SBODY",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "diag": "Sano: la caída en cables y bornes es mínima. El burro recibe casi toda la tensión de batería."
+   },
+   {
+    "id": "low",
+    "name": "Gira muy lento",
+    "hint": "Medí la tensión de batería mientras intentás arrancar (modo V).",
+    "current": 90,
+    "pot": {
+     "BATP": 8.4,
+     "CMD": 8.3,
+     "SOL": 8.2,
+     "STB": 8.1,
+     "SBODY": 0.3,
+     "GND": 0.2,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "CMD",
+      0.01
+     ],
+     [
+      "CMD",
+      "SOL",
+      0.02
+     ],
+     [
+      "SOL",
+      "STB",
+      0.03
+     ],
+     [
+      "STB",
+      "SBODY",
+      0.06
+     ],
+     [
+      "SBODY",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "battery_low",
+    "diag": "BATERÍA FLOJA/DESCARGADA. Bajo carga de arranque la tensión cae a ~8,4 V (debería mantenerse >9,6 V). Cargá/reemplazá la batería y reevaluá."
+   },
+   {
+    "id": "terminal",
+    "name": "A veces arranca, a veces no",
+    "hint": "La batería está bien pero al borne del burro llega poco. Hacé caída de tensión entre Batería + y Borne del burro.",
+    "current": 70,
+    "pot": {
+     "BATP": 12.2,
+     "CMD": 9.5,
+     "SOL": 9.3,
+     "STB": 9.1,
+     "SBODY": 0.2,
+     "GND": 0.1,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "CMD",
+      2.5
+     ],
+     [
+      "CMD",
+      "SOL",
+      0.02
+     ],
+     [
+      "SOL",
+      "STB",
+      0.03
+     ],
+     [
+      "STB",
+      "SBODY",
+      0.06
+     ],
+     [
+      "SBODY",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "bad_terminal",
+    "diag": "BORNE/CABLE CON RESISTENCIA. Hay una caída enorme entre Batería + y el resto (~3 V): borne sulfatado o cable de arranque dañado. La batería está bien, el problema es la conexión."
+   },
+   {
+    "id": "command",
+    "name": "No hace nada (ni click)",
+    "hint": "El tablero prende. Medí si llega el positivo de mando al solenoide al girar la llave.",
+    "current": 0,
+    "pot": {
+     "BATP": 12.4,
+     "CMD": 0,
+     "SOL": 0,
+     "STB": 12.4,
+     "SBODY": 0,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "STB",
+      0.03
+     ],
+     [
+      "STB",
+      "SBODY",
+      30
+     ],
+     [
+      "SBODY",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "no_command",
+    "diag": "FALTA EL POSITIVO DE MANDO. El borne grueso tiene 12 V (positivo permanente) pero el mando de la llave no llega al solenoide (0 V): revisá llave, relé de arranque, fusible o inhibidor de neutral/embrague."
+   }
+  ]
+ },
+ {
+  "id": "carga",
+  "name": "Sistema de carga (alternador)",
+  "desc": "Alternador → batería → consumos. Practicá medición de tensión de carga y ripple (VCA).",
+  "viewBox": "0 0 760 380",
+  "comps": "\n    <circle cx=\"110\" cy=\"185\" r=\"40\" class=\"cmp-motor\"/>\n    <text x=\"110\" y=\"191\" text-anchor=\"middle\" class=\"cmp-label-b\">ALT</text>\n    <text x=\"110\" y=\"140\" text-anchor=\"middle\" class=\"cmp-label\">ALTERNADOR</text>\n    <rect x=\"335\" y=\"150\" width=\"54\" height=\"120\" rx=\"8\" class=\"cmp-fill\"/>\n    <line x1=\"349\" y1=\"178\" x2=\"349\" y2=\"200\" class=\"cmp-line\"/><line x1=\"339\" y1=\"189\" x2=\"359\" y2=\"189\" class=\"cmp-line\"/>\n    <line x1=\"375\" y1=\"220\" x2=\"375\" y2=\"242\" class=\"cmp-line\"/><line x1=\"367\" y1=\"231\" x2=\"383\" y2=\"231\" class=\"cmp-line\"/>\n    <text x=\"362\" y=\"290\" text-anchor=\"middle\" class=\"cmp-label\">BATERÍA 12 V</text>\n    <circle cx=\"600\" cy=\"160\" r=\"26\" class=\"cmp-lamp\"/>\n    <path d=\"M583,143 L617,177 M617,143 L583,177\" class=\"cmp-line\"/>\n    <text x=\"600\" y=\"118\" text-anchor=\"middle\" class=\"cmp-label\">CONSUMOS</text>\n    <line x1=\"235\" y1=\"305\" x2=\"235\" y2=\"323\" class=\"cmp-line\"/>\n    <line x1=\"213\" y1=\"323\" x2=\"257\" y2=\"323\" class=\"cmp-line\"/>\n    <line x1=\"220\" y1=\"331\" x2=\"250\" y2=\"331\" class=\"cmp-line\"/>\n    <line x1=\"227\" y1=\"339\" x2=\"243\" y2=\"339\" class=\"cmp-line\"/>",
+  "wires": [
+   [
+    [
+     110,
+     145
+    ],
+    [
+     110,
+     110
+    ],
+    [
+     600,
+     110
+    ]
+   ],
+   [
+    [
+     362,
+     110
+    ],
+    [
+     362,
+     150
+    ]
+   ],
+   [
+    [
+     600,
+     110
+    ],
+    [
+     600,
+     134
+    ]
+   ],
+   [
+    [
+     600,
+     186
+    ],
+    [
+     600,
+     305
+    ]
+   ],
+   [
+    [
+     110,
+     225
+    ],
+    [
+     110,
+     305
+    ]
+   ],
+   [
+    [
+     600,
+     305
+    ],
+    [
+     110,
+     305
+    ]
+   ],
+   [
+    [
+     362,
+     270
+    ],
+    [
+     362,
+     305
+    ]
+   ]
+  ],
+  "flowPath": "M110,110 L600,110 L600,305 L110,305 Z",
+  "nodes": [
+   {
+    "id": "ALTB",
+    "label": "Salida alternador B+",
+    "x": 110,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "BATP",
+    "label": "Batería +",
+    "x": 362,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "LOAD",
+    "label": "Consumos (luces)",
+    "x": 600,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "GND",
+    "label": "Masa chasis",
+    "x": 235,
+    "y": 305,
+    "lp": "bottom"
+   },
+   {
+    "id": "BATN",
+    "label": "Batería −",
+    "x": 362,
+    "y": 305,
+    "lp": "bottom"
+   }
+  ],
+  "scenarios": [
+   {
+    "id": "ok",
+    "name": "Carga correcta (motor en marcha)",
+    "hint": "Medí tensión entre Batería + y Batería − (modo V). Después cambiá a VCA para ver el ripple.",
+    "current": 35,
+    "ripple": 0.02,
+    "pot": {
+     "ALTB": 14.3,
+     "BATP": 14.2,
+     "LOAD": 14.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "ALTB",
+      "BATP",
+      0.02
+     ],
+     [
+      "BATP",
+      "LOAD",
+      0.03
+     ],
+     [
+      "LOAD",
+      "GND",
+      0.4
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "diag": "Sistema sano: 14,2 V en bornes y ripple bajo (<50 mV). El alternador carga bien."
+   },
+   {
+    "id": "nocharge",
+    "name": "Testigo de batería encendido",
+    "hint": "Medí tensión en bornes con el motor en marcha. ¿Carga o no?",
+    "current": 0,
+    "ripple": 0.03,
+    "pot": {
+     "ALTB": 12.1,
+     "BATP": 12.1,
+     "LOAD": 12,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "ALTB",
+      "BATP",
+      0.02
+     ],
+     [
+      "BATP",
+      "LOAD",
+      0.03
+     ],
+     [
+      "LOAD",
+      "GND",
+      0.4
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "no_charge",
+    "diag": "NO CARGA. Con el motor andando la tensión es ~12,1 V (igual que batería en reposo). Revisá correa, escobillas, regulador, diodos y cable de excitación."
+   },
+   {
+    "id": "diode",
+    "name": "Fallas eléctricas raras con motor en marcha",
+    "hint": "La tensión parece ok. Cambiá el tester a modo VCA (ripple) y medí en los bornes.",
+    "current": 35,
+    "ripple": 0.85,
+    "pot": {
+     "ALTB": 13.9,
+     "BATP": 13.8,
+     "LOAD": 13.7,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "ALTB",
+      "BATP",
+      0.02
+     ],
+     [
+      "BATP",
+      "LOAD",
+      0.03
+     ],
+     [
+      "LOAD",
+      "GND",
+      0.4
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "diode",
+    "diag": "DIODO DEL RECTIFICADOR DAÑADO. La continua parece normal (13,8 V), pero el ripple de CA es altísimo (0,85 V; debería ser <0,05 V). El alternador 'ensucia' la línea y causa fallas raras de electrónica."
+   }
+  ]
+ },
+ {
+  "id": "gnc",
+  "name": "GNC 5ª gen (Logan 2008) — eléctrico",
+  "desc": "Parte ELÉCTRICA del equipo de gas: alimentación de la ECU, electroválvula, masa del equipo y 5 V del sensor. (La presión se diagnostica con el software del kit.)",
+  "viewBox": "0 0 760 380",
+  "comps": "\n    <rect x=\"40\" y=\"150\" width=\"54\" height=\"120\" rx=\"8\" class=\"cmp-fill\"/>\n    <line x1=\"54\" y1=\"178\" x2=\"54\" y2=\"200\" class=\"cmp-line\"/><line x1=\"44\" y1=\"189\" x2=\"64\" y2=\"189\" class=\"cmp-line\"/>\n    <line x1=\"80\" y1=\"220\" x2=\"80\" y2=\"242\" class=\"cmp-line\"/><line x1=\"72\" y1=\"231\" x2=\"88\" y2=\"231\" class=\"cmp-line\"/>\n    <text x=\"67\" y=\"290\" text-anchor=\"middle\" class=\"cmp-label\">BATERÍA 12 V</text>\n    <rect x=\"188\" y=\"96\" width=\"64\" height=\"28\" rx=\"6\" class=\"cmp-box\"/>\n    <path d=\"M198,110 q9,-12 16,0 q9,12 16,0\" fill=\"none\" class=\"cmp-accent\"/>\n    <text x=\"220\" y=\"86\" text-anchor=\"middle\" class=\"cmp-label\">FUSIBLE GNC</text>\n    <rect x=\"330\" y=\"128\" width=\"172\" height=\"86\" rx=\"10\" class=\"cmp-box\"/>\n    <text x=\"416\" y=\"166\" text-anchor=\"middle\" class=\"cmp-label-b\">ECU GNC</text>\n    <text x=\"416\" y=\"184\" text-anchor=\"middle\" class=\"cmp-label\">computadora de gas</text>\n    <rect x=\"642\" y=\"148\" width=\"34\" height=\"46\" rx=\"5\" class=\"cmp-box\"/>\n    <line x1=\"648\" y1=\"156\" x2=\"670\" y2=\"156\" class=\"cmp-line\"/><line x1=\"648\" y1=\"164\" x2=\"670\" y2=\"164\" class=\"cmp-line\"/><line x1=\"648\" y1=\"172\" x2=\"670\" y2=\"172\" class=\"cmp-line\"/><line x1=\"648\" y1=\"180\" x2=\"670\" y2=\"180\" class=\"cmp-line\"/>\n    <text x=\"659\" y=\"142\" text-anchor=\"middle\" class=\"cmp-label\">electroválvula</text>\n    <rect x=\"398\" y=\"250\" width=\"66\" height=\"38\" rx=\"6\" class=\"cmp-fill\"/>\n    <text x=\"431\" y=\"273\" text-anchor=\"middle\" class=\"cmp-label-b\">MAP-T</text>\n    <line x1=\"640\" y1=\"305\" x2=\"640\" y2=\"322\" class=\"cmp-line\"/>\n    <line x1=\"620\" y1=\"322\" x2=\"660\" y2=\"322\" class=\"cmp-line\"/>\n    <line x1=\"627\" y1=\"330\" x2=\"653\" y2=\"330\" class=\"cmp-line\"/>\n    <line x1=\"634\" y1=\"338\" x2=\"646\" y2=\"338\" class=\"cmp-line\"/>",
+  "wires": [
+   [
+    [
+     67,
+     110
+    ],
+    [
+     360,
+     110
+    ]
+   ],
+   [
+    [
+     360,
+     110
+    ],
+    [
+     360,
+     128
+    ]
+   ],
+   [
+    [
+     502,
+     150
+    ],
+    [
+     560,
+     150
+    ]
+   ],
+   [
+    [
+     560,
+     150
+    ],
+    [
+     659,
+     150
+    ]
+   ],
+   [
+    [
+     659,
+     194
+    ],
+    [
+     659,
+     305
+    ]
+   ],
+   [
+    [
+     431,
+     214
+    ],
+    [
+     431,
+     250
+    ]
+   ],
+   [
+    [
+     431,
+     288
+    ],
+    [
+     431,
+     305
+    ]
+   ],
+   [
+    [
+     400,
+     214
+    ],
+    [
+     400,
+     305
+    ]
+   ],
+   [
+    [
+     67,
+     110
+    ],
+    [
+     67,
+     150
+    ]
+   ],
+   [
+    [
+     67,
+     270
+    ],
+    [
+     67,
+     305
+    ]
+   ],
+   [
+    [
+     67,
+     305
+    ],
+    [
+     659,
+     305
+    ]
+   ]
+  ],
+  "flowPath": "M67,110 L659,110 L659,305 L67,305 Z",
+  "nodes": [
+   {
+    "id": "BATP",
+    "label": "Batería +",
+    "x": 67,
+    "y": 110,
+    "lp": "left"
+   },
+   {
+    "id": "FIN",
+    "label": "Entrada fusible GNC",
+    "x": 188,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "FOUT",
+    "label": "Salida fusible GNC",
+    "x": 252,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "ECUP",
+    "label": "Aliment. ECU (+)",
+    "x": 360,
+    "y": 110,
+    "lp": "top"
+   },
+   {
+    "id": "EVC",
+    "label": "Comando electroválvula",
+    "x": 560,
+    "y": 150,
+    "lp": "top"
+   },
+   {
+    "id": "EVB",
+    "label": "Electroválvula (bobina)",
+    "x": 659,
+    "y": 150,
+    "lp": "right"
+   },
+   {
+    "id": "REF",
+    "label": "5 V ref (sensor MAP-T)",
+    "x": 431,
+    "y": 240,
+    "lp": "right"
+   },
+   {
+    "id": "ECUG",
+    "label": "Masa ECU GNC",
+    "x": 400,
+    "y": 305,
+    "lp": "bottom"
+   },
+   {
+    "id": "GND",
+    "label": "Masa chasis",
+    "x": 640,
+    "y": 305,
+    "lp": "bottom"
+   },
+   {
+    "id": "BATN",
+    "label": "Batería −",
+    "x": 67,
+    "y": 305,
+    "lp": "bottom"
+   }
+  ],
+  "scenarios": [
+   {
+    "id": "ok",
+    "name": "En gas, funcionando OK",
+    "hint": "Recorré la parte eléctrica: 12 V en la alimentación de la ECU, 12 V en la electroválvula (abierta), 5 V en el sensor y masa firme.",
+    "current": 0.8,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.4,
+     "ECUP": 12.4,
+     "EVC": 12.3,
+     "EVB": 12.2,
+     "REF": 5,
+     "ECUG": 0.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "ECUP",
+      0.01
+     ],
+     [
+      "ECUP",
+      "EVC",
+      0.5
+     ],
+     [
+      "EVC",
+      "EVB",
+      0.02
+     ],
+     [
+      "EVB",
+      "GND",
+      24
+     ],
+     [
+      "ECUP",
+      "REF",
+      100
+     ],
+     [
+      "REF",
+      "GND",
+      5000
+     ],
+     [
+      "ECUG",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "diag": "En gas y sano: la ECU de GNC tiene 12 V, la electroválvula recibe 12 V (abre el gas), el sensor MAP-T tiene sus 5 V de referencia y la masa del equipo cae casi 0 V."
+   },
+   {
+    "id": "fusible",
+    "name": "No pasa a gas (revisá alimentación)",
+    "hint": "El auto no conmuta y sigue en nafta. Medí tensión antes y después del fusible del equipo de GNC.",
+    "current": 0,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 0,
+     "ECUP": 0,
+     "EVC": 0,
+     "EVB": 0,
+     "REF": 0,
+     "ECUG": 0,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FOUT",
+      "ECUP",
+      0.01
+     ],
+     [
+      "ECUP",
+      "EVC",
+      0.5
+     ],
+     [
+      "EVC",
+      "EVB",
+      0.02
+     ],
+     [
+      "EVB",
+      "GND",
+      24
+     ],
+     [
+      "ECUP",
+      "REF",
+      100
+     ],
+     [
+      "REF",
+      "GND",
+      5000
+     ],
+     [
+      "ECUG",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "fuse_open",
+    "diag": "FUSIBLE DEL EQUIPO QUEMADO. Hay 12 V en la entrada del fusible y 0 V en la salida: sin alimentación la ECU de GNC no trabaja y el auto se queda en nafta."
+   },
+   {
+    "id": "masa",
+    "name": "Conmuta raro / inestable en gas",
+    "hint": "Anda con tirones al pasar a gas. Hacé caída de tensión entre Masa ECU GNC y Masa chasis (debería ser <0,2 V).",
+    "current": 0.8,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.4,
+     "ECUP": 12.4,
+     "EVC": 12.3,
+     "EVB": 12.2,
+     "REF": 5,
+     "ECUG": 3.5,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "ECUP",
+      0.01
+     ],
+     [
+      "ECUP",
+      "EVC",
+      0.5
+     ],
+     [
+      "EVC",
+      "EVB",
+      0.02
+     ],
+     [
+      "EVB",
+      "GND",
+      24
+     ],
+     [
+      "ECUP",
+      "REF",
+      100
+     ],
+     [
+      "REF",
+      "GND",
+      5000
+     ],
+     [
+      "ECUG",
+      "GND",
+      4
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "bad_ground",
+    "diag": "MALA MASA DEL EQUIPO. La masa de la ECU de GNC está a ~3,5 V respecto del chasis (debería ser <0,2 V). Una masa con resistencia genera conmutaciones erráticas y fallas raras."
+   },
+   {
+    "id": "comando",
+    "name": "No abre el gas (comando)",
+    "hint": "Medí tensión en el Comando de la electroválvula y después en la Bobina de la electroválvula. ¿Llega el 12 V hasta la bobina?",
+    "current": 0,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.4,
+     "ECUP": 12.4,
+     "EVC": 12.3,
+     "EVB": 0,
+     "REF": 5,
+     "ECUG": 0.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "ECUP",
+      0.01
+     ],
+     [
+      "ECUP",
+      "EVC",
+      0.5
+     ],
+     [
+      "EVB",
+      "GND",
+      24
+     ],
+     [
+      "ECUP",
+      "REF",
+      100
+     ],
+     [
+      "REF",
+      "GND",
+      5000
+     ],
+     [
+      "ECUG",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "no_command",
+    "diag": "EL COMANDO NO LLEGA A LA BOBINA. La ECU manda 12 V (hay tensión en Comando electroválvula) pero a la bobina llegan 0 V: cable de comando cortado o conector flojo. Sin 12 V, la electroválvula no abre el gas."
+   },
+   {
+    "id": "bobina",
+    "name": "No abre el gas (bobina)",
+    "hint": "Con el sistema SIN tensión, medí la resistencia de la bobina (Electroválvula a Masa chasis): debería dar ~20–30 Ω.",
+    "current": 0,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.4,
+     "ECUP": 12.4,
+     "EVC": 12.3,
+     "EVB": 12.2,
+     "REF": 5,
+     "ECUG": 0.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "ECUP",
+      0.01
+     ],
+     [
+      "ECUP",
+      "EVC",
+      0.5
+     ],
+     [
+      "EVC",
+      "EVB",
+      0.02
+     ],
+     [
+      "ECUP",
+      "REF",
+      100
+     ],
+     [
+      "REF",
+      "GND",
+      5000
+     ],
+     [
+      "ECUG",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "coil_open",
+    "diag": "BOBINA CORTADA. Llega el comando (12 V en la bobina, sin corriente), pero la resistencia de la bobina da un valor altísimo en vez de ~20–30 Ω: el bobinado de la electroválvula está abierto. No abre el gas."
+   },
+   {
+    "id": "ref",
+    "name": "Anda mal en gas (sensor sin 5 V)",
+    "hint": "Tirones y mala calibración en gas. Medí la tensión de referencia del sensor MAP-T (5 V ref a Masa chasis): deberían ser 5 V.",
+    "current": 0.8,
+    "pot": {
+     "BATP": 12.5,
+     "FIN": 12.5,
+     "FOUT": 12.4,
+     "ECUP": 12.4,
+     "EVC": 12.3,
+     "EVB": 12.2,
+     "REF": 0,
+     "ECUG": 0.1,
+     "GND": 0,
+     "BATN": 0
+    },
+    "edges": [
+     [
+      "BATP",
+      "FIN",
+      0.01
+     ],
+     [
+      "FIN",
+      "FOUT",
+      0.02
+     ],
+     [
+      "FOUT",
+      "ECUP",
+      0.01
+     ],
+     [
+      "ECUP",
+      "EVC",
+      0.5
+     ],
+     [
+      "EVC",
+      "EVB",
+      0.02
+     ],
+     [
+      "EVB",
+      "GND",
+      24
+     ],
+     [
+      "REF",
+      "GND",
+      5000
+     ],
+     [
+      "ECUG",
+      "GND",
+      0.01
+     ],
+     [
+      "GND",
+      "BATN",
+      0.01
+     ]
+    ],
+    "answer": "ev_ref",
+    "diag": "SIN 5 V DE REFERENCIA. El sensor MAP-T mide 0 V donde debería haber 5 V: sin esa referencia la ECU no lee la presión del gas y la inyección sale mal. Revisá el cable de 5 V y el conector/masa del sensor."
+   }
+  ]
+ }
+]

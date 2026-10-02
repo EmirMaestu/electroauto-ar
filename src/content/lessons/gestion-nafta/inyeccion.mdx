@@ -1,0 +1,281 @@
+Un Gol Trend con 180.000 km: tironea un poco en ralentí, a veces se apaga al frenar y el dueño dice que "gasta como un camión". No tiene la luz de check prendida. Le conectás el scanner y en datos en vivo ves dos números que te cuentan casi toda la historia: **LTFT +18 % en ralentí**, que baja a **+3 % a 2.500 rpm**. Antes de tocar una sola pieza ya sabés que buscás una **entrada de aire falso**, y lo encontrás en diez minutos: la manguera del servofreno rajada en el codo.
+
+Ese es el poder de entender la inyección por dentro. La ECU está todo el tiempo calculando cuánta nafta poner, midiendo el resultado con la sonda y corrigiendo. Si sabés leer esas correcciones, el motor te dice dónde le duele.
+
+En esta lección vamos de la química (cuánto aire por cada gramo de nafta) al circuito de combustible, el inyector por dentro, la cuenta que hace la ECU para el ancho de pulso, la inyección directa y, sobre todo, cómo se prueba todo eso en el taller. El panorama general está en [Sistema de inyección electrónica](/aprender/electricidad/a1l3); los sensores que usa la ECU, en [Sensores del motor](/aprender/gestion-nafta/sensores-motor).
+
+<Libro pag="pág. 816–849" />
+
+## La mezcla: cuánto aire por cada gramo de nafta
+
+Para quemar **1 kg de nafta** por completo hacen falta **14,7 kg de aire**. Esa es la mezcla <Term t="Estequiométrica">estequiométrica</Term>: ni sobra ni falta oxígeno. En volumen impresiona más: 14,7 kg de aire son unos 12 m³, y 1 kg de nafta es poco más de un litro. **Para quemar un litro de nafta, el motor tiene que tragar unos 9.000 litros de aire.**
+
+Para no hablar siempre de "14,7:1", se usa <Term t="Lambda">lambda (λ)</Term>:
+
+<Formula name="Factor lambda" vars={{ "λ": "factor de exceso de aire (adimensional)", "m_aire": "masa de aire que realmente entra [g]", "m_nafta": "masa de nafta inyectada [g]", "14,7": "relación estequiométrica de la nafta" }}>
+  λ = (m<sub>aire</sub> / m<sub>nafta</sub>) / 14,7
+</Formula>
+
+- **λ = 1**: estequiométrica (14,7:1). Es donde vive la ECU casi todo el tiempo, porque es donde trabaja el catalizador.
+- **λ menor que 1**: **rica**, falta aire (sobra nafta). λ = 0,9 son 13,2:1.
+- **λ mayor que 1**: **pobre**, sobra aire. λ = 1,1 son 16,2:1.
+
+¿Qué cambia con la mezcla? Bastante más que el consumo:
+
+| | Rica (λ ≈ 0,85–0,9) | Estequiométrica (λ = 1) | Pobre (λ ≈ 1,05–1,2) |
+|---|---|---|---|
+| Potencia | Máxima | Un poco menos | Baja cada vez más |
+| Consumo | Alto | Medio | Mínimo cerca de 1,05–1,1 |
+| CO y HC | Muy altos | Bajos (y el catalizador los limpia) | Bajos (HC sube si falla la chispa) |
+| NOx | Bajo | Medio | **Máximo** cerca de 1,05–1,1 |
+| Temperatura | La nafta extra enfría la cámara | Normal | Combustión más caliente y lenta: válvulas y pistones sufren, más riesgo de detonación |
+
+<MezclaLambda />
+
+<Dato title="Por qué a fondo se enriquece">
+
+A plena carga la ECU abandona λ = 1 y pasa a 0,85–0,9. No es sólo por potencia: la nafta que sobra se evapora y **enfría** la cámara, las válvulas de escape, el catalizador y (si tiene) la turbina. En autos turbo esa nafta "de protección" es enorme. Por eso, si alguien "empobrece a fondo" para ahorrar o para ganar potencia en una reprogramación, lo que suele ganar es un pistón agujereado.
+
+</Dato>
+
+## El circuito de combustible
+
+Siguiendo la nafta desde el tanque:
+
+1. **Bomba eléctrica en el tanque.** Una bomba de turbina (las viejas eran de rodillos) movida por un motor de 12 V, sumergida en nafta, que la refrigera. Consume típicamente **3 a 8 A** y entrega del orden de **100 litros por hora**: mucho más de lo que el motor necesita, para tener margen.
+2. **Prefiltro** (una malla en la toma) y **filtro de nafta** (en línea o dentro del módulo del tanque). Un filtro tapado no se nota en ralentí; se nota a fondo, cuando hace falta caudal.
+3. **Relé de bomba.** Lo maneja la ECU: al poner contacto la hace funcionar **2 o 3 segundos** para levantar presión y la apaga si no ve rpm. Es una seguridad: si chocás y el motor se para, la bomba se apaga aunque la llave siga en contacto.
+4. **Regulador de presión.** Mantiene la presión en el riel: **3 a 4 bar** en un multipunto.
+5. **Riel o flauta.** El caño que reparte la nafta a los inyectores. Muchos traen una válvula tipo cubierta (Schrader) para conectar el manómetro.
+6. **Inyectores**, uno por cilindro, que pulverizan contra la válvula de admisión.
+
+Hay dos arquitecturas, y conviene saber cuál tiene el auto antes de medir:
+
+<Comparar>
+  <Lado title="Con retorno">
+
+El regulador está en el riel y **lo que sobra vuelve al tanque** por un caño de retorno. El regulador tiene una manguera de **vacío del múltiple**: así mantiene constante la *diferencia* de presión entre el riel y el múltiple. Por eso, en ralentí (mucho vacío), el manómetro marca ~0,5 bar **menos** que con la manguera desconectada. La nafta que da vueltas por el motor vuelve caliente al tanque: más evaporación.
+
+  </Lado>
+  <Lado title="Sin retorno (returnless)">
+
+El regulador está **en el tanque** y al motor sólo va un caño. La presión en el riel es fija respecto de la atmósfera (3,5–4 bar). Como la diferencia contra el múltiple cambia con el vacío, **la ECU lo compensa con el tiempo de inyección** usando el MAP. Los más nuevos tienen sensor de presión en el riel y manejan la bomba por PWM: dan sólo la nafta que hace falta.
+
+  </Lado>
+</Comparar>
+
+La bomba tiene además una **válvula de retención**: al apagar el motor, la presión tiene que **quedarse** en el riel. Así el próximo arranque es inmediato y, en verano, la nafta caliente no hierve en el riel (vapor lock). Si la presión se cae, la mañana siguiente el auto arranca "después de varios intentos".
+
+## El inyector por dentro
+
+Un inyector de nafta es una **electroválvula**: un cuerpo con una **bobina**, un **inducido** con la **aguja** (o una bolita) pegado, un **resorte** que la aprieta contra el **asiento** y, a la salida, una **placa con orificios** calibrados que arma el chorro apuntando a la válvula de admisión.
+
+- Sin corriente, el resorte y la presión de la nafta mantienen la aguja cerrada.
+- Cuando la ECU da masa, la corriente por la bobina crea un campo que atrae el inducido: la aguja sube apenas **0,1 mm** y la nafta sale pulverizada.
+- Al cortar, el resorte la cierra.
+
+Mientras está abierto, el caudal es **constante** (depende de la presión y de los orificios). Por eso la ECU dosifica la nafta con **tiempo**: cuántos milisegundos lo deja abierto. Eso es el <Term t="Ancho de pulso">ancho de pulso</Term>.
+
+Los inyectores comunes son de **alta impedancia** (12 a 16 Ω): con 14 V circula alrededor de 1 A y el driver de la ECU los maneja directo. Los viejos de **baja impedancia** (2–3 Ω) necesitaban drivers "pico y mantenimiento": 4 A para abrir rápido y después ~1 A para sostener.
+
+<Electronica>
+
+El inyector tiene **12 V permanentes** (del relé principal o del relé de la ECU) y la ECU lo comanda **por masa**, con un transistor MOSFET del lado bajo. Cuando el transistor corta, la bobina no quiere que la corriente se detenga (es una inductancia) y genera un **pico de tensión**. Sin protección serían cientos de volts; el driver lo **recorta a 50–80 V** con un zener interno. Ese pico es una gran herramienta de diagnóstico: su altura y forma te cuentan el estado de la bobina. Además, el driver vigila el circuito: si con el transistor abierto no ve los 12 V en el pin (bobina cortada, sin alimentación) o si al conducir la corriente se dispara (bobina en corto), guarda **P0201–P0204** (circuito del inyector 1 a 4) y en muchos casos apaga esa salida.
+
+</Electronica>
+
+<Inyector />
+
+Mirá la forma de onda con atención, porque es la que vas a ver con el osciloscopio entre el pin de comando y masa:
+
+1. **Línea de 12–14 V**: inyector cerrado, el pin "ve" la batería a través de la bobina.
+2. **Cae a casi 0 V**: la ECU da masa. Empieza el pulso.
+3. **Rampa de corriente** (si tenés pinza): sube curva, frenada por la inductancia. Una pequeña inflexión marca el momento en que la aguja se movió.
+4. **Pico de 50–80 V** al cortar.
+5. **Jorobita** medio milisegundo después: la aguja apoyando en el asiento. Si no está, la aguja puede estar trabada.
+
+## Cuánto tiempo abre: el cálculo del ancho de pulso
+
+La ECU sabe cuánto aire entró en el cilindro (por el MAF, o por MAP + temperatura + rpm), sabe qué λ quiere y conoce el caudal de sus inyectores. El resto es una división, más una corrección por la batería.
+
+<Formula name="Tiempo de inyección" vars={{ "tᵢ": "ancho de pulso total [ms]", "m_aire": "aire por cilindro y por ciclo [mg]", "λ_obj": "lambda objetivo (1 en lazo cerrado; 0,85–0,9 a fondo)", "q": "caudal del inyector [mg/ms]", "K": "correcciones: STFT + LTFT, temperatura, aceleración… (1 = sin corrección)", "t_m": "tiempo muerto según la tensión de batería [ms]" }}>
+  t<sub>i</sub> = m<sub>aire</sub> / (14,7 · λ<sub>obj</sub>) / q · K + t<sub>m</sub>(V<sub>bat</sub>)
+</Formula>
+
+El **tiempo muerto** es lo que tarda la aguja en reaccionar: durante los primeros ~0,7–1,2 ms de pulso la corriente todavía no tiene fuerza suficiente para abrir. Con batería baja tarda más, así que la ECU **suma más tiempo cuando baja la tensión**. Por eso un alternador que carga poco puede empobrecer la mezcla de forma sutil si la tabla de tiempo muerto no es la del inyector instalado.
+
+<Ejemplo title="Ancho de pulso de un 1.6 en ralentí">
+Del cálculo con el MAP de la [lección de sensores](/aprender/gestion-nafta/sensores-motor): **0,113 g = 113 mg de aire** por cilindro y por ciclo. Lazo cerrado, λ = 1. Inyector de 240 cm³/min a 3 bar, nafta de 0,74 g/cm³:
+
+<Calc>Nafta necesaria: 113 / 14,7 = 7,7 mg</Calc>
+<Calc>Caudal: 240 / 60 = 4 cm³/s × 0,74 = 2,96 g/s = 2,96 mg/ms</Calc>
+<Calc>Tiempo útil: 7,7 / 2,96 = 2,6 ms · Tiempo muerto a 14 V: 0,9 ms</Calc>
+
+Resultado: <Res>tᵢ ≈ 3,5 ms en ralentí</Res>. Es justo lo que vas a ver en el scanner de un motor sano (2 a 4 ms). Con la batería en 11,5 V el tiempo muerto pasa a ~1,2 ms y el pulso a 3,8 ms, con la misma nafta.
+</Ejemplo>
+
+<Ejemplo title="A fondo y en vueltas: ciclo de trabajo">
+El mismo motor a 5.500 rpm a fondo, a nivel del mar: 400 cm³ de cilindro × 1,18 mg/cm³ × eficiencia volumétrica 0,9 = **425 mg de aire**, λ objetivo 0,88.
+
+<Calc>Nafta: 425 / (14,7 × 0,88) = 32,9 mg · Tiempo útil: 32,9 / 2,96 = 11,1 ms · tᵢ = 11,1 + 0,9 = 12,0 ms</Calc>
+<Calc>Un ciclo (2 vueltas) a 5.500 rpm: 120.000 / 5.500 = 21,8 ms · Ciclo de trabajo: 12,0 / 21,8 = 55 %</Calc>
+
+Resultado: <Res>12 ms de pulso, 55 % de ciclo de trabajo</Res>. Mientras el inyector pase menos del ~80–85 % del tiempo abierto, alcanza. Si el motor necesita más (turbo con más presión, reprogramación), hay que poner inyectores más grandes o subir la presión. En Mendoza, con el aire un 8 % menos denso, el mismo punto pide ~10,2 + 0,9 ms.
+</Ejemplo>
+
+En los sistemas **sin retorno**, la ECU corrige además por la diferencia de presión real entre el riel y el múltiple, porque el caudal crece con la raíz de esa diferencia:
+
+<Formula name="Caudal del inyector según la presión" vars={{ "q": "caudal real", "q_nom": "caudal nominal (a la presión de prueba)", "Δp": "presión del riel menos presión del múltiple", "Δp_nom": "presión de prueba (3 o 4 bar)" }}>
+  q = q<sub>nom</sub> · √(Δp / Δp<sub>nom</sub>)
+</Formula>
+
+Con 3,5 bar en el riel y 0,35 bar absolutos en el múltiple (ralentí), la diferencia es ~4,15 bar: el inyector entrega un **9 % más** que a 3,5 bar de diferencia, y la ECU acorta el pulso en esa proporción.
+
+## Secuencial, semisecuencial y simultánea
+
+- **Simultánea** (sistemas viejos): todos los inyectores abren juntos, una o dos veces por ciclo. Barato, pero la mitad de los cilindros recibe la nafta con la válvula cerrada.
+- **Semisecuencial** o por grupos: abren de a pares (1-4 y 2-3), una vez por vuelta. Es lo que hace la ECU cuando no tiene sensor de fase.
+- **Secuencial**: cada inyector una vez por ciclo, sincronizado con el tiempo de admisión de su cilindro, en el orden de encendido (1-3-4-2). Necesita el CMP. Es lo normal en cualquier auto de los últimos 25 años.
+
+Si se rompe el CMP, muchas ECU pasan a semisecuencial y el auto sigue andando, con un poco más de consumo y emisiones.
+
+## Enriquecimientos y cortes
+
+La cuenta de arriba es el "tiempo base". Encima, la ECU suma o resta según la situación:
+
+- **Arranque.** Pulsos largos (de 10 a 30 ms en frío) porque la nafta se condensa en las paredes frías y sólo una parte se evapora. Cuanto más frío el ECT, más nafta.
+- **Postarranque y calentamiento.** Un enriquecimiento que se va apagando a medida que sube la temperatura.
+- **Aceleración.** Cuando la mariposa se abre de golpe, el MAP sube y parte de la nafta se queda mojando las paredes del múltiple: la ECU agrega un extra (la "bomba de pique" electrónica). Si falla esta corrección, el auto "se ahoga" o se queda un instante al pisar.
+- **Plena carga.** λ 0,85–0,9, como vimos.
+- **Corte en desaceleración.** Con el pie levantado, motor caliente y por encima de ~1.500 rpm, **la ECU corta la inyección**: consumo cero. Vuelve a inyectar cerca de 1.100–1.200 rpm o si pisás. Durante el corte la sonda cae a ~0,1 V (sólo pasa aire).
+- **Corte de vueltas.** Al llegar al régimen máximo, corta inyección (y a veces chispa) para proteger el motor.
+
+<Tip title="Motor ahogado: el truco del pedal a fondo">
+
+En casi todos los autos con inyección, si das arranque con el **acelerador a fondo**, la ECU entra en modo "desahogo" y **no inyecta**. Sirve para sacar la nafta de más cuando el motor se ahogó (por ejemplo, después de arrancar y apagar en frío). No bombees el pedal: en un auto de inyección, eso no hace nada (o hace esto mismo).
+
+</Tip>
+
+## Inyección directa
+
+En la inyección directa (GDI, TSI, TFSI…), el inyector está **adentro de la cámara de combustión**, al lado de la bujía. Eso cambia todo:
+
+- **Presión altísima.** La nafta tiene que entrar contra la compresión y pulverizarse en milisegundos: **50 a 350 bar** (los más nuevos llegan a 500). La genera una **bomba mecánica de un pistón** movida por una leva del árbol de levas, con una **electroválvula de control de caudal** que maneja la ECU. Una bomba eléctrica en el tanque alimenta a 4–6 bar.
+- **Sensor de presión en el riel.** La ECU regula la presión por lazo cerrado y la ves en el scanner. **No se mide con manómetro común.**
+- **Inyectores de alta tensión.** La ECU los abre con un "boost" de 65–90 V y corrientes de ~10 A para que abran en una fracción de milisegundo. Algunos son **piezoeléctricos**. No se prueban como un inyector de multipunto.
+- **Modos de funcionamiento.** En **homogéneo** inyecta durante la admisión y la mezcla es pareja (λ = 1). En **estratificado** (motores de los 2000s) inyecta tarde, durante la compresión, para armar una nube rica alrededor de la bujía con el resto del cilindro casi sin nafta: mezcla global muy pobre y poco consumo, pero mucho NOx y la necesidad de catalizadores especiales; hoy casi todos trabajan en homogéneo. En frío hacen **varias inyecciones por ciclo** para calentar rápido el catalizador.
+
+<Ojo title="Carbonilla en las válvulas de admisión">
+
+En el multipunto, la nafta "lava" las válvulas de admisión en cada ciclo. En la directa no pasa nada por ahí, y los vapores de aceite del respiradero del cárter (y la EGR) se **cocinan** sobre las válvulas. Con los kilómetros aparece una costra que restringe el aire: ralentí irregular, fallas de encendido en frío, falta de potencia. Se limpia desarmando el múltiple y **granallando con cáscara de nuez** o con químicos específicos. Por eso muchos motores nuevos tienen **inyección doble** (directa + multipunto).
+
+</Ojo>
+
+Códigos típicos de la directa: **P0087** (presión de riel baja), **P0088** (alta), **P0089** (regulador de presión), **P0190–P0193** (sensor de presión del riel).
+
+## En el taller: probar el sistema de combustible
+
+<Peligro title="Nafta a presión">
+
+La nafta en el riel está a 3–4 bar en un multipunto y a cientos de bar en una directa. Antes de abrir cualquier conexión: **despresurizá** (sacá el fusible o relé de la bomba y dá arranque hasta que se pare, o usá la válvula del riel con un trapo y un recipiente). Matafuego a mano, nada de cigarrillos ni chispas cerca, y **nunca** abras el circuito de alta de una directa sin el procedimiento del fabricante. En autos con GNC, cerrá también la válvula del tubo.
+
+</Peligro>
+
+<Pasos>
+1. **Presión con contacto.** Manómetro en la válvula del riel o en línea. Al poner contacto, la bomba ceba 2–3 s: tiene que subir enseguida a 3–4 bar (según el auto). Si no ceba, revisá fusible, relé y la orden de la ECU antes que la bomba.
+2. **Presión en ralentí.** Con retorno: ~0,5 bar menos que el valor nominal; al **sacar la manguera de vacío del regulador**, tiene que subir esos 0,5 bar. Si en esa manguera hay nafta, el diafragma del regulador está roto (mezcla rica). Sin retorno: la presión es fija.
+3. **Presión a fondo o con carga.** Con un ayudante o en ruta, con el manómetro sujeto donde lo veas: si la presión cae al pedir potencia, la bomba o el filtro no dan caudal.
+4. **Retención.** Apagá el motor y mirá el manómetro: en 5–10 minutos no tendría que perder más de ~0,5–1 bar (dato del fabricante). Si cae rápido, el culpable puede ser la retención de la bomba, un inyector que gotea o el regulador.
+5. **Caudal.** Con la salida del retorno (o la del riel) a un recipiente graduado, puenteá la bomba 30 s. Como referencia, un multipunto entrega **0,5 a 1 litro en 30 s**; manda el dato del fabricante.
+6. **Corriente de la bomba.** Pinza amperométrica de continua en el cable de la bomba: 3–8 A típico. En el osciloscopio, la corriente tiene un "serrucho" fino por las delgas del colector: si un diente es distinto, el colector o las escobillas están gastados.
+7. **Inyectores, eléctrico.** Resistencia 12–16 Ω y **todos parecidos** (dentro de ±0,5 Ω). Noid light en la ficha dando arranque: parpadea si la ECU manda pulso. Osciloscopio para ver forma, ancho y pico.
+8. **Inyectores, hidráulico.** Prueba de **balance**: con el manómetro y el scanner (o un pulsador), se abre cada inyector el mismo tiempo y se mide cuánto cae la presión. Todos tienen que bajar parecido. Lo definitivo es el **banco de caudal**: se lavan por **ultrasonido** y se comparan los volúmenes en probetas (diferencia máxima ~5 %), la forma del chorro y que no goteen. Al reinstalarlos, o-rings y filtritos nuevos.
+9. **Pérdidas de vacío.** Con el motor en ralentí, mirá trims y MAP. Para encontrarlas, lo mejor es una **máquina de humo** en la admisión; si no tenés, el vacuómetro y la oreja (silbido) ayudan.
+</Pasos>
+
+## Qué pasa electrónicamente: los trims
+
+En lazo cerrado, la ECU mira la sonda y corrige el tiempo base con dos números que ves en cualquier scanner OBD-II. Son la mejor ventana a la salud de la mezcla:
+
+- **STFT** (corrección de corto plazo): reacciona en décimas de segundo. Zigzaguea alrededor de 0 siguiendo la sonda.
+- **LTFT** (corrección de largo plazo): **aprende** el promedio del STFT y lo guarda en memoria (se borra al desconectar la batería en muchos autos). Es la que muestra problemas permanentes.
+
+Positivo = la ECU **agrega** nafta porque la sonda ve mezcla pobre. Negativo = **saca** nafta porque ve rica. La suma STFT + LTFT dentro de **±10 %** es normal. Más allá de ~**+20–25 %** la ECU guarda **P0171** (sistema pobre, banco 1; **P0174** banco 2); más allá de ~**−20–25 %**, **P0172** (rico; **P0175** banco 2).
+
+<LazoCerrado />
+
+El truco para diagnosticar es **mirar los trims en distintas condiciones** y pensar qué tipo de error produce cada falla:
+
+| Lo que ves (LTFT + STFT) | Qué significa | Sospechosos |
+|---|---|---|
+| Alto en ralentí, normal a 2.500 rpm | Error **fijo en aire**: pesa mucho cuando entra poco aire | Pérdida de vacío: mangueras, servofreno, junta del múltiple, PCV |
+| Alto en todo el rango | Error **proporcional**: falta nafta (o sobra aire) siempre en la misma proporción | Presión de nafta baja, inyectores tapados, MAF que lee menos |
+| Normal en ralentí, alto con carga | Falta **caudal** cuando se pide | Bomba débil, filtro tapado, regulador |
+| Negativo en ralentí | Entra nafta que la ECU no manda | Canister purgando siempre, regulador con diafragma roto, inyector que gotea |
+| Negativo en todo el rango | Sobra nafta siempre | Presión alta (retorno tapado), MAF que lee de más, aceite con nafta |
+| Un banco distinto del otro (V6) | El problema es de un lado | Junta o inyector de ese banco; si son iguales, algo común (bomba, MAF) |
+
+<Ejemplo title="¿Por qué una pérdida de vacío se ve en ralentí y no en vueltas?">
+En el Gol del principio: LTFT +18 % en ralentí y +3 % a 2.500 rpm. En ralentí ese motor mide unos 2,8 g/s de aire. Si la ECU agrega 18 % de nafta para compensar, el aire "no medido" que entra por la rajadura es:
+
+<Calc>Aire falso ≈ 0,18 × 2,8 g/s = 0,5 g/s</Calc>
+
+A 2.500 rpm en crucero el motor mide unos 12 g/s. La misma rajadura deja pasar más o menos el mismo aire (la diferencia de presión casi no cambia), así que:
+
+<Calc>Corrección a 2.500 rpm ≈ 0,5 / 12 = 4 %</Calc>
+
+Resultado: <Res>la misma fuga pesa 18 % en ralentí y ~4 % en crucero</Res>. Eso es exactamente lo que dice el scanner. En cambio, si la presión de nafta estuviera 15 % baja, todos los inyectores entregarían 15 % menos en cualquier régimen: el trim sería alto **parejo**.
+</Ejemplo>
+
+<Electronica>
+
+Lo que tenés que mirar en el scanner para la inyección: **ancho de pulso** (2–4 ms en ralentí caliente), **STFT y LTFT** de cada banco, **estado del lazo** (abierto/cerrado), **sonda** anterior y posterior, **carga calculada**, **MAF o MAP**, **ECT**. Códigos: **P0171/P0174** (pobre), **P0172/P0175** (rico), **P0201–P0204** (circuito de inyector), **P0261–P0272** (inyector bajo/alto por cilindro, en algunas marcas), **P0087** (presión baja) y, si un inyector no tira, **P0301–P0304** por fallas de encendido en ese cilindro. Muchos scanners tienen **prueba de actuadores**: activan cada inyector o la bomba para que escuches o midas.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Presión de nafta (multipunto)" esperado="3 a 4 bar según el auto" como="Manómetro en la válvula del riel, contacto y ralentí" nota="Con retorno: en ralentí ~0,5 bar menos que sin la manguera de vacío del regulador." />
+  <Medicion punto="Retención" esperado="Cae menos de ~0,5–1 bar en 5–10 min" como="Manómetro conectado, motor apagado" nota="Cae rápido: retención de la bomba, inyector que gotea o regulador." />
+  <Medicion punto="Caudal de la bomba" esperado="0,5 a 1 L en 30 s (referencia)" como="Recipiente graduado en el retorno o en la salida, bomba puenteada" nota="Siempre contra el dato del fabricante." />
+  <Medicion punto="Corriente de la bomba" esperado="3 a 8 A" como="Pinza amperométrica DC en el cable de la bomba" nota="Muy alta: bomba trabada o filtro tapado. Serrucho irregular en el osciloscopio: colector gastado." />
+  <Medicion punto="Resistencia de inyectores" esperado="12 a 16 Ω, todos dentro de ±0,5 Ω" como="Tester en Ω en los pines del inyector, desenchufado" nota="Uno más bajo: espiras en corto (pico de tensión chico)." />
+  <Medicion punto="Pulso de inyección" esperado="2 a 4 ms en ralentí caliente · pico 50–80 V al cerrar" como="Osciloscopio entre el pin de comando y masa (o scanner)" nota="Sin pulso: CKP, relé, ECU. Noid light para un sí/no rápido." />
+  <Medicion punto="Trims" esperado="STFT + LTFT dentro de ±10 %" como="Scanner, motor caliente: ralentí, 2.500 rpm y con carga" nota="Alto sólo en ralentí: aire falso. Alto en todo el rango: presión o MAF." />
+</Mediciones>
+
+<Herramientas ids={["manometro-nafta", "scanner", "osciloscopio", "noid", "tester", "pinza-amperometrica", "vacuometro", "maquina-humo", "epp"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Tarda en arrancar a la mañana, después anda bien | Pérdida de retención | Manómetro: la presión cae después de apagar |
+| Ralentí inestable, LTFT alto sólo en ralentí | Pérdida de vacío | Trims en ralentí vs 2.500; humo o vacuómetro |
+| Falta de potencia en subida o a fondo | Bomba débil, filtro tapado | Presión y caudal con carga; corriente de la bomba |
+| Humo negro, olor a nafta, bujías negras | Presión alta, regulador roto, inyector que gotea | Manguera de vacío del regulador con nafta; retención; banco de inyectores |
+| Falla en un cilindro, P0301 y P0201 | Inyector cortado o su cable | Resistencia; noid light; cambiar ficha/inyector de lugar |
+| Falla en un cilindro, sin código de circuito | Inyector tapado | Prueba de balance o banco de caudal |
+| Se ahoga al pisar de golpe | Enriquecimiento de aceleración, TPS con salto | Datos en vivo de TPS y ancho de pulso al acelerar |
+| GDI: ralentí irregular en frío, fallas varias | Carbonilla en válvulas de admisión | Boroscopio por el múltiple |
+| GDI: P0087 y falta de potencia | Bomba de alta, electroválvula o baja presión | Presión de riel real vs pedida en el scanner |
+
+<Mendoza>
+
+- **GNC.** En la mayoría de los equipos de quinta generación, la centralita de gas **lee el pulso de inyección de nafta** que calcula la ECU original y lo convierte en tiempo de inyección de gas con su propio mapa. Por eso, si la mezcla en nafta está mal (trims altos, sensor que miente), en gas también. Y al revés: un equipo mal calibrado hace que la ECU de nafta aprenda trims raros. Diagnosticá siempre primero en nafta. Más en la [sección GNC](/gnc).
+- **Inyectores de nafta en autos que andan siempre a gas.** Se quedan quietos y se barnizan. Hacé andar el auto en nafta cada tanto y no dejes el tanque siempre en reserva: la **bomba se refrigera con la nafta** que la rodea y sufre trabajando casi en seco.
+- **Octanaje.** En las estaciones vas a encontrar nafta súper (≈ 95 RON) y premium (≈ 97–98 RON). Usá la que pide el fabricante: una de más octanaje no da más potencia en un motor que no la necesita; una de menos hace que la ECU retrase el encendido y gaste más (lo vemos en [encendido](/aprender/gestion-nafta/encendido)).
+- **Altura.** El MAF o el MAP le dicen a la ECU que entra menos aire y la inyección se ajusta sola. Lo que no se compensa es la potencia: subiendo al Cristo Redentor, un atmosférico pierde cerca de un 30 %.
+- **Verano y retención.** Con 38 °C y el auto al sol, una retención floja produce arranques difíciles en caliente (la nafta hierve en el riel). Antes de cambiar la bomba entera, probá la retención con el manómetro.
+
+</Mendoza>
+
+<PuntosClave>
+1. La nafta necesita **14,7 veces su peso en aire** (λ = 1). Rica: más potencia y más CO; pobre: menos consumo hasta un punto, más NOx y más temperatura.
+2. El circuito: bomba en el tanque (cebado de 2–3 s con contacto), filtro, regulador (3–4 bar), riel e inyectores. **Con retorno**, el regulador sigue al vacío; **sin retorno**, la ECU compensa.
+3. El inyector es una electroválvula de alta impedancia (12–16 Ω) con **12 V permanentes**, comandada **por masa**. Al cerrar da un pico de 50–80 V.
+4. **tᵢ = aire / (14,7 · λ) / caudal × correcciones + tiempo muerto**. En ralentí, 2–4 ms. El tiempo muerto crece con la batería baja.
+5. El ancho de pulso depende de la **carga**; las rpm cambian el **ciclo de trabajo**. Más de ~85 % de ciclo: inyectores chicos.
+6. La ECU enriquece en arranque, en frío y al acelerar; **corta** la inyección en desaceleración y con el pedal a fondo dando arranque.
+7. La **inyección directa** trabaja a 50–350 bar con bomba mecánica de alta; la presión se lee por scanner y las válvulas de admisión juntan carbonilla.
+8. **Trims**: alto sólo en ralentí = aire falso; alto en todo el rango = presión/MAF/inyectores. ±10 % es normal; P0171/P0172 más allá de ~±20–25 %.
+</PuntosClave>

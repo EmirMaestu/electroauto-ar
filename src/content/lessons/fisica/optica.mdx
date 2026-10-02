@@ -1,0 +1,313 @@
+De noche, en la Ruta 7 o en una calle mal iluminada, lo que separa ver a tiempo un peatón de verlo tarde son unos pocos lux. Un faro opaco, una lámpara que no está en su foco o una regulación corrida pueden cortar a la mitad la distancia a la que ves. Y la misma física explica cosas que parecen magia: un parabrisas que "sabe" que está lloviendo, un cable que lleva música con luz o un auto que mide la distancia a otro con un láser.
+
+En esta lección vas a ver qué es la luz, cómo rebota y cómo se dobla, cómo se mide, qué diferencia hay de verdad entre un halógeno, un xenón, un LED y un láser, y qué hacer en el taller con faros, sensores y cámaras.
+
+<Libro pag="pág. 70–81" />
+
+## La luz es una onda electromagnética
+
+La luz es de la misma familia que las ondas de radio, el calor que irradia un escape al rojo y los rayos X: son **ondas electromagnéticas**, que viajan a **300.000 km/s** y no necesitan aire para moverse (por eso nos llega la luz del Sol a través del espacio vacío). Lo único que las diferencia es la **longitud de onda** (λ). Nuestros ojos sólo ven una franja angostísima, entre unos **380 y 780 nanómetros**: del violeta al rojo.
+
+| Tipo | Longitud de onda | Dónde aparece en el auto |
+|---|---|---|
+| Ondas de radio | metros a centímetros | Llave a distancia, radio, GPS, telemetría |
+| Microondas | milímetros | Radar del control de crucero adaptativo y del frenado automático (77 GHz ≈ 4 mm) |
+| Infrarrojo | 0,78 µm a 1 mm | Sensor de lluvia, LiDAR, cámaras de visión nocturna, calor que irradian el escape y los frenos |
+| Luz visible | 380–780 nm | Faros, pantallas, cámaras |
+| Ultravioleta | 100–380 nm | Sol: amarillea los faros de policarbonato y reseca gomas y tableros |
+
+<Formula name="Velocidad de la luz" vars={{ "c": "velocidad de la luz en el vacío ≈ 300.000.000 m/s", "λ": "longitud de onda [m]", "f": "frecuencia [Hz]" }}>
+  c = λ · f
+</Formula>
+
+Una luz "blanca" es una mezcla de muchas longitudes de onda. Según qué mezcla tenga, la vemos más amarilla o más azulada. Eso se describe con la **temperatura de color**, en kelvin (K): un halógeno anda por 3.200 K (amarillento), la luz del día por 5.500–6.500 K (blanca), y más arriba se ve azulada.
+
+## Reflexión: espejos y reflectores
+
+Cuando la luz pega en una superficie lisa, rebota con el **mismo ángulo** con que llegó (medido desde la perpendicular a la superficie, que se llama **normal**). Así de simple, y así funcionan los espejos y los reflectores de los faros.
+
+- **Espejo plano** (el retrovisor interior): muestra todo del mismo tamaño.
+- **Espejo convexo** (abombado hacia afuera, muchos espejos laterales): abre el campo de visión, pero las cosas se ven más chicas y **más lejos de lo que están**. Por eso conviene mirar dos veces antes de cambiar de carril.
+
+### El reflector parabólico
+
+Un reflector con forma de **parábola** tiene un punto mágico, el **foco**: toda la luz que sale de ahí rebota y sale **paralela**, en un haz que llega lejos. El filamento de la lámpara tiene que estar exactamente en ese punto. Si la lámpara está mal colocada (una H4 que no calzó en su ranura, un portalámparas deformado por el calor), el haz se desparrama: ilumina menos lejos y encandila.
+
+### La luz baja y su "corte"
+
+La luz baja (de cruce) no puede tirar luz hacia arriba, porque encandilaría al que viene de frente. En una lámpara **H4** hay dos filamentos: el de la alta, en el foco; el de la baja, un poco adelante y con una **pantallita metálica** debajo que tapa la mitad del reflector. Resultado: la luz de la baja sale toda **hacia abajo** y queda una línea neta, el **corte**, entre lo iluminado y lo oscuro.
+
+El corte no es horizontal en todo el ancho: del lado de la banquina (a la derecha, en los países donde se maneja por la derecha) **sube** en diagonal, para iluminar carteles y peatones sin encandilar al que viene por la izquierda.
+
+Los faros modernos usan reflectores de **forma libre** (una superficie calculada por computadora, sin pantalla) o **proyectores**: una lente, un reflector elíptico y una chapita (la "persiana") que recorta el haz. En los bi-xenón, esa chapita se mueve con un solenoide para pasar de baja a alta.
+
+<Dato title="Los ojos de gato">
+Los reflectores traseros y los de las bicis no son espejos comunes: tienen miles de esquinitas de cubo (tres caras a 90°). Con esa forma, la luz rebota tres veces y **vuelve exactamente hacia donde vino**: hacia tus faros y tus ojos. Por eso brillan tanto de noche sin tener lámpara.
+</Dato>
+
+## Refracción: la luz se dobla
+
+La luz va más lenta dentro del vidrio o del agua que en el aire. El **índice de refracción** (n) dice cuántas veces más lenta: n = c / v.
+
+| Material | n (aprox.) |
+|---|---|
+| Aire | 1,0003 (en la práctica, 1) |
+| Agua | 1,33 |
+| Vidrio de parabrisas | 1,5 |
+| Policarbonato (ópticas de faros) | 1,59 |
+
+Cuando un rayo cruza en ángulo de un material a otro, ese cambio de velocidad lo **dobla**. Pensalo como un carrito de supermercado que pasa del piso liso a una alfombra en diagonal: la rueda que toca primero la alfombra se frena antes y el carrito gira.
+
+<Formula name="Ley de Snell" vars={{ "n₁, n₂": "índices de refracción de cada material", "θ₁": "ángulo del rayo que llega, medido desde la normal", "θ₂": "ángulo del rayo que sigue en el segundo material" }}>
+  n₁ · sen θ₁ = n₂ · sen θ₂
+</Formula>
+
+<Ejemplo title="Un rayo que entra al parabrisas">
+Un rayo llega desde el aire (n₁ = 1) al vidrio (n₂ = 1,5) con 45°:
+
+<Calc>sen θ₂ = n₁ · sen θ₁ / n₂ = 1 × 0,707 / 1,5 = 0,471</Calc>
+<Calc>θ₂ = arcsen(0,471) = 28,1°</Calc>
+
+Resultado: <Res>dentro del vidrio el rayo va a 28°: se acercó a la normal</Res>. Al entrar a un material más "denso" ópticamente, la luz se acerca a la perpendicular; al salir, se aleja.
+</Ejemplo>
+
+Las **lentes** son justamente eso: superficies curvas que doblan cada rayo lo justo para juntarlos (o separarlos). La lente del proyector de un faro, la de una cámara y la de tus anteojos trabajan con la Ley de Snell.
+
+<Snell />
+
+## Reflexión total interna: el truco del sensor de lluvia
+
+Fijate qué pasa cuando la luz va de un material **más denso a uno menos denso** (del vidrio al aire): el rayo se aleja de la normal. Si inclinás cada vez más el rayo, llega un ángulo en el que el rayo de salida queda rasante, pegado a la superficie. Ese es el **ángulo crítico**. Pasado ese ángulo, la luz **no puede salir: rebota entera** hacia adentro. Es la **reflexión total interna**, y es un espejo perfecto, mejor que cualquier espejo plateado.
+
+<Formula name="Ángulo crítico" vars={{ "θc": "ángulo a partir del cual toda la luz se refleja", "n₁": "índice del material donde está la luz (el más denso)", "n₂": "índice del material de afuera" }}>
+  sen θc = n₂ / n₁
+</Formula>
+
+<Ejemplo title="Vidrio seco y vidrio mojado">
+Vidrio contra aire:
+
+<Calc>sen θc = 1 / 1,5 = 0,667 → θc = 41,8°</Calc>
+
+Vidrio contra agua (una gota apoyada):
+
+<Calc>sen θc = 1,33 / 1,5 = 0,887 → θc = 62,5°</Calc>
+
+Resultado: <Res>un rayo a 45° rebota entero si el vidrio está seco, pero se escapa si hay una gota</Res>. Ese es todo el principio del sensor de lluvia.
+</Ejemplo>
+
+### El sensor de lluvia
+
+Está pegado al parabrisas por dentro, detrás del espejo retrovisor. Tiene un **LED infrarrojo** que manda luz al vidrio a unos 45° y un **fotodiodo** que la recibe después de rebotar en la cara de afuera. Con el vidrio seco, toda la luz vuelve (reflexión total). Cuando caen gotas sobre la zona sensible, parte de la luz se escapa dentro del agua y llega menos al fotodiodo. El módulo del sensor mira cuánto y qué tan rápido baja la señal y decide: una barrida, intermitente, continuo lento o rápido.
+
+Para que funcione, la luz tiene que pasar del sensor al vidrio sin rebotes intermedios. Por eso va pegado con un **gel o almohadilla óptica** transparente. Si queda una burbuja, el sensor "ve" mal.
+
+<SensorLluvia />
+
+### La fibra óptica
+
+Una fibra óptica es un hilo con un **núcleo** de índice alto rodeado por un **revestimiento** de índice más bajo. La luz entra por un extremo y va rebotando por reflexión total contra las paredes, aunque el cable haga curvas, hasta salir por el otro extremo. En los autos se usa:
+
+- En redes de datos de infoentretenimiento (por ejemplo, el bus **MOST**, que usa fibra plástica y luz roja): equipo de audio, navegador, amplificador y pantallas conectados en **anillo**.
+- En guías de luz: iluminación ambiente, tablero, perillas.
+
+<Ojo>
+La fibra plástica **no se dobla en ángulo cerrado** (respetá el radio mínimo que indica el fabricante, del orden de algunos centímetros), no se aplasta con precintos ajustados y las puntas no se tocan con los dedos. Si el ángulo de una curva supera el crítico, la luz se escapa. En un anillo MOST, una fibra dañada o un módulo que no retransmite **corta todo el anillo**: se queda mudo el equipo de audio entero, no sólo una parte.
+</Ojo>
+
+## Cuánta luz: lumen, candela y lux
+
+Para hablar de luz hay tres medidas que conviene no mezclar. Imaginá una regadera de jardín:
+
+- **Lumen (lm)**: cuánta luz **en total** sale de la fuente, para todos lados. Es el "caudal" de la regadera. Una H7 halógena da unos 1.500 lm; una lámpara de xenón, unos 3.200 lm.
+- **Candela (cd)**: qué tan **fuerte** es la luz **en una dirección**. Es la fuerza del chorro hacia un lado. Un reflector no crea luz: concentra los lúmenes en un haz angosto y por eso logra decenas de miles de candelas.
+- **Lux (lx)**: cuánta luz **cae sobre una superficie**: lúmenes por metro cuadrado. Es cuánta agua moja cada baldosa. Es lo que importa para ver un peatón.
+
+Como referencia: una noche de luna llena da menos de 1 lux; una calle bien iluminada, 10 a 20 lux; una oficina, unos 500 lux; un día de sol, 100.000 lux.
+
+<Formula name="Ley inversa del cuadrado" vars={{ "E": "iluminancia sobre el objeto [lux]", "I": "intensidad de la fuente en esa dirección [cd]", "d": "distancia [m]" }}>
+  E = I / d²
+</Formula>
+
+La luz que sale en un cono se reparte en un área que crece con el **cuadrado** de la distancia. Al doble de distancia, el mismo haz cubre cuatro veces más superficie: **un cuarto de luz**.
+
+<Ejemplo title="¿Hasta dónde ve una luz alta halógena?">
+Una luz alta halógena típica tiene unos 40.000 cd en el centro del haz.
+
+<Calc>A 100 m: E = 40.000 / 100² = 4 lux</Calc>
+<Calc>A 200 m: E = 40.000 / 200² = 1 lux</Calc>
+
+Tomando 1 lux como mínimo útil para distinguir un obstáculo, el alcance es:
+
+<Calc>d = √(I / E) = √(40.000 / 1) = 200 m</Calc>
+
+Resultado: <Res>≈ 200 m</Res>. Para llegar al doble de distancia (400 m) hace falta **cuatro veces** más intensidad: 160.000 cd.
+</Ejemplo>
+
+<FarosAlcance />
+
+## Halógeno, xenón, LED y láser
+
+| | Halógeno | Xenón (descarga) | LED | Láser |
+|---|---|---|---|---|
+| Cómo hace luz | Filamento de tungsteno al rojo blanco, en gas halógeno | Arco eléctrico en gas xenón | Semiconductor (diodo) | Diodo láser azul que excita un fósforo |
+| Color típico | ≈ 3.200 K, amarillento | ≈ 4.200 K | ≈ 5.500–6.000 K | ≈ 5.500 K |
+| Eficacia | ≈ 25 lm/W (casi todo es calor) | ≈ 90 lm/W | ≈ 80–150 lm/W | muy alta |
+| Arranque | Instantáneo | Unos segundos hasta la luz plena | Instantáneo | Sólo luz alta, a velocidad de ruta |
+| Repuesto | Lámpara barata y fácil | Lámpara + balastro | Generalmente el módulo entero | Módulo entero |
+
+**Halógeno.** Un filamento calentado a casi 3.000 °C. Es barato, simple y aguanta, pero tira casi toda la energía como calor. Las más comunes son H4 (dos filamentos, 60/55 W) y H7 (un filamento, 55 W).
+
+<Tip>
+Nunca toques el vidrio de una lámpara halógena con los dedos. La grasa de la piel queda pegada, se recalienta en ese punto y la ampolla se mancha o revienta. Agarrala por la base; si la tocaste, limpiala con alcohol.
+</Tip>
+
+**Xenón (o HID, descarga de gas).** No tiene filamento: un arco eléctrico salta entre dos electrodos dentro de una ampollita con gas xenón y sales metálicas. Para encender el arco, el **balastro** genera un pulso de **más de 20.000 V**; después lo mantiene con unos 85 V de alterna y 35 W. Da el doble de luz que un halógeno con menos consumo. Por norma, los faros de xenón llevan **regulación automática de altura** y, en muchos casos, lavafaros.
+
+<Peligro>
+El circuito de un faro de xenón maneja **tensiones de encendido de más de 20.000 V**. Antes de tocar una lámpara o un balastro: luces apagadas, llave afuera y ficha desconectada. Nunca pruebes una lámpara de xenón sacada del faro ni mires el arco de cerca. Las lámparas de xenón viejas pueden contener mercurio: no van a la basura común.
+</Peligro>
+
+**LED.** Un diodo que emite luz cuando circula corriente. Muy eficiente y de vida larguísima, pero sufre con el calor: los faros LED tienen disipadores y a veces un ventiladorcito, y un **módulo de control** que regula la corriente. Los faros **matriciales** tienen decenas de LED que se apagan de a uno según lo que ve una cámara, para dejar la luz alta prendida sin encandilar a los demás.
+
+**Láser.** Diodos láser azules apuntan a un material fosforescente que convierte esa luz en blanca. Se usa como refuerzo de la luz alta, sólo a velocidad de ruta y con la cámara confirmando que no viene nadie. Llega a 500–600 m. El módulo es sellado: si se daña, el sistema se apaga por seguridad.
+
+<Ojo title="Kits de LED o xenón en ópticas halógenas">
+Una óptica diseñada para halógena tiene su reflector calculado para un filamento de un tamaño y en un lugar exactos. Una lámpara LED o xenón "de kit" pone la fuente de luz en otro lugar: el haz se desparrama, **encandila a los demás** y muchas veces ilumina peor la ruta. No corresponde a la homologación de la óptica y en la verificación de faros suele saltar.
+</Ojo>
+
+## Regulación de faros
+
+Un faro puede tener la mejor lámpara del mundo y no servir si apunta mal. De fábrica, el corte de la luz baja apunta **un poco hacia abajo**: el valor típico es **−1 % a −1,5 %** (baja 10 a 15 cm cada 10 m). Muchos faros tienen ese valor grabado en la carcasa (por ejemplo "1,0 %" o "1,2 %").
+
+- **Muy alto**: el corte llega a la altura de los ojos del que viene. **Encandilás**.
+- **Muy bajo**: la luz muere a 20 o 30 m. **Ves tarde** cualquier cosa.
+
+Con el baúl cargado o gente atrás, la cola baja y la trompa sube: el corte sube. Para eso está la **ruedita de regulación** del tablero (0, 1, 2, 3), que baja los faros con unos motorcitos.
+
+<Pasos>
+1. **Prepará el auto.** Cubiertas a presión, tanque por la mitad, nadie adentro (o el peso que indique el fabricante), ruedita de regulación en 0, piso plano.
+2. **Frente a una pared lisa**, a la distancia que indique el procedimiento (muchas veces 7,5 o 10 m). Marcá en la pared la altura del centro de cada faro.
+3. **Calculá dónde tiene que caer el corte.** Con −1 % a 10 m, el corte tiene que quedar 10 cm abajo de la marca.
+4. **Ajustá los tornillos** de regulación vertical (y horizontal si hace falta) de cada faro, tapando el otro.
+5. **Mejor con regloscopio.** El aparato que usan las plantas de RTO y las casas de alineación mide la inclinación exacta en segundos. La pared sirve para salir del paso.
+</Pasos>
+
+<Ejemplo title="¿Dónde tiene que caer el corte en la pared?">
+Faro con el centro a 65 cm del piso, inclinación indicada −1,2 %, pared a 7,5 m:
+
+<Calc>Bajada = 1,2 % × 7,5 m = 0,012 × 750 cm = 9 cm</Calc>
+<Calc>Corte en la pared = 65 − 9 = 56 cm del piso</Calc>
+
+Y en la ruta, ¿a qué distancia toca el piso ese corte?
+
+<Calc>d = altura / inclinación = 0,65 m / 0,012 = 54 m</Calc>
+
+Resultado: <Res>corte a 56 cm en la pared; en la ruta toca el piso a unos 54 m</Res>.
+</Ejemplo>
+
+## Faros opacos y amarillentos
+
+Las ópticas modernas son de **policarbonato**: livianas y casi irrompibles, pero el plástico se degrada con el sol. De fábrica traen una laca dura con **filtro UV**. Con los años esa capa se cuartea y se va; el plástico queda expuesto, se pone amarillo y opaco, y se llena de microfisuras. Un faro así **desparrama la luz**: ilumina menos lejos y, a la vez, encandila más, porque la luz sale para cualquier lado.
+
+<Pasos>
+1. **Lavá y enmascará.** Cinta de papel alrededor del faro para no rayar la pintura.
+2. **Lijá al agua, de grueso a fino.** Por ejemplo 600 → 1000 → 1500 → 2000 → 3000, siempre mojado, hasta que la superficie quede pareja y sin amarillo. Si queda amarillo, no sigas con la fina: volvé a la anterior.
+3. **Pulí.** Pasta de pulir con lustradora o a mano, hasta transparencia.
+4. **Desengrasá** con alcohol isopropílico.
+5. **Protegé del UV.** Barniz transparente con filtro UV para ópticas (o el sellador del kit). **Este paso no es opcional**: sin protección, en pocos meses vuelve a amarillear, y más rápido que antes.
+</Pasos>
+
+<Dato title="Empañado por dentro">
+Un poco de neblina en el interior del faro después de lavar el auto o en días húmedos es normal: el faro respira por unas tapitas de ventilación, y se va al prender las luces un rato. **Gotas grandes o agua acumulada** no son normales: tapa de atrás mal colocada, burlete vencido o carcasa fisurada.
+</Dato>
+
+## Cámaras, LiDAR y radar
+
+Los sistemas de asistencia al manejo (ADAS) son, en gran parte, óptica aplicada:
+
+- **Cámara frontal**: un sensor de imagen (CMOS) con su lente, detrás del parabrisas. Lee líneas del carril, carteles y detecta autos y peatones para el frenado automático.
+- **LiDAR**: manda pulsos de luz láser infrarroja y mide cuánto tarda el eco: con eso arma una "nube de puntos" 3D del entorno. Es la misma idea del sensor de estacionamiento, pero con luz.
+- **Radar**: no es luz visible, pero es una onda electromagnética (unos 77 GHz). Ve peor los detalles que la cámara, pero mide muy bien distancia y velocidad, y casi no le afectan la lluvia ni la niebla.
+- **Visión nocturna**: cámaras infrarrojas térmicas que ven el calor de personas y animales.
+
+<Formula name="Tiempo de vuelo (LiDAR, radar, ultrasonido)" vars={{ "d": "distancia al objeto [m]", "c": "velocidad de la onda (luz: 3·10⁸ m/s)", "t": "tiempo de ida y vuelta [s]" }}>
+  d = c · t / 2
+</Formula>
+
+<Ejemplo title="¿Cuánto tarda un pulso de LiDAR en ir y volver de un auto a 100 m?">
+<Calc>t = 2 · d / c = 2 × 100 / 300.000.000 = 0,000000667 s</Calc>
+
+Resultado: <Res>667 nanosegundos</Res>. Para medir con precisión de centímetros, la electrónica tiene que distinguir diferencias de menos de una décima de nanosegundo.
+</Ejemplo>
+
+<Electronica>
+
+- **Sensor de lluvia y luz**: el mismo módulo suele medir la luz ambiente (para encender solas las luces bajas al entrar a un túnel o al anochecer) y a veces la humedad del parabrisas. Se comunica con el módulo de carrocería, muchas veces por una red **LIN**. En el scanner se ven valores como "intensidad de lluvia" y "luz ambiente".
+- **Regulación automática de altura**: sensores de nivel en la suspensión (un brazito que mueve un sensor de ángulo) le dicen al módulo cuánto se inclinó la carrocería; el módulo mueve los motores de los faros. Después de cambiar un sensor, un faro o de modificar la suspensión, hay que hacer una **calibración básica** con el scanner.
+- **Faros LED y matriciales**: el módulo de control regula la corriente de cada LED y diagnostica LED abiertos o en corto. Un "falla en la luz de cruce" en el tablero puede ser el LED, el módulo o el ventilador del faro.
+- **Cámara frontal**: después de **cambiar el parabrisas**, mover el soporte o alinear el tren delantero, la cámara se tiene que **recalibrar** (con un panel de referencia en el taller, o andando según el procedimiento). Si no, el auto puede leer mal los carriles o frenar fuera de tiempo. Un parabrisas sucio, empañado o con una fisura delante de la cámara desactiva los asistentes con un aviso.
+
+</Electronica>
+
+<EnElTaller>
+
+**Revisá todas las luces seguido**: baja, alta, posición, giros, freno (pedile a alguien o usá el reflejo en un portón), marcha atrás, patente, antiniebla. En la RTO se revisan todas, y la regulación de los faros también.
+
+**Cambio de lámparas**: siempre de a pares (la vieja ya perdió luz), del tipo exacto (H4, H7, H11…), sin tocar el vidrio. Fijate que la lámpara calce en su posición: una H4 mal montada da un corte torcido.
+
+**Fichas quemadas**: si la ficha de una H4 está marrón o derretida, hay resistencia de contacto (terminal flojo o sulfatado). Esa resistencia genera calor y además **le roba tensión a la lámpara**. Cambiá la ficha, no sólo la lámpara.
+
+**Después de cambiar un faro o tocar la suspensión, regulá.** Un faro nuevo viene con la regulación en cualquier lado.
+
+</EnElTaller>
+
+<Ejemplo title="Un volt menos, un cuarto menos de luz">
+La luz de una lámpara halógena depende muchísimo de la tensión: aproximadamente con la tensión elevada a 3,5. Si por una masa floja o una ficha sulfatada la lámpara recibe 12,2 V en lugar de 13,2 V:
+
+<Calc>(12,2 / 13,2)^3,5 = 0,924^3,5 ≈ 0,76</Calc>
+
+Resultado: <Res>≈ 24 % menos de luz por un solo volt</Res>. Por eso medir la caída de tensión en el circuito de faros es tan importante como cambiar la lámpara.
+</Ejemplo>
+
+<Mediciones>
+  <Medicion punto="Tensión en la ficha de la lámpara" esperado="Cerca de la tensión de carga (13,5–14,5 V con el motor en marcha)" como="Tester entre el positivo y la masa de la ficha, con la lámpara conectada y encendida (pinchando por atrás o con un adaptador)" nota="Si da bastante menos que en la batería, hay caída de tensión en el circuito." />
+  <Medicion punto="Caída de tensión en el positivo y en la masa" esperado="Idealmente menos de 0,3–0,5 V en cada lado" como="Tester entre el borne + de batería y el + de la ficha (y entre la masa de la ficha y el borne −), con la luz encendida" nota="Caída alta: ficha, terminal, relé, interruptor o masa con resistencia." />
+  <Medicion punto="Inclinación del corte de la luz baja" esperado="La indicada en el faro (típico −1 % a −1,5 %)" como="Regloscopio o pared a 7,5–10 m con el auto preparado" nota="Medir con la ruedita de regulación en 0." />
+  <Medicion punto="Sensor de lluvia y luz (scanner)" esperado="Valores que cambian al mojar el vidrio o tapar el sensor" como="Datos en vivo del módulo de carrocería o del sensor" nota="Si no cambian: revisar el gel de acople, la ficha y la comunicación LIN." />
+</Mediciones>
+
+<Herramientas ids={["regloscopio", "tester", "scanner", "epp", "juego-llaves"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Ves poco de noche con lámparas nuevas | Óptica opaca, reflector quemado, faro bajo o caída de tensión | Mirar la óptica; medir tensión en la ficha; revisar regulación |
+| Te hacen señas de luces todo el tiempo | Faros altos (regulación, baúl cargado, ruedita en 0 con carga) | Regular contra pared o regloscopio |
+| Corte de la luz baja torcido o borroso | Lámpara mal calzada o kit no original | Revisar el montaje de la lámpara |
+| Ficha de faro derretida | Resistencia de contacto: terminal flojo o sulfatado | Inspección visual; caída de tensión |
+| Xenón que prende y se apaga, o con color rosado | Lámpara agotada o balastro | Intercambiar lámparas izquierda-derecha: si la falla se muda, es la lámpara |
+| El limpia barre solo con el vidrio seco, o no arranca con lluvia | Gel de acople con burbujas, sensor despegado tras cambio de parabrisas | Ver el sensor por dentro; datos en vivo |
+| Mensaje de "asistente no disponible" después de cambiar el parabrisas | Cámara sin calibrar | Calibración con scanner y panel |
+| Se quedó mudo todo el equipo de audio | Anillo de fibra cortado (MOST) | Diagnóstico de anillo con el scanner |
+
+<Mendoza>
+
+**Sol fuerte.** Mendoza tiene muchísimos días de sol y, en altura, más radiación ultravioleta. Las ópticas de policarbonato se amarillean antes y los burletes se resecan. Si restaurás un faro, el barniz con filtro UV es obligatorio, y estacionar a la sombra ayuda.
+
+**Tierra y zonda.** El viento con tierra "arena" la óptica de a poco, y los caminos de ripio la picotean. Una óptica arenada desparrama la luz igual que una amarillenta.
+
+**Ruta de montaña de noche.** En la Ruta 7 hacia Alta Montaña hay curvas, túneles, a veces niebla o nieve, y animales sueltos en algunos tramos. Faros bien regulados y ópticas limpias hacen la diferencia. Con el auto cargado para viajar a Chile, bajá la regulación con la ruedita.
+
+</Mendoza>
+
+<PuntosClave>
+1. La luz es una **onda electromagnética** como la radio y el infrarrojo; sólo cambia la longitud de onda. El auto usa casi todo el espectro: radio, radar, infrarrojo, visible.
+2. **Reflexión**: el ángulo de salida es igual al de llegada. El reflector parabólico manda la luz paralela sólo si la lámpara está en el foco. La luz baja tiene un **corte** para no encandilar.
+3. **Refracción**: n₁ · sen θ₁ = n₂ · sen θ₂. La luz se dobla al cambiar de material.
+4. **Reflexión total interna**: pasado el ángulo crítico la luz rebota entera. Es el principio del **sensor de lluvia** (41,8° seco, 62,5° con agua) y de la **fibra óptica**.
+5. **Lumen** = luz total; **candela** = intensidad en una dirección; **lux** = luz que cae sobre una superficie. **E = I / d²**: el doble de distancia, un cuarto de luz.
+6. Halógeno (barato, poco eficiente), xenón (más de 20.000 V para encender: cuidado), LED (eficiente, módulo entero), láser (alcance enorme, sólo luz alta).
+7. La regulación típica de la luz baja es **−1 % a −1,5 %**; con carga, se corrige con la ruedita. Una óptica opaca o mal regulada encandila y alumbra menos.
+8. Después de cambiar parabrisas, faros o tocar la suspensión, hay que **recalibrar** cámaras y regulación automática.
+</PuntosClave>

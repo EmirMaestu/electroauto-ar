@@ -1,0 +1,347 @@
+Un Corsa entra al taller "muerto": el burro gira con ganas, tiene nafta, la batería está bien. Le sacás una bujía y no hay chispa; le ponés una lamparita en el inyector y no parpadea. Mucha gente empieza a cambiar bobina, relé, bomba… El que sabe enchufa el scanner y mira una sola cosa mientras dan arranque: **las rpm marcan 0**. La ECU no ve girar el motor, y si no lo ve girar, no inyecta ni da chispa. Es el sensor de cigüeñal, una pieza de dos o tres cables.
+
+La ECU es un cerebro sin ojos propios. Todo lo que "sabe" del motor se lo cuentan los sensores, y **les cree**. Si el sensor de temperatura dice −40 °C con el motor caliente, la ECU enriquece como si fuera una mañana de invierno en Uspallata y el auto tira humo negro. Por eso, para diagnosticar un motor moderno, primero hay que entender qué mide cada sensor, cómo lo convierte en tensión y cómo se ve esa tensión cuando está sano y cuando miente.
+
+Si querés el repaso corto, está en [Sensores: los sentidos del motor](/aprender/electricidad/a1l1). Acá vamos a fondo: señal por señal, con números, con osciloscopio y con los códigos que vas a ver en el scanner.
+
+<Libro pag="pág. 796–815 · 1712–1775" />
+
+## Cómo "ve" la ECU: todo es tensión
+
+Adentro de la ECU hay un microcontrolador con un **conversor analógico-digital (ADC)**. Lo único que sabe hacer es medir una tensión entre 0 y 5 V y convertirla en un número. Con 10 bits divide esos 5 V en 1.024 escalones de unos 4,9 mV; con 12 bits, en 4.096 escalones de 1,2 mV. La temperatura, la presión o la posición de la mariposa le llegan siempre **disfrazadas de volts** (o, en los sensores digitales, de una frecuencia o de un tiempo entre pulsos).
+
+Para que eso funcione, casi todos los sensores comparten tres cables con la ECU:
+
+- **Referencia de 5 V.** La ECU tiene un regulador interno que entrega 5,00 V muy estables. No es "la batería": si la batería baja de 12 a 10 V, la referencia sigue clavada en 5 V. Ese es el "metro" con el que la ECU mide todo.
+- **Masa de sensores.** Un retorno que vuelve **adentro de la ECU**, separado de la masa de potencia del motor. Así la caída de tensión de las masas gordas (burro, bobinas) no ensucia las señales.
+- **Señal.** La tensión que el sensor devuelve según lo que mide.
+
+Según cómo estén hechos, los vas a encontrar con distinta cantidad de cables:
+
+| Cables | Tipo | Ejemplos | Cómo funciona |
+|---|---|---|---|
+| 2 | Resistencia variable | ECT, IAT | La ECU pone 5 V a través de una resistencia interna; el sensor hace de la otra mitad de un divisor |
+| 2 | Generador | CKP inductivo, detonación | El sensor genera su propia tensión (no necesita alimentación) |
+| 3 | Activo | MAP, TPS, pedal, Hall | 5 V + masa + señal |
+| 4 o más | Con calefacción o electrónica propia | Sonda lambda, MAF | Suman 12 V para calentar y a veces una señal digital |
+
+<Formula name="Divisor de tensión (sensores de dos cables)" vars={{ "V": "tensión que lee la ECU en el pin [V]", "R": "resistencia del sensor [Ω]", "Rpu": "resistencia interna de pull-up de la ECU [Ω], suele andar entre 1 y 3 kΩ" }}>
+  V = 5 V · R / (R + R<sub>pu</sub>)
+</Formula>
+
+Esta cuenta explica cómo se manifiestan los cables cortados y los cortos. Si el cable se corta, R se vuelve infinita y el pin queda en **5 V**. Si se pone a masa, R vale cero y el pin cae a **0 V**. Ningún sensor sano llega a esos extremos: el fabricante los diseña para trabajar, por ejemplo, entre 0,2 y 4,8 V. Todo lo que caiga afuera es, sí o sí, un problema de circuito.
+
+<Electronica>
+
+La ECU chequea cada señal contra una **ventana de rango**. Si la tensión se queda arriba del máximo un tiempo (típicamente de 0,5 a 5 segundos), guarda un código de **circuito alto**; si queda abajo del mínimo, **circuito bajo**. Por eso los códigos vienen en familia: para el sensor de temperatura del motor, P0117 es "circuito bajo" (corto a masa) y P0118 "circuito alto" (cable cortado o sin masa). Cuando la tensión está **dentro de rango pero no tiene sentido** (el MAP marca vacío a fondo, la temperatura no sube nunca), aparece el código de **rango/funcionamiento** (P0106, P0116, P0101…). Esos son los difíciles: el circuito está bien y el sensor miente "con cara de bueno".
+
+</Electronica>
+
+<Ojo title="Una referencia en corto tumba varios sensores a la vez">
+
+La misma salida de 5 V alimenta varios sensores (MAP, TPS, presión del aire acondicionado, presión de combustible…). Si uno de ellos o su cable hace corto a masa, **se cae la referencia de todos**. Ves cinco códigos juntos y parece que se rompió media inyección. Cuando aparezcan varios códigos de "circuito bajo" a la vez, medí primero los 5 V en cada ficha y desenchufá sensores de a uno hasta que la referencia vuelva.
+
+</Ojo>
+
+## CKP: el sensor sin el que no arranca
+
+El sensor de posición del cigüeñal (<Term t="CKP" />) le dice a la ECU **a qué velocidad gira el motor y en qué posición exacta está**. Lee una **rueda fónica**: un disco dentado en el cigüeñal (adelante, atrás en el volante o en la polea). La más común es la **60-2**: 60 posiciones de 6° cada una, de las que faltan dos dientes. Quedan 58 dientes y un hueco.
+
+¿Para qué el hueco? Los dientes le dan velocidad y precisión, pero todos son iguales; sin una marca, la ECU no sabría dónde está el PMS. El hueco es la **referencia**: la ECU mide el tiempo entre cada par de dientes y, cuando un intervalo dura unas tres veces más que el anterior, sabe que acaba de pasar el hueco. Desde ahí cuenta dientes: el PMS del cilindro 1 está a un número fijo de dientes del hueco (depende del motor). Entre diente y diente, interpola con el tiempo.
+
+<Formula name="Frecuencia de la rueda 60-2" vars={{ "f": "frecuencia de los dientes [Hz]", "n": "régimen del motor [rpm]", "z": "posiciones por vuelta (60)" }}>
+  f = n / 60 · z → con z = 60, f [Hz] = n [rpm]
+</Formula>
+
+<Ejemplo title="¿Cuánto tiempo tiene la ECU entre diente y diente?">
+A 3.000 rpm el cigüeñal da 50 vueltas por segundo:
+
+<Calc>Una vuelta: 1 / 50 = 20 ms · Un diente (6°): 20 / 60 = 0,333 ms · Un grado: 0,333 / 6 = 55,6 µs</Calc>
+
+Resultado: <Res>a 3.000 rpm, cada grado de cigüeñal dura 55,6 microsegundos</Res>. Para dar la chispa con 1° de precisión, la ECU tiene que medir tiempos de decenas de microsegundos. A 6.000 rpm la mitad. Por eso la rueda tiene tantos dientes: cuantas más referencias, mejor sigue las aceleraciones del cigüeñal entre explosión y explosión.
+</Ejemplo>
+
+### Inductivo o Hall
+
+Hay dos tecnologías y en el taller tenés que saber reconocerlas porque **se prueban distinto**:
+
+<Comparar>
+  <Lado title="Inductivo (reluctancia variable)">
+
+Un **imán permanente con una bobina** alrededor. Cuando pasa un diente, cambia el flujo magnético y se induce una tensión (ley de Faraday: la tensión es proporcional a la **velocidad** con que cambia el flujo). Da una **senoidal** cuya amplitud y frecuencia crecen con las rpm: 0,5 a 1 V en arranque, varios volts (y hasta decenas) en vueltas. **Dos cables** y casi siempre una malla blindada. Resistencia típica de la bobina: **200 a 1.500 Ω**.
+
+  </Lado>
+  <Lado title="Hall (activo)">
+
+Un **chip** que detecta el campo magnético y adentro tiene un comparador y un transistor. Da una **cuadrada** de 0–5 V (o 0–12 V) que tiene **la misma amplitud a cualquier velocidad**, incluso girando el motor a mano. **Tres cables**: alimentación (5 o 12 V), masa y señal. La salida suele ser de "colector abierto": el sensor sólo tira a masa y la ECU pone la tensión con una resistencia.
+
+  </Lado>
+</Comparar>
+
+<RuedaFonica />
+
+Lo que acabás de ver en la animación es lo que vas a ver en el osciloscopio real. En el **inductivo**, el hueco aparece como una onda más grande y más larga: al faltar dos dientes, el flujo cambia más y la tensión pega un salto. Si invertís los cables, la onda se da vuelta, y algunas ECU detectan el hueco en el lado equivocado y el motor arranca mal o con el encendido corrido: **la polaridad importa**. En el **Hall**, el hueco es simplemente un pulso que no llegó.
+
+<Electronica>
+
+Mientras das arranque, el scanner tiene que mostrar **rpm** (150 a 300). Si muestra 0, la ECU no está viendo el CKP: no habrá chispa ni inyección, y en muchos autos tampoco se activa la bomba de nafta más que unos segundos. Códigos típicos: **P0335** (circuito del sensor A), **P0336** (rango/funcionamiento: cuenta dientes de más o de menos entre huecos), **P0337/P0338** (circuito bajo/alto). Con interferencias o un diente roto aparece P0336 y el motor tironea o se apaga de golpe porque la ECU **pierde el sincronismo** y tiene que volver a buscar el hueco.
+
+</Electronica>
+
+Fallas clásicas del CKP:
+
+- **Se apaga en caliente y arranca en frío.** La bobina interna de un inductivo se fisura y, al dilatarse, se abre. Medí la resistencia en frío y después calentalo con una pistola de calor (con cuidado): si salta a infinito, está.
+- **Entrehierro grande.** Sensor flojo, suplemento de más o soporte doblado: la señal queda chica y en arranque no llega al umbral. Arranca "cuando quiere".
+- **Viruta en la punta.** El imán junta limaduras (por ejemplo, después de un embrague o un volante que rozó). Limpiá y buscá de dónde salen.
+- **Diente dañado** al cambiar embrague o al trabar el volante con un destornillador. Se ve clarísimo en el osciloscopio.
+- **Cable pelado** contra el escape o el block. En Hall, una masa mala da pulsos que no bajan a 0 V.
+
+## CMP: en qué tiempo está cada cilindro
+
+El cigüeñal da **dos vueltas por ciclo** de cuatro tiempos. El CKP le dice a la ECU que el pistón 1 está en el PMS, pero no si está terminando la compresión o el escape. El sensor de árbol de levas (<Term t="CMP" />) lo resuelve: el árbol gira a la mitad de vueltas, así que una ventana o un patrón de dientes en el árbol marca la **fase**. Casi siempre es Hall.
+
+Sin CMP, muchos motores igual arrancan: la ECU dispara la chispa en los dos cilindros "hermanos" (chispa perdida) e inyecta en grupos hasta que adivina la fase, o directamente arranca un poco más tarde. Otros, con inyección directa, no arrancan. Códigos: **P0340** (circuito), **P0341** (rango/funcionamiento).
+
+<Tip title="P0016: el código que te avisa que la cadena está estirada">
+
+En motores con distribución variable, la ECU compara todo el tiempo el CMP con el CKP para saber cuántos grados adelantó el árbol. Si la diferencia sale de lo esperado aparece **P0016** (correlación cigüeñal–árbol, banco 1). En un motor con cadena y muchos kilómetros, antes de cambiar sensores pensá en **cadena estirada o puesta a punto corrida**. Se confirma superponiendo CKP y CMP en el osciloscopio y comparando con un patrón de un motor sano.
+
+</Tip>
+
+## MAP: la presión absoluta del múltiple
+
+El sensor de presión del múltiple (<Term t="MAP" />) es una membrana de silicio con resistencias impresas (piezoresistivas): cuando la presión la deforma, cambian las resistencias y un circuito integrado en el mismo chip lo convierte en tensión. Del otro lado de la membrana hay **vacío sellado**, por eso mide **presión absoluta** (desde el vacío total), no vacío relativo como un vacuómetro.
+
+Con eso la ECU sabe la **carga** del motor: con la mariposa casi cerrada, los pistones chupan contra una restricción y la presión del múltiple baja mucho; a fondo, se iguala casi a la atmosférica.
+
+| Situación | MAP (absoluta) | Tensión típica |
+|---|---|---|
+| Desaceleración, pie levantado | 18–25 kPa | ≈ 0,5 V |
+| Ralentí caliente | 30–40 kPa | ≈ 1–1,5 V |
+| Crucero suave | 45–65 kPa | ≈ 2–2,8 V |
+| A fondo (atmosférico) | ≈ barométrica | ≈ 4–4,5 V |
+| Contacto puesto, motor parado | = barométrica | ≈ 4–4,5 V |
+
+<Formula name="Una curva típica de MAP de 1 bar" vars={{ "V": "señal [V]", "P": "presión absoluta [kPa]" }}>
+  V ≈ 0,05 · P − 0,5 (0,5 V a 20 kPa · 4,5 V a 100 kPa)
+</Formula>
+
+Es un ejemplo: cada sensor tiene su curva y en un turbo el MAP es de 2,5 o 3 bar, así que la misma tensión significa otra presión. Lo importante es el método: el scanner te muestra kPa ya convertidos; la tensión la medís en la ficha para saber si el problema es el sensor o el cable.
+
+<Ejemplo title="La ECU calcula cuánto aire entró con el MAP (método velocidad-densidad)">
+Un 1.6 de 4 cilindros (400 cm³ por cilindro) en ralentí: MAP 35 kPa, aire a 30 °C (303 K), eficiencia volumétrica en ese punto ≈ 0,7. Con la ecuación del gas ideal:
+
+<Calc>m = P · V · VE / (R · T) = 35.000 × 0,0004 × 0,7 / (287 × 303) = 0,000113 kg</Calc>
+
+Resultado: <Res>≈ 0,11 g de aire por cilindro y por ciclo</Res>. Con esa masa la ECU calcula la nafta (lo vemos en la lección de [inyección](/aprender/gestion-nafta/inyeccion)). Fijate que entran la presión **y** la temperatura del aire: por eso el MAP siempre trabaja junto al IAT.
+</Ejemplo>
+
+Fallas típicas: **manguera del MAP rajada o desconectada** (el sensor lee presión atmosférica todo el tiempo; la ECU cree que vas a fondo, enriquece, humo negro y consumo), **manguera tapada o con aceite** (los vapores del cárter lo engrasan), sensor que lee "corrido" (todo un poco más alto). Códigos: **P0105** (circuito), **P0106** (rango/funcionamiento; la ECU lo compara con la mariposa y las rpm), **P0107** (bajo), **P0108** (alto).
+
+<Tip title="El truco de la presión barométrica">
+
+Con contacto y motor parado, el MAP **tiene que leer la presión del lugar**. A nivel del mar ~101 kPa; en el Gran Mendoza ~92–93 kPa; en Uspallata ~81 kPa. Si en tu taller lee 99 kPa, está corrido. Muchas ECU guardan ese valor al poner contacto como **presión barométrica** para corregir la mezcla: un MAP corrido arruina también esa corrección.
+
+</Tip>
+
+## MAF: cuántos gramos de aire entran
+
+El caudalímetro de masa de aire (<Term t="MAF" />) va entre el filtro y la mariposa. Los modernos son de **película caliente**: un elemento chiquito que el propio sensor mantiene a una temperatura fija por encima de la del aire (100 a 200 °C más). El aire que pasa lo enfría; cuanto más aire, más corriente hace falta para mantenerlo caliente. Esa corriente es la medición.
+
+Lo genial es que mide **masa** y no volumen: el aire frío y denso o el aire flaco de la montaña enfrían distinto, así que el MAF ya trae la densidad incluida. Por eso un motor con MAF compensa la altura casi solo.
+
+La salida puede ser **analógica** (≈ 1 V en contacto, sube con el caudal hasta 4–4,5 V) o **digital en frecuencia** (cientos a miles de Hz). En el scanner siempre la ves en **g/s**. Muchos MAF traen el sensor de temperatura de aire integrado: por eso tienen 5 cables.
+
+<Ejemplo title="Regla de taller para saber si el MAF lee bien a fondo">
+A plena carga un naftero gasta unos 270 g de nafta por kWh, con mezcla algo rica (unos 12,9 kg de aire por kg de nafta):
+
+<Calc>Aire por kW = 270 g/h × 12,9 / 3.600 s = 0,97 g/s</Calc>
+
+Resultado: <Res>a fondo, un MAF sano marca cerca de 1 g/s por cada kW del motor</Res>. Un motor de 85 kW (≈ 115 CV) en tercera a fondo debería superar los 75–80 g/s cerca del corte. En el Gran Mendoza, unos 8–10 % menos, porque realmente entra menos aire. En ralentí, un 1.4 a 2.0 caliente anda entre 2 y 4 g/s.
+</Ejemplo>
+
+Fallas: **película sucia** (aceite del filtro "aceitado", tierra) que lee menos de lo real → mezcla pobre, tironeo, falta de potencia, **P0171** y **P0101**. **Aire que entra después del MAF** (manguera rajada entre el MAF y la mariposa, junta del múltiple): ese aire no se mide y la mezcla queda pobre. Códigos: **P0100–P0104**.
+
+<Ojo title="Limpieza del MAF">
+
+Se limpia sólo con limpiador específico para MAF (se evapora sin dejar residuo) y **sin tocar el elemento**: ni hisopo, ni aire comprimido de cerca. Nada de limpiacarburador ni limpiacontactos con aceite. Y un filtro de aire "deportivo" con aceite de más es la forma más rápida de arruinar un MAF.
+
+</Ojo>
+
+## TPS y pedal electrónico: posición con redundancia
+
+El sensor de mariposa (<Term t="TPS" />) es un **potenciómetro**: una pista resistiva con 5 V en una punta y masa en la otra, y un cursor que se mueve con el eje. La señal va de unos **0,5 V cerrada a unos 4,5 V abierta**. Con un tester analógico o, mejor, con el osciloscopio, se mueve despacio la mariposa y la línea tiene que subir **sin saltos**. Una pista gastada en la zona de uso (casi siempre cerca del ralentí o de la posición de crucero) da caídas instantáneas que se sienten como tirones.
+
+En los autos con **acelerador electrónico** ya no hay cable: el pie mueve un **sensor de pedal** y la ECU mueve la mariposa con un motor eléctrico. Como es un sistema que puede acelerar el auto solo, todo es **doble**:
+
+- La mariposa motorizada tiene **dos sensores**: uno sube y el otro baja (la suma da siempre ~5 V), o los dos suben con distinta pendiente.
+- El pedal tiene **dos pistas** con alimentaciones y masas separadas; en muchos, la pista 2 da exactamente la mitad que la 1.
+- La ECU las compara todo el tiempo. Si no coinciden, entra en emergencia: ralentí acelerado, el pedal no responde o responde lento, y se prende el testigo (EPC o check). Esto lo vemos en vivo en [Cómo piensa la ECU](/aprender/gestion-nafta/ecu-estrategia).
+
+Los más nuevos ya no tienen pista ni cursor: son sensores **Hall sin contacto** que no se gastan. Códigos: **P0120–P0124** (TPS A), **P0220–P0224** (TPS B), **P2135** (correlación A/B), **P2122–P2128** (pedal), **P2138** (correlación del pedal).
+
+<EnElTaller>
+
+Después de limpiar una mariposa motorizada o de cambiarla, casi siempre hay que hacer el **aprendizaje** con el scanner (o el procedimiento de llave del fabricante): la ECU tiene que volver a encontrar el tope de cerrado y el ralentí. Si no, queda con ralentí inestable o se apaga al soltar el pedal.
+
+</EnElTaller>
+
+## ECT e IAT: termistores NTC
+
+Los sensores de temperatura del refrigerante (<Term t="ECT" />) y del aire de admisión (<Term t="IAT" />) son <Term t="NTC" />: una resistencia que **baja cuando sube la temperatura**. Tienen dos cables y funcionan con el divisor de tensión de arriba.
+
+<Formula name="Curva de un NTC (modelo Beta)" vars={{ "R": "resistencia a la temperatura T [Ω]", "R₂₀": "resistencia a 20 °C (dato del sensor)", "B": "constante del material [K], típicamente 3.300–4.000", "T": "temperatura absoluta [K] = °C + 273" }}>
+  R = R<sub>20</sub> · e<sup>B · (1/T − 1/293)</sup>
+</Formula>
+
+<Ejemplo title="Qué tensión ve la ECU con el motor caliente">
+Un ECT de 2,5 kΩ a 20 °C con B = 3.560, a 90 °C (363 K), y una ECU con pull-up de 2,49 kΩ:
+
+<Calc>R = 2.500 × e^(3.560 × (1/363 − 1/293)) = 2.500 × e^(−2,34) = 240 Ω</Calc>
+<Calc>V = 5 × 240 / (240 + 2.490) = 0,44 V</Calc>
+
+Resultado: <Res>≈ 240 Ω y 0,44 V con el motor a temperatura</Res>. A 20 °C el mismo sensor da 2,5 V. Fijate que de 80 a 100 °C la tensión cambia apenas unas décimas: para no perder precisión en caliente, muchas ECU **cambian la resistencia de pull-up** cerca de los 50 °C. Si ves un salto de tensión justo ahí, es normal.
+</Ejemplo>
+
+<DivisorNTC />
+
+¿Para qué usa la ECU cada uno?
+
+- **ECT:** enriquecimiento en frío, avance en frío, ralentí acelerado, cuándo entrar en lazo cerrado, electroventilador y, en muchos autos, la aguja del tablero (por CAN).
+- **IAT:** corrige la densidad del aire en motores con MAP y protege contra la detonación: con aire muy caliente (verano mendocino, turbo, tránsito) **retrasa el avance**.
+
+<Tip title="La prueba de la mañana">
+
+Con el auto que durmió afuera toda la noche, antes de arrancar, el scanner tiene que mostrar ECT e IAT **casi iguales** (2–3 °C de diferencia como mucho) y parecidos a la temperatura ambiente. Si el ECT marca 15 °C y el IAT 3 °C a las 7 de la mañana de julio, uno de los dos miente. Es la prueba más barata que existe.
+
+</Tip>
+
+Códigos: **P0115–P0119** (ECT), **P0110–P0114** (IAT), **P0125** (no llega a temperatura para el lazo cerrado), **P0128** (termostato: tarda en calentar).
+
+## Sonda lambda: el sensor que vigila la mezcla
+
+La sonda lambda de **banda angosta** es un dedal de cerámica de **circonio** (ZrO₂) con electrodos de platino por dentro y por fuera. Por fuera la toca el gas de escape; por dentro, aire de afuera (entra por los cables o por un orificio del cuerpo). A más de unos 300–350 °C, la cerámica deja pasar **iones de oxígeno** desde el lado con más oxígeno al lado con menos, y eso genera una tensión entre los electrodos.
+
+- **Mezcla rica** (<Term t="Lambda">λ</Term> menor que 1): en el escape casi no queda oxígeno, la diferencia con el aire de afuera es enorme y la sonda da **0,8–0,9 V**.
+- **Mezcla pobre** (λ mayor que 1): sobra oxígeno, la diferencia es chica y da **~0,1 V**.
+- Justo en **λ = 1** la tensión pega un salto brusco. La sonda no dice "cuánto" rica o pobre: dice **de qué lado** de la estequiométrica está la mezcla. Funciona como una llave.
+
+Para llegar rápido a temperatura tiene un **calentador** interno (2 a 20 Ω en frío, según la sonda) que la ECU maneja con PWM. Por eso tiene 4 cables: señal, masa de señal y los dos del calentador.
+
+<SondaLambda />
+
+Hay dos sondas por banco en los autos OBD-II: la **anterior** al catalizador (la que regula la mezcla) y la **posterior** (la que controla el catalizador). Con un catalizador sano, la de atrás queda **quieta** cerca de 0,6–0,7 V porque el catalizador guarda oxígeno y "aplana" las oscilaciones. Si la de atrás copia el zigzag de la de adelante, el catalizador perdió capacidad: **P0420**.
+
+### Banda ancha
+
+Muchos autos modernos usan sonda de **banda ancha** (de 5 o 6 cables) adelante. Tiene una celda que "bombea" oxígeno para mantener su interior siempre en λ = 1; la **corriente** que necesita para hacerlo es proporcional a la mezcla real. Así la ECU sabe el λ exacto (0,7… 1,0… 1,3…), no sólo de qué lado está. **No se prueba como una de banda angosta**: no oscila entre 0,1 y 0,9 V. Mirá el valor de λ (o la corriente en mA) en el scanner y fijate que acompañe lo que hacés con el acelerador.
+
+<Electronica>
+
+Lo que el scanner te muestra de una sonda angosta sana a 2.500 rpm: tensión oscilando entre ~0,1 y ~0,9 V, por lo menos una vez por segundo, con transiciones rápidas (de rica a pobre en menos de ~0,1–0,3 s). Códigos: **P0130** (circuito sonda 1), **P0131/P0132** (tensión baja/alta), **P0133** (respuesta lenta), **P0134** (sin actividad), **P0135** (calentador sonda 1), y **P0136–P0141** para la sonda 2 (la del catalizador). Una sonda que queda clavada abajo puede ser una sonda muerta… o una mezcla realmente pobre: eso se separa con la prueba de abajo.
+
+</Electronica>
+
+<EnElTaller title="Hacé que la sonda te conteste">
+
+Con el motor caliente y el osciloscopio en la señal: **pegá un acelerón** (la mezcla se enriquece y la sonda tiene que subir a 0,8–0,9 V enseguida) y después **sacá una manguera de vacío** un instante (entra aire, la sonda tiene que caer a 0,1 V). Si responde rápido a las dos cosas, la sonda está bien y el problema es la mezcla. Si responde lenta o no llega a los extremos, es la sonda. Una sonda con depósitos blancos (silicona, refrigerante) o negros (aceite) suele estar lenta.
+
+</EnElTaller>
+
+<Ojo title="Pérdidas de escape antes de la sonda">
+
+Una fisura en el múltiple o en la junta del caño de escape **antes** de la sonda deja entrar aire en cada pulso. La sonda ve oxígeno "de más", cree que la mezcla es pobre y la ECU **enriquece**: el motor termina andando rico, con consumo alto, y la sonda sigue diciendo pobre. Antes de culpar a la sonda, revisá el escape. Con el ripio de la montaña, los soportes y las juntas sufren mucho.
+
+</Ojo>
+
+## Sensor de detonación: un micrófono atornillado al block
+
+El sensor de detonación es un **acelerómetro piezoeléctrico**: una masa que, al vibrar, aprieta un cristal que genera tensión. Va atornillado al block entre los cilindros (uno en un 4 cilindros, dos o más en motores más grandes) y "escucha" las vibraciones de alta frecuencia, entre 5 y 20 kHz, que produce la detonación.
+
+La ECU no le presta atención todo el tiempo: abre una **ventana de medición** unos grados después de cada chispa, en el momento en que podría haber detonación en ese cilindro, filtra la frecuencia característica y compara con el ruido normal de ese mismo cilindro. Si detecta detonación, **retrasa el avance sólo en ese cilindro** unos grados y después lo vuelve a adelantar de a poco. Lo ves en acción en la lección de [encendido](/aprender/gestion-nafta/encendido).
+
+- Tiene dos cables (a veces con malla). Su resistencia es altísima (circuito abierto) o, si tiene una resistencia interna para diagnóstico, de cientos de kΩ a pocos MΩ.
+- El **torque de apriete importa**: con poco o mucho apriete cambia cómo le llega la vibración. Superficie limpia, sin arandelas y al torque de fábrica (suele andar por los 20 N·m).
+- Con el osciloscopio, golpecitos suaves con una llave cerca del sensor tienen que dar ráfagas de tensión.
+
+Si el sensor o su cable fallan, la ECU no puede vigilar y se pone del lado seguro: **retrasa el encendido de forma fija**. El auto anda, pero flojo y gasta más. Códigos: **P0325** (circuito sensor 1), **P0327/P0328** (bajo/alto), **P0330–P0334** (sensor 2).
+
+## Tabla resumen
+
+| Sensor | Mide | Cables | Señal típica (sano) | Prueba rápida | Códigos |
+|---|---|---|---|---|---|
+| CKP inductivo | rpm y posición del cigüeñal | 2 + malla | Alterna, ~0,5–1 V en arranque, varios V en vueltas | Ω (200–1.500), VCA en arranque, osciloscopio | P0335–P0338 |
+| CKP / CMP Hall | rpm, posición, fase | 3 | Cuadrada 0–5 o 0–12 V | Alimentación + masa + pulsos girando a mano | P0335, P0340–P0341, P0016 |
+| MAP | Presión absoluta (carga) | 3 | ~1–1,5 V ralentí, ~4–4,5 V contacto | Baro con contacto, bomba de vacío + tester | P0105–P0108 |
+| MAF | Masa de aire [g/s] | 3–5 | 2–4 g/s ralentí, ~1 g/s por kW a fondo | Scanner en ralentí y a fondo | P0100–P0104 |
+| TPS / pedal | Posición | 3 (×2) | 0,5 → 4,5 V sin saltos | Barrido lento con osciloscopio | P0120–P0124, P2122–P2138 |
+| ECT / IAT | Temperatura (NTC) | 2 | 2–3 kΩ a 20 °C; 200–300 Ω a 90 °C | Ω vs temperatura; comparar en frío | P0110–P0119, P0125, P0128 |
+| Lambda angosta | O₂ en el escape | 4 | 0,1 ↔ 0,9 V, ≥ 1 Hz a 2.500 rpm | Acelerón / pérdida de vacío | P0130–P0141, P0420 |
+| Lambda ancha | λ exacto | 5–6 | λ en el scanner | Scanner, no tester | P0130–P0135 (+ propios) |
+| Detonación | Vibración del block | 2 | Alterna, ráfagas al golpear | Osciloscopio + golpecitos | P0325–P0334 |
+
+## Método para probar cualquier sensor
+
+<Pasos>
+1. **Mirá el dato en vivo.** ¿El valor es posible? ¿Se mueve cuando tiene que moverse? (Temperatura que sube, MAP que baja al arrancar, TPS que acompaña el pedal.)
+2. **Medí la alimentación en la ficha.** Con contacto, por atrás del conector (back-probe): referencia 4,9–5,1 V respecto de la masa de sensores.
+3. **Medí la masa de sensores con carga.** Caída de tensión entre el pin de masa del sensor y el negativo de batería: menos de 0,1 V. Una masa que "flota" 0,3 V corre todas las lecturas.
+4. **Mirá la señal con el sensor trabajando.** Osciloscopio o tester mientras movés, calentás, aplicás vacío o das arranque.
+5. **Moveé los cables (wiggle test).** Con el motor en marcha y el dato en vivo a la vista, sacudí el mazo y la ficha. Si el valor salta, el problema es de cableado, no del sensor.
+6. **Recién ahí, cambiá el sensor.** Y después borrá códigos y verificá que no vuelvan.
+</Pasos>
+
+<Peligro title="No pinches los cables">
+
+Pinchar la aislación con una aguja deja un agujero por donde entra humedad: en unos meses tenés un cable sulfatado adentro de la vaina, que es una falla intermitente dificilísima de encontrar. Usá **puntas finas por atrás de la ficha** (back-probe) o cables puente con ficha. Y nunca uses la **lámpara de prueba** en circuitos de sensores o de la ECU: consume corriente y puede romper una salida. Para esto, tester de 10 MΩ u osciloscopio.
+
+</Peligro>
+
+<Mediciones>
+  <Medicion punto="Referencia de 5 V" esperado="4,9 a 5,1 V" como="Contacto puesto, tester entre el pin de 5 V y el de masa de la ficha del sensor (conectada, por atrás)" nota="0 V en varios sensores a la vez: alguno está tirando la referencia a masa." />
+  <Medicion punto="Masa de sensores" esperado="Menos de 0,1 V de caída" como="Tester entre el pin de masa del sensor y el negativo de batería, motor en marcha" nota="Más de 0,2 V: masa de ECU o conector con resistencia." />
+  <Medicion punto="CKP inductivo" esperado="200 a 1.500 Ω · más de 0,5 V alterna en arranque" como="Tester en Ω desenchufado; en VCA dando arranque. Mejor: osciloscopio" nota="Se abre en caliente: medí también después de calentarlo." />
+  <Medicion punto="CKP / CMP Hall" esperado="Pulsos 0 ↔ 5 V (o 12 V)" como="Osciloscopio en la señal dando arranque, o tester girando el motor a mano" nota="Pulsos que no bajan de 0,5–1 V: masa del sensor mala." />
+  <Medicion punto="MAP" esperado="Igual a la presión barométrica con contacto · 30–40 kPa en ralentí" como="Scanner; en la ficha, la tensión según la curva del sensor" nota="En Mendoza la barométrica ronda 92–93 kPa." />
+  <Medicion punto="MAF" esperado="2–4 g/s ralentí · ≈ 1 g/s por kW a fondo" como="Scanner, motor caliente, ralentí y luego tercera a fondo" nota="Bajo en todo el rango: sucio o aire que entra después del MAF." />
+  <Medicion punto="ECT / IAT" esperado="2–3 kΩ a 20 °C · 200–300 Ω a 90 °C" como="Óhmetro desenchufado o tensión en el pin con la ficha conectada" nota="En frío, ECT e IAT tienen que coincidir dentro de 2–3 °C." />
+  <Medicion punto="Sonda lambda angosta" esperado="0,1 ↔ 0,9 V, mínimo 1 conmutación por segundo a 2.500 rpm" como="Osciloscopio o scanner en gráfico, motor caliente" nota="Calentador: 2–20 Ω en frío entre sus dos cables." />
+  <Medicion punto="Sensor de detonación" esperado="Ráfagas de tensión al golpear el block cerca" como="Osciloscopio en la señal, motor parado" nota="Apretado al torque de fábrica, sin arandelas." />
+</Mediciones>
+
+<Herramientas ids={["scanner", "tester", "osciloscopio", "vacuometro", "fuente", "torquimetro"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Gira y no arranca, sin chispa ni pulso de inyector | CKP o su cableado | Scanner: rpm en 0 dando arranque; osciloscopio en el CKP |
+| Se apaga en caliente, arranca al enfriarse | CKP inductivo con bobina fisurada | Resistencia en frío y en caliente |
+| Arranque largo, después anda bien | CMP sin señal (la ECU busca la fase) | P0340/P0341; osciloscopio CKP + CMP |
+| Humo negro, consumo alto, ralentí pesado | ECT que lee frío; manguera del MAP desconectada | Comparar ECT con un termómetro infrarrojo; MAP con contacto vs barométrica |
+| Electroventilador siempre prendido | ECT desconectado (la ECU usa valor de reemplazo) | Código P0117/P0118 |
+| Tironeo al acelerar, falta de potencia, P0171 | MAF sucio o aire después del MAF | g/s bajos a fondo; humo en la admisión |
+| Tirones en una posición fija del pedal | Pista del TPS o del pedal gastada | Barrido lento con osciloscopio |
+| Mezcla rica y la sonda dice pobre | Pérdida de escape antes de la sonda | Revisar juntas y fisuras con el motor frío |
+| Auto flojo, consume más, sin otra falla | Sensor de detonación o cable cortado → retraso fijo | P0325–P0328; avance en el scanner más bajo de lo normal |
+
+<Mendoza>
+
+- **La barométrica cambia con la altura**, y la ECU lo sabe por el MAP o por un sensor barométrico propio (muchas veces adentro de la ECU). Con contacto en el Gran Mendoza esperá ~92–93 kPa; en Uspallata ~81; en el Cristo Redentor ~69. Un MAP que lee 100 kPa en Godoy Cruz está corrido.
+- **En altura, el MAF lee menos** y está bien: realmente entra menos aire. No lo cambies porque "marca poco" si el motor responde normal para la altura.
+- **Tierra y zonda:** filtro de aire tapado o mal colocado deja pasar polvo que pega en la película del MAF. Revisalo seguido si andás por ripio.
+- **Calor de verano:** los CKP inductivos con la bobina fisurada fallan más en enero. Las fichas cerca del escape se cocinan: revisá que no estén quebradizas.
+- **Autos con GNC:** el equipo de gas usa los mismos sensores (MAP, rpm, temperatura) y el pulso de inyección de nafta para calcular el gas. Un sensor que miente arruina las dos mezclas. Más en la [sección GNC](/gnc).
+
+</Mendoza>
+
+<PuntosClave>
+1. La ECU sólo mide **tensiones** (y tiempos). Cada sensor convierte una magnitud física en volts dentro de una ventana: afuera de esa ventana siempre es un problema de **circuito**.
+2. Los sensores comparten **referencia de 5 V** y **masa de sensores**: un corto en uno puede tumbar varios a la vez. Medí siempre alimentación y masa antes que la señal.
+3. El **CKP** (rueda 60-2) da rpm y posición; el hueco es la referencia. Sin CKP no hay chispa ni inyección: el scanner muestra 0 rpm dando arranque.
+4. **Inductivo**: dos cables, senoidal que crece con las rpm. **Hall**: tres cables, cuadrada igual a cualquier velocidad. Se prueban distinto.
+5. **MAP** mide presión absoluta (con contacto = barométrica del lugar); **MAF** mide gramos de aire por segundo (≈ 1 g/s por kW a fondo).
+6. **ECT e IAT** son NTC: menos resistencia cuanto más calientes. Cable cortado = −40 °C; a masa = 140 °C o más.
+7. La **sonda lambda angosta** dice de qué lado de λ = 1 está la mezcla (0,1 ↔ 0,9 V); la de **banda ancha** dice el λ exacto y se lee en el scanner.
+8. Antes de cambiar un sensor: dato en vivo → alimentación → masa → señal en vivo → wiggle test. La mayoría de las "fallas de sensor" son cables y fichas.
+</PuntosClave>

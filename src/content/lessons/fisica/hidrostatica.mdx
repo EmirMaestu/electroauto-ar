@@ -1,0 +1,239 @@
+Para frenar un auto de 1.200 kg desde 100 km/h en 40 metros hacen falta unos 12.000 N de fuerza. Tu pie, pisando fuerte, hace 200 o 300 N. ¿Cómo puede ser que alcance? La respuesta es un truco de hace casi 400 años: **el principio de Pascal**. Un líquido encerrado transmite la presión a todos lados por igual, y eso permite multiplicar fuerzas con dos pistones de distinto tamaño.
+
+En esta lección vas a entender qué es la presión de verdad (y por qué un manómetro de cubiertas y un sensor MAP "miden distinto"), cómo funciona todo el circuito de frenos, por qué hay que purgarlo y por qué una boya alcanza para saber cuánta nafta queda en el tanque.
+
+<Libro pag="pág. 52–53" />
+
+## Presión: fuerza repartida en un área
+
+La **presión** es cuánta fuerza actúa sobre cada unidad de superficie:
+
+<Formula name="Presión" vars={{ "p": "presión [Pa = N/m²]", "F": "fuerza perpendicular a la superficie [N]", "A": "área [m²]" }}>
+  p = F / A
+</Formula>
+
+La misma fuerza en un área chica hace mucha presión, y en un área grande, poca. Un taco aguja de 60 kg deja marcas en un piso de madera que un elefante con sus patas enormes no dejaría. Por la misma razón, un crique sobre tierra blanda se entierra, y se le pone una tabla abajo: más área, menos presión sobre el suelo.
+
+### Las unidades (y cómo no confundirse)
+
+El pascal (Pa) es una unidad muy chica, así que en el taller se usan otras. Esta tabla conviene tenerla a mano:
+
+| Unidad | Equivale a | Dónde la vas a ver |
+|---|---|---|
+| 1 bar | 100.000 Pa = 100 kPa | Presión de aceite, de nafta, de compresión, de frenos |
+| 1 kPa | 1.000 Pa = 0,01 bar | Sensor MAP, datos del scanner |
+| 1 psi (libra por pulgada²) | 6,895 kPa ≈ 0,069 bar | Cubiertas, compresómetros importados |
+| 1 kg/cm² | 98,1 kPa ≈ 0,98 bar | Manuales viejos, manómetros antiguos |
+| 1 atm (atmósfera) | 101,3 kPa ≈ 1,013 bar | Presión al nivel del mar |
+| 1 inHg (pulgada de mercurio) | 3,386 kPa | Vacuómetros |
+| 1 mmH₂O (milímetro de agua) | 9,81 Pa | Presiones muy chicas: cárter, Venturi |
+
+Reglas rápidas: **1 bar ≈ 1 kg/cm² ≈ 14,5 psi**, y **30 psi ≈ 2 bar**.
+
+## Presión absoluta y presión manométrica
+
+Acá está una de las confusiones más comunes del taller. Hay dos formas de medir una presión:
+
+- **<Term t="Presión absoluta">Absoluta</Term>**: contra el vacío perfecto (cero absoluto). El aire que nos rodea tiene, al nivel del mar, unos 101 kPa absolutos. Así mide el sensor **<Term t="MAP" />** y así mide un barómetro.
+- **Manométrica (o relativa)**: contra la presión atmosférica del lugar. El manómetro de cubiertas, el de aceite, el compresómetro y el vacuómetro miden así. Cuando marcan cero, adentro hay la misma presión que afuera (no vacío).
+
+<Formula name="Absoluta vs manométrica" vars={{ "p_abs": "presión absoluta", "p_man": "presión manométrica (lo que marca un manómetro común)", "p_atm": "presión atmosférica del lugar y el momento" }}>
+  p_abs = p_man + p_atm
+</Formula>
+
+Mové la altura en la animación y fijate qué cambia y qué no:
+
+<FisPresionAbsoluta />
+
+<Ejemplo title="Leer bien un MAP y un vacuómetro">
+En el Gran Mendoza (≈ 750 m) la presión atmosférica ronda los 92–93 kPa. Con el motor en ralentí, el scanner muestra un MAP de 34 kPa.
+
+<Calc>Vacío (manométrico) = 92,5 − 34 = 58,5 kPa
+En pulgadas de mercurio: 58,5 / 3,386 ≈ 17,3 inHg</Calc>
+
+Resultado: <Res>un vacuómetro marcaría ≈ 17 inHg</Res>, que es normal para esa altura aunque el manual hable de 18–21 inHg (medidos a nivel del mar). Y con la llave en contacto y el motor parado, el MAP tiene que marcar la presión atmosférica del lugar (≈ 92 kPa en Mendoza): es una forma rápida de chequear que el sensor mide bien.
+</Ejemplo>
+
+## Presión hidrostática: el peso de la columna de líquido
+
+Si te sumergís en una pileta, a dos metros sentís la presión en los oídos. Esa presión es el peso de la columna de agua que tenés encima, repartido en el área:
+
+<Formula name="Presión hidrostática" vars={{ "p": "presión a esa profundidad, además de la atmosférica [Pa]", "ρ": "densidad del líquido (rho) [kg/m³]", "g": "9,81 m/s²", "h": "profundidad [m]" }}>
+  p = ρ · g · h
+</Formula>
+
+Lo importante: **sólo depende de la profundidad**, no de la forma del recipiente ni de cuánto líquido hay al costado. Valores para tener de referencia:
+
+- **10 m de agua ≈ 1 bar.** 1 m de agua ≈ 0,1 bar.
+- **760 mm de mercurio = 1 atm**: por eso el vacío se mide en "pulgadas o milímetros de mercurio" (el mercurio es 13,6 veces más denso que el agua).
+- En el tanque de nafta (ρ ≈ 740 kg/m³), 30 cm de nafta hacen apenas 0,02 bar en el fondo. Insignificante comparado con los 3–4 bar de la bomba.
+- En el circuito de frenos, la diferencia de altura entre el depósito y las pinzas aporta centésimas de bar: despreciable al lado de 50 a 100 bar de una frenada. Por eso, para los frenos, se considera que la presión es **la misma en todo el circuito**.
+
+## El principio de Pascal
+
+> La presión aplicada a un líquido encerrado se transmite **íntegra y en todas las direcciones** a todos los puntos del líquido y a las paredes del recipiente.
+
+Si tenés dos cilindros conectados, uno chico (A₁) y uno grande (A₂), y empujás el chico con una fuerza F₁, generás una presión p = F₁ / A₁. Esa misma presión empuja el pistón grande, que recibe una fuerza:
+
+<Formula name="Prensa hidráulica" vars={{ "F₂": "fuerza en el pistón grande [N]", "F₁": "fuerza en el pistón chico [N]", "A₁, A₂": "áreas de los pistones", "s₁, s₂": "recorrido de cada pistón" }}>
+  F₂ = F₁ · A₂ / A₁     y     s₂ = s₁ · A₁ / A₂
+</Formula>
+
+Otra vez el mismo trato que la palanca: **el pistón grande hace más fuerza pero se mueve menos**, en la misma proporción. El volumen de líquido que sale de un cilindro es el que entra en el otro.
+
+## El sistema de frenos completo
+
+Ahora juntemos todo. Del pie a la pastilla, la fuerza se multiplica varias veces:
+
+1. **Pedal** (palanca de 2do género): multiplica ×4 a ×6.
+2. **Servofreno**: un tambor grande con una membrana. De un lado tiene vacío (de la admisión del motor, o de una bomba de vacío en los diesel) y del otro, cuando pisás, entra aire a presión atmosférica. La diferencia de presión sobre una membrana de unos 20–25 cm de diámetro empuja junto con tu pie y multiplica otras 3 a 6 veces.
+3. **Bomba de freno** (cilindro maestro): un pistón chico (Ø 19 a 25 mm) que convierte el empuje en presión. Es **tándem**: tiene dos pistones y dos circuitos independientes (generalmente en diagonal: delantera izquierda con trasera derecha y viceversa), para que si uno pierde, el otro siga frenando.
+4. **Cañerías y flexibles**: llevan la presión. Los flexibles se inflan un poquito con la presión, y eso es parte de la "esponjosidad" normal del pedal.
+5. **Pinzas** (o bombines en los tambores): pistones grandes (Ø 38 a 60 mm) que aprietan las pastillas contra el disco.
+
+Jugá con los diámetros, el servofreno y el aire en el circuito:
+
+<PrensaHidraulica />
+
+<Ejemplo title="Del pie a la pastilla, con números">
+Pisás con 150 N. Pedal ×4, servofreno ×4, bomba de Ø 22,2 mm, pinza flotante de un pistón de Ø 54 mm.
+
+<Calc>Empuje en la bomba = 150 × 4 × 4 = 2.400 N
+Área de la bomba = π/4 × 2,22² = 3,87 cm²
+Presión = 2.400 N / 3,87 cm² = 620 N/cm² = 62 bar
+Área de la pinza = π/4 × 5,4² = 22,9 cm²
+Fuerza de apriete = 620 N/cm² × 22,9 cm² ≈ 14.200 N</Calc>
+
+Resultado: <Res>≈ 14 kN apretando las pastillas: 95 veces la fuerza de tu pie</Res>. Con un μ de pastilla de 0,4 y las dos caras del disco, la fuerza de rozamiento es 2 × 0,4 × 14.200 ≈ 11.400 N en cada disco delantero, actuando a unos 11 cm del centro: un torque de frenado de ≈ 1.250 N·m por rueda, que en una cubierta de 30 cm de radio son ≈ 4,2 kN de fuerza contra el piso. Las dos delanteras más las traseras llegan a los ≈ 12 kN que calculamos al principio de [Fuerzas, palancas y la biela](/aprender/fisica/fuerzas-palanca).
+</Ejemplo>
+
+### Por qué el líquido sirve y el aire no
+
+Todo esto funciona porque el líquido de frenos es **prácticamente incompresible**: a 100 bar se achica apenas un 0,5 % de su volumen. Lo que empujás en la bomba llega entero a las pinzas.
+
+El aire, en cambio, se comprime muchísimo. Para un gas, a temperatura constante, vale la **ley de Boyle**:
+
+<Formula name="Ley de Boyle" vars={{ "p₁, V₁": "presión absoluta y volumen antes", "p₂, V₂": "presión absoluta y volumen después" }}>
+  p₁ · V₁ = p₂ · V₂
+</Formula>
+
+Una burbuja de aire de 2 cm³ a presión atmosférica (1 bar absoluto), a 11 bar absolutos (10 bar en el manómetro) queda en 0,18 cm³: se achicó 11 veces. La bomba tiene que gastar recorrido en **achicar la burbuja** antes de que la presión suba, y su recorrido es limitado. Resultado: **pedal esponjoso, largo, que se va al piso**. Por eso cada vez que se abre el circuito (cambio de flexible, de pinza, de bomba) hay que **purgar**.
+
+<Peligro title="El líquido de frenos viejo también hace burbujas">
+El líquido de frenos (DOT 3, DOT 4, DOT 5.1) es **higroscópico**: absorbe humedad del aire con los años. Con agua adentro, su punto de ebullición baja mucho: un DOT 4 nuevo hierve arriba de 230 °C, pero con un 3–4 % de agua puede hervir cerca de 155 °C. En una bajada larga, las pinzas calientan el líquido, el agua hierve, se forman **burbujas de vapor** (que se comprimen como el aire) y el pedal se va al piso de golpe. Se llama **vapor lock**, y la prevención es simple: **cambiar el líquido cada 2 años** (o lo que diga el fabricante) y medirlo con un probador.
+</Peligro>
+
+### Purgar los frenos
+
+<Pasos>
+
+1. **Mirá el manual.** El orden de purga y el procedimiento dependen del auto y del ABS (algunos piden el scanner para activar las bombas del módulo). Si no hay dato, lo usual es empezar por la rueda **más lejana a la bomba** y terminar por la más cercana.
+2. **Llená el depósito.** Con el líquido que corresponde (mirá la tapa: DOT 4, DOT 5.1…). Nunca mezcles con DOT 5, que es de silicona.
+3. **Poné una manguerita transparente.** Va en el purgador, con la punta sumergida en un frasco con un poco de líquido, así no vuelve a entrar aire.
+4. **Pisar, abrir, cerrar.** Un ayudante pisa varias veces y deja el pedal apretado. Abrís el purgador un cuarto de vuelta: sale líquido (y burbujas). Cerrás **antes** de que suelte el pedal.
+5. **Repetí hasta que no haya burbujas.** Tiene que salir líquido limpio y sin una sola burbuja. Controlá el nivel del depósito cada pocas pisadas: si se vacía, entra aire y empezás de nuevo.
+6. **Pasá a la siguiente rueda.** En el orden que corresponde. Al final, nivel al máximo, purgadores con su torque y capuchón.
+7. **Probá el pedal.** Con el motor apagado y en marcha tiene que quedar alto y firme. Probá el auto despacio antes de salir a la calle.
+
+</Pasos>
+
+<Ojo>
+El líquido de frenos **saca la pintura**. Si salpica, lavá enseguida con mucha agua. Y el líquido que sale purgando no se reutiliza: ya tomó humedad y puede tener suciedad.
+</Ojo>
+
+## El crique hidráulico
+
+Un crique "botella" o un crique carrito son prensas hidráulicas con una bombita:
+
+- La **palanca** mueve un pistón chico (la bomba). Cada bombeo empuja un poquito de aceite al cilindro grande a través de una **válvula de retención** (que no lo deja volver).
+- El **pistón grande** sube de a poco con cada bombeo, levantando el auto.
+- Para bajar, abrís una válvula que deja volver el aceite al depósito.
+
+<Ejemplo title="¿Por qué alcanza con una mano para levantar una camioneta?">
+Crique botella: pistón de bomba Ø 12 mm, pistón principal Ø 36 mm, palanca que multiplica ×10. Querés levantar 1.000 kg (≈ 9.800 N) de una punta.
+
+<Calc>Relación de áreas = (36 / 12)² = 9
+Fuerza en la bomba = 9.800 / 9 ≈ 1.090 N
+Fuerza en la palanca = 1.090 / 10 ≈ 109 N</Calc>
+
+Resultado: <Res>≈ 110 N en la mano (como levantar 11 kg)</Res>. El precio: para que el pistón grande suba 10 cm, tenés que mover el chico 9 veces más (90 cm en total), o sea, muchos bombeos.
+</Ejemplo>
+
+<Peligro>
+Un crique es para **levantar**, no para **sostener**. Las válvulas pueden perder y el auto bajar sin aviso. Antes de meter cualquier parte del cuerpo abajo, apoyalo en **caballetes** sobre los puntos de apoyo del manual, en piso firme y con las ruedas calzadas.
+</Peligro>
+
+## Flotación: la boya del tanque
+
+Todo cuerpo sumergido en un líquido recibe un empuje hacia arriba igual al **peso del líquido que desplaza** (principio de Arquímedes):
+
+<Formula name="Empuje de Arquímedes" vars={{ "F_A": "empuje hacia arriba [N]", "ρ": "densidad del líquido [kg/m³]", "g": "9,81 m/s²", "V": "volumen sumergido del cuerpo [m³]" }}>
+  F_A = ρ · g · V
+</Formula>
+
+Si el empuje es mayor que el peso, el cuerpo flota y se hunde sólo hasta que el volumen sumergido equilibra su peso. Así trabajan:
+
+- La **boya del tanque de nafta**: un flotante liviano en un brazo que sube y baja con el nivel y mueve un cursor sobre una resistencia variable (el aforador).
+- La **boya de la cuba del carburador**, que cierra la entrada de nafta cuando el nivel llega a la altura justa (la vemos funcionando en [Flujo, Bernoulli y Venturi](/aprender/fisica/flujo)).
+- El **densímetro** de ácido de batería o de refrigerante: flota más alto en un líquido más denso. (Hoy, para el refrigerante y el líquido de batería, es más preciso el refractómetro.)
+
+<EnElTaller>
+
+- **Nivel del líquido de frenos:** baja de a poco a medida que se gastan las pastillas (los pistones de las pinzas salen más y queda más líquido en ellos). Si cambiás pastillas, al empujar los pistones hacia adentro el nivel **sube**: no lo llenes al máximo con pastillas gastadas. Una baja brusca es una **fuga**.
+- **Pedal que baja despacio con el pie apoyado** (sin pérdidas a la vista): sellos internos de la bomba gastados; el líquido pasa de un lado al otro del pistón.
+- **Pedal duro y frena poco:** el servofreno no tiene vacío. Revisá la manguera del servo y su válvula de retención (tiene que dejar pasar el aire en un solo sentido).
+- **Prueba del servo:** con el motor apagado, pisá varias veces hasta que el pedal quede duro; dejalo pisado y arrancá: el pedal tiene que **bajar un poco** solo (entró el vacío y empezó a ayudar).
+- **Cubiertas:** se miden en frío. Después de andar, la presión sube 0,2 a 0,3 bar por la temperatura: no la bajes en caliente.
+
+</EnElTaller>
+
+<Electronica>
+
+- **Sensor MAP**: mide presión absoluta en el múltiple (0,5–4,5 V aproximadamente; más tensión, más presión). Con el motor parado y en contacto tiene que leer la presión atmosférica del lugar. La ECU lo usa para calcular cuánto aire entra y, en muchos autos, también como **barómetro** (lee la presión atmosférica al dar contacto o a plena carga) para corregir la mezcla y el encendido en altura.
+- **Sensor de presión de frenos**: el módulo de ESP mide la presión que genera la bomba para saber cuánto está frenando el conductor (y para el asistente de frenada de emergencia).
+- **Sensor de presión de cubiertas (TPMS)**: los sistemas directos tienen un sensor con transmisor de radio adentro de cada rueda que mide presión y temperatura. Los indirectos no miden presión: usan los sensores del ABS y detectan que una rueda desinflada (más chica) gira más rápido.
+- **Presión de aceite**: muchos autos usan un **presostato** (interruptor que abre o cierra a cierta presión, por ejemplo 0,3–0,5 bar) que prende el testigo; otros tienen un sensor que entrega una tensión proporcional.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Agua en el líquido de frenos" esperado="Menos de 2 % (algunos probadores marcan verde / amarillo / rojo)" como="Probador electrónico de humedad o de punto de ebullición, en el depósito" nota="Más de 3 %: cambiarlo. Si el auto anda en montaña, no esperes al rojo" />
+  <Medicion punto="Vacío para el servofreno (motor en ralentí)" esperado="17–21 inHg a nivel del mar; en Mendoza ≈ 15–19 inHg" como="Vacuómetro en T en la manguera del servo" nota="Vacío bajo o inestable: pérdida de vacío, motor con problemas o válvula de retención trabada" />
+  <Medicion punto="MAP con llave en contacto, motor parado" esperado="Igual a la presión atmosférica del lugar (≈ 101 kPa a nivel del mar, ≈ 92 kPa en Mendoza)" como="Scanner, dato en vivo" nota="Si no coincide, sensor descalibrado o con la manguera tapada" />
+  <Medicion punto="Presión de cubiertas" esperado="La de la placa del auto (suele estar entre 28 y 36 psi según carga)" como="Manómetro confiable, en frío" nota="Con carga completa o ruta, usá el valor de 'carga' de la placa" />
+</Mediciones>
+
+<Herramientas ids={["probador-liquido-frenos", "vacuometro", "scanner", "caballetes", "epp"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Pedal esponjoso, mejora bombeando | Aire en el circuito | Purgar; si vuelve, buscar por dónde entra (purgador, flexible, bomba) |
+| Pedal que se va al piso en una bajada larga y vuelve cuando se enfría | Vapor lock: líquido con agua que hierve | Probador de líquido: alto contenido de agua. Cambiar todo el líquido |
+| Pedal que baja despacio pisado en una luz roja | Sellos internos de la bomba de freno | Sin fugas externas; nivel estable. Reemplazar la bomba |
+| Pedal duro, hay que pisar mucho | Servofreno sin vacío o con la membrana rota | Prueba del servo; vacuómetro en la manguera; silbido de aire al pisar |
+| Nivel del depósito que baja rápido | Fuga en pinza, bombín, flexible o cañería | Revisar cada rueda: humedad en la cubierta por dentro o en el plato |
+| MAP que no coincide con la presión atmosférica en contacto | Sensor o manguera del sensor | Scanner + comparar con un barómetro o con el dato de otro auto |
+
+<Mendoza>
+
+- **Bajadas de la Ruta 7 con líquido viejo:** el escenario perfecto para el vapor lock. Freno motor, frenadas firmes y cortas, y líquido cambiado. Si sentís que el pedal se alarga, pará en un lugar seguro y dejá enfriar.
+- **El agua (y el líquido) hierven antes en altura**, aunque en el circuito de frenos lo que manda es la temperatura de las pinzas. Todo suma en contra en la montaña.
+- **El servofreno ayuda menos en altura:** funciona con la diferencia entre la presión atmosférica y el vacío del motor. A 3.200 m la atmósfera tiene un 30 % menos de presión, así que la ayuda máxima del servo baja y el pedal se siente algo más duro.
+- **Cubiertas:** si las inflás en Mendoza y subís a Uspallata o al Cristo, el manómetro va a marcar 2–3,5 psi más (y más todavía con la cubierta caliente). Es normal: no las desinfles allá arriba, porque al bajar van a quedar bajas.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. **p = F / A**: la misma fuerza en menos área hace más presión. 1 bar ≈ 1 kg/cm² ≈ 14,5 psi; 30 psi ≈ 2 bar.
+2. **Absoluta = manométrica + atmosférica**. El MAP mide absoluta; el manómetro de cubiertas, el de aceite y el vacuómetro miden contra la atmósfera, y por eso cambian con la altura.
+3. **p = ρ · g · h**: 10 m de agua ≈ 1 bar. En los frenos, las diferencias de altura no importan: la presión es la misma en todo el circuito.
+4. **Pascal**: en un líquido encerrado la presión se transmite igual a todos lados. F₂ = F₁ · A₂ / A₁, y el pistón grande se mueve menos.
+5. En los frenos, pedal × servofreno × relación de áreas multiplican la fuerza del pie **unas 100 veces**.
+6. El líquido no se comprime, el **aire sí** (Boyle: p · V = cte). Aire en el circuito = pedal largo y esponjoso: hay que **purgar**.
+7. El líquido de frenos **absorbe agua**; con agua hierve antes y aparece el **vapor lock**. Cambiarlo cada 2 años.
+8. **Arquímedes**: el empuje es el peso del líquido desplazado. Así funcionan la boya del tanque, la de la cuba del carburador y los densímetros.
+
+</PuntosClave>

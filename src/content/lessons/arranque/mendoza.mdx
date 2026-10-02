@@ -1,0 +1,245 @@
+Mendoza es un laboratorio de mecánica a cielo abierto. En dos horas y media de Ruta 7 pasás de 750 a más de 3.000 metros de altura. En enero el asfalto del centro quema a 60 °C y en julio, en Las Cuevas, el refrigerante tiene que aguantar heladas de muchos grados bajo cero. El zonda te llena el filtro de aire de tierra en una tarde, el ripio de las rutas de montaña castiga el tren delantero, y en cualquier cuadra hay tres autos con un tubo de GNC en el baúl.
+
+Los manuales de fábrica están escritos para un auto promedio, a nivel del mar y con clima templado. **Acá nada de eso es promedio.** Esta lección junta todo lo que cambia por vivir en Mendoza: por qué tu auto rinde distinto, por qué algunas mediciones "dan mal" aunque esté todo bien, y qué revisar antes de cada temporada y antes de subir a la cordillera.
+
+## La altura: qué le pasa al motor
+
+### Menos aire en cada litro
+
+El aire tiene peso, y a nivel del mar toda la columna de aire que tenemos encima empuja con unos **1.013 hPa** (1,013 bar). A medida que subís, queda menos aire arriba y la presión baja: en el Gran Mendoza ronda los **925 hPa**, en Uspallata unos **810** y en Las Cuevas menos de **700**. Con menos presión, el aire está más "estirado": **cada litro de aire trae menos oxígeno**.
+
+Y un motor de combustión, en el fondo, es una bomba de aire: cada cilindro aspira un volumen fijo por vuelta. Si ese volumen trae menos oxígeno, se puede quemar menos nafta, y el motor da menos fuerza.
+
+<Formula name="Presión atmosférica con la altura (atmósfera estándar)" vars={{ "p": "presión atmosférica a la altura h [hPa]", "p₀": "presión a nivel del mar: 1.013 hPa", "h": "altura sobre el nivel del mar [m]" }}>
+  p ≈ p₀ · (1 − 0,0000226 · h)<sup>5,26</sup>
+</Formula>
+
+Para el día a día alcanza con la **regla del 1 %**: un motor atmosférico pierde **más o menos 1 % de potencia cada 100 m** de altura. Movete por la ruta y mirá todo lo que cambia:
+
+<AlturaMotor />
+
+<Ejemplo title="El mismo auto, a distintas alturas">
+Un motor 1.6 atmosférico de **110 CV** a nivel del mar. Con la regla del 1 % cada 100 m:
+
+<Calc>Mendoza (750 m):     110 × (1 − 0,075) ≈ 102 CV</Calc>
+<Calc>Uspallata (1.900 m): 110 × (1 − 0,19)  ≈ 89 CV</Calc>
+<Calc>Las Cuevas (3.150 m): 110 × (1 − 0,315) ≈ 75 CV</Calc>
+
+Resultado: <Res>en Las Cuevas tu 110 CV es un auto de 75 CV</Res>. Por eso en la subida tenés que bajar un cambio antes, adelantar con mucho más margen y no exigirle al motor con el aire acondicionado prendido en las cuestas más largas.
+</Ejemplo>
+
+### El turbo compensa (hasta un punto)
+
+Un motor **turbo** no depende sólo del aire que encuentra: el turbo lo **comprime** antes de mandarlo al cilindro. La ECU controla la presión de soplado, así que en altura el turbo simplemente gira más rápido para llegar a la misma presión absoluta en el múltiple. Resultado: un turbo moderno mantiene casi toda su potencia hasta los **2.000–2.500 m**. Más arriba, el turbo ya no da más (o la ECU lo limita para que no se pase de vueltas) y empieza a perder algo, pero mucho menos que un atmosférico. Por eso las pick-ups turbodiesel suben la cordillera tan campantes.
+
+### La ECU corrige la mezcla; el carburador no
+
+En un auto con **inyección electrónica**, la ECU sabe cuánto aire entra:
+
+- Si usa sensor <Term t="MAP">MAP</Term>, mide la presión absoluta en el múltiple, y con eso calcula la masa de aire. Menos presión, menos nafta. Muchas ECU, además, leen la **presión barométrica** con el MAP en el instante en que das contacto (antes de arrancar) y la actualizan cada vez que acelerás a fondo.
+- Si usa caudalímetro <Term t="MAF">MAF</Term>, mide directamente los gramos de aire que pasan.
+- Y en cualquier caso, la **sonda lambda** le confirma si la mezcla quedó bien y la ECU corrige con los <Term t="Trim de combustible">trims</Term>.
+
+En un **carburador** la historia es otra. El carburador dosifica la nafta según la depresión que hace el aire al pasar por el venturi, y en aire menos denso esa cuenta se desacomoda: **la mezcla se enriquece**. Un auto carburado que anda bien en Mendoza, en Uspallata o más arriba larga humo negro, ensucia las bujías, gasta más y pierde más fuerza todavía. Por eso los carburados que viven o trabajan en altura se "achiclan" (se les ponen chicleres de nafta más chicos).
+
+<Electronica>
+Con el scanner podés ver la altura a través de la ECU:
+
+- **MAP con contacto y motor parado** (o el dato **BARO**, si la ECU lo muestra): tiene que dar la presión del lugar. En el Gran Mendoza, unos **92–93 kPa**; en Uspallata, unos 81; en Las Cuevas, unos 69. Si en Mendoza te marca 101 kPa con el motor parado, **el sensor o su alimentación están mal**.
+- **MAP a fondo** en un atmosférico: casi igual a la barométrica. En un turbo, por encima.
+- **Trims de combustible**: subiendo a la cordillera pueden moverse un poco mientras la ECU se adapta; si quedan dentro de ±10 %, está todo bien.
+- **Detonación:** en altura los cilindros llegan a menos presión y el motor tiende menos a detonar. Igual, usá siempre el octanaje que pide el fabricante: la ECU está calibrada para eso.
+</Electronica>
+
+### Lecturas que cambian (y no es que esté roto)
+
+Los datos de fábrica de **compresión** y de **vacío** están tomados **a nivel del mar**. En Mendoza, el mismo motor sano da menos, porque arranca la compresión con aire a menos presión.
+
+- **Compresión:** esperá alrededor de un **8–9 % menos** que el dato de fábrica en el Gran Mendoza, un 20 % menos en Uspallata y un 30 % menos en Las Cuevas. Lo que **no** cambia con la altura es la regla de oro: **la diferencia entre cilindros** tiene que ser menor al 10–15 %.
+- **Vacío en ralentí:** baja más o menos **1 inHg cada 300 m**. Un motor que marca 19–20 inHg a nivel del mar marca unos **17** en el Gran Mendoza. No es una pérdida de vacío: es la altura.
+- **MAP con contacto:** la presión del lugar, como vimos.
+
+<Ojo>
+Antes de condenar un motor por "poca compresión", acordate de dónde estás. Un motor con 11,4 bar parejos en los cuatro cilindros en Mendoza, con un dato de fábrica de 12,5, **está sano**. Uno con 12, 12, 12 y 9, no: el problema es el cilindro que da 9, a cualquier altura.
+</Ojo>
+
+## El agua hierve antes: la tapa del radiador
+
+El punto de ebullición del agua depende de la presión que tiene encima. A nivel del mar hierve a 100 °C; con menos presión, hierve antes: más o menos **1 °C menos cada 300 m**.
+
+| Lugar | Altura | Hierve el agua sola, sin presión | Con tapa de 1,2 bar |
+|---|---|---|---|
+| Nivel del mar | 0 m | 100 °C | ≈ 123 °C |
+| Gran Mendoza | 750 m | ≈ 97,5 °C | ≈ 122 °C |
+| Uspallata | 1.900 m | ≈ 93,5 °C | ≈ 120 °C |
+| Las Cuevas | 3.150 m | ≈ 89,5 °C | ≈ 118 °C |
+
+Ahora mirá esto: el <Term t="Termostato">termostato</Term> abre entre 82 y 95 °C, y el motor trabaja normalmente entre 90 y 105 °C. **En Las Cuevas, sin presión, el agua herviría a la temperatura normal de trabajo del motor.** Lo que lo evita es la **tapa presurizada** (que mantiene el sistema a 1–1,5 bar por encima de la atmósfera) y el **refrigerante** con glicol, que sube todavía más el punto de ebullición.
+
+Por eso, en Mendoza:
+
+- La **tapa del radiador** (o del depósito) se revisa: goma sana, resorte firme. Con un probador se comprueba que abra a la presión que tiene grabada.
+- **Nunca agua sola**: refrigerante de buena calidad en la proporción que pide el fabricante (en general, 50 % y 50 %).
+- Si el auto pierde refrigerante sin goteras visibles, sospechá de la tapa antes que de la junta.
+
+## Las cubiertas al subir y al bajar
+
+El manómetro de cubiertas marca presión **relativa**: cuánto más empuja el aire de adentro que el de afuera. Si inflás en el Gran Mendoza y subís a Las Cuevas, el aire de adentro es el mismo, pero el de afuera empuja menos: **el manómetro marca unos 3 psi más**. Al bajar, vuelve.
+
+<ArranquePresionCubierta altura={3150} />
+
+- **Calibrá siempre en frío** (antes de andar, o con el auto parado un par de horas). Una cubierta caliente marca 3 a 5 psi más, y es normal.
+- **No desinfles una cubierta caliente** "para llevarla a la tabla": cuando se enfríe, va a quedar baja.
+- Si vas a pasar días en altura, calibrá allá arriba, en frío, al valor de la tabla. Y al volver, revisalas de nuevo.
+
+## El calor del verano
+
+### Baterías que mueren en verano
+
+Parece al revés, pero **el calor es lo que más castiga a las baterías**. Con 40 °C en la calle y muchos más en el vano motor, se aceleran la corrosión de las placas y la pérdida de agua del electrolito. El daño se hace en verano, aunque muchas veces la batería termine de morir la primera mañana fría de otoño, cuando el motor pide más.
+
+- Medí la tensión en reposo: **12,6–12,7 V** cargada. Por debajo de 12,4 V ya está a media carga.
+- Bornes limpios y apretados (el sulfato blanco o verde es resistencia).
+- Si tiene más de tres o cuatro veranos, hacela probar con un analizador antes de que te deje a pie.
+
+### Refrigeración y aire acondicionado en el tránsito
+
+El peor momento del año para un sistema de refrigeración es **una siesta de enero, parado en el tránsito, con el aire prendido**. El auto no se mueve, así que no entra aire por la parrilla; el **condensador del aire** (que está delante del radiador) le tira más calor encima; y el compresor le pide fuerza al motor. Todo el trabajo queda en manos del electroventilador.
+
+- Mirá que el **electroventilador** arranque cuando la temperatura sube (suele ser entre 92 y 105 °C).
+- **Radiador y condensador limpios:** bichos, tierra y pelusa entre las aletas tapan el paso del aire. Se limpian con agua a baja presión, de adentro hacia afuera.
+- **Nivel de refrigerante** en frío, entre mínimo y máximo.
+- Si la aguja de temperatura sube en el tránsito y baja al andar, el problema es el ventilador o el flujo de aire; si sube siempre, mirá termostato, bomba y nivel.
+
+Y el sol fuerte resquebraja **mangueras, fuelles y burletes**: revisalos más seguido que lo que dice el manual. Para el **granizo** de las tormentas de verano no hay mecánica que valga: techo, cobertor acolchado o, en la ruta, bajo un puente.
+
+## Zonda y tierra
+
+El **zonda** es un viento caliente, seco y cargado de tierra que baja de la cordillera, más común entre fines del otoño y la primavera. Sumale las calles de tierra, las banquinas y los caminos rurales, y el resultado es que **en Mendoza todo se llena de polvo más rápido**.
+
+- **Filtro de aire:** en condiciones de mucho polvo los fabricantes piden cambiarlo más seguido (en el manual figura como "uso severo"). Revisalo en cada service; si está gris y apelmazado, cambialo. Un filtro tapado le quita aire y potencia al motor, y en autos con caudalímetro, la tierra que pasa lo ensucia.
+- **Filtro de habitáculo:** el del aire acondicionado. Si el aire sale con olor o con poca fuerza, es lo primero.
+- **Pozos de bujía:** antes de sacar una bujía, **soplá el pozo** con aire comprimido. La tierra que se junta ahí cae al cilindro cuando sacás la bujía.
+- **Fuelles y guardapolvos:** los de las homocinéticas, la caja de dirección y los amortiguadores. Si uno se rompe, entra tierra, se mezcla con la grasa y hace una pasta abrasiva que se come la pieza en pocos miles de kilómetros. Una homocinética que hace "clac clac" al doblar casi siempre empezó con un fuelle roto.
+- **Bujes y rótulas:** el polvo los gasta más rápido. Y después de un día de zonda, mirá el filtro de aire y limpiá radiador y condensador.
+
+## Ripio y caminos de montaña
+
+- **Cubiertas:** la presión que pide el fabricante (no "un poco más dura para que no se pinche": así pierde agarre y se corta más fácil). Si andás seguido por ripio, conviene una cubierta con flanco más reforzado. Revisá **cortes en los flancos** después de cada viaje, y que el **auxilio** esté inflado, con el crique y la llave en el auto.
+- **Protector de cárter:** una piedra puede partir el cárter y vaciar el aceite en segundos. Con un protector metálico, ese golpe es un susto. Si alguna vez pegás abajo y se prende la luz de aceite, **apagá el motor en el acto**.
+- **Tren delantero:** el ripio y los pozos castigan bujes, rótulas, extremos de dirección y amortiguadores. Si después de un viaje el volante vibra o el auto tira para un lado, hacé revisar el tren delantero, la alineación y el balanceo.
+- **Manejo:** en ripio el agarre es mucho menor y las distancias de frenado, más largas. Bajá la velocidad, aumentá la distancia y frená antes de las curvas, no adentro.
+
+## Alta Montaña por la Ruta 7
+
+Subir a Uspallata, Penitentes, Puente del Inca, Las Cuevas o cruzar a Chile es un viaje hermoso, pero para el auto es un examen: subidas largas con menos aire, bajadas largas con mucho calor en los frenos, frío y, en invierno, nieve.
+
+### Antes de subir
+
+- [ ] **Refrigerante** en nivel (en frío), con anticongelante; tapa sana; sin pérdidas; electroventilador funcionando
+- [ ] **Frenos:** pastillas y discos en buen estado; **líquido de frenos** con menos de dos años, o medido con probador (menos de 2–3 % de agua)
+- [ ] **Cubiertas** calibradas en frío, con buen dibujo, y auxilio en condiciones; crique y llave en el auto
+- [ ] **Cadenas** en invierno (suelen exigirlas cuando hay nieve). Probá ponerlas una vez en casa, no por primera vez en la banquina con −5 °C
+- [ ] **Batería** cargada y probada: en una mañana helada a 3.000 m va a rendir mucho menos
+- [ ] **Aceite** en nivel
+- [ ] **Tanque lleno:** las estaciones de servicio en la montaña son pocas. Con GNC, subí con nafta de sobra
+- [ ] **Kit:** matafuego, balizas, linterna, abrigo, agua y algo para comer. En invierno el paso se puede cerrar y te podés quedar varias horas parado
+
+### Cómo bajar: freno motor
+
+Bajar de Las Cuevas al Gran Mendoza son unos **2.400 m de desnivel**. Toda la energía que el auto ganó al subir la tiene que perder al bajar, y si la perdés sólo con los frenos, los frenos se recalientan.
+
+<Formula name="Energía de la bajada" vars={{ "E": "energía que hay que disipar [J]", "m": "masa del auto con su carga [kg]", "g": "9,81 m/s²", "h": "desnivel [m]" }}>
+  E = m · g · h
+</Formula>
+
+<Ejemplo title="De Las Cuevas a Mendoza">
+Un auto de **1.300 kg** con su gente y equipaje bajando **2.400 m**:
+
+<Calc>E = 1.300 × 9,81 × 2.400 ≈ 30.600.000 J = 30,6 MJ</Calc>
+
+Eso es casi la energía de **un litro de nafta** (unos 32 MJ). Si toda esa energía fuera de golpe a los frenos, alcanzaría para calentar los cuatro discos (unos 25 kg de hierro) más de 2.000 °C.
+
+Resultado: <Res>en la bajada hay que tirar al aire la energía de un litro de nafta, y no puede ir toda a los frenos</Res>. Los frenos se enfrían mientras bajás, pero si los usás todo el tiempo, no les da el tiempo.
+</Ejemplo>
+
+Cuando el **líquido de frenos** se calienta demasiado, hierve: se forman burbujas de vapor en los cálipers, y el vapor se comprime. Resultado: **pedal largo o directamente sin freno**, justo en la bajada. Un DOT 4 nuevo hierve por encima de 230 °C, pero con un par de años de humedad absorbida puede bajar a unos 155 °C. Por eso la regla de la montaña:
+
+<Pasos>
+1. **Bajá con un cambio puesto.** Más o menos el mismo con el que subirías esa pendiente. El motor frena el auto (freno motor) y los frenos quedan para cuando hacen falta.
+2. **Frená de a ratos y firme.** Bajá la velocidad y soltá. No vayas con el pie apoyado en el pedal toda la bajada.
+3. **Nunca en punto muerto.** Perdés el freno motor y, encima, gastás más: con un cambio puesto y el pie fuera del acelerador, la ECU **corta la inyección** y el motor no consume nada.
+4. **En automáticos, modo manual.** Usá el modo manual o las posiciones bajas (L, 2, 3).
+5. **Olor a freno quemado o pedal largo: pará.** En un lugar seguro, y dejá enfriar. No tires agua sobre discos calientes.
+</Pasos>
+
+### El "mal de altura" del motor
+
+Igual que la gente, el motor siente la altura: menos fuerza en las subidas, cambios más largos que no "tiran", temperatura que sube en las cuestas largas con el aire prendido, y en carburados y diesel viejos, humo negro. Qué hacer: **bajar un cambio antes**, **apagar el aire acondicionado** en las subidas más largas, **mirar la aguja de temperatura** y, si sube, aflojar un poco y darle aire. Si el auto está sano, cuando volvés a bajar todo vuelve a la normalidad.
+
+## Invierno: heladas en la montaña
+
+- **Anticongelante.** El agua al congelarse se expande alrededor de un 9 % y puede **partir el block o el radiador**. Un refrigerante al 50 % protege hasta unos −35 °C. Medí la concentración con un refractómetro, y nunca completes con agua sola antes de una helada.
+- **Gasoil y frío.** Con mucho frío, el gasoil forma **cristales de parafina** que tapan el filtro de combustible: el motor arranca, anda un rato y se para. En zonas muy frías se usa gasoil preparado para invierno o aditivos, y conviene llegar al invierno con el filtro de combustible nuevo.
+- **Batería.** A −18 °C una batería entrega más o menos **la mitad** de lo que da a 25 °C, y el motor, con el aceite espeso, pide bastante más para girar. Una batería floja en Mendoza capital es una batería muerta en Penitentes.
+- **Parabrisas:** nunca agua caliente sobre un vidrio helado (se puede rajar), y líquido limpiaparabrisas con anticongelante.
+
+## GNC: media provincia anda a gas
+
+En Mendoza el <Term t="GNC">GNC</Term> está en todas partes. Lo que importa saber para esta lección:
+
+- **Potencia:** a gas, un motor naftero pierde en general entre un 10 y un 20 % de potencia. Sumale la altura y en la cordillera se nota mucho: para subir, muchos prefieren pasar a nafta.
+- **Frío:** el reductor baja la presión del gas desde unos 200 bar, y esa expansión enfría muchísimo. Por eso se calienta con el agua del motor. En las mañanas frías, los equipos arrancan en nafta y pasan a gas cuando el motor calentó: no fuerces el cambio en frío.
+- **Autonomía:** menor que con nafta, y con pocas estaciones de GNC en la montaña.
+- **Seguridad y habilitación:** el equipo lo revisan y reparan talleres habilitados, y el tubo tiene su revisión periódica obligatoria. Todo el detalle, con un caso real, en la sección de [GNC](/gnc).
+
+## La RTO
+
+En Mendoza la revisión técnica obligatoria se llama <Term t="RTO">RTO</Term>. Los requisitos, plazos y costos cambian, así que consultalos en el sitio oficial antes de ir. Lo que se revisa, en general, es esto:
+
+- **Luces** (todas, y faros alineados), **bocina, limpiaparabrisas, vidrios y cinturones**.
+- **Frenos:** eficiencia y diferencia entre ruedas del mismo eje en el frenómetro; freno de mano.
+- **Tren delantero, suspensión y dirección:** juego en rótulas, extremos, bujes y rulemanes; amortiguadores; que el auto no se desvíe.
+- **Cubiertas:** dibujo mínimo, sin cortes, medidas iguales por eje.
+- **Emisiones y escape:** gases en nafteros, opacidad en diesel; sin pérdidas.
+- **Carrocería:** sin óxido estructural ni partes sueltas.
+- **GNC:** oblea y documentación del equipo vigentes, tubo en condiciones.
+
+<EnElTaller title="Pre-RTO casero en 15 minutos">
+
+Con alguien que te ayude: probá todas las luces (incluidas patente y marcha atrás), bocina y limpiaparabrisas. Mirá dibujo y flancos de las cuatro cubiertas. Con el auto sobre caballetes, tomá cada rueda de arriba y abajo y sacudila: si tiene juego, hay rótula o rulemán. En un camino tranquilo, fijate que no tire para un lado y que frene derecho. Y si tenés GNC, que la oblea esté vigente.
+
+</EnElTaller>
+
+<Mediciones title="Valores de referencia en el Gran Mendoza (≈ 750 m; siempre según fabricante)">
+  <Medicion punto="Presión barométrica (MAP con contacto, motor parado)" esperado="≈ 92–93 kPa" como="Scanner, datos en vivo, con contacto y sin arrancar" nota="A nivel del mar serían ≈ 101 kPa. Si en Mendoza marca 100 o más, sospechá del sensor." />
+  <Medicion punto="Vacío en ralentí (motor caliente)" esperado="≈ 16–18 inHg" como="Vacuómetro en una toma de vacío del múltiple" nota="A nivel del mar: 17–21 inHg. Aguja firme: motor sano." />
+  <Medicion punto="Compresión (nafta)" esperado="≈ 0,9 × el dato de fábrica" como="Compresómetro, motor caliente, mariposa abierta, todas las bujías afuera" nota="Lo que importa: menos de 10–15 % de diferencia entre cilindros." />
+  <Medicion punto="Batería en reposo" esperado="12,6–12,7 V" como="Tester en DC, auto apagado hace por lo menos una hora" nota="En verano revisala igual: el calor la degrada aunque arranque bien." />
+  <Medicion punto="Líquido de frenos" esperado="Menos de 2–3 % de agua" como="Probador de líquido de frenos en el depósito" nota="Antes de cada viaje a la cordillera." />
+</Mediciones>
+
+<Herramientas ids={["scanner", "compresometro", "vacuometro", "bomba-presion-refri", "refractometro", "probador-liquido-frenos", "probador-bateria", "extractor-bujias"]} />
+
+## Fallas típicas, versión Mendoza
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Pierde fuerza en la subida a la cordillera | Normal por la altura (atmosférico); peor si el filtro de aire está sucio | Compará con la regla del 1 % cada 100 m; revisá el filtro |
+| "La compresión da baja" en un motor que anda bien | El dato de fábrica es a nivel del mar | Compará cilindros entre sí, no con el dato absoluto |
+| Calienta en el tránsito de verano con el aire prendido | Electroventilador, radiador o condensador tapados, poco refrigerante | Ver si el ventilador arranca; limpiar aletas; nivel en frío |
+| Pedal de freno largo en la bajada de la cordillera | Líquido de frenos viejo que hirvió | Parar, dejar enfriar; medir el agua del líquido y cambiarlo |
+| No arranca la primera mañana fría | Batería castigada por el verano | Tensión en reposo y prueba con analizador |
+| Pierde refrigerante sin goteo visible | Tapa del radiador que no sella | Probador de tapa |
+| MAP marca ≈ 101 kPa con motor parado en Mendoza | Sensor MAP o su alimentación con falla | Comparar con 92–93 kPa esperados; medir los 5 V de referencia |
+
+<PuntosClave>
+1. Con la altura hay menos aire en cada litro: un motor **atmosférico pierde más o menos 1 % cada 100 m** (≈ 8 % en Mendoza, ≈ 30 % en Las Cuevas). El **turbo** compensa casi todo hasta los 2.000–2.500 m.
+2. La inyección electrónica corrige la mezcla sola (MAP o MAF + lambda); el **carburador se enriquece** en altura.
+3. Compresión y vacío dan **menos que el dato de fábrica** en Mendoza; el MAP con el motor parado marca **≈ 92–93 kPa**. Compará cilindros entre sí.
+4. El agua hierve antes con la altura (≈ 89,5 °C en Las Cuevas): la **tapa presurizada** y el **refrigerante con glicol** son los que evitan que el motor hierva.
+5. Las cubiertas infladas en Mendoza marcan **≈ 3 psi más** en Las Cuevas y 3 a 5 psi más en caliente: calibrá **en frío**.
+6. El verano mata baterías y exige al máximo la refrigeración; el zonda y el ripio piden **filtros, fuelles, bujes y tren delantero** revisados más seguido.
+7. Para la cordillera: refrigerante, **líquido de frenos nuevo**, cubiertas, batería, cadenas en invierno y tanque lleno. Se baja **con freno motor**, nunca en punto muerto.
+8. En invierno: anticongelante, gasoil apto para frío y batería sana. Con **GNC** perdés potencia y autonomía en la montaña. La **RTO** revisa luces, frenos, tren delantero, emisiones y el GNC habilitado.
+</PuntosClave>

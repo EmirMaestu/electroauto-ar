@@ -1,0 +1,234 @@
+Abrís el kit de junta de tapa y viene con tornillos nuevos. "¿Para qué, si los viejos están impecables?", pensás. Los medís con el calibre y parecen iguales. Los ponés, los apretás como dice el manual… y a los dos meses la junta sopla. Los tornillos viejos no estaban rotos: estaban **estirados**. Ya habían trabajado una vez más allá de su límite elástico y no podían volver a dar la fuerza que necesita esa junta.
+
+Otro caso: un semieje que se corta en una salida tranquila, sin pozo y sin golpe. No fue una sobrecarga: fue **fatiga**, una fisura chiquita que creció durante años, vuelta tras vuelta.
+
+Esta lección es sobre cómo trabajan las piezas por dentro: cuánto aguantan, cómo se deforman, por qué un tornillo bien apretado es un resorte y por qué algunas cosas se rompen "solas".
+
+<Libro pag="pág. 47–49" />
+
+## Tensión: la fuerza repartida en la pieza
+
+Dos tornillos reciben la misma fuerza, uno de 6 mm y otro de 12 mm. Obviamente el finito está "más exigido". Para comparar piezas de distinto tamaño no se usa la fuerza sino la **tensión**: la fuerza dividida por la sección que la soporta.
+
+<Formula name="Tensión normal" vars={{ "σ": "tensión (sigma) [N/mm² = MPa]", "F": "fuerza [N]", "A": "sección que la soporta [mm²]" }}>
+  σ = F / A
+</Formula>
+
+La unidad práctica es el **megapascal (MPa)**, que es exactamente **1 N/mm²**: cuántos newton aguanta cada milímetro cuadrado de la pieza. Un acero común aguanta varios cientos de MPa; un acero de tornillo de alta resistencia, más de 1.000.
+
+<Ejemplo title="¿Qué tan exigido está un bulón de rueda?">
+Un bulón M12 apretado con ≈ 45 kN de precarga. En un tornillo no se usa el diámetro de 12 mm sino la **sección resistente** de la rosca (la parte más finita), que para un M12×1,5 es de unos 88 mm².
+
+<Calc>σ = 45.000 N / 88 mm² ≈ 510 MPa</Calc>
+
+Resultado: <Res>≈ 510 MPa, más de 5 toneladas por cada centímetro cuadrado</Res>. Un bulón de clase 10.9 tiene su límite elástico en unos 900 MPa, así que está trabajando a un 55–60 % de ese límite: con margen para las cargas que se suman andando.
+</Ejemplo>
+
+## Los cinco esfuerzos
+
+Cualquier carga, por complicada que sea, es una combinación de cinco formas básicas de "castigar" una pieza. Elegí cada una en la animación y mirá cómo se deforma (exagerado cientos de veces):
+
+<FisEsfuerzos />
+
+| Esfuerzo | Qué le pasa a la pieza | Fórmula | Piezas del auto que trabajan así |
+|---|---|---|---|
+| **Tracción** | Se estira y se afina | σ = F / A | Tornillos y bulones, cable del freno de mano, tensores |
+| **Compresión** | Se acorta y se ensancha; si es larga y flaca, se pandea | σ = F / A | Biela en la explosión, columna de amortiguador, tacos de motor |
+| **Flexión** | Se dobla: un lado estirado, el otro aplastado | σ = M / W | Elásticos de ballesta, parrillas, cigüeñal entre bancadas, dientes de engranajes |
+| **Corte** | Dos partes quieren deslizarse una sobre otra | τ = F / A | Bulón de pistón, chavetas, remaches, filetes de una rosca |
+| **Torsión** | Se retuerce | τ = T / Wt | Semiejes, barra estabilizadora, cigüeñal, columna de dirección |
+
+En la vida real casi siempre se combinan. El cigüeñal trabaja a flexión **y** torsión al mismo tiempo; la biela, a compresión en la explosión y a **tracción** cuando frena al pistón arriba del escape (a altas vueltas, esa tracción es la que corta bulones de biela). Para combinar esfuerzos los ingenieros usan una "tensión equivalente", pero la idea de taller es sencilla: **cada esfuerzo suma**.
+
+<Dato title="La forma pesa más que el material">
+En flexión y torsión, la tensión depende de un "módulo resistente" W que crece muy rápido con el tamaño de la pieza. Para un eje macizo, Wt = π · d³ / 16: el diámetro va **al cubo**. Un semieje de 26 mm aguanta un 27 % más torque que uno de 24 mm. Y un tubo resiste casi como una barra maciza del mismo diámetro, porque el material del centro casi no trabaja: por eso los árboles de transmisión (cardanes) son tubos.
+</Dato>
+
+## Deformación y Ley de Hooke
+
+Todo se deforma cuando lo cargás, hasta un bloque de acero. La **deformación** (ε, épsilon) es cuánto se estiró en proporción a su largo:
+
+<Formula name="Deformación" vars={{ "ε": "deformación [sin unidad; ×100 para %]", "Δl": "cuánto se alargó [mm]", "l₀": "largo original [mm]" }}>
+  ε = Δl / l₀
+</Formula>
+
+Mientras no te pases de cierto límite, la tensión y la deformación son **proporcionales**: el doble de fuerza, el doble de estiramiento. Y cuando sacás la carga, la pieza **vuelve exactamente a su largo**. Eso es la Ley de Hooke, y es lo mismo que pasa con un resorte:
+
+<Formula name="Ley de Hooke" vars={{ "σ": "tensión [MPa]", "E": "módulo de elasticidad del material [MPa]", "ε": "deformación" }}>
+  σ = E · ε
+</Formula>
+
+El **módulo de elasticidad E** dice qué tan "duro de estirar" es un material (no confundir con qué tan resistente es):
+
+| Material | E aproximado | Comentario |
+|---|---|---|
+| Acero (de cualquier tipo) | 210.000 MPa | Un acero común y uno de tornillo de alta resistencia se estiran **igual** con la misma tensión; la diferencia es hasta dónde aguantan |
+| Fundición gris (block) | 90.000–130.000 MPa | Más "blanda" elásticamente que el acero, y frágil |
+| Aluminio (tapas, blocks, llantas) | 70.000 MPa | Se estira tres veces más que el acero con la misma tensión |
+| Titanio | 110.000 MPa | Liviano y resistente, caro |
+
+<Ejemplo title="¿Cuánto se estira un tornillo de tapa?">
+Un tornillo de tapa con 100 mm de largo libre trabaja a 600 MPa.
+
+<Calc>ε = σ / E = 600 / 210.000 = 0,00286  (0,29 %)
+Δl = ε × l₀ = 0,00286 × 100 mm ≈ 0,29 mm</Calc>
+
+Resultado: <Res>se estira unas tres décimas de milímetro</Res>, y en esas tres décimas está guardada toda la fuerza que aprieta la junta.
+</Ejemplo>
+
+### Un tornillo bien apretado es un resorte
+
+Esta es la idea más importante de la lección. Cuando apretás un tornillo, **lo estirás** como a un resorte y, al mismo tiempo, **comprimís** las piezas que une. Esa fuerza elástica guardada (la precarga) es la que mantiene la unión cerrada.
+
+- Mientras la precarga sea mayor que las cargas que intentan separar la unión (la presión de combustión empujando la tapa, por ejemplo), la junta no se abre y el tornillo apenas "siente" las variaciones de carga.
+- Si la precarga es baja, cada explosión abre un poquito la unión: la junta empieza a soplar y el tornillo recibe la carga completa en cada ciclo, que es el camino directo a la fatiga.
+- Un tornillo **más largo y más fino** es un resorte más blando: con el mismo estiramiento perdido (porque una junta se asienta 0,02 mm, por ejemplo) pierde menos precarga. Por eso muchos tornillos de tapa y de biela tienen la caña **rebajada** (más finita que la rosca): son tornillos "elásticos" a propósito.
+
+<Analogia>
+Pensá en una banda elástica que sostiene un paquete. Si está bien estirada, aunque muevas el paquete, la banda sigue apretando. Si apenas la estiraste, el primer movimiento la afloja. El tornillo es esa banda, sólo que de acero y con toneladas de fuerza.
+</Analogia>
+
+## Más allá de lo elástico: fluencia y rotura
+
+Si seguís cargando, llega un punto en que el material deja de comportarse como un resorte. Ese es el **límite elástico** (o de **fluencia**): a partir de ahí, los granos del metal empiezan a deslizarse unos sobre otros y la pieza **queda estirada para siempre** aunque saques la carga. Como en el acero de alta resistencia el cambio es gradual, se usa el **Rp0,2**: la tensión que deja un 0,2 % de deformación permanente.
+
+Más arriba está la **resistencia a la tracción (Rm)**: la tensión máxima que aguanta. Al llegar ahí, la pieza se afina en un lugar (se forma un **cuello** o **estricción**) y se corta.
+
+Probalo en el ensayo: subí la fuerza, soltá antes y después de la fluencia, y llevalo hasta la rotura.
+
+<CurvaTraccion />
+
+### Qué significan los números de un tornillo
+
+Los tornillos métricos tienen la **clase** grabada en la cabeza: 8.8, 10.9, 12.9. No es decoración:
+
+- El **primer número × 100** es la resistencia a la tracción Rm aproximada en MPa.
+- El **segundo número × 10** es qué porcentaje de Rm es el límite elástico.
+
+| Clase | Rm aprox. | Límite elástico aprox. | Dónde se usa |
+|---|---|---|---|
+| 8.8 | 800 MPa | 640 MPa | Uso general: soportes, chapas, accesorios |
+| 10.9 | 1.000 MPa | 900 MPa | Bulones de rueda, tapa de cilindros, suspensión, bancada |
+| 12.9 | 1.200 MPa | 1.080 MPa | Biela, volante, aplicaciones muy exigidas |
+
+Las tuercas llevan un solo número (8, 10, 12) que tiene que acompañar al tornillo.
+
+<Peligro title="Nunca reemplaces un tornillo por uno de menor clase">
+Un tornillo de ferretería sin marcar (o un 8.8) donde iba un 10.9 puede parecer igual, pero fluye con un 30 % menos de tensión. En suspensión, frenos, dirección o ruedas, eso es un accidente esperando su momento. Si no sabés la clase original, pedí el repuesto original.
+</Peligro>
+
+## Tornillos de estiramiento (TTY): los que no se reutilizan
+
+Apretar "por torque" tiene un problema: como vimos en [Fuerzas y palancas](/aprender/fisica/fuerzas-palanca), el 90 % del torque se va en rozamiento, y el rozamiento varía mucho (rosca más limpia, más sucia, más aceitada). Con el mismo torque, la precarga real puede variar ±25 %.
+
+Para las uniones críticas (tapa de cilindros, bielas, bancada, volante, polea de cigüeñal en muchos motores) los fabricantes usan **apriete por ángulo**, con tornillos **TTY** (*torque-to-yield*, "torque hasta la fluencia") o "de estiramiento":
+
+1. Se da un **torque inicial** bajo, sólo para asentar todo (por ejemplo, 30 a 40 N·m).
+2. Después se gira un **ángulo** fijo (por ejemplo, +90° y otros +90°). Girar un ángulo es estirar el tornillo una longitud fija (cada vuelta avanza un paso de rosca), y eso **casi no depende del rozamiento**.
+3. El ángulo está calculado para llevar al tornillo **apenas más allá de su límite elástico**. Ahí la curva es casi plana: aunque el estiramiento varíe un poco, la fuerza casi no cambia. Precarga máxima y muy pareja.
+
+El precio: el tornillo **queda estirado**. Si lo volvés a usar, arranca más largo y más finito (con un cuello incipiente), y el mismo ángulo lo lleva todavía más adentro de la zona plástica. Cada reutilización lo acerca a la rotura o, peor, a que no llegue a dar la precarga y la junta sople.
+
+<Ojo title="Siempre mirá el manual">
+Los valores de torque y ángulo cambian mucho de un motor a otro, y algunos fabricantes permiten reutilizar ciertos tornillos si su largo no supera un máximo (lo indican con una cota). Si el manual dice "reemplazar", se reemplazan. Y el ángulo se mide con un **goniómetro** (transportador de ángulos para la llave), no "a ojo".
+</Ojo>
+
+## Fatiga: lo que se rompe sin sobrecarga
+
+Una pieza puede aguantar perfectamente una carga una vez, y romperse si esa misma carga (o una bastante menor) se repite millones de veces. Eso es **fatiga**, y es la causa de la gran mayoría de las roturas mecánicas en un auto.
+
+Cómo pasa:
+
+1. En algún lugar donde la tensión se concentra (un filete de rosca, el fondo de un estriado, un cambio brusco de diámetro, un agujero, un rayón o un punto de óxido) aparece una **fisura microscópica**.
+2. Con cada ciclo de carga, la fisura avanza una nada. Pueden pasar años.
+3. Cuando lo que queda de sección sana no aguanta más, la pieza se corta de golpe.
+
+Si mirás la superficie de una rotura por fatiga vas a ver dos zonas: una lisa, con **marcas como las de la arena en la playa** (el avance lento de la fisura), y una zona rugosa y granulada (la rotura final de golpe). Esa "firma" te dice que no fue un golpe sino fatiga.
+
+- **Semiejes:** se fisuran en el estriado o en el cambio de diámetro, por miles de arranques y por la torsión que alterna.
+- **Espirales:** se cortan casi siempre en la última vuelta, donde apoya en el plato, muchas veces partiendo de un punto de corrosión.
+- **Bulones de rueda flojos:** un bulón con su precarga trabaja tranquilo; uno flojo recibe toda la carga variable de la rueda en cada vuelta y se corta por fatiga. Por eso una rueda floja termina perdiendo los bulones.
+- **Soportes de escape, cañerías y chapas:** por vibración.
+
+<Dato title="Límite de fatiga">
+El acero tiene un **límite de fatiga**: por debajo de cierta tensión (aproximadamente 40–50 % de su Rm para una probeta lisa y pulida; bastante menos en una pieza real con roscas y rayones) aguanta ciclos indefinidamente. El aluminio **no** tiene límite de fatiga: cualquier carga repetida, tarde o temprano, lo fisura. Por eso las piezas de aluminio se diseñan con márgenes más grandes y por eso una llanta de aleación golpeada y "enderezada" no es lo mismo que una nueva.
+</Dato>
+
+## Coeficiente de seguridad
+
+Ninguna pieza se diseña para trabajar justo en su límite. Se deja un margen:
+
+<Formula name="Coeficiente de seguridad" vars={{ "S": "coeficiente de seguridad", "Resistencia": "límite elástico (o de fatiga, si la carga es variable) [MPa]", "σ trabajo": "tensión máxima que va a tener la pieza en uso [MPa]" }}>
+  S = Resistencia / σ trabajo
+</Formula>
+
+Para cargas estáticas en aceros dúctiles se usa típicamente S ≈ 1,5–2; para cargas que se repiten (fatiga), 2 a 3 o más; para piezas de seguridad, bastante más. Ese margen cubre lo que no se sabe con exactitud: el material real, las cargas raras (un pozo a 80 km/h), el desgaste, la corrosión… y **las modificaciones que hacemos en el taller**. Cada vez que calentás, soldás, cortás o cambiás una pieza por otra "parecida", te estás comiendo parte de ese margen.
+
+<Ejemplo title="Margen de un semieje">
+Semieje macizo de Ø 24 mm que recibe 980 N·m arrancando en primera. Acero templado con un límite elástico a corte de unos 600 MPa.
+
+<Calc>Wt = π × 24³ / 16 = 2.714 mm³
+τ = 980.000 N·mm / 2.714 mm³ ≈ 361 MPa
+S = 600 / 361 ≈ 1,7</Calc>
+
+Resultado: <Res>margen ≈ 1,7 frente a una sobrecarga única</Res>. Pero esa carga se repite en cada arranque: a fatiga, el margen real es menor. Con un motor preparado que da un 40 % más de torque, el semieje original queda trabajando muy cerca de su límite.
+</Ejemplo>
+
+<EnElTaller>
+
+- **Tornillos de tapa:** limpiá los agujeros ciegos del block (soplá aceite y agua). Un agujero con líquido en el fondo se comporta como una prensa hidráulica cuando entra el tornillo y puede **rajar el block**. Aceitá la rosca sólo si el manual lo pide.
+- **Orden de apriete:** de adentro hacia afuera, en espiral, y en pasos (torque inicial a todos, después el primer ángulo a todos, después el segundo). Así la tapa se asienta pareja.
+- **TTY: siempre nuevos**, salvo que el manual permita medir y reutilizar.
+- **Espirales:** nunca los cortes ni los calientes para "bajar" el auto. El calor destruye el temple, el resorte pierde fuerza y puede romperse; además cambia la geometría de la suspensión.
+- **Piezas de suspensión y dirección dobladas:** se cambian, no se enderezan. Enderezar en frío deja tensiones y fisuras; en caliente destruye el tratamiento térmico.
+- **Roscas en aluminio:** son más débiles a corte que el acero del tornillo. Si barrés una rosca, se repara con un inserto, no con un tornillo más largo "que agarre más abajo".
+
+</EnElTaller>
+
+<Electronica>
+
+Muchos sensores del auto son, en el fondo, medidores de deformación:
+
+- El **sensor de presión de admisión (<Term t="MAP" />)** y muchos sensores de presión (aceite, combustible, aire acondicionado) tienen una **membrana de silicio** con resistencias grabadas. La presión deforma la membrana unas micras, esas resistencias cambian de valor (efecto piezorresistivo) y la electrónica lo convierte en una tensión de 0,5 a 4,5 V. Es la Ley de Hooke medida con un tester.
+- Las **galgas extensiométricas** (resistencias pegadas a una pieza que se estiran con ella) se usan en celdas de carga, en el sensor de ocupación del asiento del acompañante (para el airbag) y en bancos de ensayo de motores para medir torque.
+- El sensor de torque de la **dirección eléctrica** mide cuánto se retuerce una barra de torsión dentro de la columna.
+
+</Electronica>
+
+<Mediciones>
+  <Medicion punto="Largo de un tornillo TTY usado" esperado="No más largo que la cota máxima del manual (si la indica)" como="Calibre o micrómetro de profundidad, comparando con uno nuevo" nota="Si no hay cota de reutilización, se cambian siempre" />
+  <Medicion punto="Diámetro de la caña de un tornillo de estiramiento" esperado="Igual en toda la caña" como="Micrómetro en varios puntos" nota="Si hay una zona más finita (cuello), está estirado: descartalo" />
+  <Medicion punto="Apriete por ángulo" esperado="Torque inicial + ángulo indicado (por ejemplo 40 N·m + 90° + 90°, varía mucho según motor)" como="Torquímetro para el torque inicial y goniómetro para el ángulo, sin parar a mitad del giro" nota="Si parás a mitad de un ángulo, el rozamiento estático te engaña al seguir: girá parejo" />
+</Mediciones>
+
+<Herramientas ids={["torquimetro", "calibre", "micrometro", "juego-llaves"]} />
+
+## Fallas típicas
+
+| Síntoma | Causa probable | Cómo confirmarlo |
+|---|---|---|
+| Junta de tapa que sopla poco después de cambiarla | Tornillos TTY reutilizados, apriete sin ángulo, agujeros sucios o tapa sin planear | Prueba de fugas de cilindro, CO₂ en el refrigerante; medir tornillos y planitud de la tapa |
+| Semieje cortado sin golpe | Fatiga en el estriado o cambio de sección | Mirar la fractura: zona lisa con "marcas de playa" + zona rugosa final |
+| Espiral partido en la última vuelta | Fatiga iniciada en corrosión o en un golpe de piedra | La rotura arranca en un punto oxidado; revisá el otro lado (suelen cambiarse de a pares) |
+| Bulones de rueda cortados en serie | La rueda anduvo floja: fatiga por falta de precarga | Agujeros de la llanta ovalados, asientos marcados; cambiar todos los bulones de esa rueda |
+| Tornillo que "sigue girando" y nunca llega al torque | Fluyó (se está estirando) o la rosca hembra se está barriendo | Sacarlo y mirar: cuello en la caña o filetes arrastrados |
+| Biela doblada después de pasar un charco profundo | Agua en el cilindro (no se comprime): compresión enorme y pandeo | Compresión baja en ese cilindro; al desarmar, biela torcida |
+
+<Mendoza>
+
+Ripio, pozos, badenes y camionetas cargadas en la finca: todo eso es **fatiga**. Una Hilux o una Amarok que trabajan en ripio cargadas acumulan en un año los ciclos de carga que un auto de ciudad junta en varios. Revisá seguido los **elásticos** (hojas partidas, abrazaderas flojas), los **espirales** (cortes en la última vuelta) y los **soportes** de escape y de motor. Y ojo con la costumbre de "bajar" el auto cortando o calentando espirales: en una bajada larga de la Ruta 7, cargado, un espiral debilitado es lo último que querés.
+
+</Mendoza>
+
+<PuntosClave>
+
+1. **Tensión = fuerza / sección** (σ = F / A), en MPa = N/mm². Así se compara qué tan exigidas están piezas de distinto tamaño.
+2. Hay cinco esfuerzos básicos: **tracción, compresión, flexión, corte y torsión**. En flexión y torsión el diámetro manda (va al cubo).
+3. **Ley de Hooke** (σ = E · ε): mientras no pases el límite elástico, la pieza se estira proporcional a la carga y vuelve exacta. Todos los aceros tienen el mismo E (210.000 MPa).
+4. Un **tornillo apretado es un resorte estirado**: la precarga mantiene la unión cerrada y lo protege de la fatiga.
+5. Pasado el **límite elástico** la pieza queda estirada para siempre; en **Rm** se forma un cuello y se corta. La clase 10.9 significa Rm ≈ 1.000 MPa y fluencia ≈ 90 % de eso.
+6. Los tornillos **TTY** se aprietan por ángulo hasta apenas pasar la fluencia: precarga máxima y pareja, pero **no se reutilizan**.
+7. La **fatiga** rompe piezas con cargas menores a las que aguantan una vez, por repetición; arranca en roscas, estriados, rayones y óxido.
+8. El **coeficiente de seguridad** es el margen entre lo que aguanta y lo que trabaja. Calentar, soldar, enderezar o poner un tornillo "parecido" se lo come.
+
+</PuntosClave>
